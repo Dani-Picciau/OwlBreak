@@ -1,0 +1,110 @@
+\documentclass[12pt,a4paper]{article}
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage{graphicx}
+\usepackage{charter} % Font scelto per il documento
+\usepackage{microtype}  % Migliora la qualità tipografica
+\usepackage{titling}    % Per personalizzare il titolo
+\usepackage[a4paper, margin=2cm]{geometry} % Imposta i margini
+\usepackage{setspace} % Per gestire l'interlinea
+\usepackage{wrapfig} % Pacchetto per posizionare testo e immagine affiancati
+\usepackage[hidelinks]{hyperref}  % 'hidelinks' rimuove i bordi rossi
+
+
+% Rimuovi numeri di pagina sulla prima pagina
+\thispagestyle{empty}
+
+% Personalizza titolo (vuoto per ora, lo ricreeremo manualmente)
+\title{}
+\author{}
+\date{}
+
+\begin{document}
+
+    % Creo la copertina manualmente
+    \begin{titlepage}
+        \begin{center}
+            {\large {UNIVERSITÀ DEGLI STUDI DI SASSARI}}
+
+            \vspace*{\fill}
+
+            {\large Progetto di fine corso:}
+
+            \vspace{1cm}
+
+            {\Large \textbf{PRESENTAZIONE DELLA BASE DATI "OwlBreak"}}
+            \vspace{0.3cm}
+            \begin{figure}[ht]
+                \centering
+                \includegraphics[width=0.4\textwidth]{figures/logo.pdf}       
+                \label{fig:logo}
+            \end{figure}
+     
+            \vspace*{\fill}
+
+            \begin{tabular}{l@{\hspace{2cm}}l}
+                Studente: & Matricola: \\
+                Daniele Picciau & 50056771 \\
+                Monica Manai & 50057077
+            \end{tabular}
+
+            \vspace{2cm}
+
+            {\large ANNO ACCADEMICO 2024-2025}
+        \end{center}
+    \end{titlepage}
+
+    \section*{\hspace{15cm}Indice}
+    \hrulefill
+    \renewcommand{\contentsname}{} % Rimuove completamente il titolo
+    \tableofcontents
+    \newpage
+
+    % Introduzione
+    \section{Analisi dei requisiti}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec ex nec velit mollis rhoncus. Vivamus non magna vulputate magna aliquet feugiat. Vestibulum mi elit, hendrerit quis mollis ut, gravida vel lacus. Morbi quis cursus nulla. Curabitur vitae purus egestas, congue ante nec, malesuada augue. In mollis lectus urna, ac tristique nisi maximus nec. Aenean varius, elit non facilisis facilisis, tellus diam feugiat neque, ut porttitor turpis sapien in ante. Morbi fringilla fermentum ultrices.
+    \subsection{Descrizione del sistema informativo}
+    bla bla bla
+    \subsection{Glossario dei termini}
+    bla bla bla
+    \subsection{Elenco delle operazioni}
+    bla bla bla
+    \subsubsection{Operazione 1}
+
+    % Metodologia
+    \section{Modellazione concettuale}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec ex nec velit mollis rhoncus. Vivamus non magna vulputate magna aliquet feugiat. Vestibulum mi elit, hendrerit quis mollis ut, gravida vel lacus. Morbi quis cursus nulla. Curabitur vitae purus egestas, congue ante nec, malesuada augue. In mollis lectus urna, ac tristique nisi maximus nec. Aenean varius, elit non facilisis facilisis, tellus diam feugiat neque, ut porttitor turpis sapien in ante. Morbi fringilla fermentum ultrices.
+    \subsection{Schema E-R}
+    bla bla bla
+    \subsection{Descrizione dei vincoli}
+    bla bla bla
+
+    % Risultati
+    \section{Modellazione logica}
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec ex nec velit mollis rhoncus. Vivamus non magna vulputate magna aliquet feugiat. Vestibulum mi elit, hendrerit quis mollis ut, gravida vel lacus. Morbi quis cursus nulla. Curabitur vitae purus egestas, congue ante nec, malesuada augue. In mollis lectus urna, ac tristique nisi maximus nec. Aenean varius, elit non facilisis facilisis, tellus diam feugiat neque, ut porttitor turpis sapien in ante. Morbi fringilla fermentum ultrices.
+    \subsection{Analisi delle ridondanze}
+    bla bla bla
+    \subsection{Eliminazione delle generalizzazioni}
+    bla bla bla
+    \subsection{Accorpamento di concetti}
+    bla bla bla
+    \subsection{Scelta degli identificatori}
+    bla bla bla
+    \subsection{Modello relazionale}
+    bla bla bla
+    \subsection{Tavola dei volumi}
+    bla bla bla
+    \subsection{Tavola delle operazioni}
+    bla bla bla
+
+    % Immagine del logo
+    \section{Normalizzazione}
+    Di seguito è riportato il logo del progetto:
+    \subsection{Tecniche di normalizzazione}
+    bla bla bla
+
+    % Conclusioni
+    \section{Conclusioni}
+    In questa sezione finale vengono riassunte le conclusioni del progetto, presentando le implicazioni, i limiti e le direzioni future.
+
+\end{document}
