@@ -153,7 +153,7 @@
 
     \subsection{Elenco delle operazioni}
     \subsubsection{Operazioni di inserimento}
-    \begin{itemize}
+    \begin{itemize}[leftmargin=1em]
         \item Inserimento di un nuovo cliente nel sistema;
         \item Inserimento di un nuovo operatore nel sistema;
         \item Inserimento di una nuova richiesta di rifornimento da parte di un operatore verso un fornitore;
@@ -161,14 +161,14 @@
     \end{itemize}
 
     \subsubsection{Operazioni di modifica}
-    \begin{itemize}
+    \begin{itemize}[leftmargin=1em]
         \item Modifica dei dati di un cliente;
         \item Modifica dei dati di un operatore;
         \item Modifica di una richiesta di rifornimento da parte di un operatore verso un fornitore;
     \end{itemize}
 
     \subsubsection{Operazioni di eliminazione}
-    \begin{itemize}
+    \begin{itemize}[leftmargin=1em]
         \item Eliminazione di un cliente dal sistema;
         \item Eliminazione di un operatore dal sistema;
         \item Eliminazione di un ordine da parte di un cliente;
@@ -176,16 +176,18 @@
     \end{itemize}
 
     \subsubsection{Operazioni di conferma e aggiornamento}
-    \begin{itemize}
+    \begin{itemize}[leftmargin=1em]
         \item Conferma della consegna di un ordine da parte di un operatore;
         \item Conferma della consegna di un rifornimento da parte di un fornitore (implica l'aggiornamento delle scorte di ingredienti, con eventuale inserimento di nuovi ingredienti se necessario);
     \end{itemize}
 
     \subsubsection{Operazioni di visualizzazione}
-    \begin{itemize}
+    \begin{itemize}[leftmargin=1em]
         \item Visualizzazione degli ordini giornalieri di un singolo cliente;
         \item Visualizzazione della cronologia ordini di un singolo cliente;
-        \item Visualizzazione degli ordini giornalieri da parte degli operatori, suddivisi per luogo di consegna;
+        \item Visualizzazione del prezzo totale di un ordine da parte di un cliente;
+        \item Visualizzazione dei prodotti disponibili ad essere ordinati.
+        \item Visualizzazione, per gli operatori, degli ordini giornalieri suddivisi per luogo di consegna;
         \item Visualizzazione dei dati relativi ai fornitori da parte degli operatori;
         \item Visualizzazione delle richieste di rifornimento da parte degli operatori, raggruppate per fornitore;
         \item Visualizzazione delle richieste di rifornimento da parte dei fornitori, limitata alle richieste a loro indirizzate.
@@ -193,7 +195,8 @@
 
     \newpage
     \section{Modellazione concettuale}
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec ex nec velit mollis rhoncus. Vivamus non magna vulputate magna aliquet feugiat. Vestibulum mi elit, hendrerit quis mollis ut, gravida vel lacus. Morbi quis cursus nulla. Curabitur vitae purus egestas, congue ante nec, malesuada augue. In mollis lectus urna, ac tristique nisi maximus nec. Aenean varius, elit non facilisis facilisis, tellus diam feugiat neque, ut porttitor turpis sapien in ante. Morbi fringilla fermentum ultrices.
+    La modellazione concettuale rappresenta un passaggio fondamentale nella progettazione del sistema, in quanto consente di definire in modo chiaro e strutturato le entità coinvolte e le relazioni tra di esse.\\
+    Attraverso l'uso del modello Entità-Relazione (E-R), è possibile ottenere una rappresentazione visiva e formale della logica del database, facilitando l'analisi e la comprensione del dominio applicativo. In questa parte verrà illustrato lo schema E-R del sistema, mettendo in evidenza le principali entità e relazioni. Successivamente, verranno descritte le cardinalità e i vincoli che regolano il funzionamento del sistema.
 
     \subsection{Schema E-R}
     \begin{figure}[H]
@@ -203,13 +206,30 @@
         \vspace{-20pt}  % Riduce lo spazio sopra
         \caption{Modello entità-relazione}
         \label{fig:Conceptual_model}
-    \end{figure}
-    
+    \end{figure} 
+
     \subsection{Descrizione dei vincoli}
-    bla bla bla
+    \subsubsection{Cardinalità}
+    \begin{itemize}[leftmargin=1em]
+        \item \textbf{Richiesta\_C-O} (1:\(N\)): Un cliente può effettuare da 0 a \(N\) ordini, mentre un ordine è effettuato da uno e un solo cliente;
+        \item \textbf{Include} (1:\(N\)): Un ordine include uno e un solo prodotto, mentre un prodotto può essere incluso in 0 o \(N\) ordini;
+        \item \textbf{Composizione} (\(N\):\(N\)): Un prodotto è composto da 1 o \(N\) ingredienti, mentre un ingrediente può essere parte di 1 o \(N\) prodotti;
+        \item \textbf{Gestione} (1:\(N\)): Un ordine è gestito da uno e un solo operatore, mentre un operatore può gestire da 0 a \(N\) ordini;
+        \item \textbf{Richiesta\_O-R} (1:\(N\)): Un operatore può effettuare da 0 a \(N\) richieste di rifornimento, mentre una richiesta di rifornimento è effettuata da uno e un solo operatore;
+        \item \textbf{Visionato} (1:\(N\)): Un fornitore può visionare da 0 a \(N\) richieste di rifornimento, mentre una richiesta di rifornimento è visionata da uno e un solo fornitore;
+    \end{itemize}
 
+    \subsubsection{Regole di vincolo non esprimibili nello schema}
+    \begin{enumerate}[leftmargin=3em,label=\textbf{(RV\arabic*)}]
+        \item  Gli ordini devono essere effettuati tra le 8 e le 10 del mattino;
+        \item La quantità di ogni ingrediente deve essere aggiornata ogni volta che viene effettuato un ordine;
+        \item La quantità di ogni ingrediente deve essere aggiornata ogni volta che un rifornimento viene consegnato;
+    \end{enumerate}
 
-
+    \subsubsection{Regole di derivazione}
+    \begin{enumerate}[leftmargin=3em,label=\textbf{(RD\arabic*)}]
+        \item  Il numero di ordini effettuati da un cliente può essere calcolato contando le istanze della relazione Richiesta\_C-O associate a quel cliente.
+    \end{enumerate}
 
 
 
