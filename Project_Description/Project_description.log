@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  29 MAR 2025 10:05
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  29 MAR 2025 10:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -820,7 +820,13 @@ Overfull \hbox (20.31114pt too wide) in paragraph at lines 181--182
 []\T1/bch/m/n/12 (-20) Conferma della con-segna di un ri-forn-i-mento da parte di un for-n-i-tore (im-plica l'aggiornamento
  []
 
-[4] [5] [6] (Project_description.aux)
+[4]
+<figures/Conceptual_model.pdf, id=187, 814.54312pt x 421.575pt>
+File: figures/Conceptual_model.pdf Graphic file (type pdf)
+<use figures/Conceptual_model.pdf>
+Package pdftex.def Info: figures/Conceptual_model.pdf  used on input line 202.
+(pdftex.def)             Requested size: 483.69687pt x 250.34169pt.
+ [5 <./figures/Conceptual_model.pdf>] [6] [7] (Project_description.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
@@ -829,17 +835,17 @@ Package rerunfilecheck Info: File `Project_description.out' has not changed.
 (rerunfilecheck)             Checksum: 32CC4B2F2B7767367650AA3B1CE2507C;4118.
  ) 
 Here is how much of TeX's memory you used:
- 31170 strings out of 474486
- 626656 string characters out of 5743756
+ 31182 strings out of 474486
+ 626997 string characters out of 5743756
  1939542 words of memory out of 5000000
- 52796 multiletter control sequences out of 15000+600000
+ 52806 multiletter control sequences out of 15000+600000
  594466 words of font info for 147 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  93i,10n,99p,1094b,582s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchb8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchri8a.pfb>
-Output written on Project_description.pdf (7 pages, 160921 bytes).
+Output written on Project_description.pdf (8 pages, 188545 bytes).
 PDF statistics:
- 220 PDF objects out of 1000 (max. 8388607)
- 34 named destinations out of 1000 (max. 500000)
- 32602 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 234 PDF objects out of 1000 (max. 8388607)
+ 36 named destinations out of 1000 (max. 500000)
+ 32607 words of extra memory for PDF output out of 35830 (max. 10000000)
 
