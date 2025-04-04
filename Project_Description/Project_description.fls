@@ -365,6 +365,12 @@ INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\fonts\tfm\bitstrea\charter\bc
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\fonts\vf\bitstrea\charter\bchr8c.vf
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\fonts\vf\bitstrea\charter\bchri8t.vf
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\fonts\tfm\bitstrea\charter\bchri8r.tfm
+INPUT .\figures\Conceptual_model.pdf
+INPUT .\figures\Conceptual_model.pdf
+INPUT .\figures\Conceptual_model.pdf
+INPUT .\figures\Conceptual_model.pdf
+INPUT .\figures\Conceptual_model.pdf
+INPUT .\figures\Conceptual_model.pdf
 INPUT Project_description.aux
 INPUT .\Project_description.out
 INPUT .\Project_description.out
@@ -374,3 +380,5 @@ INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\fonts\type1\bitstrea\charter\
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\fonts\type1\bitstrea\charter\bchr8a.pfb
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\fonts\type1\bitstrea\charter\bchri8a.pfb
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\fonts\type1\bitstrea\charter\bchri8a.pfb
+INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi12.pfb
+INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\fonts\type1\public\amsfonts\cm\cmmi12.pfb
