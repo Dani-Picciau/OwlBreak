@@ -77,6 +77,7 @@
     % Introduzione
     \section{Analisi dei requisiti}
     \subsection{Descrizione del sistema informativo}
+    \label{par:Descrizione del sistema informativo}
     Si vuole realizzare una base dati per la gestione del bar di una scuola secondaria (di primo o secondo grado) per il quale si vogliono rappresentare:
     \begin{itemize}[leftmargin=1em]
         \item I \textit{Clienti}, che siano essi studenti o personale scolastico, i quali possono effettuare \textit{Ordini} verso gli \textit{Operatori} del bar;
@@ -171,7 +172,7 @@
     \begin{itemize}[leftmargin=1em]
         \item Eliminazione di un cliente dal sistema;
         \item Eliminazione di un operatore dal sistema;
-        \item Eliminazione di un ordine da parte di un cliente;
+        \item Eliminazione di un ordine da parte di un cliente (implica la riaggiunta della quantità corrispondente di ingredienti nel sistema);
         \item Eliminazione di una richiesta di rifornimento da parte di un operatore verso un fornitore;
     \end{itemize}
 
@@ -196,7 +197,7 @@
     \newpage
     \section{Modellazione concettuale}
     La modellazione concettuale rappresenta un passaggio fondamentale nella progettazione del sistema, in quanto consente di definire in modo chiaro e strutturato le entità coinvolte e le relazioni tra di esse.\\
-    Attraverso l'uso del modello Entità-Relazione (E-R), è possibile ottenere una rappresentazione visiva e formale della logica del database, facilitando l'analisi e la comprensione del dominio applicativo. In questa parte verrà illustrato lo schema E-R del sistema, mettendo in evidenza le principali entità e relazioni. Successivamente, verranno descritte le cardinalità e i vincoli che regolano il funzionamento del sistema.
+    Attraverso l'uso del modello Entità-Relazione (E-R), è possibile ottenere una rappresentazione visiva e formale della logica del database, facilitando l'analisi e la comprensione del dominio applicativo. In questa parte verrà illustrato lo schema E-R del sistema, mettendo in evidenza le principali entità e relazioni. Successivamente, verranno descritte le cardinalità e i vincoli che regolano il funzionamento del sistema in esame.
 
     \subsection{Schema E-R}
     \begin{figure}[H]
@@ -231,30 +232,43 @@
         \item  Il numero di ordini effettuati da un cliente può essere calcolato contando le istanze della relazione Richiesta\_C-O associate a quel cliente.
     \end{enumerate}
 
-
-
-
-
-
     \newpage
     \section{Modellazione logica}
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec ex nec velit mollis rhoncus. Vivamus non magna vulputate magna aliquet feugiat. Vestibulum mi elit, hendrerit quis mollis ut, gravida vel lacus. Morbi quis cursus nulla. Curabitur vitae purus egestas, congue ante nec, malesuada augue. In mollis lectus urna, ac tristique nisi maximus nec. Aenean varius, elit non facilisis facilisis, tellus diam feugiat neque, ut porttitor turpis sapien in ante. Morbi fringilla fermentum ultrices.
-    \subsection{Analisi delle ridondanze}
-    bla bla bla
-    \subsection{Eliminazione delle generalizzazioni}
-    bla bla bla
-    \subsection{Accorpamento di concetti}
-    bla bla bla
-    \subsection{Scelta degli identificatori}
-    bla bla bla
-    \subsection{Modello relazionale}
-    bla bla bla
+    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec ex nec velit mollis rhoncus. Vivamus non magna vulputate magna aliquet feugiat. Vestibulum mi elit, hendrerit quis mollis ut, gravida vel lacus. Morbi quis cursus nulla. 
+    quis mollis ut, gravida vel lacus.
+    \subsection{Ristrutturazione dello schema E-R}
+    \subsubsection{Eliminazione delle generalizzazioni}
+    All'interno della base dati in esame è presente una generalizzazione totale, perché ogni istanza dell'entità generale \textit{Cliente} appartiene obbligatoriamente a una sotto-entità \textit{Studente} e \textit{Personale}. Non ci sono quindi clienti che non siano studenti o membri del personale scolastico.\\
+    Inoltre la generalizzazione è esclusiva perché ogni istanza di \textit{Cliente} appartiene a una sola sotto-entità, un cliente non può essere contemporaneamente uno studente e un membro del personale scolastico.
+
+    \vspace{8pt}
+    \noindent
+    I sistemi tradizionali per la gestione della base dati non consentono la rappresentazione delle generalizzazioni, ragion per cui, risulta necessario trasformarle in costrutti per i quali esiste un implementazione naturale, come entità e associazioni.\\
+    Per risolvere questo tipo di generaizzazione è stato scelto di utilizzare un \textbf{accorpamento delle entità figlie della generalizzazione nell'entità genitore}: in questo caso le entità \textit{Studente} e \textit{Personale} sono state eliminate e le loro proprietà vengono aggiunte all'entità \textit{Cliente} con qualche accorgimento.
+    
+    \vspace{8pt}
+    \noindent
+    In paricolare, l'attributo \textbf{classe} e l'attributo \textbf{ruolo} vengono eliminati e sostituiti dall'attributo \textbf{tipo\_cliente}. Per fare in modo di rimanere coerenti con la descrizione iniziale del sistema, il tipo\_cliente può assumere i seguenti valori.\\
+    Se il tipo\_cliente è "\textit{Studente}", il cliente in questione non ha la possibilità di modificare il valore dell'attributo \textbf{luogo\_consegna} che coinciderà con la propria classe di appartenenza.
+    Al contrario il cliente in questione avrà la facoltà di modificare il valore dell'attributo \textbf{luogo\_consegna}, inoltre se l'attributo \textbf{tipo\_cliente} coincide con "\textit{addetto alla segreteria}", quest'utlimo avrà in più i privilegi descritti al paragrafo~\ref{par:Descrizione del sistema informativo}.\\
+    \begin{figure}[H]
+        \centering
+        \vspace{-20pt}  % Riduce lo spazio sopra
+        \includegraphics[width=\textwidth]{figures/Conceptual_model_2.pdf}
+        \vspace{-20pt}  % Riduce lo spazio sopra
+        \caption{Modello entità-relazione - versione 2}
+        \label{fig:Conceptual_model2}
+    \end{figure} 
+    
+
     \subsection{Tavola dei volumi}
     bla bla bla
     \subsection{Tavola delle operazioni}
     bla bla bla
-
-    % Immagine del logo
+    \subsection{Traduzione nel modello relazionale}
+    \texttt{bla bla bla}
+    
+    \newpage
     \section{Normalizzazione}
     Di seguito è riportato il logo del progetto:
     \subsection{Tecniche di normalizzazione}
