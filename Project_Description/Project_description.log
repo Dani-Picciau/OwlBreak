@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  29 MAR 2025 18:58
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  5 APR 2025 11:32
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -773,7 +773,7 @@ Package hyperref Info: Link coloring OFF on input line 36.
 \openout4 = `Project_description.out'.
 
 \c@lstlisting=\count352
-<figures/logo.pdf, id=146, 595.40694pt x 595.40694pt>
+<figures/logo.pdf, id=138, 595.40694pt x 595.40694pt>
 File: figures/logo.pdf Graphic file (type pdf)
 <use figures/logo.pdf>
 Package pdftex.def Info: figures/logo.pdf  used on input line 53.
@@ -792,60 +792,80 @@ pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has b
                    \relax 
 l.75     \newpage
                   [1]
-LaTeX Font Info:    Trying to load font information for TS1+bch on input line 82.
+LaTeX Font Info:    Trying to load font information for TS1+bch on input line 83.
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1bch.fd
 File: ts1bch.fd 2004/10/18 font definitions for TS1/bch.
 ) [2]
-Underfull \hbox (badness 10000) in paragraph at lines 136--136
+Underfull \hbox (badness 10000) in paragraph at lines 137--137
 []|\T1/bch/m/n/12 (+20) Contiene le carat-ter-is-tiche
  []
 
 
-Underfull \hbox (badness 2626) in paragraph at lines 142--142
+Underfull \hbox (badness 2626) in paragraph at lines 143--143
 \T1/bch/m/n/12 (+20) ef-fet-tuare richi-este di ri-forn-i-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 146--146
+Underfull \hbox (badness 10000) in paragraph at lines 147--147
 []|\T1/bch/m/n/12 (+20) Azienda,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 146--147
+Underfull \hbox (badness 10000) in paragraph at lines 147--148
 []|\T1/bch/m/n/12 (+20) Rifornimento,
  []
 
 [3]
-Overfull \hbox (2.93645pt too wide) in paragraph at lines 181--182
+Overfull \hbox (2.93645pt too wide) in paragraph at lines 182--183
 []\T1/bch/m/n/12 (-20) Conferma della con-segna di un ri-forn-i-mento da parte di un for-n-i-tore (im-plica l'aggiornamento
  []
 
 [4]
-<figures/Conceptual_model.pdf, id=202, 814.54312pt x 421.575pt>
+<figures/Conceptual_model.pdf, id=192, 814.54312pt x 421.575pt>
 File: figures/Conceptual_model.pdf Graphic file (type pdf)
 <use figures/Conceptual_model.pdf>
-Package pdftex.def Info: figures/Conceptual_model.pdf  used on input line 205.
+Package pdftex.def Info: figures/Conceptual_model.pdf  used on input line 206.
 (pdftex.def)             Requested size: 483.69687pt x 250.34169pt.
- [5 <./figures/Conceptual_model.pdf>] [6] [7] [8] (Project_description.aux)
+ [5 <./figures/Conceptual_model.pdf>] [6]
+<figures/Conceptual_model_2.pdf, id=217, 843.15pt x 361.35pt>
+File: figures/Conceptual_model_2.pdf Graphic file (type pdf)
+<use figures/Conceptual_model_2.pdf>
+Package pdftex.def Info: figures/Conceptual_model_2.pdf  used on input line 257.
+(pdftex.def)             Requested size: 483.69687pt x 207.30045pt.
+
+Underfull \hbox (badness 10000) in paragraph at lines 250--261
+
+ []
+
+[7 <./figures/Conceptual_model_2.pdf>]
+LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 269.
+ (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/base\t1cmtt.fd
+File: t1cmtt.fd 2023/04/13 v2.5m Standard LaTeX font definitions
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `cmtt' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+ [8] [9] (Project_description.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
  ***********
 Package rerunfilecheck Info: File `Project_description.out' has not changed.
-(rerunfilecheck)             Checksum: 74383612A2FFB95C76EA7E64518DD37B;4739.
+(rerunfilecheck)             Checksum: A8732D6A1E69453E3916511BA3C8B7AC;4495.
  ) 
 Here is how much of TeX's memory you used:
- 31230 strings out of 474486
- 627553 string characters out of 5743756
+ 31286 strings out of 474486
+ 628842 string characters out of 5743756
  1939542 words of memory out of 5000000
- 52814 multiletter control sequences out of 15000+600000
- 597343 words of font info for 169 fonts, out of 8000000 for 9000
+ 52844 multiletter control sequences out of 15000+600000
+ 599753 words of font info for 185 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  93i,10n,99p,1094b,606s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchb8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-Output written on Project_description.pdf (9 pages, 203646 bytes).
+ <C:\Users\dany2\AppData\Local\MiKTeX\fonts/pk/ljfour/jknappen/ec/dpi600\ectt1200.pk><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchb8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
+Output written on Project_description.pdf (10 pages, 232966 bytes).
 PDF statistics:
- 266 PDF objects out of 1000 (max. 8388607)
+ 278 PDF objects out of 1000 (max. 8388607)
  44 named destinations out of 1000 (max. 500000)
- 32631 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 33132 words of extra memory for PDF output out of 35830 (max. 10000000)
 

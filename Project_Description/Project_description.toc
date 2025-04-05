@@ -14,13 +14,11 @@
 \contentsline {subsubsection}{\numberline {2.2.2}Regole di vincolo non esprimibili nello schema}{6}{subsubsection.2.2.2}%
 \contentsline {subsubsection}{\numberline {2.2.3}Regole di derivazione}{6}{subsubsection.2.2.3}%
 \contentsline {section}{\numberline {3}Modellazione logica}{7}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Analisi delle ridondanze}{7}{subsection.3.1}%
-\contentsline {subsection}{\numberline {3.2}Eliminazione delle generalizzazioni}{7}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Accorpamento di concetti}{7}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Scelta degli identificatori}{7}{subsection.3.4}%
-\contentsline {subsection}{\numberline {3.5}Modello relazionale}{7}{subsection.3.5}%
-\contentsline {subsection}{\numberline {3.6}Tavola dei volumi}{7}{subsection.3.6}%
-\contentsline {subsection}{\numberline {3.7}Tavola delle operazioni}{7}{subsection.3.7}%
-\contentsline {section}{\numberline {4}Normalizzazione}{7}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Tecniche di normalizzazione}{7}{subsection.4.1}%
-\contentsline {section}{\numberline {5}Conclusioni}{8}{section.5}%
+\contentsline {subsection}{\numberline {3.1}Ristrutturazione dello schema E-R}{7}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Eliminazione delle generalizzazioni}{7}{subsubsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.2}Tavola dei volumi}{8}{subsection.3.2}%
+\contentsline {subsection}{\numberline {3.3}Tavola delle operazioni}{8}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Traduzione nel modello relazionale}{8}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Normalizzazione}{9}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Tecniche di normalizzazione}{9}{subsection.4.1}%
+\contentsline {section}{\numberline {5}Conclusioni}{9}{section.5}%
