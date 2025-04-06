@@ -17,8 +17,9 @@
 \contentsline {subsection}{\numberline {3.1}Ristrutturazione dello schema E-R}{7}{subsection.3.1}%
 \contentsline {subsubsection}{\numberline {3.1.1}Eliminazione delle generalizzazioni}{7}{subsubsection.3.1.1}%
 \contentsline {subsection}{\numberline {3.2}Tavola dei volumi}{8}{subsection.3.2}%
-\contentsline {subsection}{\numberline {3.3}Tavola delle operazioni}{8}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Traduzione nel modello relazionale}{8}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Normalizzazione}{9}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Tecniche di normalizzazione}{9}{subsection.4.1}%
-\contentsline {section}{\numberline {5}Conclusioni}{9}{section.5}%
+\contentsline {subsubsection}{\numberline {3.2.1}Volume delle associazioni}{8}{subsubsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.3}Tavole delle operazioni}{9}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Traduzione nel modello relazionale}{9}{subsection.3.4}%
+\contentsline {section}{\numberline {4}Normalizzazione}{10}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Tecniche di normalizzazione}{10}{subsection.4.1}%
+\contentsline {section}{\numberline {5}Conclusioni}{10}{section.5}%

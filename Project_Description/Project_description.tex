@@ -18,6 +18,10 @@
 \usepackage[hidelinks]{hyperref}  % 'hidelinks' rimuove i bordi rossi
 \usepackage{booktabs} % Per migliorare la qualità della tabella
 \usepackage{array}    % Per una migliore gestione delle colonne
+\usepackage{tabularx}
+\usepackage{placeins}
+\usepackage{pifont} % Pacchetto per i simboli
+\usepackage{fontawesome} % Pacchetto per le icone FontAwesome
 
 \usepackage[most]{tcolorbox}
 \usepackage{listings}
@@ -92,7 +96,7 @@
     \vspace{8pt}
     \noindent
     Per i \textit{Clienti}, identificati dall'email istituzionale, si vuole memorizzare il nome e il cognome. Nel caso in cui il cliente sia uno Studente, il sistema registrerà anche la classe di appartenenza. Se, invece, il cliente appartiene al Personale scolastico, verranno archiviati ulteriori dettagli, tra cui il ruolo ricoperto all'interno dell'istituto e il luogo di consegna predefinito degli ordini. Questa distinzione si rende necessaria poiché i membri del personale scolastico, non avendo una postazione fissa all'interno della scuola, devono poter specificare un punto di consegna per ricevere gli ordini in modo più efficiente.\\
-    Inoltre, tra i ruoli del personale scolastico, gli unici utenti con privilegi amministrativi aggiuntivi sono gli addetti alla segreteria, che hanno la facoltà di creare, eliminare e modificare gli account dei clienti, siano essi studenti o membri del personale scolastico.
+    Inoltre, tra i ruoli del personale scolastico, gli unici utenti con privilegi amministrativi aggiuntivi sono gli "\textit{addetti alla segreteria}", che hanno la facoltà di creare, eliminare e modificare gli account dei clienti, siano essi studenti o membri del personale scolastico.
 
     \vspace{8pt}
     \noindent
@@ -154,36 +158,36 @@
 
     \subsection{Elenco delle operazioni}
     \subsubsection{Operazioni di inserimento}
-    \begin{itemize}[leftmargin=1em]
+    \begin{enumerate}[leftmargin=2.8em,label=\textbf{Op.\arabic*}]
         \item Inserimento di un nuovo cliente nel sistema;
         \item Inserimento di un nuovo operatore nel sistema;
         \item Inserimento di una nuova richiesta di rifornimento da parte di un operatore verso un fornitore;
         \item Inserimento di un nuovo ordine da parte di un cliente (implica la rimozione della quantità corrispondente di ingredienti dal sistema);
-    \end{itemize}
+    \end{enumerate}
 
     \subsubsection{Operazioni di modifica}
-    \begin{itemize}[leftmargin=1em]
+    \begin{enumerate}[leftmargin=2.8em,label=\textbf{Op.\arabic*}]
         \item Modifica dei dati di un cliente;
         \item Modifica dei dati di un operatore;
         \item Modifica di una richiesta di rifornimento da parte di un operatore verso un fornitore;
-    \end{itemize}
+    \end{enumerate}
 
     \subsubsection{Operazioni di eliminazione}
-    \begin{itemize}[leftmargin=1em]
+    \begin{enumerate}[leftmargin=2.8em,label=\textbf{Op.\arabic*}]
         \item Eliminazione di un cliente dal sistema;
         \item Eliminazione di un operatore dal sistema;
         \item Eliminazione di un ordine da parte di un cliente (implica la riaggiunta della quantità corrispondente di ingredienti nel sistema);
         \item Eliminazione di una richiesta di rifornimento da parte di un operatore verso un fornitore;
-    \end{itemize}
+    \end{enumerate}
 
     \subsubsection{Operazioni di conferma e aggiornamento}
-    \begin{itemize}[leftmargin=1em]
+    \begin{enumerate}[leftmargin=2.8em,label=\textbf{Op.\arabic*}]
         \item Conferma della consegna di un ordine da parte di un operatore;
         \item Conferma della consegna di un rifornimento da parte di un fornitore (implica l'aggiornamento delle scorte di ingredienti, con eventuale inserimento di nuovi ingredienti se necessario);
-    \end{itemize}
+    \end{enumerate}
 
     \subsubsection{Operazioni di visualizzazione}
-    \begin{itemize}[leftmargin=1em]
+    \begin{enumerate}[leftmargin=2.8em,label=\textbf{Op.\arabic*}]
         \item Visualizzazione degli ordini giornalieri di un singolo cliente;
         \item Visualizzazione della cronologia ordini di un singolo cliente;
         \item Visualizzazione del prezzo totale di un ordine da parte di un cliente;
@@ -192,7 +196,7 @@
         \item Visualizzazione dei dati relativi ai fornitori da parte degli operatori;
         \item Visualizzazione delle richieste di rifornimento da parte degli operatori, raggruppate per fornitore;
         \item Visualizzazione delle richieste di rifornimento da parte dei fornitori, limitata alle richieste a loro indirizzate.
-    \end{itemize}
+    \end{enumerate}
 
     \newpage
     \section{Modellazione concettuale}
@@ -256,21 +260,193 @@
         \vspace{-20pt}  % Riduce lo spazio sopra
         \includegraphics[width=\textwidth]{figures/Conceptual_model_2.pdf}
         \vspace{-20pt}  % Riduce lo spazio sopra
-        \caption{Modello entità-relazione - versione 2}
+        \caption{Modello entità-relazione ristrutturato}
         \label{fig:Conceptual_model2}
     \end{figure} 
     
 
     \subsection{Tavola dei volumi}
-    bla bla bla
-    \subsection{Tavola delle operazioni}
-    bla bla bla
+    \begin{table}[ht]
+        \captionsetup{justification=raggedright, singlelinecheck=false}
+        \renewcommand{\arraystretch}{1.3} % Per aumentare la s
+        \begin{tabular}{| >{\centering\arraybackslash}m{3cm}| >{\centering\arraybackslash}m{2cm}| >{\centering\arraybackslash}m{3cm}|}
+            \hline
+            \textbf{Concetto} & \textbf{Tipo} & \textbf{Volume}\\
+            \hline
+            Cliente & E & 700 \\
+            \hline
+            Ordine\_c & E  & 1400\\
+            \hline
+            Prodotto & E & 120\\
+            \hline
+            Ingrediente & E & 35\\
+            \hline
+            Operatore & E & 10\\
+            \hline
+            Rifornimento & E & 35\\
+            \hline
+            Fornitore & E & 6\\
+            \hline
+            Richiesta\_C-O & R & 1400\\
+            \hline
+            Include & R & 1400\\
+            \hline
+            Composizione & R & 95\\
+            \hline
+            Gestione & R & 1400\\
+            \hline
+            Richiesta\_O-R & R & 35\\ 
+            \hline
+            Visionato & R & 35\\ 
+            \hline     
+        \end{tabular}
+        \caption{Concetti dello schema con i volumi previsti a regime}
+        \label{tab:tavola_volumi}
+        \vspace{-25pt}
+    \end{table}
+
+    \subsubsection{Volume delle associazioni}
+    \noindent
+    Nella tavola dei volumi il numero delle occorrenze delle associazioni (R) dipende da due parametri:
+    \begin{enumerate}[leftmargin=1.3em]
+        \item \textbf{Parametro delle occorrenze delle entità}: il primo parametro dipende dal numero di occorrenze delle entità coinvolte nelle associazioni e dal numero (medio) di partecipazioni di un'occorrenza di entità alle occorrenze di associazioni;
+        \item \textbf{Parametro delle cardinalità}: il secondo parametro dipende a sua volta dalle cardinalità delle associazioni.
+    \end{enumerate}
+
+    \vspace{8pt}
+    \noindent
+    Avendo una stima del numero di occorrenze delle entità, è possibile calcolare il numero di occorrenze delle associazioni:
+    \begin{itemize}[leftmargin=1em]
+        \item \textbf{Composizione}:Non tutti gli ingredienti vengono utilizzati nella composizione di un prodotto, poiché alcuni ingredienti possono essere forniti già pronti per la vendita, senza necessità di preparazione. Per questo motivo, si stima che il numero di occorrenze della relazione \textit{Composizione} sia pari a 95;
+        \item  \textbf{Richiesta\_C-O}: il numero di occorrenze è pari al numero di \textit{Ordini\_c}, poiché dalla cardinalità si evince che un ordine è richiesto da un solo cliente;
+        \item \textbf{Include}: il numero di occorrenze è pari al numero degli \textit{Ordini\_c}, in quanto ogni tupla di ogni  di \textit{Ordini\_c} include un solo prodotto;
+        \item \textbf{Gestione}: il numero di occorrenze è pari a quello degli \textit{Ordini\_c}, poiché ogni ordine viene gestito singolarmente da un operatore;
+        \item \textbf{Richiesta\_O-R}: il numero di occorrenze coincide con il numero dei \textit{Rifornimenti}, dato che dalla cardinalità risulta che ogni rifornimento è richiesto da un solo operatore;
+        \item \textbf{Visionato}: Anche in questo caso, il numero delle occorrenze è pari al numero dei \textit{Rifornimenti},  perché ogni rifornimento è visionato da un solo fornitore.
+    \end{itemize}
+
+
+
+    \subsection{Tavole delle operazioni}
+    \begin{table}[ht]
+        \centering
+        \renewcommand{\arraystretch}{1.3}
+
+        \begin{tabular}{| >{\centering\arraybackslash}m{2.5cm}| >{\centering\arraybackslash}m{1cm}| >{\centering\arraybackslash}m{3.5cm}|}
+            \hline
+            \textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza} \\
+            \hline
+            Op. 1  & I & 1400 al giorno\\
+            \hline
+            Op. 2 & I & 700 a settimana\\
+            \hline
+            Op. 3 & I & 700 al giorno\\
+            \hline
+            Op. 4 & I & 700 al giorno\\
+            \hline
+            Op. 5 & I & 10 al giorno\\
+            \hline
+            Op. 6 & I & 1 ogni 2 settimane\\
+            \hline
+            Op. 7 & I & 1 al giorno\\
+            \hline
+            Op. 8 & I & 1 al giorno\\
+            \hline
+        \end{tabular}
+        \caption*{\textbf{Operazioni di visualizzazione}}
+
+        \vspace{0.5cm}
+
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \begin{tabular}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{1cm}|>{\centering\arraybackslash}m{3cm}|}
+                \hline
+                \textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza} \\
+                \hline
+                Op. 1 & I & 125 all'anno \\
+                \hline
+                Op. 2 & I & 3 all'anno\\
+                \hline
+                Op. 3 & I & 35 al giorno\\
+                \hline
+                Op. 4 & I & 1400 al giorno\\
+                \hline
+            \end{tabular}
+            \caption*{\textbf{Operazioni di inserimento}}
+        \end{minipage}
+        \hspace{1cm}
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \begin{tabular}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{1cm}|>{\centering\arraybackslash}m{3cm}|}
+                \hline
+                \textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza}\\
+                \hline
+                Op. 1 & I & 125 all'anno\\
+                \hline
+                Op. 2 & I & 3 all'anno\\
+                \hline
+                Op. 3 & I & 350 al giorno\\
+                \hline
+                Op. 4 & I & 5 a settimana\\
+                \hline
+            \end{tabular}
+            \caption*{\textbf{Operazioni di cancellazione}}
+        \end{minipage}
+    \end{table}
+    \vspace{-0.5cm}
+    \begin{table}[ht]
+        \centering
+        \renewcommand{\arraystretch}{1.3}
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \begin{tabular}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{1cm}|>{\centering\arraybackslash}m{3cm}|}
+                \hline
+                \textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza} \\
+                \hline
+                Op. 1 & I & 500 all'anno\\
+                \hline
+                Op. 2 & I & 3 all'anno\\
+                \hline
+                Op. 3 & I & 2 a settimana\\
+                \hline
+            \end{tabular}
+            \caption*{\textbf{Operazioni di modifica}}
+        \end{minipage}
+        \hspace{1cm}
+        \begin{minipage}{0.45\textwidth}
+            \centering
+            \begin{tabular}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{1cm}|>{\centering\arraybackslash}m{3cm}|}
+                \hline
+                \textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza} \\
+                \hline
+                Op. 1 & I & 1400 al giorno\\
+                \hline
+                Op. 2 & I & 35 al giorno\\
+                \hline
+            \end{tabular}
+            \begin{center}
+                \textbf{Operazioni di conferma e aggiornamento}
+            \end{center}
+        \end{minipage}
+        \caption{Riepilogo delle operazioni previste nello schema}
+         \label{tab:operazioni_4x}
+    \end{table}
+    
+    \FloatBarrier
+    \begin{tcolorbox}[
+        colback=yellow!10, 
+        colframe=yellow!50!black, 
+        title=\faExclamationTriangle \quad Nota 
+    ]
+    Le frequenze indicate per le operazioni interattive (I) rappresentano stime medie del carico di lavoro previsto e possono variare in base all'utilizzo effettivo del sistema. Questi valori sono utilizzati come riferimento per il dimensionamento delle risorse e la valutazione delle prestazioni, ma non costituiscono limiti operativi.
+    \end{tcolorbox}
+    
     \subsection{Traduzione nel modello relazionale}
-    \texttt{bla bla bla}
+    bla bla bla
     
     \newpage
     \section{Normalizzazione}
-    Di seguito è riportato il logo del progetto:
+    
     \subsection{Tecniche di normalizzazione}
     bla bla bla
 
