@@ -22,6 +22,7 @@
 \usepackage{placeins}
 \usepackage{pifont} % Pacchetto per i simboli
 \usepackage{fontawesome} % Pacchetto per le icone FontAwesome
+\usepackage[normalem]{ulem} % Pacchetto per sottolineature personalizzate
 
 \usepackage[most]{tcolorbox}
 \usepackage{listings}
@@ -317,7 +318,7 @@
     \noindent
     Avendo una stima del numero di occorrenze delle entità, è possibile calcolare il numero di occorrenze delle associazioni:
     \begin{itemize}[leftmargin=1em]
-        \item \textbf{Composizione}:Non tutti gli ingredienti vengono utilizzati nella composizione di un prodotto, poiché alcuni ingredienti possono essere forniti già pronti per la vendita, senza necessità di preparazione. Per questo motivo, si stima che il numero di occorrenze della relazione \textit{Composizione} sia pari a 95;
+        \item \textbf{Composizione}: Non tutti gli ingredienti vengono utilizzati nella composizione di un prodotto, poiché alcuni ingredienti possono essere forniti già pronti per la vendita, senza necessità di preparazione. Per questo motivo, si stima che il numero di occorrenze della relazione \textit{Composizione} sia pari a 95;
         \item  \textbf{Richiesta\_C-O}: il numero di occorrenze è pari al numero di \textit{Ordini\_c}, poiché dalla cardinalità si evince che un ordine è richiesto da un solo cliente;
         \item \textbf{Include}: il numero di occorrenze è pari al numero degli \textit{Ordini\_c}, in quanto ogni tupla di ogni  di \textit{Ordini\_c} include un solo prodotto;
         \item \textbf{Gestione}: il numero di occorrenze è pari a quello degli \textit{Ordini\_c}, poiché ogni ordine viene gestito singolarmente da un operatore;
@@ -438,12 +439,108 @@
         colframe=yellow!50!black, 
         title=\faExclamationTriangle \quad Nota 
     ]
-    Le frequenze indicate per le operazioni interattive (I) rappresentano stime medie del carico di lavoro previsto e possono variare in base all'utilizzo effettivo del sistema. Questi valori sono utilizzati come riferimento per il dimensionamento delle risorse e la valutazione delle prestazioni, ma non costituiscono limiti operativi.
+        Le frequenze indicate per le operazioni interattive (I) rappresentano stime medie del carico di lavoro previsto e possono variare in base all'utilizzo effettivo del sistema. Questi valori sono utilizzati come riferimento per il dimensionamento delle risorse e la valutazione delle prestazioni, ma non costituiscono limiti operativi.
     \end{tcolorbox}
     
+    \newpage
     \subsection{Traduzione nel modello relazionale}
-    bla bla bla
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Cliente}(\textbf{\uline{email}}, password, nome, cognome, luogoConsegna, tipoCliente)
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Ordine\_c}(\uline{\textbf{data}}, \textbf{\uline{ora}}, \textbf{\uline{emailCliente}}, \textbf{\uline{nomeProdotto}}, consegnato, quantità, OperatoreID)
+        \begin{itemize}[leftmargin=1em]
+            \item \textit{OperatoreID} è chiave esterna di \textbf{Operatore}(CodiceID)
+            \item \textit{emailCliente} è chiave esterna di \textbf{Cliente}(email) e allo stesso tempo appartiene alla chiave primaria;
+            \item \textit{nomeProdotto} è chiave esterna di \textbf{Prodotto}(nome) e allo stesso tempo appartiene alla chiave primaria.
+        \end{itemize}
+    \end{tcolorbox}
     
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Prodotto}(\textbf{\uline{nome}}, prezzo, disponibilità)
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Composizione}(\textbf{\uline{nomeProdotto}}, \textbf{\uline{nomeIngrediente}})
+        \begin{itemize}[leftmargin=1em]
+            \item \textit{nomeProdotto} è chiave esterna di \textbf{Prodotto}(nome) e allo stesso tempo appartiene alla chiave primaria;
+            \item \textit{nomeIngrediente} è chiave esterna di \textbf{Ingrediente}(nome) e allo stesso tempo appartiene alla chiave primaria;
+        \end{itemize}
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Ingrediente}(\textbf{\uline{nome}}, allergeni, quantità)
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Operatore}(\textbf{\uline{CodiceID}}, email, password, nome, cognome, ruolo)
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Rifornimento}(\textbf{\uline{CodiceID}}, \textbf{\uline{ingrediente}}, quantità, data, ora, consegnato, OperatoreID, \\FornitoreID)
+        \begin{itemize}[leftmargin=1em]
+            \item \textit{OperatoreID} è chiave esterna di \textbf{Operatore}(CodiceID);
+            \item \textit{FornitoreID} è chiave esterna di \textbf{Fornitore}(CodiceID).
+        \end{itemize}
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Fornitore}(\textbf{\uline{CodiceID}}, nomeTitolare, nomeAzienda, email, password) 
+    \end{tcolorbox}
+    
+    \subsubsection{Vincoli di integrità referenziale}
+    \begin{itemize}[leftmargin=1em]
+        \item FOREIGN KEY \textbf{Ordine\_C}(emailCliente) REFERENCES \textbf{Cliente}(email)
+        \item FOREIGN KEY \textbf{Ordine\_C}(nomeProdotto) REFERENCES \textbf{Prodotto}(nome)
+        \item FOREIGN KEY \textbf{Ordine\_C}(OperatoreID) REFERENCES \textbf{Operatore}(CodiceID)
+        \item FOREIGN KEY \textbf{Composizione}(nomeProdotto) REFERENCES \textbf{Prodotto}(nome)
+        \item FOREIGN KEY \textbf{Composizione}(nomeIngrediente) REFERENCES \textbf{Ingrediente}(nome)
+        \item FOREIGN KEY \textbf{Rifornimento}(OperatoreID) REFERENCES \textbf{Operatore}(CodiceID)
+        \item FOREIGN KEY \textbf{Rifornimento}(FornitoreID) REFERENCES \textbf{Fornitore}(CodiceID)
+    \end{itemize}
+
+    \subsubsection{Modello relazionale}
+    \begin{figure}[H]
+        \centering
+        \vspace{-20pt}  % Riduce lo spazio sopra
+        \includegraphics[width=\textwidth]{figures/Conceptual_model_2.pdf}
+        \vspace{-20pt}  % Riduce lo spazio sopra
+        \caption{Modello entità-relazione ristrutturato}
+    \end{figure} 
+
     \newpage
     \section{Normalizzazione}
     

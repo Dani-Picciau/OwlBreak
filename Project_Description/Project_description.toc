@@ -19,7 +19,9 @@
 \contentsline {subsection}{\numberline {3.2}Tavola dei volumi}{8}{subsection.3.2}%
 \contentsline {subsubsection}{\numberline {3.2.1}Volume delle associazioni}{8}{subsubsection.3.2.1}%
 \contentsline {subsection}{\numberline {3.3}Tavole delle operazioni}{9}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Traduzione nel modello relazionale}{9}{subsection.3.4}%
-\contentsline {section}{\numberline {4}Normalizzazione}{10}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Tecniche di normalizzazione}{10}{subsection.4.1}%
-\contentsline {section}{\numberline {5}Conclusioni}{10}{section.5}%
+\contentsline {subsection}{\numberline {3.4}Traduzione nel modello relazionale}{10}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Vincoli di integrità referenziale}{10}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Modello relazionale}{11}{subsubsection.3.4.2}%
+\contentsline {section}{\numberline {4}Normalizzazione}{12}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Tecniche di normalizzazione}{12}{subsection.4.1}%
+\contentsline {section}{\numberline {5}Conclusioni}{12}{section.5}%

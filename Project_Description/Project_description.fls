@@ -149,6 +149,9 @@ INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex\latex\fontawesome\fontawe
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex\latex\fontawesome\fontawesomesymbols-pdftex.tex
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex\latex\fontawesome\fontawesomesymbols-pdftex.tex
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex\latex\fontawesome\fontawesomesymbols-pdftex.tex
+INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex\latex\ulem\ulem.sty
+INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex\latex\ulem\ulem.sty
+INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\fonts\tfm\public\latex-fonts\lasy6.tfm
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex\latex\tcolorbox\tcolorbox.sty
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex\latex\tcolorbox\tcolorbox.sty
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex\latex\pgf\basiclayer\pgf.sty
@@ -408,6 +411,10 @@ INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex\latex\fontawesome\ufontaw
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex\latex\fontawesome\ufontawesomethree.fd
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\fonts\tfm\public\fontawesome\FontAwesome--fontawesomethree.tfm
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\fonts\enc\dvips\fontawesome\fontawesomethree.enc
+INPUT .\figures\Conceptual_model_2.pdf
+INPUT .\figures\Conceptual_model_2.pdf
+INPUT .\figures\Conceptual_model_2.pdf
+INPUT .\figures\Conceptual_model_2.pdf
 INPUT Project_description.aux
 INPUT .\Project_description.out
 INPUT .\Project_description.out
