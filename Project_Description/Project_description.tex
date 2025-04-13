@@ -240,8 +240,8 @@
 
     \newpage
     \section{Modellazione logica}
-    Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse nec ex nec velit mollis rhoncus. Vivamus non magna vulputate magna aliquet feugiat. Vestibulum mi elit, hendrerit quis mollis ut, gravida vel lacus. Morbi quis cursus nulla. 
-    quis mollis ut, gravida vel lacus.
+    Dopo aver definito la struttura del modello relazionale, è possibile analizzare le operazioni  di ristrutturazione dello schema E-R in vista della successiva normalizzazione. Verranno illustrate varie tecniche, tra cui l'eliminazione delle generalizzazioni presenti nel modello concettuale.
+
     \subsection{Ristrutturazione dello schema E-R}
     \subsubsection{Eliminazione delle generalizzazioni}
     All'interno della base dati in esame è presente una generalizzazione totale, perché ogni istanza dell'entità generale \textit{Cliente} appartiene obbligatoriamente a una sotto-entità \textit{Studente} e \textit{Personale}. Non ci sono quindi clienti che non siano studenti o membri del personale scolastico.\\
@@ -532,11 +532,11 @@
         \item FOREIGN KEY \textbf{Rifornimento}(OperatoreID) REFERENCES \textbf{Operatore}(CodiceID)
         \item FOREIGN KEY \textbf{Rifornimento}(FornitoreID) REFERENCES \textbf{Fornitore}(CodiceID)
     \end{itemize}
-
+ 
     \newpage
     \subsubsection{Modello relazionale}
     \begin{tcolorbox}[
-        colback=white, 
+        colback=gray!8,  
         colframe=darkgray, 
         title=Legenda del modello relazionale
     ]

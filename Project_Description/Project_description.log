@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  13 APR 2025 13:18
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  13 APR 2025 13:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -881,17 +881,17 @@ Overfull \hbox (24.53648pt too wide) in paragraph at lines 188--189
  []
 
 [4]
-<figures/Conceptual_model.pdf, id=228, 814.54312pt x 421.575pt>
+<figures/Conceptual_model.pdf, id=228, 814.54312pt x 413.29407pt>
 File: figures/Conceptual_model.pdf Graphic file (type pdf)
 <use figures/Conceptual_model.pdf>
 Package pdftex.def Info: figures/Conceptual_model.pdf  used on input line 212.
-(pdftex.def)             Requested size: 483.69687pt x 250.34169pt.
+(pdftex.def)             Requested size: 483.69687pt x 245.42427pt.
  [5 <./figures/Conceptual_model.pdf>] [6]
-<figures/Conceptual_model_2.pdf, id=253, 843.15pt x 361.35pt>
+<figures/Conceptual_model_2.pdf, id=253, 843.15pt x 353.82187pt>
 File: figures/Conceptual_model_2.pdf Graphic file (type pdf)
 <use figures/Conceptual_model_2.pdf>
 Package pdftex.def Info: figures/Conceptual_model_2.pdf  used on input line 263.
-(pdftex.def)             Requested size: 483.69687pt x 207.30045pt.
+(pdftex.def)             Requested size: 483.69687pt x 202.98169pt.
 
 Underfull \hbox (badness 10000) in paragraph at lines 256--267
 
@@ -959,7 +959,7 @@ Here is how much of TeX's memory you used:
  1141 hyphenation exceptions out of 8191
  93i,14n,99p,1094b,607s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/fontawesome/FontAwesome.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchb8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-Output written on Project_description.pdf (13 pages, 606668 bytes).
+Output written on Project_description.pdf (13 pages, 610797 bytes).
 PDF statistics:
  1284 PDF objects out of 1440 (max. 8388607)
  77 named destinations out of 1000 (max. 500000)
