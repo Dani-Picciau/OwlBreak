@@ -563,6 +563,15 @@
 
     \subsection{Tecniche di normalizzazione}
     \subsubsection{Tabella Cliente}
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Cliente}(\textbf{\uline{email}}, password, nome, cognome, luogoConsegna, tipoCliente)
+    \end{tcolorbox}
+    \noindent
+    La tabella \textit{Cliente} non presenta dipendenze parziali in quanto la chiave è composta da un solo attriburo, quindi la tabella è dicuramente in 2NF. Per verificare che sia anche in 3NF bisogna controllare che non ci siano dipendenze transitive o, in caso contrario, che gli attributi dipendenti siano parte della chiave. 
 
     \newpage
     \section{Conclusioni}
