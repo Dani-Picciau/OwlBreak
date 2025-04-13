@@ -23,6 +23,7 @@
 \usepackage{pifont} % Pacchetto per i simboli
 \usepackage{fontawesome} % Pacchetto per le icone FontAwesome
 \usepackage[normalem]{ulem} % Pacchetto per sottolineature personalizzate
+\usepackage{amssymb} % Pacchetto per simboli come \checkmark
 
 \usepackage[most]{tcolorbox}
 \usepackage{listings}
@@ -303,7 +304,7 @@
         \end{tabular}
         \caption{Concetti dello schema con i volumi previsti a regime}
         \label{tab:tavola_volumi}
-        \vspace{-25pt}
+        \vspace{-21pt}
     \end{table}
 
     \subsubsection{Volume delle associazioni}
@@ -532,14 +533,18 @@
         \item FOREIGN KEY \textbf{Rifornimento}(FornitoreID) REFERENCES \textbf{Fornitore}(CodiceID)
     \end{itemize}
 
+    \newpage
     \subsubsection{Modello relazionale}
+    \textbf{Legenda}
     \begin{figure}[H]
         \centering
+        \vspace{-10pt}  % Riduce lo spazio sopra
+        \includegraphics[width=\textwidth]{figures/Relational_model.pdf}
         \vspace{-20pt}  % Riduce lo spazio sopra
-        \includegraphics[width=\textwidth]{figures/Conceptual_model_2.pdf}
-        \vspace{-20pt}  % Riduce lo spazio sopra
-        \caption{Modello entità-relazione ristrutturato}
+        \caption{Modello relazionale (collegamenti tra chiavi)}
     \end{figure} 
+    
+
 
     \newpage
     \section{Normalizzazione}

@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  12 APR 2025 14:50
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  13 APR 2025 12:35
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -329,10 +329,20 @@ Package: ifluatex 2019/10/25 v1.5 ifluatex legacy package. Use iftex instead.
 \ULC@box=\box60
 Package: ulem 2019/11/18
 \ULdepth=\dimen190
-) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcolorbox.sty
+) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amssymb.sty
+Package: amssymb 2013/01/14 v3.01 AMS font symbols
+ (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\amsfonts.sty
+Package: amsfonts 2013/01/14 v3.01 Basic AMSFonts support
+\@emptytoks=\toks30
+\symAMSa=\mathgroup4
+\symAMSb=\mathgroup5
+LaTeX Font Info:    Redeclaring math symbol \hbar on input line 98.
+LaTeX Font Info:    Overwriting math alphabet `\mathfrak' in version `bold'
+(Font)                  U/euf/m/n --> U/euf/b/n on input line 106.
+)) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcolorbox.sty
 Package: tcolorbox 2024/01/10 version 6.2.0 text color boxes
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgf.sty (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/pgf/utilities\pgfrcs.sty (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil-common.tex
-\pgfutil@everybye=\toks30
+\pgfutil@everybye=\toks31
 \pgfutil@tempdima=\dimen191
 \pgfutil@tempdimb=\dimen192
 ) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfutil-latex.def
@@ -344,10 +354,10 @@ Package: pgf 2023-01-15 v3.1.10 (3.1.10)
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/pgf/basiclayer\pgfcore.sty (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/pgf/systemlayer\pgfsys.sty (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgfsys.code.tex
 Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeys.code.tex
-\pgfkeys@pathtoks=\toks31
-\pgfkeys@temptoks=\toks32
+\pgfkeys@pathtoks=\toks32
+\pgfkeys@temptoks=\toks33
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/utilities\pgfkeyslibraryfiltered.code.tex
-\pgfkeys@tmptoks=\toks33
+\pgfkeys@tmptoks=\toks34
 ))
 \pgf@x=\dimen193
 \pgf@y=\dimen194
@@ -365,9 +375,9 @@ Package: pgfsys 2023-01-15 v3.1.10 (3.1.10)
 \c@pgf@countb=\count298
 \c@pgf@countc=\count299
 \c@pgf@countd=\count300
-\t@pgf@toka=\toks34
-\t@pgf@tokb=\toks35
-\t@pgf@tokc=\toks36
+\t@pgf@toka=\toks35
+\t@pgf@tokb=\toks36
+\t@pgf@tokc=\toks37
 \pgf@sys@id@count=\count301
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/systemlayer\pgf.cfg
 File: pgf.cfg 2023-01-15 v3.1.10 (3.1.10)
@@ -405,9 +415,9 @@ Package: pgfcore 2023-01-15 v3.1.10 (3.1.10)
 \pgfmath@dimen=\dimen259
 \pgfmath@count=\count304
 \pgfmath@box=\box62
-\pgfmath@toks=\toks37
-\pgfmath@stack@operand=\toks38
-\pgfmath@stack@operation=\toks39
+\pgfmath@toks=\toks38
+\pgfmath@stack@operand=\toks39
+\pgfmath@stack@operation=\toks40
 ) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.code.tex) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.basic.code.tex) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.trigonometric.code.tex) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.random.code.tex) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.comparison.code.tex) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.base.code.tex) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.round.code.tex) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.misc.code.tex) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfunctions.integerarithmetics.code.tex) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathcalc.code.tex) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfmathfloat.code.tex
 \c@pgfmathroundto@lastzeros=\count305
 )) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/math\pgfint.code.tex) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepoints.code.tex
@@ -469,12 +479,12 @@ File: pgfcoreexternal.code.tex 2023-01-15 v3.1.10 (3.1.10)
 \pgfexternal@startupbox=\box66
 ) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorelayers.code.tex
 File: pgfcorelayers.code.tex 2023-01-15 v3.1.10 (3.1.10)
-) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransparency.code.tex
+)
+(C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcoretransparency.code.tex
 File: pgfcoretransparency.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorepatterns.code.tex
 File: pgfcorepatterns.code.tex 2023-01-15 v3.1.10 (3.1.10)
-)
-(C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorerdf.code.tex
+) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/basiclayer\pgfcorerdf.code.tex
 File: pgfcorerdf.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/modules\pgfmoduleshapes.code.tex
 File: pgfmoduleshapes.code.tex 2023-01-15 v3.1.10 (3.1.10)
@@ -489,15 +499,15 @@ Package: pgfcomp-version-0-65 2023-01-15 v3.1.10 (3.1.10)
 Package: pgfcomp-version-1-18 2023-01-15 v3.1.10 (3.1.10)
 )) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/tools\verbatim.sty
 Package: verbatim 2023-11-06 v1.5v LaTeX2e package for verbatim enhancements
-\every@verbatim=\toks40
-\verbatim@line=\toks41
+\every@verbatim=\toks41
+\verbatim@line=\toks42
 \verbatim@in@stream=\read3
 ) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/environ\environ.sty
 Package: environ 2014/05/04 v0.3 A new way to define environments
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/trimspaces\trimspaces.sty
 Package: trimspaces 2009/09/17 v1.1 Trim spaces around a token list
 )
-\@envbody=\toks42
+\@envbody=\toks43
 )
 \tcb@titlebox=\box68
 \tcb@upperbox=\box69
@@ -524,8 +534,8 @@ Library (tcolorbox): 'tcbskins.code.tex' version '6.2.0'
 Package: pgffor 2023-01-15 v3.1.10 (3.1.10)
 \pgffor@iter=\dimen287
 \pgffor@skip=\dimen288
-\pgffor@stack=\toks43
-\pgffor@toks=\toks44
+\pgffor@stack=\toks44
+\pgffor@toks=\toks45
 )) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/frontendlayer/tikz\tikz.code.tex
 Package: tikz 2023-01-15 v3.1.10 (3.1.10)
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/generic/pgf/libraries\pgflibraryplothandlers.code.tex
@@ -589,7 +599,7 @@ For additional information on amsmath, use the `?' option.
 Package: amstext 2021/08/26 v2.01 AMS text
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsgen.sty
 File: amsgen.sty 1999/11/30 v2.0 generic functions
-\@emptytoks=\toks45
+\@emptytoks=\toks46
 \ex@=\dimen298
 )) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/amsmath\amsbsy.sty
 Package: amsbsy 1999/11/29 v1.2d Bold Symbols
@@ -627,21 +637,21 @@ LaTeX Info: Redefining \Relbar on input line 971.
 \dotsspace@=\muskip17
 \c@parentequation=\count332
 \dspbrk@lvl=\count333
-\tag@help=\toks46
+\tag@help=\toks47
 \row@=\count334
 \column@=\count335
 \maxfields@=\count336
-\andhelp@=\toks47
+\andhelp@=\toks48
 \eqnshift@=\dimen301
 \alignsep@=\dimen302
 \tagshift@=\dimen303
 \tagwidth@=\dimen304
 \totwidth@=\dimen305
 \lineht@=\dimen306
-\@envbody=\toks48
+\@envbody=\toks49
 \multlinegap=\skip65
 \multlinetaggap=\skip66
-\mathdisplay@stack=\toks49
+\mathdisplay@stack=\toks50
 LaTeX Info: Redefining \[ on input line 2953.
 LaTeX Info: Redefining \] on input line 2954.
 )) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcbfitting.code.tex
@@ -657,7 +667,7 @@ Library (tcolorbox): 'tcblistings.code.tex' version '6.2.0'
 (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/listings\listings.sty
 \lst@mode=\count338
 \lst@gtempboxa=\box87
-\lst@token=\toks50
+\lst@token=\toks51
 \lst@length=\count339
 \lst@currlwidth=\dimen310
 \lst@column=\count340
@@ -699,7 +709,7 @@ File: pgflibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcbposter.code.tex
 Library (tcolorbox): 'tcbposter.code.tex' version '6.2.0'
 ))
-LaTeX Font Info:    Trying to load font information for T1+bch on input line 41.
+LaTeX Font Info:    Trying to load font information for T1+bch on input line 42.
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1bch.fd
 File: t1bch.fd 2004/10/18 font definitions for T1/bch.
 ) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
@@ -709,24 +719,24 @@ File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 ) (Project_description.aux)
 \openout1 = `Project_description.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 41.
-LaTeX Font Info:    ... okay on input line 41.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 42.
+LaTeX Font Info:    ... okay on input line 42.
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count348
@@ -734,32 +744,32 @@ LaTeX Font Info:    ... okay on input line 41.
 \scratchbox=\box90
 \nofMPsegments=\count349
 \nofMParguments=\count350
-\everyMPshowfont=\toks51
+\everyMPshowfont=\toks52
 \MPscratchCnt=\count351
 \MPscratchDim=\dimen315
 \MPnumerator=\count352
 \makeMPintoPDFobject=\count353
-\everyMPtoPDFconversion=\toks52
+\everyMPtoPDFconversion=\toks53
 ) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/epstopdf-pkg\epstopdf-base.sty
 Package: epstopdf-base 2020-01-24 v2.11 Base part for package epstopdf
 Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 485.
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-LaTeX Info: Redefining \microtypecontext on input line 41.
-Package microtype Info: Applying patch `item' on input line 41.
-Package microtype Info: Applying patch `toc' on input line 41.
-Package microtype Info: Applying patch `eqnum' on input line 41.
-Package microtype Info: Applying patch `footnote' on input line 41.
-Package microtype Info: Applying patch `verbatim' on input line 41.
-LaTeX Info: Redefining \microtypesetup on input line 41.
+LaTeX Info: Redefining \microtypecontext on input line 42.
+Package microtype Info: Applying patch `item' on input line 42.
+Package microtype Info: Applying patch `toc' on input line 42.
+Package microtype Info: Applying patch `eqnum' on input line 42.
+Package microtype Info: Applying patch `footnote' on input line 42.
+Package microtype Info: Applying patch `verbatim' on input line 42.
+LaTeX Info: Redefining \microtypesetup on input line 42.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 41.
+LaTeX Info: Redefining \showhyphens on input line 42.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -805,7 +815,7 @@ Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 41.
+Package hyperref Info: Link coloring OFF on input line 42.
 (Project_description.out) (Project_description.out)
 \@outlinefile=\write4
 \openout4 = `Project_description.out'.
@@ -814,10 +824,22 @@ Package hyperref Info: Link coloring OFF on input line 41.
 <figures/logo.pdf, id=150, 595.40694pt x 595.40694pt>
 File: figures/logo.pdf Graphic file (type pdf)
 <use figures/logo.pdf>
-Package pdftex.def Info: figures/logo.pdf  used on input line 58.
+Package pdftex.def Info: figures/logo.pdf  used on input line 59.
 (pdftex.def)             Requested size: 193.47578pt x 193.4777pt.
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
+)
+LaTeX Font Info:    Trying to load font information for U+msa on input line 65.
+ (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
+File: umsa.fd 2013/01/14 v3.01 AMS symbols A
+) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
+File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
+)
+LaTeX Font Info:    Trying to load font information for U+msb on input line 65.
+ (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
+File: umsb.fd 2013/01/14 v3.01 AMS symbols B
+) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg
+File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 ) [1
 
 {C:/Users/dany2/AppData/Local/MiKTeX/fonts/map/pdftex/pdftex.map}{C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/base/8r.enc} <./figures/logo.pdf>] (Project_description.toc)
@@ -828,33 +850,33 @@ File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.80     \newpage
+l.81     \newpage
                   [1]
-LaTeX Font Info:    Trying to load font information for TS1+bch on input line 88.
+LaTeX Font Info:    Trying to load font information for TS1+bch on input line 89.
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1bch.fd
 File: ts1bch.fd 2004/10/18 font definitions for TS1/bch.
 ) [2]
-Underfull \hbox (badness 10000) in paragraph at lines 142--142
+Underfull \hbox (badness 10000) in paragraph at lines 143--143
 []|\T1/bch/m/n/12 (+20) Contiene le carat-ter-is-tiche
  []
 
 
-Underfull \hbox (badness 2626) in paragraph at lines 148--148
+Underfull \hbox (badness 2626) in paragraph at lines 149--149
 \T1/bch/m/n/12 (+20) ef-fet-tuare richi-este di ri-forn-i-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 152--152
+Underfull \hbox (badness 10000) in paragraph at lines 153--153
 []|\T1/bch/m/n/12 (+20) Azienda,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 152--153
+Underfull \hbox (badness 10000) in paragraph at lines 153--154
 []|\T1/bch/m/n/12 (+20) Rifornimento,
  []
 
 [3]
-Overfull \hbox (24.53648pt too wide) in paragraph at lines 187--188
+Overfull \hbox (24.53648pt too wide) in paragraph at lines 188--189
 []\T1/bch/m/n/12 (-20) Conferma della con-segna di un ri-forn-i-mento da parte di un for-n-i-tore (im-plica l'aggiornamento
  []
 
@@ -862,48 +884,49 @@ Overfull \hbox (24.53648pt too wide) in paragraph at lines 187--188
 <figures/Conceptual_model.pdf, id=228, 814.54312pt x 421.575pt>
 File: figures/Conceptual_model.pdf Graphic file (type pdf)
 <use figures/Conceptual_model.pdf>
-Package pdftex.def Info: figures/Conceptual_model.pdf  used on input line 211.
+Package pdftex.def Info: figures/Conceptual_model.pdf  used on input line 212.
 (pdftex.def)             Requested size: 483.69687pt x 250.34169pt.
  [5 <./figures/Conceptual_model.pdf>] [6]
 <figures/Conceptual_model_2.pdf, id=253, 843.15pt x 361.35pt>
 File: figures/Conceptual_model_2.pdf Graphic file (type pdf)
 <use figures/Conceptual_model_2.pdf>
-Package pdftex.def Info: figures/Conceptual_model_2.pdf  used on input line 262.
+Package pdftex.def Info: figures/Conceptual_model_2.pdf  used on input line 263.
 (pdftex.def)             Requested size: 483.69687pt x 207.30045pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 255--266
+Underfull \hbox (badness 10000) in paragraph at lines 256--267
 
  []
 
-[7 <./figures/Conceptual_model_2.pdf>]
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 363--376
+[7 <./figures/Conceptual_model_2.pdf>] [8]
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 364--377
  [][] 
  []
 
 
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 381--394
- [][] 
- []
-
-[8]
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 403--414
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 382--395
  [][] 
  []
 
 
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 419--428
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 404--415
  [][] 
  []
 
-LaTeX Font Info:    Trying to load font information for U+fontawesomethree on input line 441.
+
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 420--429
+ [][] 
+ []
+
+LaTeX Font Info:    Trying to load font information for U+fontawesomethree on input line 442.
 (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome\ufontawesomethree.fd
 File: ufontawesomethree.fd 2016/05/22 Font definitions for U/fontawesomethree.
-) [9{C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/fontawesome/fontawesomethree.enc}]
-File: figures/Conceptual_model_2.pdf Graphic file (type pdf)
-<use figures/Conceptual_model_2.pdf>
-Package pdftex.def Info: figures/Conceptual_model_2.pdf  used on input line 539.
-(pdftex.def)             Requested size: 483.69687pt x 207.30045pt.
- [10] [11] [12] (Project_description.aux)
+) [9{C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/fontawesome/fontawesomethree.enc}] [10]
+<figures/Relational_model.pdf, id=285, 1836.8625pt x 870.25125pt>
+File: figures/Relational_model.pdf Graphic file (type pdf)
+<use figures/Relational_model.pdf>
+Package pdftex.def Info: figures/Relational_model.pdf  used on input line 542.
+(pdftex.def)             Requested size: 483.69687pt x 229.1548pt.
+ [11 <./figures/Relational_model.pdf>] [12] (Project_description.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
@@ -912,17 +935,17 @@ Package rerunfilecheck Info: File `Project_description.out' has not changed.
 (rerunfilecheck)             Checksum: 7CB90B60A705104ADE42388F1D5DF35E;5105.
  ) 
 Here is how much of TeX's memory you used:
- 33164 strings out of 474486
- 656245 string characters out of 5743756
+ 33719 strings out of 474486
+ 663251 string characters out of 5743756
  1949542 words of memory out of 5000000
- 54615 multiletter control sequences out of 15000+600000
- 603883 words of font info for 212 fonts, out of 8000000 for 9000
+ 55147 multiletter control sequences out of 15000+600000
+ 605118 words of font info for 218 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  93i,12n,99p,1094b,607s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/fontawesome/FontAwesome.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchb8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-Output written on Project_description.pdf (13 pages, 255554 bytes).
+Output written on Project_description.pdf (13 pages, 602991 bytes).
 PDF statistics:
- 338 PDF objects out of 1000 (max. 8388607)
+ 1271 PDF objects out of 1440 (max. 8388607)
  77 named destinations out of 1000 (max. 500000)
- 32644 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 32649 words of extra memory for PDF output out of 35830 (max. 10000000)
 
