@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex 2025.4.5)  13 APR 2025 15:31
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex 2025.4.5)  13 APR 2025 15:46
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -976,15 +976,15 @@ Package rerunfilecheck Info: File `Project_description.out' has not changed.
 (rerunfilecheck)             Checksum: 7CB90B60A705104ADE42388F1D5DF35E;5105.
  ) 
 Here is how much of TeX's memory you used:
- 33671 strings out of 473523
- 662657 string characters out of 5714147
+ 33662 strings out of 473523
+ 662573 string characters out of 5714147
  1099389 words of memory out of 5000000
  56037 multiletter control sequences out of 15000+600000
- 606622 words of font info for 224 fonts, out of 8000000 for 9000
+ 605680 words of font info for 218 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  98i,14n,105p,1078b,607s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Monica/AppData/Local/Programs/MiKTeX/fonts/type1/public/fontawesome/FontAwesome.pfb><C:/Users/Monica/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchb8a.pfb><C:/Users/Monica/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/Monica/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/Monica/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-Output written on Project_description.pdf (13 pages, 609901 bytes).
+Output written on Project_description.pdf (13 pages, 609937 bytes).
 PDF statistics:
  1284 PDF objects out of 1440 (max. 8388607)
  77 named destinations out of 1000 (max. 500000)
