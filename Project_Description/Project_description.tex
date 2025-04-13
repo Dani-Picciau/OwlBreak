@@ -253,9 +253,9 @@
     
     \vspace{8pt}
     \noindent
-    In paricolare, l'attributo \textbf{classe} e l'attributo \textbf{ruolo} vengono eliminati e sostituiti dall'attributo \textbf{tipo\_cliente}. Per fare in modo di rimanere coerenti con la descrizione iniziale del sistema, il tipo\_cliente può assumere i seguenti valori.\\
-    Se il tipo\_cliente è "\textit{Studente}", il cliente in questione non ha la possibilità di modificare il valore dell'attributo \textbf{luogo\_consegna} che coinciderà con la propria classe di appartenenza.
-    Al contrario il cliente in questione avrà la facoltà di modificare il valore dell'attributo \textbf{luogo\_consegna}, inoltre se l'attributo \textbf{tipo\_cliente} coincide con "\textit{addetto alla segreteria}", quest'utlimo avrà in più i privilegi descritti al paragrafo~\ref{par:Descrizione del sistema informativo}.\\
+    In paricolare, l'attributo \textbf{classe} e l'attributo \textbf{ruolo} vengono eliminati e sostituiti dall'attributo \textbf{tipoCliente}. Per fare in modo di rimanere coerenti con la descrizione iniziale del sistema, il \textbf{tipoCliente} può assumere i seguenti valori.\\
+    Se il \textbf{tipoCliente} è "\textit{Studente}", il cliente in questione non ha la possibilità di modificare il valore dell'attributo \textbf{luogoConsegna} che coinciderà con la propria classe di appartenenza.
+    Al contrario il cliente in questione avrà la facoltà di modificare il valore dell'attributo \textbf{luogoConsegna}, inoltre se l'attributo \textbf{tipoCliente} coincide con "\textit{addetto alla segreteria}", quest'utlimo avrà in più i privilegi descritti al paragrafo~\ref{par:Descrizione del sistema informativo}.\\
     \begin{figure}[H]
         \centering
         \vspace{-20pt}  % Riduce lo spazio sopra
@@ -319,9 +319,9 @@
     Avendo una stima del numero di occorrenze delle entità, è possibile calcolare il numero di occorrenze delle associazioni:
     \begin{itemize}[leftmargin=1em]
         \item \textbf{Composizione}: Non tutti gli ingredienti vengono utilizzati nella composizione di un prodotto, poiché alcuni ingredienti possono essere forniti già pronti per la vendita, senza necessità di preparazione. Per questo motivo, si stima che il numero di occorrenze della relazione \textit{Composizione} sia pari a 95;
-        \item  \textbf{Richiesta\_C-O}: il numero di occorrenze è pari al numero di \textit{Ordini\_c}, poiché dalla cardinalità si evince che un ordine è richiesto da un solo cliente;
-        \item \textbf{Include}: il numero di occorrenze è pari al numero degli \textit{Ordini\_c}, in quanto ogni tupla di ogni  di \textit{Ordini\_c} include un solo prodotto;
-        \item \textbf{Gestione}: il numero di occorrenze è pari a quello degli \textit{Ordini\_c}, poiché ogni ordine viene gestito singolarmente da un operatore;
+        \item  \textbf{Richiesta\_C-O}: il numero di occorrenze è pari al numero di \textit{Ordini}, poiché dalla cardinalità si evince che un ordine è richiesto da un solo cliente;
+        \item \textbf{Include}: il numero di occorrenze è pari al numero degli \textit{Ordini}, in quanto ogni tupla di ogni  di \textit{Ordini} include un solo prodotto;
+        \item \textbf{Gestione}: il numero di occorrenze è pari a quello degli \textit{Ordini}, poiché ogni ordine viene gestito singolarmente da un operatore;
         \item \textbf{Richiesta\_O-R}: il numero di occorrenze coincide con il numero dei \textit{Rifornimenti}, dato che dalla cardinalità risulta che ogni rifornimento è richiesto da un solo operatore;
         \item \textbf{Visionato}: Anche in questo caso, il numero delle occorrenze è pari al numero dei \textit{Rifornimenti},  perché ogni rifornimento è visionato da un solo fornitore.
     \end{itemize}
