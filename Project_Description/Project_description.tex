@@ -462,8 +462,8 @@
         \textbf{Ordine}(\uline{\textbf{data}}, \textbf{\uline{ora}}, \textbf{\uline{emailCliente}}, \textbf{\uline{nomeProdotto}}, consegnato, quantità, OperatoreID)
         \begin{itemize}[leftmargin=1em]
             \item \textit{OperatoreID} è chiave esterna di \textbf{Operatore}(CodiceID)
-            \item \textit{emailCliente} è chiave esterna di \textbf{Cliente}(email) e allo stesso tempo appartiene alla chiave primaria;
-            \item \textit{nomeProdotto} è chiave esterna di \textbf{Prodotto}(nome) e allo stesso tempo appartiene alla chiave primaria.
+            \item \textit{emailCliente} è chiave esterna di \textbf{Cliente}(email) e allo stesso tempo appartiene alla chiave primaria
+            \item \textit{nomeProdotto} è chiave esterna di \textbf{Prodotto}(nome) e allo stesso tempo appartiene alla chiave primaria
         \end{itemize}
     \end{tcolorbox}
     
@@ -482,8 +482,8 @@
     ]
         \textbf{Composizione}(\textbf{\uline{nomeProdotto}}, \textbf{\uline{nomeIngrediente}})
         \begin{itemize}[leftmargin=1em]
-            \item \textit{nomeProdotto} è chiave esterna di \textbf{Prodotto}(nome) e allo stesso tempo appartiene alla chiave primaria;
-            \item \textit{nomeIngrediente} è chiave esterna di \textbf{Ingrediente}(nome) e allo stesso tempo appartiene alla chiave primaria;
+            \item \textit{nomeProdotto} è chiave esterna di \textbf{Prodotto}(nome) e allo stesso tempo appartiene alla chiave primaria
+            \item \textit{nomeIngrediente} è chiave esterna di \textbf{Ingrediente}(nome) e allo stesso tempo appartiene alla chiave primaria
         \end{itemize}
     \end{tcolorbox}
 
@@ -510,8 +510,8 @@
     ]
         \textbf{Rifornimento}(\textbf{\uline{CodiceID}}, \textbf{\uline{ingrediente}}, quantità, data, ora, consegnato, OperatoreID, \\FornitoreID)
         \begin{itemize}[leftmargin=1em]
-            \item \textit{OperatoreID} è chiave esterna di \textbf{Operatore}(CodiceID);
-            \item \textit{FornitoreID} è chiave esterna di \textbf{Fornitore}(CodiceID).
+            \item \textit{OperatoreID} è chiave esterna di \textbf{Operatore}(CodiceID)
+            \item \textit{FornitoreID} è chiave esterna di \textbf{Fornitore}(CodiceID)
         \end{itemize}
     \end{tcolorbox}
 
@@ -555,16 +555,16 @@
         \vspace{-20pt}  % Riduce lo spazio sopra
         \caption{Modello relazionale (collegamenti tra chiavi)}
     \end{figure} 
-    
-
 
     \newpage
     \section{Normalizzazione}
-    
-    \subsection{Tecniche di normalizzazione}
-    bla bla bla
+    In questa sezione si procederà direttamente all'analisi della Terza Forma Normale (3NF), in quanto il rispetto di tale forma implica automaticamente il soddisfacimento dei requisiti previsti dalla Prima e dalla Seconda Forma Normale. \\
+    Saranno quindi analizzate tutte le tabelle del modello relazionale, evidenziando per ciascuna le motivazioni per cui soddisfano i vincoli imposti dalla 3NF, con particolare attenzione alle dipendenze funzionali e alla struttura delle chiavi.
 
-    % Conclusioni
+    \subsection{Tecniche di normalizzazione}
+    \subsubsection{Tabella Cliente}
+
+    \newpage
     \section{Conclusioni}
     In questa sezione finale vengono riassunte le conclusioni del progetto, presentando le implicazioni, i limiti e le direzioni future.
 
