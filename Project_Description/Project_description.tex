@@ -562,7 +562,23 @@
     Saranno quindi analizzate tutte le tabelle del modello relazionale, evidenziando per ciascuna le motivazioni per cui soddisfano i vincoli imposti dalla 3NF, con particolare attenzione alle dipendenze funzionali e alla struttura delle chiavi.
 
     \subsection{Tecniche di normalizzazione}
-    \subsubsection{Tabella Cliente}
+    Al fine di procedere con l'analisi, è opportuno fornire una definizione formale dei vincoli che caratterizzano la Terza Forma Normale (3NF).\\
+    Affinché una relazione \textit{r} sia in 3NF, devono essere soddisfatte le seguenti condizioni:
+
+    \begin{enumerate}[leftmargin=1.3em]
+        \item Deve essere in 2NF, ovvero non deve presentare dipendenze funzionali parziali;
+        \item Per ogni dipendenza funzionale \textit{X} $\rightarrow$ \textit{A}, deve essere verificata almeno una delle seguenti condizioni:
+            \begin{enumerate}[leftmargin=1.3em, label=\alph*.]
+            \item \textit{X} è una superchiave per \textit{r};
+            \item \textit{A} appartiene ad almeno una chiave candidata di \textit{r}.
+        \end{enumerate}
+    \end{enumerate}
+
+    \vspace{5pt}
+    \noindent
+    Infine, una relazione risulta essere anche in forma normale di Boyce-Codd (BCNF) qualora sia in 3NF e non presenti alcun tipo di dipendenza transitiva, incluse quelle ammesse dal punto \textit{2b} della 3NF.
+
+    \subsubsection*{Tabella Cliente}
     \begin{tcolorbox}[
         colback=gray!8,
         colframe=black!30,
@@ -570,8 +586,164 @@
     ]
         \textbf{Cliente}(\textbf{\uline{email}}, password, nome, cognome, luogoConsegna, tipoCliente)
     \end{tcolorbox}
+
     \noindent
-    La tabella \textit{Cliente} non presenta dipendenze parziali in quanto la chiave è composta da un solo attriburo, quindi la tabella è dicuramente in 2NF. Per verificare che sia anche in 3NF bisogna controllare che non ci siano dipendenze transitive o, in caso contrario, che gli attributi dipendenti siano parte della chiave. 
+    La relazione \textit{Cliente} soddisfa i requisiti ai punti \textit{1} e \textit{2a}, quindi è in \textbf{3NF} e, non avendo dipendenze transitive come quelle riportate al punto \textit{2b}, è anche in \textbf{BCNF}.\\
+    Di seguito vengono riportate le dipendenze funzionali della relazione \textit{Cliente}:
+    \begin{itemize}[leftmargin=1em, label=$\circ$]
+        \item email $\rightarrow$ password
+        \item email $\rightarrow$ nome
+        \item email $\rightarrow$ cognome
+        \item email $\rightarrow$ luogoConsegna
+        \item email $\rightarrow$ tipoCliente
+    \end{itemize}
+    
+    \subsubsection*{Tabella Ordine}
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Ordine}(\uline{\textbf{data}}, \textbf{\uline{ora}}, \textbf{\uline{emailCliente}}, \textbf{\uline{nomeProdotto}}, consegnato, quantità, OperatoreID)
+    \end{tcolorbox}
+    
+    \noindent
+    La relazione \textit{Ordine} soddisfa i requisiti ai punti \textit{1} e \textit{2a}, quindi è in \textbf{3NF} e, non avendo dipendenze transitive come quelle riportate al punto \textit{2b}, è anche in \textbf{BCNF}.\\
+    Di seguito vengono riportate le dipendenze funzionali della relazione \textit{Ordine}:
+    \begin{itemize}[leftmargin=1em, label=$\circ$]
+        \item (data, ora, emailCliente, nomeProdotto) $\rightarrow$ consegnato
+        \item (data, ora, emailCliente, nomeProdotto) $\rightarrow$ quantità
+        \item (data, ora, emailCliente, nomeProdotto) $\rightarrow$ OperatoreID
+    
+    \end{itemize}
+
+    \subsubsection*{Tabella Prodotto}
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Prodotto}(\textbf{\uline{nome}}, prezzo, disponibilità)
+    \end{tcolorbox}
+    
+    \noindent
+    La relazione \textit{Prodotto} soddisfa i requisiti ai punti \textit{1} e \textit{2a}, quindi è in \textbf{3NF} e, non avendo dipendenze transitive come quelle riportate al punto \textit{2b}, è anche in \textbf{BCNF}.\\
+    Di seguito vengono riportate le dipendenze funzionali della relazione \textit{Prodotto}:
+    \begin{itemize}[leftmargin=1em, label=$\circ$]
+        \item nome $\rightarrow$ prezzo
+        \item nome $\rightarrow$ disponibilità
+    \end{itemize}
+
+
+    \subsubsection*{Tabella Composizione}
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Composizione}(\textbf{\uline{nomeProdotto}}, \textbf{\uline{nomeIngrediente}})
+    \end{tcolorbox}
+    
+    \noindent
+    La relazione \textit{Composizione}, risultante dalla normalizzazione della relazione molti-a-molti tra \textit{Prodotto} e \textit{Ingrediente}, utilizza come chiave primaria la combinazione degli attributi \textit{nomeProdotto} e \textit{nomeIngrediente}, entrambi chiavi esterne verso le rispettive relazioni.
+    
+    \vspace{8pt}
+    \noindent
+    Poiché non sono presenti attributi non primi, la relazione soddisfa il requisito al punto \textit{1} ed è automaticamente conforme alla \textbf{3NF}. Inoltre, tutte le dipendenze funzionali hanno come determinante una superchiave (ovvero la chiave primaria), soddisfacendo così anche il requisito al punto \textit{2a}. Non essendo presenti dipendenze transitive, la relazione è da considerarsi anche in \textbf{BCNF}.\\
+    Risulta quindi un'unica dipendenza funzionale banale, sempre vera per definizione:
+    \begin{itemize}[leftmargin=1em, label=$\circ$]
+        \item (nomeProdotto, nomeIngrediente) $\rightarrow$ nomeProdotto, nomeIngrediente
+    \end{itemize}
+
+
+    \subsubsection*{Tabella Ingrediente}
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Ingrediente}(\textbf{\uline{nome}}, allergeni, quantità)
+    \end{tcolorbox}
+    
+    \noindent
+    La relazione \textit{Ingrediente} soddisfa i requisiti ai punti \textit{1} e \textit{2a}, quindi è in \textbf{3NF} e, non avendo dipendenze transitive come quelle riportate al punto \textit{2b}, è anche in \textbf{BCNF}.\\
+    Di seguito vengono riportate le dipendenze funzionali della relazione \textit{Ingrediente}:
+    \begin{itemize}[leftmargin=1em, label=$\circ$]
+        \item nome $\rightarrow$ allergeni
+        \item nome $\rightarrow$ quantità
+    \end{itemize}
+
+
+    \subsubsection*{Tabella Operatore}
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Operatore}(\textbf{\uline{CodiceID}}, email, password, nome, cognome, ruolo)
+    \end{tcolorbox}
+
+    \noindent
+    La relazione \textit{Operatore} presenta due chiavi candidate: \textit{CodiceID} (utilizzata come chiave primaria) ed \textit{email}, entrambe in grado di identificare univocamente ciascun operatore. Di conseguenza, tutte le dipendenze funzionali della relazione possono essere espresse sia in funzione di \textit{CodiceID} sia di \textit{email}, essendo entrambe superchiavi minimali.
+
+    \vspace{8pt}
+    \noindent
+    Poiché ogni attributo non primo dipende funzionalmente da una chiave candidata, e tali dipendenze non violano i vincoli previsti dalla Terza Forma Normale, la relazione \textit{Operatore} soddisfa i requisiti ai punti \textit{1} e \textit{2a}, quindi è in \textbf{3NF} e, non avendo dipendenze transitive come quelle riportate al punto \textit{2b}, è anche in \textbf{BCNF}.\\
+    Di seguito vengono riportate le dipendenze funzionali espresse rispetto alla chiave primaria \textit{CodiceID}:
+    \begin{itemize}[leftmargin=1em, label=$\circ$]
+        \item CodiceID $\rightarrow$ email
+        \item CodiceID $\rightarrow$ password
+        \item CodiceID $\rightarrow$ nome
+        \item CodiceID $\rightarrow$ cognome
+        \item CodiceID $\rightarrow$ ruolo
+    \end{itemize}
+    
+
+
+    \subsubsection*{Tabella Rifornimento}
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Rifornimento}(\textbf{\uline{CodiceID}}, \textbf{\uline{ingrediente}}, quantità, data, ora, consegnato, OperatoreID, \\FornitoreID)
+    \end{tcolorbox}
+    
+    \noindent
+    La relazione \textit{Rifornimeto} soddisfa i requisiti ai punti \textit{1} e \textit{2a}, quindi è in \textbf{3NF} e, non avendo dipendenze transitive come quelle riportate al punto \textit{2b}, è anche in \textbf{BCNF}.\\
+    Di seguito vengono riportate le dipendenze funzionali della relazione \textit{Rifornimento}:
+    \begin{itemize}[leftmargin=1em, label=$\circ$]
+        \item (CodiceID, ingrediente) $\rightarrow$ quantità
+        \item (CodiceID, ingrediente) $\rightarrow$ data
+        \item (CodiceID, ingrediente) $\rightarrow$ ora
+        \item (CodiceID, ingrediente) $\rightarrow$ consegnato
+        \item (CodiceID, ingrediente) $\rightarrow$ OperatoreID
+        \item (CodiceID, ingrediente) $\rightarrow$ FornitoreID
+    \end{itemize}
+
+
+    \subsubsection*{Tabella Fornitore}
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Fornitore}(\textbf{\uline{CodiceID}}, nomeTitolare, nomeAzienda, email, password) 
+    \end{tcolorbox}
+    
+    \noindent
+    La relazione \textit{Fornitore}, nel contesto della base dati in esame, presenta tre chiavi candidate: \textit{CodiceID} (utilizzata come chiave primaria), \textit{email} e \textit{nomeAzienda} (se si cipotiza che non esistano aziende con lo stesso nome) tutte e tre in grado di identificare univocamente ciascun fornitore. Di conseguenza, tutte le dipendenze funzionali della relazione possono essere espresse sia in funzione di \textit{CodiceID} sia di \textit{email} che di \textit{nomeAzienda}, essendo tutte superchiavi minimali.
+
+    \vspace{8pt}
+    \noindent
+    Poiché ogni attributo non primo dipende funzionalmente da una chiave candidata, e tali dipendenze non violano i vincoli previsti dalla Terza Forma Normale, la relazione \textit{Fornitore} soddisfa i requisiti ai punti \textit{1} e \textit{2a}, quindi è in \textbf{3NF} e, non avendo dipendenze transitive come quelle riportate al punto \textit{2b}, è anche in \textbf{BCNF}.
+    \begin{itemize}[leftmargin=1em, label=$\circ$]
+        \item CodiceID $\rightarrow$ nomeTitolare
+        \item CodiceID $\rightarrow$ nomeAzienda
+        \item CodiceID $\rightarrow$ email
+        \item CodiceID $\rightarrow$ password
+    \end{itemize}
+    
 
     \newpage
     \section{Conclusioni}
