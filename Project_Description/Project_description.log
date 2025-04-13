@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex 2025.4.5)  13 APR 2025 15:46
+This is pdfTeX, Version 3.141592653-2.6-1.40.27 (MiKTeX 25.3) (preloaded format=pdflatex 2025.4.5)  13 APR 2025 15:48
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -883,30 +883,30 @@ Underfull \hbox (badness 10000) in paragraph at lines 153--154
 
 
 [3]
-Overfull \hbox (24.53648pt too wide) in paragraph at lines 188--189
+Overfull \hbox (24.53648pt too wide) in paragraph at lines 189--190
 []\T1/bch/m/n/12 (-20) Conferma della con-segna di un ri-forn-i-mento da parte di un for-n-i-tore (im-plica l'aggiornamento
  []
 
 
 
 [4]
-<figures/Conceptual_model.pdf, id=228, 814.54312pt x 413.29407pt>
+<figures/Conceptual_model.pdf, id=229, 814.54312pt x 413.29407pt>
 File: figures/Conceptual_model.pdf Graphic file (type pdf)
 <use figures/Conceptual_model.pdf>
-Package pdftex.def Info: figures/Conceptual_model.pdf  used on input line 212.
+Package pdftex.def Info: figures/Conceptual_model.pdf  used on input line 213.
 (pdftex.def)             Requested size: 483.69687pt x 245.42427pt.
 
 
 [5 <./figures/Conceptual_model.pdf>]
 
 [6]
-<figures/Conceptual_model_2.pdf, id=253, 843.15pt x 353.82187pt>
+<figures/Conceptual_model_2.pdf, id=254, 843.15pt x 353.82187pt>
 File: figures/Conceptual_model_2.pdf Graphic file (type pdf)
 <use figures/Conceptual_model_2.pdf>
-Package pdftex.def Info: figures/Conceptual_model_2.pdf  used on input line 263.
+Package pdftex.def Info: figures/Conceptual_model_2.pdf  used on input line 264.
 (pdftex.def)             Requested size: 483.69687pt x 202.98169pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 256--267
+Underfull \hbox (badness 10000) in paragraph at lines 257--268
 
  []
 
@@ -915,26 +915,26 @@ Underfull \hbox (badness 10000) in paragraph at lines 256--267
 [7 <./figures/Conceptual_model_2.pdf>]
 
 [8]
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 364--377
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 365--378
  [][] 
  []
 
 
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 382--395
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 383--396
  [][] 
  []
 
 
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 404--415
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 405--416
  [][] 
  []
 
 
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 420--429
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 421--430
  [][] 
  []
 
-LaTeX Font Info:    Trying to load font information for U+fontawesomethree on input line 442.
+LaTeX Font Info:    Trying to load font information for U+fontawesomethree on input line 443.
 (C:\Users\Monica\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome\ufontawesomethree.fd
 File: ufontawesomethree.fd 2016/05/22 Font definitions for U/fontawesomethree.
 )
@@ -942,20 +942,20 @@ File: ufontawesomethree.fd 2016/05/22 Font definitions for U/fontawesomethree.
 [9{C:/Users/Monica/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/fontawesome/fontawesomethree.enc}]
 
 [10]
-<figures/g132.pdf, id=285, 13.04875pt x 13.04875pt>
+<figures/g132.pdf, id=286, 13.04875pt x 13.04875pt>
 File: figures/g132.pdf Graphic file (type pdf)
 <use figures/g132.pdf>
-Package pdftex.def Info: figures/g132.pdf  used on input line 544.
+Package pdftex.def Info: figures/g132.pdf  used on input line 545.
 (pdftex.def)             Requested size: 11.3072pt x 11.3079pt.
-<figures/path621.pdf, id=286, 12.045pt x 13.04875pt>
+<figures/path621.pdf, id=287, 12.045pt x 13.04875pt>
 File: figures/path621.pdf Graphic file (type pdf)
 <use figures/path621.pdf>
-Package pdftex.def Info: figures/path621.pdf  used on input line 546.
+Package pdftex.def Info: figures/path621.pdf  used on input line 547.
 (pdftex.def)             Requested size: 11.3072pt x 12.24948pt.
-<figures/Relational_model.pdf, id=287, 1836.8625pt x 870.25125pt>
+<figures/Relational_model.pdf, id=288, 1836.8625pt x 870.25125pt>
 File: figures/Relational_model.pdf Graphic file (type pdf)
 <use figures/Relational_model.pdf>
-Package pdftex.def Info: figures/Relational_model.pdf  used on input line 553.
+Package pdftex.def Info: figures/Relational_model.pdf  used on input line 554.
 (pdftex.def)             Requested size: 483.69687pt x 229.1548pt.
 
 
@@ -976,17 +976,17 @@ Package rerunfilecheck Info: File `Project_description.out' has not changed.
 (rerunfilecheck)             Checksum: 7CB90B60A705104ADE42388F1D5DF35E;5105.
  ) 
 Here is how much of TeX's memory you used:
- 33662 strings out of 473523
- 662573 string characters out of 5714147
+ 33663 strings out of 473523
+ 662580 string characters out of 5714147
  1099389 words of memory out of 5000000
  56037 multiletter control sequences out of 15000+600000
  605680 words of font info for 218 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  98i,14n,105p,1078b,607s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/Monica/AppData/Local/Programs/MiKTeX/fonts/type1/public/fontawesome/FontAwesome.pfb><C:/Users/Monica/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchb8a.pfb><C:/Users/Monica/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/Monica/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/Monica/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb>
-Output written on Project_description.pdf (13 pages, 609937 bytes).
+Output written on Project_description.pdf (13 pages, 610063 bytes).
 PDF statistics:
- 1284 PDF objects out of 1440 (max. 8388607)
- 77 named destinations out of 1000 (max. 500000)
+ 1285 PDF objects out of 1440 (max. 8388607)
+ 78 named destinations out of 1000 (max. 500000)
  32659 words of extra memory for PDF output out of 35830 (max. 10000000)
 
