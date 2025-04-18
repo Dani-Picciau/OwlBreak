@@ -1,6 +1,6 @@
-PWD c:\Users\dany2\OneDrive\Desktop\Documenti\GitHub\OwlBreak\Project_Description
+PWD c:\xampp\htdocs\OwlBreak\Project_Description
 INPUT C:\Users\dany2\AppData\Local\MiKTeX\miktex\data\le\pdftex\pdflatex.fmt
-INPUT c:\Users\dany2\OneDrive\Desktop\Documenti\GitHub\OwlBreak\Project_Description\Project_description.tex
+INPUT c:\xampp\htdocs\OwlBreak\Project_Description\Project_description.tex
 OUTPUT Project_description.log
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls
 INPUT C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex\latex\base\article.cls

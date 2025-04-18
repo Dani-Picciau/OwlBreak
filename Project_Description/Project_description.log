@@ -1,10 +1,10 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  18 APR 2025 18:37
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  18 APR 2025 21:13
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
  %&-line parsing enabled.
-**c:/Users/dany2/OneDrive/Desktop/Documenti/GitHub/OwlBreak/Project_Description/Project_description.tex
-(c:/Users/dany2/OneDrive/Desktop/Documenti/GitHub/OwlBreak/Project_Description/Project_description.tex
+**c:/xampp/htdocs/OwlBreak/Project_Description/Project_description.tex
+(c:/xampp/htdocs/OwlBreak/Project_Description/Project_description.tex
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
 (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/base\article.cls
@@ -952,12 +952,12 @@ Package rerunfilecheck Info: File `Project_description.out' has not changed.
  ) 
 Here is how much of TeX's memory you used:
  33775 strings out of 474486
- 664104 string characters out of 5743756
+ 663774 string characters out of 5743756
  1949542 words of memory out of 5000000
  55172 multiletter control sequences out of 15000+600000
  606374 words of font info for 228 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 93i,14n,99p,1094b,607s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 93i,14n,99p,1061b,607s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/fontawesome/FontAwesome.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchb8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
 Output written on Project_description.pdf (16 pages, 755309 bytes).
 PDF statistics:
