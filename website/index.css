@@ -1,0 +1,209 @@
+:root {
+    --loader-text-color: black;
+    --loader-dot-color: #A51FF6;
+    --loader-bg: white;
+    --gray-base: #151618;
+    --gray-tint-10: #2c2d2f;
+    --gray-tint-20: #444546;
+    --gray-tint-40: #737374;
+    --accent-base: #2FA2BD;
+    --accent-tint-90: #EAF6F8;
+    
+    --gradient-color1: rgba(47, 162, 189, 0.15); /* Azzurro trasparente */
+    --gradient-color2: rgba(165, 31, 246, 0.12); /* Viola trasparente */
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background: var(--loader-bg);
+    min-height: 100vh;
+    margin: 0;
+    font-family: 'Poppins', sans-serif;
+    position: relative;
+    overflow-x: hidden;
+
+    background: linear-gradient(135deg, 
+                rgba(47, 162, 189, 0.4) 0%, 
+                rgba(255, 255, 255, 0.8) 45%, 
+                rgba(255, 255, 255, 0.9) 55%, 
+                rgba(165, 31, 246, 0.35) 100%);
+    
+    /* Pattern sottile di puntini con gradiente più visibile */
+    background-image: 
+        linear-gradient(135deg, 
+                rgba(47, 162, 189, 0.4) 0%, 
+                rgba(255, 255, 255, 0.8) 45%, 
+                rgba(255, 255, 255, 0.9) 55%, 
+                rgba(165, 31, 246, 0.35) 100%),
+        radial-gradient(rgba(0, 0, 0, 0.05) 1px, transparent 1px);
+    background-size: 100% 100%, 20px 20px;
+}
+
+.logo-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding: 1rem;
+}
+
+.logo-container img{
+    max-width: 19rem;
+}
+
+.loader-container {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    padding-left: 1rem;
+    padding-right:1rem;
+}
+
+svg {
+    width: 100%;
+    max-width: 30rem;
+    height: auto;
+}
+
+svg text {
+    font-size: 5em;
+    stroke-width: 2;
+}
+
+svg text.text-body {
+    stroke: var(--loader-text-color);
+    animation: 6s infinite alternate animate-stroke;
+}
+
+
+h2 {
+    margin: 0;
+    font-weight: 200;
+    color: var(--gray-tint-20, #555);
+    font-family: 'Plus Jakarta Sans', sans-serif;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-bottom: 2rem;
+}
+
+
+@keyframes animate-stroke {
+    0% {
+        fill: transparent;
+        stroke: var(--loader-text-color);
+        stroke-width: 3;
+        stroke-dashoffset: 25%;
+        stroke-dasharray: 0 32%;
+    }
+    50% {
+        fill: transparent;
+        stroke: var(--loader-text-color);
+        stroke-width: 3;
+    }
+    80%, 100% {
+        fill: var(--loader-text-color);
+        stroke: transparent;
+        stroke-width: 0;
+        stroke-dashoffset: -25%;
+        stroke-dasharray: 32% 0;
+    }
+}
+
+@media (max-width: 425px) {
+    .logo-container img {
+        max-width: 15rem;
+    }
+    h2{
+        font-size: 1.1rem;
+    }
+}
+
+.container {
+    padding: 2rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 25rem;
+    background-color: rgba(255, 255, 255, 0.8); /* Leggero sfondo bianco trasparente */
+    border-radius: 16px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
+}
+
+form {
+    width: 100%;
+}
+
+form > div {
+    position: relative;
+    margin-bottom: 2rem;
+}
+
+label {
+    color: var(--gray-tint-40);
+    position: absolute;
+    left: 0;
+    top: .25rem;
+    transition: all .3s;
+    cursor: pointer;
+}
+
+input {
+    border: none;
+    border-bottom: 1px solid var(--gray-tint-40);
+    height: 2.25rem;
+    width: 100%;
+    outline: none;
+    transition: border-color .3s ease;
+    background-color: transparent;
+}
+
+input:focus {
+    border-color: var(--gray-base);
+}
+
+input:focus + label,
+input:valid + label {
+    transform: translateY(-1.25rem);
+    font-size: .8125rem;
+    color: var(--gray-base);
+}
+
+a {
+    color: var(--accent-base);
+    transition: color .3s ease-in-out;
+}
+
+a:hover {
+    color: var(--gray-base);
+}
+
+#forgot-pwd {
+    display: block;
+    margin-bottom: 4rem;
+}
+
+.button {
+    width: 100%;
+    background-color: var(--gray-base);
+    appearance: none;
+    border: none;
+    padding: 1rem 2rem;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 100px;
+    font-weight: bold;
+    transition: background-color .3s, transform .2s;
+}
+
+.button:hover {
+    background-color: var(--gray-tint-10);
+}
+
+.button:active {
+    transform: translate3d(3px, 3px, 0);
+}

@@ -43,18 +43,18 @@ INSERT INTO Cliente VALUES
 ('l.ghiani@boscogrigio.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji', 'Luca', 'Ghiani', 'Segreteria centrale', 'Personale-Segreteria');
 
 INSERT INTO Operatore VALUES
-('001','cristina.ricci@dominio.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji', 'Cristina', 'Ricci', 'Titolare'), 
-('002','mich.cau@dominio.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji', 'Michela', 'Cau', 'Addetto-Consegne'),
-('003','marco.ferrari@dominio.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji', 'Marco', 'Ferrari', 'Addetto-Vendite'),
-('004','mariag.romano@dominio.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji', 'Maria Grazia', 'Romano', 'Addetto-Vendite'),
-('005','ele.serra91@dominio.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji', 'Elena', 'Serra', 'Addetto-consegne');
+(1,'c.ricci@owlbreak.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji', 'Cristina', 'Ricci', 'Titolare'), 
+(2,'m.cau@owlbreak.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji', 'Michela', 'Cau', 'Addetto-Consegne'),
+(3,'m.ferrari@owlbreak.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji', 'Marco', 'Ferrari', 'Addetto-Vendite'),
+(4,'m.romano@owlbreak.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji', 'Maria Grazia', 'Romano', 'Addetto-Vendite'),
+(5,'e.serra@owlbreak.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji', 'Elena', 'Serra', 'Addetto-Consegne');
 
-INSERT INTO Fornitori VALUES
-('100', 'Giovanni Deiana', 'Forno San Marco','info.consegne@fornosanmarco.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji'),
-('101', 'Antonella Piras', 'Salumi&Sapori','salumi.sapori@gmail.com', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji'),
-('102', 'Raffaella Conti', 'La Delizia S.r.l.','info@ladelizia.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji'),
-('103', 'Domenico Ferri', 'SnackItalia S.r.l.','info_consegne@snackitalia.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji'),
-('104', 'Mariangela Lai', 'Brio Distribuzioni','consegne.bevande@briodistribuzioni.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji');
+INSERT INTO Fornitore VALUES
+(100, 'Giovanni Deiana', 'Forno San Marco','info.consegne@fornosanmarco.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji'),
+(101, 'Antonella Piras', 'Salumi&Sapori','salumi.sapori@gmail.com', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji'),
+(102, 'Raffaella Conti', 'La Delizia S.r.l.','info@ladelizia.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji'),
+(103, 'Domenico Ferri', 'SnackItalia S.r.l.','info_consegne@snackitalia.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji'),
+(104, 'Mariangela Lai', 'Brio Distribuzioni','consegne.bevande@briodistribuzioni.it', '$2y$10$V6/oqwDQRhKdFrpnm5AFBOAvVJosV67VCAWHkxTkNOQX8BWK6AEji');
 
 INSERT INTO Ingrediente VALUES
 ('Acqua naturale', '', 1500),
@@ -117,7 +117,7 @@ INSERT INTO Ingrediente VALUES
 ('Big Bubbles', '', 50),
 ('Chupachups assortiti', '', 50);
 
-INSERT INTO prodotti VALUES
+INSERT INTO Prodotto VALUES
 ('Acqua naturale', 0.50, TRUE),
 ('Acqua gasata', 0.60, TRUE),
 ('Coca Cola', 1.50, TRUE),
@@ -147,14 +147,14 @@ INSERT INTO prodotti VALUES
 ('Salsa senape', 0.20, TRUE),
 ('Salsa maionese', 0.20, TRUE),
 ('Salsa rosa', 0.20, TRUE),
-('Salsa katechup', 0.20, TRUE),
+('Salsa ketchup', 0.20, TRUE),
 
 ('Muffin al cioccolato', 1.50, TRUE),
 ('Muffin con gocce di cioccolato', 1.50, TRUE),
 ('Muffin classico', 1.30, TRUE),
 ('Pizzetta sfoglia cagliaritana', 1.80, TRUE),
 ('Crostata alle mele', 1.80, TRUE),
-('Crostata alla nutella', 2.00, TRUE),
+('Crostata alla Nutella', 2.00, TRUE),
 ('Torta allo yogurt', 2.00, TRUE),
 ('Torta di mele', 2.00, TRUE),
 ('Torta al cioccolato', 2.00, TRUE),
@@ -181,7 +181,7 @@ INSERT INTO prodotti VALUES
 ('Big Bubbles', 0.70, TRUE),
 ('Chupachups assortiti', 0.50, TRUE);
 
-INSERT INTO Composizone VALUES
+INSERT INTO Composizione VALUES
 ('Acqua naturale', 'Acqua naturale'),
 ('Acqua gasata', 'Acqua gasata'),
 ('Coca Cola', 'Coca Cola'),
@@ -194,7 +194,7 @@ INSERT INTO Composizone VALUES
 ('Succo ACE', 'Succo ACE'),
 ('Spremuta d\'arancia', 'Arance'),
 ('The caldo', 'Foglie di the'),
-('The caldo', 'Acqua naturale')
+('The caldo', 'Acqua naturale'),
 ('Caffè espresso', 'Caffè macinato'),
 ('Caffè macchiato', 'Caffè macinato'),
 ('Caffè macchiato', 'Latte intero'),
@@ -230,14 +230,14 @@ INSERT INTO Composizone VALUES
 ('Salsa senape', 'Senape'),
 ('Salsa maionese', 'Maionese'),
 ('Salsa rosa', 'Salsa rosa'),
-('Salsa katechup', 'Katechup'),
+('Salsa ketchup', 'Ketchup'),
 
 ('Muffin al cioccolato', 'Muffin al cioccolato'),
 ('Muffin con gocce di cioccolato', 'Muffin con gocce di cioccolato'),
 ('Muffin classico', 'Muffin classico'),
 ('Pizzetta sfoglia cagliaritana', 'Pizzetta sfoglia cagliaritana'),
 ('Crostata alle mele', 'Crostata alle mele'),
-('Crostata alla nutella', 'Crostata alla nutella'),
+('Crostata alla Nutella', 'Crostata alla Nutella'),
 ('Torta allo yogurt', 'Torta allo yogurt'),
 ('Torta di mele', 'Torta di mele'),
 ('Torta al cioccolato', 'Torta al cioccolato'),
