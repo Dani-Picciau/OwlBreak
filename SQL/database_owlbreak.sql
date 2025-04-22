@@ -30,7 +30,13 @@ CREATE TABLE operatore (
     passw VARCHAR(255) NOT NULL,
     nome VARCHAR(50) NOT NULL,
     cognome VARCHAR(50) NOT NULL,
-    ruolo VARCHAR(30) NOT NULL
+    ruolo VARCHAR(30) NOT NULL CHECK (
+        ruolo IN (
+            'Titolare',
+            'Addetto-Consegne',
+            'Addetto-vendite'
+        )
+    )
 );
 
 CREATE TABLE ordine (
