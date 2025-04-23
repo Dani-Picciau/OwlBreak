@@ -7,7 +7,7 @@
 
         <!-- Normalize CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize@2.0.0/modern-normalize.min.css" />
-        <link rel="stylesheet" href="../login_files/index.css" />
+        <link rel="stylesheet" href="index.css" />
 
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -95,6 +95,7 @@
                                                     //Store the user info in the session:
                                                     $_SESSION['email'] = $row['email']; 
                                                     $_SESSION['nome'] = $row['nome']; 
+                                                    $_SESSION['cognome'] = $row['cognome']; 
                                                     $_SESSION['luogoConsegna'] = $row['luogoConsegna']; 
                                                     //Redirect the user
                                                     redirect_users($row['tipoCliente']);
@@ -107,6 +108,7 @@
                                                     //Store the user info in the session:
                                                     $_SESSION['email'] = $row['email']; 
                                                     $_SESSION['nome'] = $row['nome']; 
+                                                    $_SESSION['cognome'] = $row['cognome']; 
                                                     $_SESSION['ruolo'] = $row['ruolo'];
                                                     //Redirect the user
                                                     redirect_users($row['ruolo']);
