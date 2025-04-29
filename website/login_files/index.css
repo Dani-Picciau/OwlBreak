@@ -20,7 +20,7 @@ body {
     justify-content: center;
     background: var(--loader-bg);
     min-height: 100vh;
-    margin: 0;
+    margin-top: 0;
     font-family: 'Poppins', sans-serif;
     position: relative;
     overflow-x: hidden;
@@ -46,11 +46,10 @@ body {
     width: 100%;
     display: flex;
     justify-content: center;
-    padding: 1rem;
 }
 
 .logo-container img{
-    max-width: 19rem;
+    max-width: 16.5rem;
 }
 
 .loader-container {
@@ -63,7 +62,7 @@ body {
 
 svg {
     width: 100%;
-    max-width: 30rem;
+    max-width: 28rem;
     height: auto;
 }
 
@@ -74,7 +73,7 @@ svg text {
 
 svg text.text-body {
     stroke: var(--loader-text-color);
-    animation: 6s infinite alternate animate-stroke;
+    animation: 5s infinite alternate animate-stroke;
 }
 
 
@@ -84,8 +83,8 @@ h2 {
     color: var(--gray-tint-20, #555);
     font-family: 'Plus Jakarta Sans', sans-serif;
     text-align: center;
-    font-size: 1.5rem;
-    margin-bottom: 2rem;
+    font-size: 1.6rem;
+    margin-bottom: 0.5rem;
 }
 
 
@@ -111,22 +110,14 @@ h2 {
     }
 }
 
-@media (max-width: 425px) {
-    .logo-container img {
-        max-width: 15rem;
-    }
-    h2{
-        font-size: 1.1rem;
-    }
-}
-
 .container {
-    padding: 2rem;
+    padding: 2rem 2rem 1.5rem 2rem;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    max-width: 25rem;
+    width: 100%;
+    max-width: 19.5rem;
     background-color: rgba(255, 255, 255, 0.8); /* Leggero sfondo bianco trasparente */
     border-radius: 16px;
     backdrop-filter: blur(5px);
@@ -183,7 +174,7 @@ a:hover {
 
 #forgot-pwd {
     display: block;
-    margin-bottom: 4rem;
+    margin-bottom: 3rem;
 }
 
 p.error-message {
@@ -215,4 +206,10 @@ p.error-message {
 
 .button:active {
     transform: translate3d(3px, 3px, 0);
+}
+
+@media (max-width: 425px) {
+    .logo-container img {
+        max-width: 15rem;
+    }
 }

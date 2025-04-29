@@ -7,7 +7,7 @@
 
         <!-- Normalize CSS -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/modern-normalize@2.0.0/modern-normalize.min.css" />
-        <link rel="stylesheet" href="index.css" />
+        <link rel="stylesheet" href="index.css?v=<?=time()?>" />
 
         <!-- Google Fonts -->
         <link rel="preconnect" href="https://fonts.googleapis.com" />
