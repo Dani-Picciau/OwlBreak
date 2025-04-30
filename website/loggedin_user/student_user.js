@@ -1,3 +1,9 @@
+//Caricamento pagina
+const PageContent = document.querySelector('#page-content');
+window.addEventListener('load', () => {
+  PageContent.classList.add('visible');
+})
+
 document.addEventListener("click", function () {
     const categories = document.querySelectorAll(".menu-category");
 
@@ -12,10 +18,10 @@ document.addEventListener("click", function () {
 });
 
 window.addEventListener('scroll', function() {
-    const backToTop = document.getElementById('back-to-top');
-    if (window.scrollY > 300) {
-      backToTop.style.opacity = '1';
-    } else {
-      backToTop.style.opacity = '0';
-    }
-  });
+  const backToTop = document.getElementById('back-to-top');
+  if (window.scrollY > 300) {
+    backToTop.style.opacity = '1';
+  } else {
+    backToTop.style.opacity = '0';
+  }
+});

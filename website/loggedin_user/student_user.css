@@ -27,6 +27,17 @@ body {
     min-height: 100vh;
 }
 
+#page-content{
+    opacity:0;
+    transform: translate3d(0, -3rem, 0);
+    transition: opacity .6s ease-in-out, transform .6s ease-in-out;
+}
+
+#page-content.visible {
+    opacity:10;
+	transform: translate3d(0, 0, 0);
+}
+
 header {
     width: 100%;
     height: 40vh; /* Usa vh (viewport height) invece di % */
@@ -53,10 +64,16 @@ nav .nav-info{
     align-items: center;
 }
 
-nav div .site-name{
+nav .nav-info .site-info{
     display:flex;
     flex-direction: row;
     align-items: center;
+}
+
+@media (max-width: 550px) {
+    nav .nav-info .site-info h3{
+        display:none;
+    }
 }
 
 .logo {
@@ -64,8 +81,6 @@ nav div .site-name{
     height: 50px;
     margin-right: 0.5rem;
 }
-
-
 
 nav .account{
     display: flex;
@@ -365,12 +380,20 @@ height: 30px;
     gap: 1rem;
     padding: 0.5rem;
     cursor: pointer;
+    transition-property: background-color, color;
+}
+
+.menu-category svg{
+    transition-property: color;
 }
 
 .menu-category:hover{
     background-color:rgb(241 245 249 / 1);
-    /* color: rgb(79 70 229 / 1); */
     border-radius: .375rem;
+    color: rgb(79 70 229 / 1);
+}
+.menu-category:hover svg{
+    fill: rgb(79 70 229 / 1);
 }
 
 .menu-category.active {
@@ -383,7 +406,13 @@ height: 30px;
     fill: rgb(79 70 229 / 1);
 }
 
-.product {
+.menu-category,
+.menu-category svg{
+    transition-duration: .2s;
+    transition-timing-function: ease-in-out;
+}
+
+.product{
     flex-basis: 320px;
     height: 320px;
     border-radius: .375rem;
@@ -558,3 +587,49 @@ figure footer svg{
     transition-duration: .3s;
     transition-timing-function: ease-in-out; 
 }
+
+/*Container semi-opaco e non cliccabile */
+.product.unavailable {
+    pointer-events: none;    /* disabilita i click */
+    opacity: 0.6;            /* mantiene la card smorzata */
+    position: relative;      /* per l’etichetta */
+}
+
+/* Scala di grigi solo sull’immagine */
+.product.unavailable figure img {
+    filter: grayscale(100%);
+}
+
+/* Etichetta non filtrata */
+.product.unavailable::after {
+    content: "Non disponibile";
+    position: absolute;
+    top: 1rem;
+    left: 1rem;
+    background-color: rgb(200, 0, 0);
+    color: #fff;
+    padding: 0.25rem 0.5rem;
+    font-size: 0.875rem;
+    font-weight: 600;
+    border-radius: 0.25rem;
+    z-index: 2;
+}
+
+/* Disabilita overlay e animazioni al hover */
+.product.unavailable figure:hover figcaption::before,
+.product.unavailable figure:hover main,
+.product.unavailable figure:hover footer,
+.product.unavailable figure:hover footer svg {
+    opacity: 0;
+    transform: none;
+}
+
+/* Testo e prezzi in grigio scuro */
+.product.unavailable .product-name,
+.product.unavailable figcaption p,
+.product.unavailable figure p.small {
+    color: #666 !important;
+}
+
+
+
