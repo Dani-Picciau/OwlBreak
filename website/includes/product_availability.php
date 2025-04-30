@@ -2,30 +2,39 @@
     require('../includes/mysqli_connect.php');
     require_once('../includes/loggedin.php');
 
+    $mapped_products = require('products_mapping.php');
 
-    // 1. Fetch all products
+    //Fetch dei prodotti
     $sql = "SELECT nome, prezzo, disponibilità FROM prodotto";
     if (!$result = mysqli_query($dbc, $sql)) {
         die("DB query error: " . mysqli_error($dbc));
     }
 
-    // 2. Loop and render cards
+    // Ciclo e creo le card dei prodotti
     while ($row = mysqli_fetch_assoc($result)) {
         $nome       = htmlspecialchars($row['nome'], ENT_QUOTES);
         $prezzo     = number_format($row['prezzo'], 2, ',', '.');
         $disponibile = (bool)$row['disponibilità'];
     
+        // Decido immagine e desccrizione per il prodotto e se non trovo quest'ultimo, uso default
+        if (isset($mapped_products[$nome])) {
+            $imgFile      = $mapped_products[$nome]['img'];
+            $descrizione  = $mapped_products[$nome]['desc'];
+            $categoria    = $mapped_products[$nome]['category'];
+        } else {
+            $imgFile      = 'default.jpg';
+            $descrizione  = "Scopri il nostro prodotto: $nome.";
+            $categoria    = 'Uncategorized';
+        }
+        
         // percorso immagine di default
-        $imgPath    = "../images/product_images/coffee.jpg";
+        $imgPath    = '../images/product_images/'.$imgFile;
     
         // se non disponibile, aggiungo la classe
         $extraClass = $disponibile ? "" : " unavailable";
-    
-        // testo alternativo se vuoi una descrizione diversa
-        $descrizione = "Lascia che il $nome ti racconti storie che durano più di una giornata.";
         ?>
         
-        <div class="product<?= $extraClass ?>">
+        <div class="product<?= $extraClass ?>" data-category="<?= $categoria ?>">
             <figure>
                 <img src="<?= $imgPath ?>" alt="<?= $nome ?>">
                 <figcaption>
@@ -35,7 +44,7 @@
     
                     <footer>
                         <div>
-                            <p class="small">Cost</p>
+                            <p class="small">Costo</p>
                             <p class="price"><?= $prezzo ?>€</p>
                         </div>
     

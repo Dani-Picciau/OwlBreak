@@ -1,9 +1,10 @@
-//Caricamento pagina
+// Effetto caricamento pagina utente
 const PageContent = document.querySelector('#page-content');
 window.addEventListener('load', () => {
   PageContent.classList.add('visible');
 })
 
+// Effetto scelta categoria prodotto
 document.addEventListener("click", function () {
     const categories = document.querySelectorAll(".menu-category");
 
@@ -17,6 +18,7 @@ document.addEventListener("click", function () {
     });
 });
 
+// Scroll per tornare al top della pagina
 window.addEventListener('scroll', function() {
   const backToTop = document.getElementById('back-to-top');
   if (window.scrollY > 300) {
@@ -25,3 +27,5 @@ window.addEventListener('scroll', function() {
     backToTop.style.opacity = '0';
   }
 });
+
+// Codice per mostrare solo i prodotti appartenenti alla categoria corrispondente
