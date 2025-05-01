@@ -4,20 +4,6 @@ window.addEventListener('load', () => {
   PageContent.classList.add('visible');
 })
 
-// Effetto scelta categoria prodotto
-document.addEventListener("click", function () {
-    const categories = document.querySelectorAll(".menu-category");
-
-    categories.forEach(function (item) {
-        item.addEventListener("click", function () {
-            // Rimuovi l'effetto dagli altri
-            categories.forEach(el => el.classList.remove("active"));
-            // Applica l'effetto a quello cliccato
-            item.classList.add("active");
-        });
-    });
-});
-
 // Scroll per tornare al top della pagina
 window.addEventListener('scroll', function() {
   const backToTop = document.getElementById('back-to-top');
@@ -28,4 +14,35 @@ window.addEventListener('scroll', function() {
   }
 });
 
-// Codice per mostrare solo i prodotti appartenenti alla categoria corrispondente
+// Codice per mostrare solo i prodotti appartenenti alla propria categoria
+document.addEventListener('DOMContentLoaded', () => {
+  const menuItems = document.querySelectorAll('.menu-category');
+  const products  = document.querySelectorAll('.product');
+
+  menuItems.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const cat = btn.dataset.category;
+
+      // feedback visivo
+      menuItems.forEach(i => i.classList.remove('active'));
+      btn.classList.add('active');
+
+      // per ogni card...
+      products.forEach(p => {
+        if (cat === 'Carrello' || cat === 'Cronologia ordini') {
+          p.classList.remove('show');
+        }
+        else if (p.dataset.category === cat) {
+          p.classList.add('show');
+        } else {
+          p.classList.remove('show');
+        }
+      });
+    });
+  });
+
+   menuItems[0].click();
+});
+
+
+
