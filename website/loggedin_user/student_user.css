@@ -1,13 +1,6 @@
 :root {
-    --primary-color: #8d2a2a;
-    --secondary-color: #2a578d;
     --gradient-start: #c5e8f7;
     --gradient-end: #e9d5f0;
-    --text-dark: #777070;
-    --text-light: #666;
-    --white: #fff;
-    --card-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-    --transition: all 0.3s ease;
 }
 
 * {
@@ -412,26 +405,32 @@ height: 30px;
     transition-timing-function: ease-in-out;
 }
 
-.product{
+.product {
     flex-basis: 320px;
     height: 370px;
     border-radius: .375rem;
-    display: none;
+    display: flex;  /* Manteniamo sempre flex */
     flex-direction: column;
     overflow: hidden; /* Impedisce che l'immagine fuoriesca dal bordo arrotondato */
-    border:1px solid rgb(212, 217, 222);
-
+    border: 1px solid rgb(212, 217, 222);
+    
     opacity: 0;
     transform: translate3d(-3rem, 0, 0);
     pointer-events: none;
-    transition: opacity 0.4s ease, transform 0.4s ease;
+    visibility: hidden;  /* invece che utilizzare display: none */
+    position: absolute;  /* lo rimuovo dal flusso quando nascosto per non creare problemi a gli altri elementi visibili */
+
+    transition-property: opacity, transform;
+    transition-duration: .6s;
+    transition-timing-function: ease-in-out; 
 }
 
 .product.show {
-    display: flex;
-    opacity: 10;
+    opacity: 1;  
     transform: translate3d(0, 0, 0);
     pointer-events: auto;
+    visibility: visible;
+    position: relative;  /* ripristino l'elemento nel flusso quando è visibile */
 }
 
 #page-content{
@@ -460,7 +459,7 @@ height: 30px;
 /*css for the text in the cards product*/
 main p {
     font-size: 1.3rem;
-    font-weight: 400;
+    font-weight: 600;
     line-height: 120%; /* 2.625rem */
     margin:0;
 }

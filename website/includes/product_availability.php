@@ -12,7 +12,7 @@
 
     // Ciclo e creo le card dei prodotti
     while ($row = mysqli_fetch_assoc($result)) {
-        $nome       = htmlspecialchars($row['nome'], ENT_QUOTES);
+        $nome       = $row['nome'];
         $prezzo     = number_format($row['prezzo'], 2, ',', '.');
         $disponibile = (bool)$row['disponibilità'];
     

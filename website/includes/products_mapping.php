@@ -87,7 +87,7 @@
         ],
 
         'Spremuta d\'arancia' => [
-            'img'  => 'aranciata.jpg',
+            'img'  => 'spremuta_d\'arancia.jpg',
             'desc' => 'Solo arance, solo sole: il gusto autentico della natura.',
             'category' => 'Drinks'
         ],
@@ -99,7 +99,7 @@
         ],
 
         'Panino al prosciutto cotto con fontina' => [
-            'img'  => '',
+            'img'  => 'cotto_fontina.jpg',
             'desc' => 'Una combinazione delicata e cremosa che conquista il palato.',
             'category' => 'Sandwiches'
         ],
@@ -111,7 +111,7 @@
         ],
 
         'Panino al salame con fontina' => [
-            'img'  => '',
+            'img'  => 'salame_formaggio.jpg',
             'desc' => 'Il gusto deciso del salame incontra la morbidezza della fontina.',
             'category' => 'Sandwiches'
         ],
@@ -123,7 +123,7 @@
         ],
 
         'Panino con mortadella e fontina' => [
-            'img'  => '',
+            'img'  => 'mortadella_fontina.jpg',
             'desc' => 'Un mix armonioso di sapori che sa di merenda genuina.',
             'category' => 'Sandwiches'
         ],
@@ -135,7 +135,7 @@
         ],
 
         'Panino con prosciutto crudo e fontina' => [
-            'img'  => '',
+            'img'  => 'crudo_fontina.jpg',
             'desc' => 'L\'incontro tra eleganza e gusto in ogni morso.',
             'category' => 'Sandwiches'
         ],
