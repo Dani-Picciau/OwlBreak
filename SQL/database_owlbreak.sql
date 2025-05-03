@@ -560,6 +560,7 @@ CREATE TRIGGER aggiorna_ingredienti_ordine
 AFTER INSERT ON Ordine
 FOR EACH ROW
 BEGIN
+    -- aggiorno le quantità degli ingredienti presenti nei prodotti ordinati
     UPDATE Ingrediente
     SET quantità = quantità - NEW.quantità
     WHERE nome IN (
@@ -567,6 +568,22 @@ BEGIN
         FROM Composizione
         WHERE nomeProdotto = NEW.nomeProdotto
     );
+
+
+
+    -- se qualche ingrediente è a 0 metto a FALSE la disponibilità di un prodotto
+    UPDATE Prodotto
+    SET disponibilità = FALSE
+    WHERE nome IN (
+        SELECT DISTINCT nomeProdotto
+        FROM Composizione
+        WHERE nomeIngrediente IN (
+           SELECT nome
+           FROM Ingrediente
+           WHERE quantità=0
+        )
+    );
+
 END; $$
 DELIMITER ;
 
@@ -576,11 +593,16 @@ CREATE TRIGGER aggiorna_ingredienti_rifornimento
 AFTER UPDATE ON Rifornimento
 FOR EACH ROW
 BEGIN
+    -- aggiornamneto quantità ingredienti
     IF NEW.consegnato = 1 THEN
         UPDATE Ingrediente
         SET quantità = quantità + NEW.quantità
         WHERE nome = NEW.ingrediente;
     END IF;
+
+    -- ripristino disponibilità prodotti
+    -- ci devo ragionare bene ancora
+
 END$$
 
 DELIMITER ;
