@@ -529,3 +529,58 @@ BEGIN
 END$$
 
 DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER verifica_orario_ordine
+BEFORE INSERT ON Ordine -- non faccio anche il trigger before update perché questi campi non li aggiorna nessuno
+FOR EACH ROW
+BEGIN
+  DECLARE giorno_settimana INT;
+  SET giorno_settimana = WEEKDAY(NEW.data); -- Lunedì=0, ..., Domenica=6
+
+  -- Controllo: no domenica
+  IF giorno_settimana = 6 THEN
+    SIGNAL SQLSTATE '45000' 
+    SET MESSAGE_TEXT = 'Non si possono fare ordini la domenica';
+  END IF;
+
+  -- Controllo: fascia oraria 08:00–10:00
+  IF NEW.ora < '08:00:00' OR NEW.ora > '10:00:00' THEN
+    SIGNAL SQLSTATE '45000' 
+    SET MESSAGE_TEXT = 'Gli ordini sono consentiti solo tra le 08:00 e le 10:00';
+  END IF;
+END$$
+
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER aggiorna_ingredienti_ordine
+AFTER INSERT ON Ordine
+FOR EACH ROW
+BEGIN
+    UPDATE Ingrediente
+    SET quantità = quantità - NEW.quantità
+    WHERE nome IN (
+        SELECT nomeIngrediente
+        FROM Composizione
+        WHERE nomeProdotto = NEW.nomeProdotto
+    );
+END; $$
+DELIMITER ;
+
+DELIMITER $$
+
+CREATE TRIGGER aggiorna_ingredienti_rifornimento
+AFTER UPDATE ON Rifornimento
+FOR EACH ROW
+BEGIN
+    IF NEW.consegnato = 1 THEN
+        UPDATE Ingrediente
+        SET quantità = quantità + NEW.quantità
+        WHERE nome = NEW.ingrediente;
+    END IF;
+END$$
+
+DELIMITER ;
