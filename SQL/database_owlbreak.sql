@@ -613,3 +613,81 @@ BEGIN
 
 END$$
 DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE effettua_ordine(
+    IN p_email_cliente VARCHAR(100),
+    IN p_nome_prodotto VARCHAR(50),
+    IN p_quantita INT,
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_prodotto_disponibile BOOLEAN;
+    DECLARE v_cliente_esiste BOOLEAN;
+    DECLARE v_data_corrente DATE;
+    DECLARE v_ora_corrente TIME;
+    DECLARE v_giorno_settimana INT;
+    DECLARE v_operatore_id INT;
+    
+    -- Inizializza variabili
+    SET v_data_corrente = CURDATE();
+    SET v_ora_corrente = CURTIME();
+    SET v_giorno_settimana = DAYOFWEEK(v_data_corrente); -- 1=domenica, 2=lunedì, ..., 7=sabato
+    
+    -- Verifica se è domenica
+    IF v_giorno_settimana = 1 THEN
+        SET p_messaggio = 'Non è possibile effettuare ordini di domenica';
+        LEAVE this_procedure;
+    END IF;
+    
+    -- Verifica orario (solo dalle 8 alle 10)
+    IF (v_ora_corrente < '08:00:00' OR v_ora_corrente > '10:00:00') THEN
+        SET p_messaggio = 'Gli ordini sono accettati solo dalle 8:00 alle 10:00';
+        LEAVE this_procedure;
+    END IF;
+    
+    -- Verifica esistenza cliente
+    SELECT COUNT(*) > 0 INTO v_cliente_esiste
+    FROM cliente
+    WHERE email = p_email_cliente;
+    
+    IF NOT v_cliente_esiste THEN
+        SET p_messaggio = 'Cliente non trovato';
+        LEAVE this_procedure;
+    END IF;
+    
+    -- Verifica disponibilità prodotto
+    SELECT disponibilità INTO v_prodotto_disponibile
+    FROM prodotto
+    WHERE nome = p_nome_prodotto;
+    
+    IF NOT v_prodotto_disponibile THEN
+        SET p_messaggio = 'Prodotto non disponibile';
+        LEAVE this_procedure;
+    END IF;
+    
+    -- Verifica quantità positiva
+    IF p_quantita <= 0 THEN
+        SET p_messaggio = 'La quantità deve essere maggiore di zero';
+        LEAVE this_procedure;
+    END IF;
+    
+    -- Seleziona un operatore disponibile (esempio semplificato)
+    -- Assumo che esista una tabella Operatore con un campo CodiceID
+    SELECT CodiceID INTO v_operatore_id
+    FROM Operatore
+    ORDER BY RAND()
+    LIMIT 1;
+    -- fare una logica più sensata
+    
+    -- Inserisci ordine
+    INSERT INTO ordine (data, ora, emailCliente, nomeProdotto, consegnato, quantità, OperatoreID)
+    VALUES (v_data_corrente, v_ora_corrente, p_email_cliente, p_nome_prodotto, FALSE, p_quantita, v_operatore_id);
+    
+    SET p_messaggio = 'Ordine effettuato con successo';
+    
+END$$
+
+DELIMITER ;
