@@ -1,7 +1,4 @@
 <?php
-    require('../includes/mysqli_connect.php');
-    require_once('../includes/loggedin.php');
-
     $mapped_products = require('products_mapping.php');
 
     //Fetch dei prodotti
@@ -33,42 +30,39 @@
         // se non disponibile, aggiungo la classe
         $extraClass = $disponibile ? "" : " unavailable";
         ?>
+            <div class="product<?= $extraClass ?>" data-category="<?= $categoria ?>" data-name="<?= strtolower($nome) ?>">
+                <figure>
+                    <img src="<?= $imgPath ?>" alt="<?= $nome ?>">
+                    <figcaption>
+                        <main>
+                            <p><?= $descrizione ?></p>
+                        </main>
         
-        <div class="product<?= $extraClass ?>" data-category="<?= $categoria ?>">
-            <figure>
-                <img src="<?= $imgPath ?>" alt="<?= $nome ?>">
-                <figcaption>
-                    <main>
-                        <p><?= $descrizione ?></p>
-                    </main>
-    
-                    <footer>
-                        <div>
-                            <p class="small">Costo</p>
-                            <p class="price"><?= $prezzo ?>€</p>
-                        </div>
-    
-                        <!-- Qui puoi sostituire con un button se vuoi fare ordine -->
-                        <svg xmlns="http://www.w3.org/2000/svg"
-                             height="24px" viewBox="0 -960 960 960"
-                             width="24px" fill="#BD4C31">
-                            <path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40
-                                     200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83
-                                     31.5-156T197-763q54-54 127-85.5T480-880q83 0
-                                     156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5
-                                     156T763-197q-54 54-127 85.5T480-80Z"/>
-                        </svg>
-                    </footer>
-                </figcaption>
-            </figure>
-            <div class="product-name">
-                <?= $nome ?>
+                        <footer>
+                            <div>
+                                <p class="small">Costo</p>
+                                <p class="price"><?= $prezzo ?>€</p>
+                            </div>
+        
+                            <!-- Qui puoi sostituire con un button se vuoi fare ordine -->
+                            <svg xmlns="http://www.w3.org/2000/svg"
+                                height="24px" viewBox="0 -960 960 960"
+                                width="24px" fill="#BD4C31">
+                                <path d="M440-280h80v-160h160v-80H520v-160h-80v160H280v80h160v160Zm40
+                                        200q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83
+                                        31.5-156T197-763q54-54 127-85.5T480-880q83 0
+                                        156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5
+                                        156T763-197q-54 54-127 85.5T480-80Z"/>
+                            </svg>
+                        </footer>
+                    </figcaption>
+                </figure>
+                <div class="product-name">
+                    <?= $nome ?>
+                </div>
             </div>
-        </div>
-    
-    <?php
+        <?php
     } // end while
     
     mysqli_free_result($result);
-    mysqli_close($dbc);
-    ?>
+?>
