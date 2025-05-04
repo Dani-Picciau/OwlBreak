@@ -517,7 +517,6 @@ INSERT INTO fornitore (CodiceID, nomeTitolare, nomeAzienda, email, passw) VALUES
 
 # Impedisce la modifica ai clienti tipo="Studente" sul luogo di consegna
 DELIMITER $$
-
 CREATE TRIGGER check_luogoConsegna_modifica
 BEFORE UPDATE ON Cliente
 FOR EACH ROW
@@ -527,11 +526,10 @@ BEGIN
         SET MESSAGE_TEXT = 'Gli studenti non possono modificare il luogo di consegna.';
     END IF;
 END$$
-
 DELIMITER ;
 
-DELIMITER $$
 
+DELIMITER $$
 CREATE TRIGGER verifica_orario_ordine
 BEFORE INSERT ON Ordine -- non faccio anche il trigger before update perché questi campi non li aggiorna nessuno
 FOR EACH ROW
@@ -551,11 +549,10 @@ BEGIN
     SET MESSAGE_TEXT = 'Gli ordini sono consentiti solo tra le 08:00 e le 10:00';
   END IF;
 END$$
-
 DELIMITER ;
 
-DELIMITER $$
 
+DELIMITER $$
 CREATE TRIGGER aggiorna_ingredienti_ordine
 AFTER INSERT ON Ordine
 FOR EACH ROW
@@ -568,8 +565,6 @@ BEGIN
         FROM Composizione
         WHERE nomeProdotto = NEW.nomeProdotto
     );
-
-
 
     -- se qualche ingrediente è a 0 metto a FALSE la disponibilità di un prodotto
     UPDATE Prodotto
@@ -587,22 +582,34 @@ BEGIN
 END; $$
 DELIMITER ;
 
-DELIMITER $$
 
+DELIMITER $$
 CREATE TRIGGER aggiorna_ingredienti_rifornimento
 AFTER UPDATE ON Rifornimento
 FOR EACH ROW
 BEGIN
-    -- aggiornamneto quantità ingredienti
-    IF NEW.consegnato = 1 THEN
+    
+    IF OLD.consegnato = 0 AND NEW.consegnato = 1 THEN
+
+        -- aggiornamento quantità ingredienti
         UPDATE Ingrediente
         SET quantità = quantità + NEW.quantità
         WHERE nome = NEW.ingrediente;
+
+        -- ripristino disponibilità prodotti
+        UPDATE Prodotto
+        SET disponibilità = TRUE
+        WHERE disponibilità = FALSE AND nome NOT IN (
+            SELECT DISTINCT nomeProdotto
+            FROM Composizione
+            WHERE nomeIngrediente IN (
+                SELECT nome
+                FROM Ingrediente
+                WHERE quantità = 0
+            )
+        );
+
     END IF;
 
-    -- ripristino disponibilità prodotti
-    -- ci devo ragionare bene ancora
-
 END$$
-
 DELIMITER ;
