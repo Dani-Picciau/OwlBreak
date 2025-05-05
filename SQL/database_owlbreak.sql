@@ -822,7 +822,9 @@ BEGIN
     DECLARE v_ruoloOperatore VARCHAR(30);
     
     -- Verifica che il nuovo operatore sia un addetto alle consegne
-    SELECT ruolo INTO v_ruoloOperatore FROM operatore WHERE CodiceID = p_nuovoOperatoreID;
+    SELECT ruolo INTO v_ruoloOperatore 
+    FROM operatore 
+    WHERE CodiceID = p_nuovoOperatoreID;
     
     IF v_ruoloOperatore != 'Addetto-consegne' THEN
         SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'L\'operatore selezionato non è un addetto alle consegne';
