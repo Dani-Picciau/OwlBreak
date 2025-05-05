@@ -33,7 +33,7 @@ CREATE TABLE operatore (
     ruolo VARCHAR(30) NOT NULL CHECK (
         ruolo IN (
             'Titolare',
-            'Addetto-Consegne',
+            'Addetto-consegne',
             'Addetto-vendite'
         )
     )
@@ -87,6 +87,13 @@ CREATE TABLE rifornimento (
     PRIMARY KEY (CodiceID, ingrediente),
     FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID),
     FOREIGN KEY (FornitoreID) REFERENCES Fornitore(CodiceID)
+);
+
+CREATE TABLE consegne (
+    luogoConsegna VARCHAR(100) PRIMARY KEY,
+    OperatoreID INT,
+    FOREIGN KEY (luogoConsegna) REFERENCES Cliente(luogoConsegna),
+    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID)
 );
 
 #passw: "Pluto_paperino12" per tutti i clienti, gli operatori e i fornitori
@@ -205,38 +212,38 @@ INSERT INTO operatore (CodiceID, email, passw, nome, cognome, ruolo) VALUES
 (4,'m.romano@owlbreak.it', '$2y$10$1FedTJ/UGefggQVyb17UkeFB8Typof3OFkpLlOXqOVMyHsV1ZnXya', 'Maria Grazia', 'Romano', 'Addetto-Vendite'),
 (5,'e.serra@owlbreak.it', '$2y$10$kgoUKF.d1MEjWKVyEngRjuDZ6f3cbVrdeHy7gy24SuQsazGKGQPSG', 'Elena', 'Serra', 'Addetto-Consegne');
 
-INSERT INTO Ordine(data, ora, emailCliente, nomeProdotto, consegnato, quantità, OperatoreID) VALUES
-('2025-04-26', '9:54:34', 'm.rossi@studenti.boscogrigio.it', 'The freddo verde', TRUE, 1, 1),
-('2025-05-03', '9:07:38', 'm.rossi@studenti.boscogrigio.it', 'Acqua naturale', TRUE, 3, 1),
-('2025-05-03', '8:20:00', 'm.rossi@studenti.boscogrigio.it', 'Cingomme AIR', FALSE, 2, 1),
+INSERT INTO ordine(data, ora, emailCliente, nomeProdotto, consegnato, quantità, OperatoreID) VALUES
+('2025-04-26', '9:54:34', 'm.rossi@studenti.boscogrigio.it', 'The freddo verde', TRUE, 1, 2),
+('2025-05-03', '9:07:38', 'm.rossi@studenti.boscogrigio.it', 'Acqua naturale', TRUE, 3, 2),
+('2025-05-03', '8:20:00', 'm.rossi@studenti.boscogrigio.it', 'Cingomme AIR', FALSE, 2, 2),
 
-('2025-05-03', '9:09:45', 'e.verdi@studenti.boscogrigio.it', 'Crostata alla Nutella', FALSE, 1, 1),
-('2025-04-26', '9:06:03', 'e.verdi@studenti.boscogrigio.it', 'The caldo', TRUE, 1, 3),
-('2025-04-26', '8:36:54', 'e.verdi@studenti.boscogrigio.it', 'Torta di mele', TRUE, 3, 4),
+('2025-05-03', '9:09:45', 'e.verdi@studenti.boscogrigio.it', 'Crostata alla Nutella', FALSE, 1, 5),
+('2025-04-26', '9:06:03', 'e.verdi@studenti.boscogrigio.it', 'The caldo', TRUE, 1, 5),
+('2025-04-26', '8:36:54', 'e.verdi@studenti.boscogrigio.it', 'Torta di mele', TRUE, 3, 5),
 
-('2025-04-26', '8:42:32', 'a.neri@studenti.boscogrigio.it', 'Cornetto alla marmellata', TRUE, 1, 1),
-('2025-05-03', '9:32:57', 'a.neri@studenti.boscogrigio.it', 'Fanta', FALSE, 1, 4),
-('2025-05-03', '8:53:35', 'a.neri@studenti.boscogrigio.it', 'Panino con prosciutto crudo', FALSE, 2, 4),
+('2025-04-26', '8:42:32', 'a.neri@studenti.boscogrigio.it', 'Cornetto alla marmellata', TRUE, 1, 2),
+('2025-05-03', '9:32:57', 'a.neri@studenti.boscogrigio.it', 'Fanta', FALSE, 1, 5),
+('2025-05-03', '8:53:35', 'a.neri@studenti.boscogrigio.it', 'Panino con prosciutto crudo', FALSE, 2, 5),
 
-('2025-05-03', '9:07:49', 'f.rossi@studenti.boscogrigio.it', 'Panino al prosciutto cotto con fontina', TRUE, 3, 3),
-('2025-04-26', '8:44:52', 'f.rossi@studenti.boscogrigio.it', 'Acqua naturale', TRUE, 3, 3),
-('2025-04-26', '8:24:55', 'f.rossi@studenti.boscogrigio.it', 'Panino con prosciutto crudo', TRUE, 2, 1),
+('2025-05-03', '9:07:49', 'f.rossi@studenti.boscogrigio.it', 'Panino al prosciutto cotto con fontina', TRUE, 3, 2),
+('2025-04-26', '8:44:52', 'f.rossi@studenti.boscogrigio.it', 'Acqua naturale', TRUE, 3, 5),
+('2025-04-26', '8:24:55', 'f.rossi@studenti.boscogrigio.it', 'Panino con prosciutto crudo', TRUE, 2, 5),
 
-('2025-04-26', '8:50:06', 'l.bianchi@studenti.boscogrigio.it', 'The freddo pesca', TRUE, 1, 3),
-('2025-04-26', '8:54:36', 'l.bianchi@studenti.boscogrigio.it', 'The freddo limone', TRUE, 3, 4),
-('2025-04-26', '9:11:27', 'l.bianchi@studenti.boscogrigio.it', 'Pringles piccanti', TRUE, 3, 1),
+('2025-04-26', '8:50:06', 'l.bianchi@studenti.boscogrigio.it', 'The freddo pesca', TRUE, 1, 2),
+('2025-04-26', '8:54:36', 'l.bianchi@studenti.boscogrigio.it', 'The freddo limone', TRUE, 3, 5),
+('2025-04-26', '9:11:27', 'l.bianchi@studenti.boscogrigio.it', 'Pringles piccanti', TRUE, 3, 5),
 
-('2025-05-03', '9:34:25', 'e.verdi1@studenti.boscogrigio.it', 'Crostata alle mele', FALSE, 3, 4),
-('2025-04-26', '9:55:49', 'e.verdi1@studenti.boscogrigio.it', 'Panino con mortadella', TRUE, 3, 4),
-('2025-05-03', '9:41:50', 'e.verdi1@studenti.boscogrigio.it', 'Panino al salame con fontina', FALSE, 2, 4),
+('2025-05-03', '9:34:25', 'e.verdi1@studenti.boscogrigio.it', 'Crostata alle mele', FALSE, 3, 5),
+('2025-04-26', '9:55:49', 'e.verdi1@studenti.boscogrigio.it', 'Panino con mortadella', TRUE, 3, 2),
+('2025-05-03', '9:41:50', 'e.verdi1@studenti.boscogrigio.it', 'Panino al salame con fontina', FALSE, 2, 2),
 
-('2025-05-03', '8:14:17', 'm.rossi1@studenti.boscogrigio.it', 'Cornetto ai frutti di bosco', TRUE, 1, 3),
-('2025-05-03', '9:35:10', 'm.rossi1@studenti.boscogrigio.it', 'Panino al salame', TRUE, 3, 1),
-('2025-04-26', '9:04:08', 'm.rossi1@studenti.boscogrigio.it', 'Panino al salame con fontina', TRUE, 1, 3),
+('2025-05-03', '8:14:17', 'm.rossi1@studenti.boscogrigio.it', 'Cornetto ai frutti di bosco', TRUE, 1, 2),
+('2025-05-03', '9:35:10', 'm.rossi1@studenti.boscogrigio.it', 'Panino al salame', TRUE, 3, 2),
+('2025-04-26', '9:04:08', 'm.rossi1@studenti.boscogrigio.it', 'Panino al salame con fontina', TRUE, 1, 5),
 
-('2025-04-26', '8:14:47', 'a.sanna@studenti.boscogrigio.it', 'Patatine alla paprika', TRUE, 2, 3),
-('2025-05-03', '8:20:40', 'a.sanna@studenti.boscogrigio.it', 'Croccantelle gusto bacon', FALSE, 3, 4),
-('2025-04-26', '8:49:47', 'a.sanna@studenti.boscogrigio.it', 'Torta al cioccolato', TRUE, 3, 4),
+('2025-04-26', '8:14:47', 'a.sanna@studenti.boscogrigio.it', 'Patatine alla paprika', TRUE, 2, 2),
+('2025-05-03', '8:20:40', 'a.sanna@studenti.boscogrigio.it', 'Croccantelle gusto bacon', FALSE, 3, 5),
+('2025-04-26', '8:49:47', 'a.sanna@studenti.boscogrigio.it', 'Torta al cioccolato', TRUE, 3, 2),
 
 ('2025-05-03', '8:40:38', 'f.masala@studenti.boscogrigio.it', 'Cornetto al pistacchio', TRUE, 3, 3),
 ('2025-04-26', '8:41:35', 'f.masala@studenti.boscogrigio.it', 'Caffè macchiato', TRUE, 1, 4),
@@ -518,7 +525,7 @@ INSERT INTO fornitore (CodiceID, nomeTitolare, nomeAzienda, email, passw) VALUES
 # Impedisce la modifica ai clienti tipo="Studente" sul luogo di consegna
 DELIMITER $$
 CREATE TRIGGER check_luogoConsegna_modifica
-BEFORE UPDATE ON Cliente
+BEFORE UPDATE ON cliente
 FOR EACH ROW
 BEGIN
     IF OLD.tipoCliente = 'Studente' AND NEW.luogoConsegna <> OLD.luogoConsegna THEN
@@ -531,7 +538,7 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE TRIGGER verifica_orario_ordine
-BEFORE INSERT ON Ordine -- non faccio anche il trigger before update perché questi campi non li aggiorna nessuno
+BEFORE INSERT ON ordine -- non faccio anche il trigger before update perché questi campi non li aggiorna nessuno
 FOR EACH ROW
 BEGIN
   DECLARE giorno_settimana INT;
@@ -554,27 +561,27 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE TRIGGER aggiorna_ingredienti_ordine
-AFTER INSERT ON Ordine
+AFTER INSERT ON ordine
 FOR EACH ROW
 BEGIN
     -- aggiorno le quantità degli ingredienti presenti nei prodotti ordinati
-    UPDATE Ingrediente
+    UPDATE ingrediente
     SET quantità = quantità - NEW.quantità
     WHERE nome IN (
         SELECT nomeIngrediente
-        FROM Composizione
+        FROM composizione
         WHERE nomeProdotto = NEW.nomeProdotto
     );
 
     -- se qualche ingrediente è a 0 metto a FALSE la disponibilità di un prodotto
-    UPDATE Prodotto
+    UPDATE prodotto
     SET disponibilità = FALSE
     WHERE nome IN (
         SELECT DISTINCT nomeProdotto
-        FROM Composizione
+        FROM composizione
         WHERE nomeIngrediente IN (
            SELECT nome
-           FROM Ingrediente
+           FROM ingrediente
            WHERE quantità=0
         )
     );
@@ -631,63 +638,208 @@ BEGIN
     DECLARE v_giorno_settimana INT;
     DECLARE v_operatore_id INT;
     
-    -- Inizializza variabili
-    SET v_data_corrente = CURDATE();
-    SET v_ora_corrente = CURTIME();
-    SET v_giorno_settimana = DAYOFWEEK(v_data_corrente); -- 1=domenica, 2=lunedì, ..., 7=sabato
-    
-    -- Verifica se è domenica
-    IF v_giorno_settimana = 1 THEN
-        SET p_messaggio = 'Non è possibile effettuare ordini di domenica';
-        LEAVE this_procedure;
-    END IF;
-    
-    -- Verifica orario (solo dalle 8 alle 10)
-    IF (v_ora_corrente < '08:00:00' OR v_ora_corrente > '10:00:00') THEN
-        SET p_messaggio = 'Gli ordini sono accettati solo dalle 8:00 alle 10:00';
-        LEAVE this_procedure;
-    END IF;
-    
-    -- Verifica esistenza cliente
-    SELECT COUNT(*) > 0 INTO v_cliente_esiste
-    FROM cliente
-    WHERE email = p_email_cliente;
-    
-    IF NOT v_cliente_esiste THEN
-        SET p_messaggio = 'Cliente non trovato';
-        LEAVE this_procedure;
-    END IF;
-    
-    -- Verifica disponibilità prodotto
-    SELECT disponibilità INTO v_prodotto_disponibile
-    FROM prodotto
-    WHERE nome = p_nome_prodotto;
-    
-    IF NOT v_prodotto_disponibile THEN
-        SET p_messaggio = 'Prodotto non disponibile';
-        LEAVE this_procedure;
-    END IF;
-    
-    -- Verifica quantità positiva
-    IF p_quantita <= 0 THEN
-        SET p_messaggio = 'La quantità deve essere maggiore di zero';
-        LEAVE this_procedure;
-    END IF;
-    
-    -- Seleziona un operatore disponibile (esempio semplificato)
-    -- Assumo che esista una tabella Operatore con un campo CodiceID
-    SELECT CodiceID INTO v_operatore_id
-    FROM Operatore
-    ORDER BY RAND()
-    LIMIT 1;
-    -- fare una logica più sensata
-    
-    -- Inserisci ordine
-    INSERT INTO ordine (data, ora, emailCliente, nomeProdotto, consegnato, quantità, OperatoreID)
-    VALUES (v_data_corrente, v_ora_corrente, p_email_cliente, p_nome_prodotto, FALSE, p_quantita, v_operatore_id);
-    
-    SET p_messaggio = 'Ordine effettuato con successo';
-    
+    this_procedure: BEGIN
+
+        -- Inizializza variabili
+        SET v_data_corrente = CURDATE();
+        SET v_ora_corrente = CURTIME();
+        SET v_giorno_settimana = WEEKDAY(v_data_corrente); -- Lunedì=0, ..., Domenica=6
+        
+        -- Verifica se è domenica
+        IF v_giorno_settimana = 6 THEN
+            SET p_messaggio = 'Non è possibile effettuare ordini di domenica';
+            LEAVE this_procedure;
+        END IF;
+        
+        -- Verifica orario (solo dalle 8 alle 10)
+        IF (v_ora_corrente < '08:00:00' OR v_ora_corrente > '10:00:00') THEN
+            SET p_messaggio = 'Gli ordini sono accettati solo dalle 8:00 alle 10:00';
+            LEAVE this_procedure;
+        END IF;
+        
+        -- Verifica esistenza cliente
+        SELECT COUNT(*) > 0 INTO v_cliente_esiste
+        FROM cliente
+        WHERE email = p_email_cliente;
+        
+        IF NOT v_cliente_esiste THEN
+            SET p_messaggio = 'Cliente non trovato';
+            LEAVE this_procedure;
+        END IF;
+        
+        -- Verifica disponibilità prodotto
+        SELECT disponibilità INTO v_prodotto_disponibile
+        FROM prodotto
+        WHERE nome = p_nome_prodotto;
+        
+        IF NOT v_prodotto_disponibile THEN
+            SET p_messaggio = 'Prodotto non disponibile';
+            LEAVE this_procedure;
+        END IF;
+        
+        -- Verifica quantità positiva
+        IF p_quantita <= 0 THEN
+            SET p_messaggio = 'La quantità deve essere maggiore di zero';
+            LEAVE this_procedure;
+        END IF;
+        
+        -- Seleziona un operatore disponibile
+        -- fare una logica più sensata
+        -- un operatore deve prendere in carico tutte tuple di ordine con stesso luogo consegna
+        -- gli unici operatori che possono prendere in carico gli ordini sono gli addetti alle consegne
+
+        -- Recupera il luogo di consegna del cliente
+        SELECT luogoConsegna INTO v_luogo_consegna FROM cliente WHERE email = p_email_cliente;
+        
+        -- Verifica se il luogo di consegna è già mappato a un operatore
+        SELECT OperatoreID INTO v_operatore_id FROM consegne WHERE luogoConsegna = v_luogo_consegna;
+        
+        -- Se il luogo non è mappato, assegna un operatore di tipo "Addetto-consegne"
+        IF v_operatore_id IS NULL THEN
+            -- Seleziona un operatore 
+            SELECT CodiceID INTO v_operatore_id
+            FROM (
+                SELECT CodiceID, RAND() AS r
+                FROM operatore
+                WHERE ruolo = 'Addetto-consegne'
+            ) AS rand_addettiC
+            GROUP BY CodiceID
+            HAVING r = MIN(r);
+            
+            -- Controlla se è stato trovato un operatore disponibile
+            IF v_operatore_id IS NULL THEN
+                SET p_messaggio = 'Nessun operatore di consegna disponibile';
+                LEAVE this_procedure;
+            END IF;
+            
+            -- Inserisci il nuovo mapping nella tabella consegne
+            INSERT INTO consegne (luogoConsegna, OperatoreID)
+            VALUES (v_luogo_consegna, v_operatore_id);
+        END IF;
+        
+        -- Inserisci ordine
+        INSERT INTO ordine (data, ora, emailCliente, nomeProdotto, consegnato, quantità, OperatoreID)
+        VALUES (v_data_corrente, v_ora_corrente, p_email_cliente, p_nome_prodotto, FALSE, p_quantita, v_operatore_id);
+        
+        SET p_messaggio = 'Ordine effettuato con successo';
+    END;
 END$$
 
+DELIMITER ;
+
+
+DELIMITER $$
+
+CREATE PROCEDURE segna_ordine_consegnato(
+    IN p_data DATE,
+    IN p_ora TIME,
+    IN p_email_cliente VARCHAR(100),
+    IN p_nome_prodotto VARCHAR(50),
+    IN p_operatore_id INT,
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_ordine_esiste BOOLEAN;
+    DECLARE v_operatore_corretto BOOLEAN;
+    DECLARE v_gia_consegnato BOOLEAN;
+    
+    segna_consegna: BEGIN
+        -- Verifica se l'ordine esiste
+        SELECT COUNT(*) > 0 INTO v_ordine_esiste
+        FROM ordine
+        WHERE data = p_data 
+          AND ora = p_ora 
+          AND emailCliente = p_email_cliente 
+          AND nomeProdotto = p_nome_prodotto;
+        
+        IF NOT v_ordine_esiste THEN
+            SET p_messaggio = 'Ordine non trovato';
+            LEAVE segna_consegna;
+        END IF;
+        
+        -- Verifica se l'operatore è quello assegnato all'ordine
+        SELECT COUNT(*) > 0 INTO v_operatore_corretto
+        FROM ordine
+        WHERE data = p_data 
+          AND ora = p_ora 
+          AND emailCliente = p_email_cliente 
+          AND nomeProdotto = p_nome_prodotto
+          AND OperatoreID = p_operatore_id;
+        
+        IF NOT v_operatore_corretto THEN
+            SET p_messaggio = 'Non sei autorizzato a modificare questo ordine';
+            LEAVE segna_consegna;
+        END IF;
+        
+        -- Verifica se l'ordine è già stato consegnato
+        SELECT consegnato INTO v_gia_consegnato
+        FROM ordine
+        WHERE data = p_data 
+          AND ora = p_ora 
+          AND emailCliente = p_email_cliente 
+          AND nomeProdotto = p_nome_prodotto;
+        
+        IF v_gia_consegnato THEN
+            SET p_messaggio = 'Questo ordine risulta già consegnato';
+            LEAVE segna_consegna;
+        END IF;
+        
+        -- Aggiorna l'ordine come consegnato
+        UPDATE ordine
+        SET consegnato = TRUE
+        WHERE data = p_data 
+          AND ora = p_ora 
+          AND emailCliente = p_email_cliente 
+          AND nomeProdotto = p_nome_prodotto;
+        
+        SET p_messaggio = 'Ordine segnato come consegnato con successo';
+    END;
+    
+END$$
+DELIMITER ;
+
+-- ****** TUTTE PROCEDURE DI CLAUDE DA CONTROLLARE BENE ******
+DELIMITER $$
+-- Procedura per visualizzare gli ordini assegnati a un operatore
+CREATE PROCEDURE VisualizzaOrdiniOperatore(
+    IN p_operatoreID INT
+)
+BEGIN
+    SELECT o.data, o.ora, o.emailCliente, c.nome AS nomeCliente, c.cognome AS cognomeCliente,
+           c.luogoConsegna, o.nomeProdotto, o.quantità, o.consegnato
+    FROM ordine o
+    JOIN cliente c ON o.emailCliente = c.email
+    WHERE o.OperatoreID = p_operatoreID
+    ORDER BY o.data DESC, o.ora DESC;
+END //
+
+-- Procedura per riassegnare un operatore a un luogo di consegna
+CREATE PROCEDURE RiassegnaOperatoreConsegna(
+    IN p_luogoConsegna VARCHAR(100),
+    IN p_nuovoOperatoreID INT
+)
+BEGIN
+    DECLARE v_ruoloOperatore VARCHAR(30);
+    
+    -- Verifica che il nuovo operatore sia un addetto alle consegne
+    SELECT ruolo INTO v_ruoloOperatore 
+    FROM operatore 
+    WHERE CodiceID = p_nuovoOperatoreID;
+    
+    IF v_ruoloOperatore != 'Addetto-consegne' THEN
+        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'L\'operatore selezionato non è un addetto alle consegne';
+    ELSE
+        -- Aggiorna il mapping nella tabella consegne
+        UPDATE consegne 
+        SET OperatoreID = p_nuovoOperatoreID
+        WHERE luogoConsegna = p_luogoConsegna;
+        
+        -- Aggiorna tutti gli ordini non ancora consegnati per questo luogo
+        UPDATE ordine o
+        JOIN cliente c ON o.emailCliente = c.email
+        SET o.OperatoreID = p_nuovoOperatoreID
+        WHERE c.luogoConsegna = p_luogoConsegna
+        AND o.consegnato = FALSE;
+    END IF;
+END $$
 DELIMITER ;
