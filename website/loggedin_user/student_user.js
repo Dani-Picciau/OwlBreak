@@ -77,7 +77,6 @@ searchInput.addEventListener('input', () => {
     const productName = product.dataset.name.toLowerCase();
     
     // Verifica se è nella categoria attualmente selezionata
-    // (Presumo che tu stia usando la classe 'show' per indicare prodotti nella categoria corrente)
     const isInSelectedCategory = product.classList.contains('show') || document.querySelector('.category-filter.active') === null; // se nessun filtro è attivo
     
     if (searchTerm === '') {

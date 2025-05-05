@@ -171,19 +171,19 @@
         ],
 
         'Muffin con gocce di cioccolato' => [
-            'img'  => '',
+            'img'  => 'muffin_gocce_cioccolato.jpg',
             'desc' => 'Soffice e irresistibile, con una pioggia di dolcezza.',
             'category' => 'Dolci'
         ],
 
         'Muffin classico' => [
-            'img'  => '',
+            'img'  => 'muffin_classico.jpg',
             'desc' => 'Semplice, morbido e perfetto in ogni momento della giornata.',
             'category' => 'Dolci'
         ],
 
         'Pizzetta sfoglia cagliaritana' => [
-            'img'  => '',
+            'img'  => 'pizzetta_sfoglia.jpg',
             'desc' => 'Sapore sardo in formato snack: fragrante, saporita, sorprendente.',
             'category' => 'Snack salati'
         ],
@@ -201,7 +201,7 @@
         ],
 
         'Torta allo yogurt' => [
-            'img'  => '',
+            'img'  => 'torta_yogurt.jpg',
             'desc' => 'Leggera e soffice, per una dolcezza che non stanca.',
             'category' => 'Dolci'
         ],
@@ -261,13 +261,13 @@
         ],
 
         'Patatine classiche' => [
-            'img'  => '',
+            'img'  => 'patatine_classiche.jpg',
             'desc' => 'Croccanti, salate al punto giusto: un evergreen dello snack.',
             'category' => 'Snack salati'
         ],
 
         'Patatine rustiche' => [
-            'img'  => '',
+            'img'  => 'patatine_rustiche.jpg',
             'desc' => 'Spesse e croccanti, per uno snack dal carattere deciso.',
             'category' => 'Snack salati'
         ],
@@ -285,37 +285,37 @@
         ],
 
         'Croccantelle gusto pizza' => [
-            'img'  => '',
+            'img'  => 'croccantelle_pizza.jpg',
             'desc' => 'Il sapore della pizza in un boccone croccante.',
             'category' => 'Snack salati'
         ],
 
         'Croccantelle gusto bacon' => [
-            'img'  => '',
+            'img'  => 'croccantelle_bacon.jpg',
             'desc' => 'Affumicate e gustose, per uno snack davvero irresistibile.',
             'category' => 'Snack salati'
         ],
 
         'Schiacciatine al rosmarino' => [
-            'img'  => '',
+            'img'  => 'schiacciatine_rosmarino.jpg',
             'desc' => 'Croccanti bontà dal profumo mediterraneo.',
             'category' => 'Snack salati'
         ],
 
         'Schiacciatine alle olive' => [
-            'img'  => '',
+            'img'  => 'schiacciatine_olive.jpg',
             'desc' => 'Croccanti e saporite, con un tocco mediterraneo.',
             'category' => 'Snack salati'
         ],
 
         'Pringles classiche' => [
-            'img'  => '',
+            'img'  => 'pringles_classiche.jpg',
             'desc' => 'Iconiche e croccanti, per snack perfetti in ogni occasione.',
             'category' => 'Snack salati'
         ],
 
         'Pringles piccanti' => [
-            'img'  => '',
+            'img'  => 'pringles_piccanti.jpg',
             'desc' => 'Gusto audace e forma perfetta: uno tira l\'altro!',
             'category' => 'Snack salati'
         ],
