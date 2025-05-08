@@ -15,13 +15,13 @@ window.addEventListener('scroll', function() {
 });
 
 // Codice per mostrare solo i prodotti appartenenti alla propria categoria
-
 document.addEventListener('DOMContentLoaded', () => {
   const menuItems = document.querySelectorAll('.menu-category');
   const product_box = document.querySelector('.product-box');
   const products  = document.querySelectorAll('.product');
   const searchbar = document.querySelector('.search-bar');
   const orders_history = document.querySelector('.orders-history');
+  const cartItems = document.querySelector('.cart-item-container');
 
   menuItems.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -36,13 +36,16 @@ document.addEventListener('DOMContentLoaded', () => {
         orders_history.classList.add('show');
         // Nasconde tutti i prodotti quando si visualizza la cronologia
         products.forEach(p => p.classList.remove('show'));
+        cartItems.classList.remove('show');
       } else {
         orders_history.classList.remove('show');
         
         // Gestione card dei prodotti per altre categorie
         if (cat === 'Carrello') {
+          cartItems.classList.add('show');
           products.forEach(p => p.classList.remove('show'));
         } else {
+          cartItems.classList.remove('show');
           products.forEach(p => {
             if (p.dataset.category === cat) {
               p.classList.add('show');
@@ -52,8 +55,6 @@ document.addEventListener('DOMContentLoaded', () => {
           });
         }
       }
-
-      
       if (cat === 'Carrello' || cat === 'Cronologia ordini') {
         product_box.classList.remove('show');
         searchbar.classList.remove('show'); 
@@ -63,13 +64,12 @@ document.addEventListener('DOMContentLoaded', () => {
       }
     });
   });
-  
+
   menuItems[0].click();
 });
 
 //Funzionamento search-bar
 const searchInput = document.querySelector('.search-input');
-
 searchInput.addEventListener('input', () => {
   const searchTerm = searchInput.value.toLowerCase();
   
@@ -97,5 +97,171 @@ searchInput.addEventListener('input', () => {
   });
 });
 
-// Wait for the document to be fully loaded
+document.addEventListener('DOMContentLoaded', () => {
+  const cartContainer   = document.querySelector('.cart-item-container');
+  const cartCountElem   = document.querySelector('.menu-category[data-category="Carrello"] span');
+
+  // Funzione generica per tutte le azioni: add, increase, decrease, remove
+  async function updateCart(action, productName) {
+    try {
+      cartContainer.classList.add('loading');
+      
+      const formData = new FormData();
+      formData.append(action, productName);
+      
+      // 1) Invio la modifica
+      let res = await fetch(window.location.href, {
+        method: 'POST',
+        body: formData,
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      });
+      let json = await res.json();               // ricevo { success, cartCount }
+      cartCountElem.textContent = json.cartCount;
+      
+      // 2) Chiedo il frammento aggiornato del carrello
+      res = await fetch(window.location.href + '?ajax=cart', {
+        headers: { 'X-Requested-With': 'XMLHttpRequest' }
+      });
+      const html = await res.text();
+      const doc  = new DOMParser().parseFromString(html, 'text/html');
+      cartContainer.innerHTML = doc.querySelector('.cart-item-container').innerHTML;
+
+    } catch (err) {
+      console.error('Cart AJAX error', err);
+    } finally {
+      cartContainer.classList.remove('loading');
+    }
+  }
+
+  // Event delegation sul container principale
+  document.body.addEventListener('click', e => {
+    const btn = e.target.closest('button');
+    if (!btn) return;
+
+    // usa data-action e data-product sugli <button> o sugli <form>
+    const action = btn.dataset.action;         // es. "add_to_cart", "increase", ...
+    const product = btn.dataset.productName;   // il nome del prodotto
+
+    if (action && product) {
+      e.preventDefault();
+      updateCart(action, product);
+    }
+  });
+});
+
+
+
+
+
+
+/* document.addEventListener('DOMContentLoaded', function() {
+  // Seleziona tutti i form con classe ajax-form (pulsanti per aumentare, diminuire e rimuovere)
+  document.querySelectorAll('.ajax-form').forEach(form => {
+    form.addEventListener('submit', function(e) {
+      e.preventDefault();
+      
+      const formData = new FormData(this);
+      const cartContainer = document.querySelector('.cart-item-container');
+      const cartCountElement = document.querySelector('.menu-category[data-category="Carrello"] span');
+      
+      // Aggiungi un indicatore di caricamento al container del carrello
+      cartContainer.classList.add('loading');
+      
+      fetch(window.location.href, {
+          method: 'POST',
+          body: formData
+      })
+      .then(response => {
+          if (!response.ok) {
+            throw new Error('Errore nella risposta del server');
+          }
+          return response.text();
+      })
+      .then(() => {
+        // Aggiorna solo il contenuto del carrello
+        return fetch(window.location.href + '?ajax=cart');
+      })
+
+      .then(response => response.text())
+      .then(html => {
+        // Estrai il contenuto del carrello
+        const parser = new DOMParser();
+        const doc = parser.parseFromString(html, 'text/html');
+        const newCartContent = doc.querySelector('.cart-item-container').innerHTML;
+        
+        // Aggiorna il contenuto del carrello
+        cartContainer.innerHTML = newCartContent;
+        
+        // Aggiorna il contatore del carrello
+        const cartCount = doc.querySelector('.menu-category[data-category="Carrello"] span').textContent;
+        cartCountElement.textContent = cartCount;
+        
+        // Riattiva gli event listener per i nuovi elementi
+        reattachEventListeners();
+      })
+      .catch(error => {
+        console.error('Errore:', error);
+      })
+      .finally(() => {
+        cartContainer.classList.remove('loading');
+      });
+    });
+  });
+  
+  // Funzione per ricollegare gli event listener ai nuovi elementi dopo l'aggiornamento AJAX
+  function reattachEventListeners() {
+    document.querySelectorAll('.ajax-form').forEach(form => {
+      form.addEventListener('submit', function(e) {
+        e.preventDefault();
+        
+        const formData = new FormData(this);
+        const cartContainer = document.querySelector('.cart-item-container');
+        const cartCountElement = document.querySelector('.menu-category[data-category="Carrello"] span');
+        
+        // Aggiungi un indicatore di caricamento al container del carrello
+        cartContainer.classList.add('loading');
+        
+        fetch(window.location.href, {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Errore nella risposta del server');
+            }
+            return response.text();
+        })
+        .then(() => {
+            // Aggiorna solo il contenuto del carrello
+            return fetch(window.location.href + '?ajax=cart');
+        })
+        .then(response => response.text())
+        .then(html => {
+          // Estrai il contenuto del carrello
+          const parser = new DOMParser();
+          const doc = parser.parseFromString(html, 'text/html');
+          const newCartContent = doc.querySelector('.cart-item-container').innerHTML;
+          
+          // Aggiorna il contenuto del carrello
+          cartContainer.innerHTML = newCartContent;
+          
+          // Aggiorna il contatore del carrello
+          const cartCount = doc.querySelector('.menu-category[data-category="Carrello"] span').textContent;
+          cartCountElement.textContent = cartCount;
+          
+          // Riattiva gli event listener per i nuovi elementi
+          reattachEventListeners();
+        })
+        .catch(error => {
+          console.error('Errore:', error);
+        })
+        .finally(() => {
+          cartContainer.classList.remove('loading');
+        });
+      });
+    });
+  }
+  
+}); */
+
 

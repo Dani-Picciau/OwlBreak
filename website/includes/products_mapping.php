@@ -1,6 +1,4 @@
 <?php
-    require_once('../includes/loggedin.php');
-
     return [
         'Acqua naturale' => [
             'img'  => 'acqua_naturale.jpg',
@@ -89,6 +87,12 @@
         'Spremuta d\'arancia' => [
             'img'  => 'spremuta_d\'arancia.jpg',
             'desc' => 'Solo arance, solo sole: il gusto autentico della natura.',
+            'category' => 'Bevande'
+        ],
+
+        'Succo ACE' => [
+            'img'  => 'succo_ACE.jpg',
+            'desc' => 'Una miscela di vitamine e gusto per iniziare la giornata con energia.',
             'category' => 'Bevande'
         ],
 
@@ -273,13 +277,13 @@
         ],
 
         'Patatine alla paprika' => [
-            'img'  => '',
+            'img'  => 'patatine_paprika.jpg',
             'desc' => 'Un tocco speziato che accende il gusto.',
             'category' => 'Snack salati'
         ],
 
         'Patatine piccanti' => [
-            'img'  => '',
+            'img'  => 'patatine_piccanti.jpg',
             'desc' => 'Per chi ama osare, una fiamma di gusto in ogni morso.',
             'category' => 'Snack salati'
         ],

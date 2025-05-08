@@ -2,6 +2,55 @@
     require_once('../includes/mysqli_connect.php');
     require_once('../includes/loggedin.php');
     check_user_type('Studente'); 
+    $mapped_products = require('../includes/products_mapping.php');
+
+    // Controlla se è una richiesta AJAX
+    $isAjaxRequest = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+    strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
+
+    //A che serve??
+    /* if ($isAjaxRequest && isset($_GET['ajax']) && $_GET['ajax'] === 'cart') {
+        echo '<div class="cart-item-container">';
+        require('../includes/user_cart.php');
+        echo '</div>';
+        exit;
+    } */
+
+    // Ricevo il nome del prodotto dal bottone di product_availability
+    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+        if(isset($_POST['add_to_cart'])){
+            $nomeProdotto = $_POST['add_to_cart']; //salvo il nome del prodotto all'interno di una variabile
+        
+            /* Creo all'interno della sessione un array $_SESSION['cart']' che associo ad ogni prodotto inviato tramite il bottone 'add-to-cart'. Se non esiste già il prodotto che si vuole aggiungere gli si assegna 0 altrimenti si continua con +1 ripetutamente */
+            $_SESSION['cart'][$nomeProdotto] = ($_SESSION['cart'][$nomeProdotto] ?? 0) + 1;
+            
+        } else if (isset($_POST['increase'])){
+            $nomeProdotto = $_POST['increase'];
+            $_SESSION['cart'][$nomeProdotto]++;
+        } else if (isset($_POST['decrease'])){
+            $nomeProdotto = $_POST['decrease'];
+
+            if ($_SESSION['cart'][$nomeProdotto] > 1) {
+                $_SESSION['cart'][$nomeProdotto]--;
+            } else {
+                unset($_SESSION['cart'][$nomeProdotto]);
+            }
+        } else if (isset($_POST['remove'])){
+            $nomeProdotto = $_POST['remove'];
+            unset($_SESSION['cart'][$nomeProdotto]);
+        }
+
+        // Se è una richiesta AJAX, termina qui e non fare redirect
+        if ($isAjaxRequest) {
+            // Restituisci un JSON con i dati aggiornati del carrello
+            header('Content-Type: application/json');
+            echo json_encode([
+                'success' => true,
+                'cartCount' => isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0
+            ]);
+            exit;
+        }
+    }
 ?>
 
 <!DOCTYPE html>
@@ -121,8 +170,19 @@
                     </div>
                     <div class="separator1"></div>
                     <div class="menu-category" data-category="Carrello">
-                        <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>
-                        Carrello
+                        <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M280-80q-33 0-56.5-23.5T200-160q0-33 23.5-56.5T280-240q33 0 56.5 23.5T360-160q0 33-23.5 56.5T280-80Zm400 0q-33 0-56.5-23.5T600-160q0-33 23.5-56.5T680-240q33 0 56.5 23.5T760-160q0 33-23.5 56.5T680-80ZM246-720l96 200h280l110-200H246Zm-38-80h590q23 0 35 20.5t1 41.5L692-482q-11 20-29.5 31T622-440H324l-44 80h480v80H280q-45 0-68-39.5t-2-78.5l54-98-144-304H40v-80h130l38 80Zm134 280h280-280Z"/></svg>
+                            Carrello
+                        </div>
+                        <span>
+                            <?php 
+                            if (isset($_SESSION['cart'])) {
+                                echo count($_SESSION['cart']);
+                            } else {
+                                echo "0";
+                            }
+                            ;?>
+                        </span>
                     </div>
                     <div class="menu-category" data-category="Cronologia ordini">
                         <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="#1f1f1f"><path d="M480-120q-138 0-240.5-91.5T122-440h82q14 104 92.5 172T480-200q117 0 198.5-81.5T760-480q0-117-81.5-198.5T480-760q-69 0-129 32t-101 88h110v80H120v-240h80v94q51-64 124.5-99T480-840q75 0 140.5 28.5t114 77q48.5 48.5 77 114T840-480q0 75-28.5 140.5t-77 114q-48.5 48.5-114 77T480-120Zm112-192L440-464v-216h80v184l128 128-56 56Z"/></svg>
@@ -144,10 +204,14 @@
                     <div class="orders-history">
                         <?php require('../includes/orders_history.php'); ?>
                     </div>
+
+                    <div class="cart-item-container">
+                        <?php require('../includes/user_cart.php'); ?>
+                    </div>
                 </div>
             </div>
         </div>
 
-        <script src="student_user.js"></script>
+        <script src="student_user.js?v=1.02"></script>
     </body>
 </html>
