@@ -573,7 +573,7 @@ height: 30px;
     max-width:320px;
     height: 370px;
     border-radius: .375rem;
-    display: flex;  /* Manteniamo sempre flex */
+    display: flex;  
     flex-direction: column;
     overflow: hidden; /* Impedisce che l'immagine fuoriesca dal bordo arrotondato */
     border: 1px solid var(--border-color);
@@ -588,7 +588,6 @@ height: 30px;
     transition-duration: .6s;
     transition-timing-function: ease-in-out; 
 }
-
 
 .product.show {
     opacity: 1;  
@@ -760,23 +759,20 @@ figure footer {
     align-items: center;
     transform: translate3d(0, 6rem, 0);
 }
-  
+
 figure footer svg {
     fill: #BD4C31;
-    width: 45px;
-    height: 45px;
     opacity: 0;
-    transform: translate3d(-3rem, 0, 0) rotate(360deg);
+    transform:  translate3d(-3rem, 0, 0) rotate(360deg);
     pointer-events: auto;
     /*aggiungo il delay per fare in modo da vedere dopo l'hover sulla figura, la rotazione dei bottoni*/
-    transition: opacity .3s ease-in-out .3s, 
-                transform .3s ease-in-out .3s,
-                fill .4s ease-in-out;
+    transition: opacity .3s ease-in-out .3s, transform .3s ease-in-out .3s, fill .2s ease-in-out;
 }
 
-figure footer svg:hover {
-    fill: rgba(235, 217, 217, 0.722);
-    cursor: pointer;
+
+figure:hover footer svg:hover {
+   fill: #e06544;
+   cursor: pointer;
 }
   
 /* Stato hover */
@@ -799,10 +795,6 @@ figure:hover footer svg {
     transform: translate3d(0, 0, 0) rotate(0deg);
 }
 
-input[type="hidden"] {
-    display: none;
-}
-
 .add-to-cart{
     display: flex;
     justify-content: center;
@@ -814,13 +806,19 @@ input[type="hidden"] {
     margin:0;
     padding:0;
     background-color:transparent;
+    transform: scale(1);
+    transition: transform .2s ease-in-out;
+}
+
+.add-to-cart:hover{
+    transform: scale(1.1)
 }
 
 .cart-item-container{
     max-width:100%;
     display: flex;
     flex-direction: column;
-    align-items: flex-start;
+    justify-content: flex-start;
     gap:1rem;
 
     pointer-events: none;
@@ -848,7 +846,7 @@ input[type="hidden"] {
     justify-content: space-between;
     align-items: center;
     box-shadow:rgba(0, 0, 0, 0.75);
-    background-color: rgba(236, 234, 234, 0.547);
+    background-color: #F5F5F7;
     border-radius: .375rem;
 }
 
@@ -904,10 +902,12 @@ input[type="hidden"] {
     gap: 0.4rem;
     padding: 0.4rem;
     justify-content: center;
-    transition: background-color .3s ease-in-out, border-radius .3 ease-in-out;
+    transition: background-color .4s ease-in-out, border-radius .4s ease-in-out;
     font-family: var(--font-family-inter);
-    font-weight:600;
+    font-weight:500;
     font-size:14px;
+    background-color: transparent;
+    border: none;
 }
 
 .box2 .delete-item:hover{
@@ -970,6 +970,209 @@ input[type="hidden"] {
     border-right: 1px solid #e2e8f0;
 }
 
+.separator3{
+    width: auto;
+    height: 2px;
+    background-color: var(--separator-color);
+    border-radius:.375rem;
+}
+
+.checkout-section{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+}
+
+.total{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.total span {
+    font-family: var(--font-family-inter);
+    font-weight:500;
+}
+.pagamento{
+    width: 100%;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    background-color: #EFF6FF;
+    border-radius: 8px;
+    gap:0.5rem;
+}
+
+.pagamento span:nth-child(1){
+    display: flex;
+    flex-direction: row;
+    gap:0.5rem;
+    align-items: center;
+    color: #1E40AF;
+    fill: #1E40AF;
+    font-family: var(--font-family-inter);
+    font-weight:500;
+}
+.pagamento span:nth-child(2){
+    display: flex;
+    flex-direction: row;
+    gap:0.5rem;
+    align-items: center;
+    font-family: var(--font-family-inter);
+    font-weight:500;
+}
+.pagamento span:nth-child(2) svg{
+    fill: #2563EB;
+}
+
+.pagamento div{
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    gap:1rem;
+    justify-content: flex-start;
+    font-family: var(--font-family-inter);
+    font-weight:300;
+    background-color: white;
+    border: 1px solid #BFDBFE;
+    padding: 0.5rem;
+    border-radius: 8px;
+}
+
+.pagamento div svg{
+    fill:#2563EB;
+    min-width: 24px;     
+    min-height: 24px;    
+    width: 24px;         
+    height: 24px;        
+}
+
+.place-delivery{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.place-delivery div:nth-child(1){
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-family-inter);
+    font-weight:500;
+}
+
+.place-delivery div:nth-child(1) svg{
+    fill: #2563EB;
+}
+
+.place-delivery div:nth-child(2){
+    display: flex;
+    flex-direction: column;
+}
+
+.place-delivery div:nth-child(2) span{
+    margin-left: 2rem;
+    font-family: var(--font-family-inter);
+    font-weight:300;
+}
+
+.confirm-button {
+    width: 100%;
+    background-color: #3b82f6;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 14px 20px;
+    font-size: 16px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+/* Effetti hover */
+.confirm-button:hover {
+    background-color: #2563eb;
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+}
+
+.confirm-button:active {
+    transform: translateY(0);
+}
+
+/* Effetto ripple al click */
+.confirm-button::after {
+    content: '';
+    position: absolute;
+    background: rgba(255, 255, 255, 0.3);
+    border-radius: 50%;
+    transform: scale(0);
+    transition: transform 0.5s;
+}
+
+.confirm-button:active::after {
+    transform: scale(4);
+    opacity: 0;
+}
+
+
+.empty-cart-container{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    max-width:100%;
+    width: 100%;
+    gap: 1rem;
+    min-height: 355px;
+}
+ 
+.cart-icon-container {
+    background-color: #f3f4f6;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    padding:1rem;
+
+}
+        
+.cart-icon-container svg{
+    width: 64px;
+    height: 64px;
+    fill: #9ca3af;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+        
+.cart-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    text-align:center;
+    margin: 0;
+}
+
+.cart-message {
+    font-size: 1rem;
+    color: #6b7280;
+    line-height: 1.5;
+    max-width: 400px;
+    text-align:center;
+    margin:0;
+    font-family: var(--font-family-inter);
+    font-weight: 500;
+
+}
 
 .orders-history {
     max-width: 100%;

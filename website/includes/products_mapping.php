@@ -55,7 +55,7 @@
         ],
 
         'Ginseng' => [
-            'img'  => '',
+            'img'  => 'ginseng.jpg',
             'desc' => 'L\'energia naturale in una tazza dal gusto dolce e aromatico.',
             'category' => 'Caffetteria'
         ],
@@ -67,7 +67,7 @@
         ],
 
         'The caldo' => [
-            'img'  => '',
+            'img'  => 'the_caldo.jpg',
             'desc' => 'Una pausa calda che avvolge e conforta ogni momento.',
             'category' => 'Caffetteria'
         ],
@@ -337,7 +337,7 @@
         ],
 
         'Big Bubbles' => [
-            'img'  => '',
+            'img'  => 'big_babbol.jpg',
             'desc' => 'Gusto fruttato, bolle giganti e un tocco di spensieratezza.',
             'category' => 'Caramelle e condimenti'
         ],
