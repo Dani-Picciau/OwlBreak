@@ -202,7 +202,7 @@ INSERT INTO prodotto (nome, prezzo, disponibilità) VALUES
 ('Pringles piccanti', 1.20, TRUE),
 ('Cingomme AIR', 0.60, TRUE),
 ('Cingomme Vivident', 0.60, TRUE),
-('Big Bubbles', 0.70, TRUE),
+('Big Babol', 0.70, TRUE),
 ('Chupachups assortiti', 0.50, TRUE);
 
 INSERT INTO operatore (CodiceID, email, passw, nome, cognome, ruolo) VALUES
@@ -424,7 +424,7 @@ INSERT INTO ingrediente (nome, allergeni, quantità) VALUES
 ('Pringles piccanti', '', 100),
 ('Cingomme AIR', '', 50),
 ('Cingomme Vivident', '', 50),
-('Big Bubbles', '', 50),
+('Big Babol', '', 50),
 ('Chupachups assortiti', '', 50);
 
 INSERT INTO composizione (nomeProdotto, nomeIngrediente) VALUES
@@ -507,7 +507,7 @@ INSERT INTO composizione (nomeProdotto, nomeIngrediente) VALUES
 ('Pringles piccanti', 'Pringles piccanti'),
 ('Cingomme AIR', 'Cingomme AIR'),
 ('Cingomme Vivident', 'Cingomme Vivident'),
-('Big Bubbles', 'Big Bubbles'),
+('Big Babol', 'Big Babol'),
 ('Chupachups assortiti', 'Chupachups assortiti');
 
 INSERT INTO fornitore (CodiceID, nomeTitolare, nomeAzienda, email, passw) VALUES
@@ -672,19 +672,48 @@ BEGIN
         FROM prodotto
         WHERE nome = p_nome_prodotto;
         
-        IF NOT v_prodotto_disponibile THEN
+        IF NOT v_prodotto_disponibile THEN -- verifica disponibilità prodotto
             SET p_messaggio = 'Prodotto non disponibile';
             LEAVE this_procedure;
-        END IF;
-        
-        -- Verifica quantità positiva
-        IF p_quantita <= 0 THEN
+        ELSEIF p_quantita <= 0 THEN --verifica quantità positiva
             SET p_messaggio = 'La quantità deve essere maggiore di zero';
             LEAVE this_procedure;
         END IF;
+
+        -- ***** CONTROLLO DISPONIBILITÀ QUANTITÀ INGREDIENTI PER N PRODOTTI *****
+
+        -- Verifica disponibilità ingredienti
+        DECLARE v_ingredienti_disponibili BOOLEAN DEFAULT TRUE;
+        DECLARE v_ingrediente_non_disponibile VARCHAR(50);
+
+        -- Controlliamo se tutti gli ingredienti sono disponibili nella quantità necessaria
+        -- Troviamo l'ingrediente con la minore disponibilità proporzionale
+        /* SELECT i.nome INTO v_ingrediente_non_disponibile
+        FROM ingrediente i
+        JOIN composizione c ON i.nome = c.nomeIngrediente
+        WHERE c.nomeProdotto = p_nome_prodotto
+        AND i.quantità < p_quantita  -- Se la quantità disponibile è minore di quella richiesta
+        LIMIT 1;  -- Possiamo usare una variabile temporanea per evitare LIMIT  */
+
+        -- Alternativa senza LIMIT:
+        SELECT MIN(i.nome) INTO v_ingrediente_non_disponibile
+        FROM ingrediente i
+        JOIN composizione c ON i.nome = c.nomeIngrediente
+        WHERE c.nomeProdotto = p_nome_prodotto AND i.quantità < p_quantita;
+
+
+        IF v_ingrediente_non_disponibile IS NOT NULL THEN
+            SET v_ingredienti_disponibili = FALSE;
+        END IF;
+
+        IF NOT v_ingredienti_disponibili THEN
+            SET p_messaggio = CONCAT('Quantità insufficiente dell\'ingrediente: ', v_ingrediente_non_disponibile);
+            LEAVE this_procedure;
+        END IF;
         
-        -- Seleziona un operatore disponibile
-        -- fare una logica più sensata
+
+        -- ***** SELEZIONE OPERATORE DISPONIBILE *****
+
         -- un operatore deve prendere in carico tutte tuple di ordine con stesso luogo consegna
         -- gli unici operatori che possono prendere in carico gli ordini sono gli addetti alle consegne
 
@@ -727,7 +756,7 @@ END$$
 
 DELIMITER ;
 
-
+-- ****** TUTTE PROCEDURE DI CLAUDE DA CONTROLLARE BENE ******
 DELIMITER $$
 
 CREATE PROCEDURE segna_ordine_consegnato(
@@ -798,7 +827,6 @@ BEGIN
 END$$
 DELIMITER ;
 
--- ****** TUTTE PROCEDURE DI CLAUDE DA CONTROLLARE BENE ******
 DELIMITER $$
 -- Procedura per visualizzare gli ordini assegnati a un operatore
 CREATE PROCEDURE VisualizzaOrdiniOperatore(
