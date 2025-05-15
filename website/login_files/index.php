@@ -129,15 +129,13 @@
                                                 break;
                                             }
                                         } else {
-                                            echo '<p class="error-message">Incorrect password.</p>';
+                                            echo '<p class="error-message">Password non corretta.</p>';
                                             break;
                                         }
-                                    }else {
-                                        echo '<p class="error-message">The account does not exist.</p>';
-                                        break;
                                     }
                                 }
-                            } else echo '<p class="error-message">Please try again.</p>';
+                                echo '<p class="error-message">L\'account non esiste.</p>';
+                            } else echo '<p class="error-message">Si prega di riprovare.</p>';
                             mysqli_close($dbc); 
                         }
                     ?>

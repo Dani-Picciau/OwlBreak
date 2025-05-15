@@ -1,56 +1,13 @@
 <?php
     require_once('../includes/mysqli_connect.php');
     require_once('../includes/loggedin.php');
-    check_user_type('Studente'); 
     $mapped_products = require('../includes/products_mapping.php');
+    
+    // Tutti i tipi di utenti cliente che possono accedere a questa pagina
+    check_user_type('Studente', 'Personale-Docente', 'Personale-Ata', 'Personale-Segreteria');
 
-    // Controlla se è una richiesta AJAX
-    $isAjaxRequest = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
-    strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
-
-    //A che serve??
-    /* if ($isAjaxRequest && isset($_GET['ajax']) && $_GET['ajax'] === 'cart') {
-        echo '<div class="cart-item-container">';
-        require('../includes/user_cart.php');
-        echo '</div>';
-        exit;
-    } */
-
-    // Ricevo il nome del prodotto dal bottone di product_availability
-    if ($_SERVER['REQUEST_METHOD'] === 'POST') {
-        if(isset($_POST['add_to_cart'])){
-            $nomeProdotto = $_POST['add_to_cart']; //salvo il nome del prodotto all'interno di una variabile
-        
-            /* Creo all'interno della sessione un array $_SESSION['cart']' che associo ad ogni prodotto inviato tramite il bottone 'add-to-cart'. Se non esiste già il prodotto che si vuole aggiungere gli si assegna 0 altrimenti si continua con +1 ripetutamente */
-            $_SESSION['cart'][$nomeProdotto] = ($_SESSION['cart'][$nomeProdotto] ?? 0) + 1;
-            
-        } else if (isset($_POST['increase'])){
-            $nomeProdotto = $_POST['increase'];
-            $_SESSION['cart'][$nomeProdotto]++;
-        } else if (isset($_POST['decrease'])){
-            $nomeProdotto = $_POST['decrease'];
-
-            if ($_SESSION['cart'][$nomeProdotto] > 1) {
-                $_SESSION['cart'][$nomeProdotto]--;
-            } else {
-                unset($_SESSION['cart'][$nomeProdotto]);
-            }
-        } else if (isset($_POST['remove'])){
-            $nomeProdotto = $_POST['remove'];
-            unset($_SESSION['cart'][$nomeProdotto]);
-        }
-
-        // Se è una richiesta AJAX, termina qui e non fare redirect
-        if ($isAjaxRequest) {
-            // Restituisci un JSON con i dati aggiornati del carrello
-            header('Content-Type: application/json');
-            echo json_encode([
-                'success' => true,
-                'cartCount' => isset($_SESSION['cart']) ? count($_SESSION['cart']) : 0
-            ]);
-            exit;
-        }
-    }
+    //Gestione parte ajax lato php
+    require_once('../includes/customer_ajax.php');
 ?>
 
 <!DOCTYPE html>
@@ -60,7 +17,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title>User account</title>
         <!-- Normalize CSS -->
-        <link rel="stylesheet" href="student_user.css?v=<?=time()?>" />
+        <link rel="stylesheet" href="customer_user.css?v=<?=time()?>" />
 
         <!-- Icons -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -212,6 +169,6 @@
             </div>
         </div>
 
-        <script src="student_user.js?v=1.02"></script>
+        <script src="customer_user.js?v=1.02"></script>
     </body>
 </html>

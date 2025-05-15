@@ -188,6 +188,7 @@ nav .initials{
     list-style: none;
     margin: 0;
     margin-top:0.5rem;
+    z-index:2;
 }
 
 .account-name:hover ul{
@@ -1001,7 +1002,7 @@ figure:hover footer svg {
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    background-color: #EFF6FF;
+    background-color: rgba(79, 70, 229, 0.1); /* Sfondo più chiaro basato sul nuovo colore */
     border-radius: 8px;
     gap:0.5rem;
 }
@@ -1011,8 +1012,8 @@ figure:hover footer svg {
     flex-direction: row;
     gap:0.5rem;
     align-items: center;
-    color: #1E40AF;
-    fill: #1E40AF;
+    color: rgb(67, 56, 202); /* Versione leggermente più scura per leggibilità */
+    fill: rgb(67, 56, 202);
     font-family: var(--font-family-inter);
     font-weight:500;
 }
@@ -1025,7 +1026,7 @@ figure:hover footer svg {
     font-weight:500;
 }
 .pagamento span:nth-child(2) svg{
-    fill: #2563EB;
+    fill: rgb(79, 70, 229); /* Colore principale */
 }
 
 .pagamento div{
@@ -1037,52 +1038,134 @@ figure:hover footer svg {
     font-family: var(--font-family-inter);
     font-weight:300;
     background-color: white;
-    border: 1px solid #BFDBFE;
+    border: 1px solid rgba(79, 70, 229, 0.3); /* Bordo più chiaro */
     padding: 0.5rem;
     border-radius: 8px;
 }
 
 .pagamento div svg{
-    fill:#2563EB;
+    fill: rgb(79, 70, 229); 
     min-width: 24px;     
     min-height: 24px;    
     width: 24px;         
     height: 24px;        
 }
 
-.place-delivery{
+.place-delivery {
     width: 100%;
     display: flex;
     flex-direction: column;
 }
 
-.place-delivery div:nth-child(1){
+.place-delivery div:nth-child(1) {
     display: flex;
     flex-direction: row;
     align-items: center;
     gap: 0.5rem;
     font-family: var(--font-family-inter);
-    font-weight:500;
+    font-weight: 500;
 }
 
-.place-delivery div:nth-child(1) svg{
-    fill: #2563EB;
+.place-delivery div:nth-child(1) svg {
+    fill: rgb(79, 70, 229);
 }
 
-.place-delivery div:nth-child(2){
+.place-delivery div:nth-child(2) {
     display: flex;
     flex-direction: column;
 }
 
-.place-delivery div:nth-child(2) span{
-    margin-left: 2rem;
+.place-delivery div:nth-child(2) > span {
+    display: flex;
+    padding-left: 2rem;
     font-family: var(--font-family-inter);
-    font-weight:300;
+    font-weight: 300;
+    width: 100%;
+}
+
+.place-delivery div:nth-child(2) span:nth-child(2) {
+    color: rgb(79, 70, 229);
+    font-size: 14px;
+}
+
+/* Abilitati alla modifica del luogo di consegna*/
+.place-delivery div:nth-child(2) span .editable-delivery {
+    flex-wrap: wrap;
+    margin-left: 0;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    font-family: var(--font-family-inter);
+    font-weight: 300;
+    width: 100%;
+}
+
+.place-delivery div:nth-child(2) span .editable-delivery span {
+    flex-basis: 229px;
+    max-width: 100%;
+    font-family: var(--font-family-inter);
+    font-weight: 300;
+}
+
+.place-delivery div:nth-child(2) span .editable-delivery div {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 3rem;
+    flex: 1 1 auto;   
+    min-width: 0;
+    position: relative;
+}
+
+/* Stile migliorato per l'input */
+.place-delivery div:nth-child(2) span .editable-delivery div input {
+    flex: 1;        
+    min-width: 0;     
+    width: auto;   
+    font-family: var(--font-family-inter);
+    font-weight: 300;   
+    font-size: 15px;
+    padding: 6px;
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+/* Effetto focus per l'input */
+.place-delivery div:nth-child(2) span .editable-delivery div input:focus {
+    outline: none;
+    border-color: rgb(79, 70, 229);
+    box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.2);
+}
+
+/* Stile per l'icona SVG */
+.place-delivery div:nth-child(2) span .editable-delivery div svg {
+    width: 24px;
+    height: 24px;
+    box-sizing: content-box; /* Mantiene la dimensione effettiva a 24x24 */
+    cursor: pointer;
+    padding: 6px;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+}
+
+/* Effetto hover per l'icona SVG */
+.place-delivery div:nth-child(2) span .editable-delivery div svg:hover {
+    background-color: rgba(79, 70, 229, 0.1);
+    fill: rgb(79, 70, 229);
+    transform: scale(1.1);
+}
+
+/* Stile extra per rendere l'input più elegante quando è disabilitato */
+.place-delivery div:nth-child(2) span .editable-delivery div input:disabled {
+    background-color: #f8fafc;
+    cursor: not-allowed;
 }
 
 .confirm-button {
     width: 100%;
-    background-color: #3b82f6;
+    background-color: rgb(79, 70, 229); /* Colore principale */
     color: white;
     border: none;
     border-radius: 8px;
@@ -1094,14 +1177,13 @@ figure:hover footer svg {
     display: flex;
     justify-content: center;
     align-items: center;
-
 }
 
 /* Effetti hover */
 .confirm-button:hover {
-    background-color: #2563eb;
+    background-color: rgb(67, 56, 202); /* Versione leggermente più scura */
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(59, 130, 246, 0.3);
+    box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
 }
 
 .confirm-button:active {
@@ -1122,7 +1204,6 @@ figure:hover footer svg {
     transform: scale(4);
     opacity: 0;
 }
-
 
 .empty-cart-container{
     display: flex;
