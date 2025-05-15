@@ -521,6 +521,13 @@ INSERT INTO fornitore (CodiceID, nomeTitolare, nomeAzienda, email, passw) VALUES
 # Qui ci vanno gli insert di Rifornimento
 #----------------------------------------
 
+INSERT INTO rifornimento (CodiceID, ingrediente, quantità, data, ora, consegnato, OperatoreID, FornitoreID) VALUES
+(1000, 'Acqua naturale', 1500, '2025-05-12','8:32:25', TRUE, 1, 104),
+(1001, 'Coca cola', 1000, '2025-05-12','8:32:25', TRUE, 1, 104),
+(1002, 'Pane per panini', 800, '2025-05-12', '8:42:51', TRUE, 3, 100),
+(1003, 'Schiacciatine al rosmarino', 500, '2025-05-15','10:12:57', FALSE, 4, 103),
+(1004, 'Muffin al cioccolato', 500, '2025-05-15','10:12:57', FALSE, 4, 102),
+(1005, 'Salame', 100, '2025-05-15','10:12:57', FALSE, 4, 101);
 
 # Impedisce la modifica ai clienti tipo="Studente" sul luogo di consegna
 DELIMITER $$
