@@ -22,7 +22,7 @@
                 </div>
             </span>
             <span>
-                Puoi modificare il luogo di consegna.
+                Scegli il tuo luogo di consegna.
             </span>
         <?php
     }

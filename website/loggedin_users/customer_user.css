@@ -72,17 +72,6 @@ body {
     color: var(--text-color);
 }
 
-#page-content{
-    opacity:0;
-    transform: translate3d(0, -3rem, 0);
-    transition: opacity .6s ease-in-out, transform .6s ease-in-out;
-}
-
-#page-content.visible {
-    opacity:10;
-	transform: translate3d(0, 0, 0);
-}
-
 header {
     width: 100%;
     height: 40vh; /* Usa vh (viewport height) invece di % */
@@ -230,7 +219,7 @@ nav .initials{
 }
 
 .account-name ul a::after {
-    content: url(../images/icon-arrow-right.svg);
+    content: url(/owlbreak/website/images/icon-arrow-right.svg);
     height: 17px;
     opacity: 0;
 }
@@ -278,6 +267,17 @@ nav .initials{
     /* Uso questo per non ripetere i comandi di transizione su tutti gli elementi a cui voglio applicarla */
     transition-duration: .2s;
     transition-timing-function: ease-in-out;
+}
+
+#page-content{
+    opacity:0;
+    transform: translate3d(0, -3rem, 0);
+    transition: opacity .6s ease-in-out, transform .6s ease-in-out;
+}
+
+#page-content.visible {
+    opacity:10;
+	transform: translate3d(0, 0, 0);
 }
 
 #back-to-top {
