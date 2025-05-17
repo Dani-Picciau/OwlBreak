@@ -1,12 +1,12 @@
 CREATE DATABASE owlbreak;
 
 USE owlbreak;
-CREATE USER 'Studente'@'%localhost' IDENTIFIED BY '';
-CREATE USER 'Personale-Docente'@'%localhost' IDENTIFIED BY '';
-CREATE USER 'Personale-Ata'@'%localhost' IDENTIFIED BY '';
-CREATE USER 'Personale-Segreteria'@'%localhost' IDENTIFIED BY '';
-CREATE USER 'Operatore'@'%localhost' IDENTIFIED BY '';
-CREATE USER 'Fornitore'@'%localhost' IDENTIFIED BY '';
+CREATE USER 'Studente'@'localhost' IDENTIFIED BY '';
+CREATE USER 'Personale-Docente'@'localhost' IDENTIFIED BY '';
+CREATE USER 'Personale-Ata'@'localhost' IDENTIFIED BY '';
+CREATE USER 'Personale-Segreteria'@'localhost' IDENTIFIED BY '';
+CREATE USER 'Operatore'@'localhost' IDENTIFIED BY '';
+CREATE USER 'Fornitore'@'localhost' IDENTIFIED BY '';
 
 
 /* CREAZIONE TABELLE */
@@ -100,10 +100,9 @@ CREATE TABLE rifornimento (
 
 /*tabella aggiunta per assegnare lo stesso operatore 
 a tutti gli ordini con uguale luogo di consegna*/
-CREATE TABLE consegne (
+CREATE TABLE consegna (
     luogoConsegna VARCHAR(100) PRIMARY KEY,
     OperatoreID INT,
-    FOREIGN KEY (luogoConsegna) REFERENCES Cliente(luogoConsegna),
     FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID)
 );
 
@@ -180,38 +179,7 @@ DELIMITER ;
 /*trigger per aggiornare la disponibilità dei prodotti 
 e la quantità degli ingredienti dopo un rifornimento*/
 DELIMITER $$
-CREATE TRIGGER aggiorna_ingredienti_rifornimento
-AFTER UPDATE ON Rifornimento
-FOR EACH ROW
-BEGIN
-    
-    IF OLD.consegnato = 0 AND NEW.consegnato = 1 THEN
 
-        -- aggiornamento quantità ingredienti
-        UPDATE Ingrediente
-        SET quantità = quantità + NEW.quantità
-        WHERE nome = NEW.ingrediente;
-
-        -- ripristino disponibilità prodotti
-        UPDATE Prodotto
-        SET disponibilità = TRUE
-        WHERE disponibilità = FALSE AND nome NOT IN (
-            SELECT DISTINCT nomeProdotto
-            FROM Composizione
-            WHERE nomeIngrediente IN (
-                SELECT nome
-                FROM Ingrediente
-                WHERE quantità = 0
-            )
-        );
-
-    END IF;
-
-END$$
-DELIMITER ;
-
-/*Procedura per effettuare un ordine*/
-DELIMITER $$
 CREATE PROCEDURE effettua_ordine(
     IN p_email_cliente VARCHAR(100),
     IN p_nome_prodotto VARCHAR(50),
@@ -225,7 +193,10 @@ BEGIN
     DECLARE v_ora_corrente TIME;
     DECLARE v_giorno_settimana INT;
     DECLARE v_operatore_id INT;
-    
+    DECLARE v_ingredienti_disponibili BOOLEAN DEFAULT TRUE;
+    DECLARE v_ingrediente_non_disponibile VARCHAR(50);
+    DECLARE v_luogo_consegna VARCHAR(100);
+
     this_procedure: BEGIN
 
         -- Inizializza variabili
@@ -263,7 +234,7 @@ BEGIN
         IF NOT v_prodotto_disponibile THEN -- verifica disponibilità prodotto
             SET p_messaggio = 'Prodotto non disponibile';
             LEAVE this_procedure;
-        ELSEIF p_quantita <= 0 THEN --verifica quantità positiva
+        ELSEIF p_quantita <= 0 THEN -- verifica quantità positiva
             SET p_messaggio = 'La quantità deve essere maggiore di zero';
             LEAVE this_procedure;
         END IF;
@@ -271,8 +242,7 @@ BEGIN
         -- ***** CONTROLLO DISPONIBILITÀ QUANTITÀ INGREDIENTI PER N PRODOTTI *****
 
         -- Verifica disponibilità ingredienti
-        DECLARE v_ingredienti_disponibili BOOLEAN DEFAULT TRUE;
-        DECLARE v_ingrediente_non_disponibile VARCHAR(50);
+        
 
         -- Controlliamo se tutti gli ingredienti sono disponibili nella quantità necessaria
         -- Troviamo l'ingrediente con la minore disponibilità proporzionale
@@ -284,20 +254,10 @@ BEGIN
         LIMIT 1;  -- Possiamo usare una variabile temporanea per evitare LIMIT  */
 
         -- Alternativa senza LIMIT:
-        /*SELECT MIN(i.nome) INTO v_ingrediente_non_disponibile
+        SELECT MIN(i.nome) INTO v_ingrediente_non_disponibile
         FROM ingrediente i
         JOIN composizione c ON i.nome = c.nomeIngrediente
-        WHERE c.nomeProdotto = p_nome_prodotto AND i.quantità < p_quantita;*/
-
-        --senza JOIN
-        SELECT MIN(nome) INTO v_ingrediente_non_disponibile
-        FROM ingrediente
-        WHERE nome IN (
-            SELECT nomeIngrediente
-            FROM composizione
-            WHERE nomeProdotto = p_nome_prodotto
-        )
-        AND quantità < p_quantita;
+        WHERE c.nomeProdotto = p_nome_prodotto AND i.quantità < p_quantita;
 
 
         IF v_ingrediente_non_disponibile IS NOT NULL THEN
@@ -314,8 +274,7 @@ BEGIN
 
         -- un operatore deve prendere in carico tutte tuple di ordine con stesso luogo consegna
         -- gli unici operatori che possono prendere in carico gli ordini sono gli addetti alle consegne
-        DECLARE v_luogo_consegna VARCHAR(100);
-        
+
         -- Recupera il luogo di consegna del cliente
         SELECT luogoConsegna INTO v_luogo_consegna 
         FROM cliente 
@@ -349,11 +308,14 @@ BEGIN
             VALUES (v_luogo_consegna, v_operatore_id);
         END IF;
         
+        -- Inserisci ordine
+        INSERT INTO ordine (data, ora, emailCliente, nomeProdotto, consegnato, quantità, OperatoreID)
+        VALUES (v_data_corrente, v_ora_corrente, p_email_cliente, p_nome_prodotto, FALSE, p_quantita, v_operatore_id);
+        
+        SET p_messaggio = 'Ordine effettuato con successo';
+ 
         /***** SOLUZIONE ALTERNATIVA DI SQL EXPERT  PER GLI OPERATORI *****/
         /*
-        DECLARE v_luogo_consegna VARCHAR(100);
-        DECLARE v_min_assegnamenti INT;
-        
         -- Verifica se il luogo di consegna ha già un operatore assegnato
         SELECT OperatoreID INTO v_operatore_id
         FROM consegne
@@ -386,21 +348,21 @@ BEGIN
         END IF;
         */
 
-
-        -- Inserisci ordine
-        INSERT INTO ordine (data, ora, emailCliente, nomeProdotto, consegnato, quantità, OperatoreID)
-        VALUES (v_data_corrente, v_ora_corrente, p_email_cliente, p_nome_prodotto, FALSE, p_quantita, v_operatore_id);
-        
-        SET p_messaggio = 'Ordine effettuato con successo';
- 
-       
-
     END;
 END$$
 DELIMITER ;
 
+-- permessi per usare la procedura precedente:
+
+GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Studente'@'localhost';
+GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Personale-Docente'@'localhost';
+GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Personale-Ata'@'localhost';
+GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Personale-Segreteria'@'localhost';
+
+
 -- porcedura per effettuare un rifornimento
 
+/*
 -- ****** TUTTE PROCEDURE DI CLAUDE DA CONTROLLARE BENE ******
 
 -- Procedura per permettere agli operaatori di segnare un ordine come consegnato
@@ -520,3 +482,5 @@ BEGIN
     END IF;
 END $$
 DELIMITER ;
+
+*/

@@ -2,6 +2,15 @@ CREATE DATABASE owlbreak;
 
 USE owlbreak;
 
+/*
+CREATE USER 'Studente'@'localhost' IDENTIFIED BY '';
+CREATE USER 'Personale-Docente'@'localhost' IDENTIFIED BY '';
+CREATE USER 'Personale-Ata'@'localhost' IDENTIFIED BY '';
+CREATE USER 'Personale-Segreteria'@'localhost' IDENTIFIED BY '';
+CREATE USER 'Operatore'@'localhost' IDENTIFIED BY '';
+CREATE USER 'Fornitore'@'localhost' IDENTIFIED BY '';
+*/
+
 CREATE TABLE cliente (
     email VARCHAR(100) PRIMARY KEY,
     passw VARCHAR(255) NOT NULL,
@@ -89,10 +98,9 @@ CREATE TABLE rifornimento (
     FOREIGN KEY (FornitoreID) REFERENCES Fornitore(CodiceID)
 );
 
-CREATE TABLE consegne (
+CREATE TABLE consegna (
     luogoConsegna VARCHAR(100) PRIMARY KEY,
     OperatoreID INT,
-    FOREIGN KEY (luogoConsegna) REFERENCES Cliente(luogoConsegna),
     FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID)
 );
 
@@ -644,7 +652,10 @@ BEGIN
     DECLARE v_ora_corrente TIME;
     DECLARE v_giorno_settimana INT;
     DECLARE v_operatore_id INT;
-    
+    DECLARE v_ingredienti_disponibili BOOLEAN DEFAULT TRUE;
+    DECLARE v_ingrediente_non_disponibile VARCHAR(50);
+    DECLARE v_luogo_consegna VARCHAR(100);
+
     this_procedure: BEGIN
 
         -- Inizializza variabili
@@ -682,7 +693,7 @@ BEGIN
         IF NOT v_prodotto_disponibile THEN -- verifica disponibilità prodotto
             SET p_messaggio = 'Prodotto non disponibile';
             LEAVE this_procedure;
-        ELSEIF p_quantita <= 0 THEN --verifica quantità positiva
+        ELSEIF p_quantita <= 0 THEN -- verifica quantità positiva
             SET p_messaggio = 'La quantità deve essere maggiore di zero';
             LEAVE this_procedure;
         END IF;
@@ -690,8 +701,7 @@ BEGIN
         -- ***** CONTROLLO DISPONIBILITÀ QUANTITÀ INGREDIENTI PER N PRODOTTI *****
 
         -- Verifica disponibilità ingredienti
-        DECLARE v_ingredienti_disponibili BOOLEAN DEFAULT TRUE;
-        DECLARE v_ingrediente_non_disponibile VARCHAR(50);
+        
 
         -- Controlliamo se tutti gli ingredienti sono disponibili nella quantità necessaria
         -- Troviamo l'ingrediente con la minore disponibilità proporzionale
@@ -801,13 +811,14 @@ BEGIN
 END$$
 DELIMITER ;
 
--- permessi per usare la procedura precedente:
+-- mettere qui permessi per usare la procedura precedente 
 GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Studente'@'localhost';
 GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Personale-Docente'@'localhost';
 GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Personale-Ata'@'localhost';
 GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Personale-Segreteria'@'localhost';
 
 
+/*
 -- ****** TUTTE PROCEDURE DI CLAUDE DA CONTROLLARE BENE ******
 DELIMITER $$
 
@@ -923,3 +934,4 @@ BEGIN
     END IF;
 END $$
 DELIMITER ;
+*/
