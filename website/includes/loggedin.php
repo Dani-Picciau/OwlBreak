@@ -2,7 +2,7 @@
     session_start();
 
     if(!isset($_SESSION['loggato']) || $_SESSION['loggato'] !== true){
-        header("location: ../login_files/index.php");
+        header("location: /owlbreak/website/login_files/index.php");
         exit;
     }
 
@@ -19,7 +19,7 @@
 	function check_user_type(...$expected_user_types) {
 		// Verifica se il tipo di utente corrente è tra quelli consentiti
 		if (!isset($_SESSION['user_type']) || !in_array($_SESSION['user_type'], $expected_user_types)) {
-			require('../includes/redirect_users.php');
+			require('redirect_users.php');
 			redirect_users($_SESSION['user_type']);
 			exit();
 		}
