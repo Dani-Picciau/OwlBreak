@@ -2,6 +2,13 @@ CREATE DATABASE owlbreak;
 
 USE owlbreak;
 
+CREATE USER 'Studente'@'%localhost' IDENTIFIED BY '';
+CREATE USER 'Personale-Docente'@'%localhost' IDENTIFIED BY '';
+CREATE USER 'Personale-Ata'@'%localhost' IDENTIFIED BY '';
+CREATE USER 'Personale-Segreteria'@'%localhost' IDENTIFIED BY '';
+CREATE USER 'Operatore'@'%localhost' IDENTIFIED BY '';
+CREATE USER 'Fornitore'@'%localhost' IDENTIFIED BY '';
+
 CREATE TABLE cliente (
     email VARCHAR(100) PRIMARY KEY,
     passw VARCHAR(255) NOT NULL,
@@ -725,10 +732,14 @@ BEGIN
         -- gli unici operatori che possono prendere in carico gli ordini sono gli addetti alle consegne
 
         -- Recupera il luogo di consegna del cliente
-        SELECT luogoConsegna INTO v_luogo_consegna FROM cliente WHERE email = p_email_cliente;
+        SELECT luogoConsegna INTO v_luogo_consegna 
+        FROM cliente 
+        WHERE email = p_email_cliente;
         
         -- Verifica se il luogo di consegna è già mappato a un operatore
-        SELECT OperatoreID INTO v_operatore_id FROM consegne WHERE luogoConsegna = v_luogo_consegna;
+        SELECT OperatoreID INTO v_operatore_id 
+        FROM consegne 
+        WHERE luogoConsegna = v_luogo_consegna;
         
         -- Se il luogo non è mappato, assegna un operatore di tipo "Addetto-consegne"
         IF v_operatore_id IS NULL THEN
@@ -758,10 +769,49 @@ BEGIN
         VALUES (v_data_corrente, v_ora_corrente, p_email_cliente, p_nome_prodotto, FALSE, p_quantita, v_operatore_id);
         
         SET p_messaggio = 'Ordine effettuato con successo';
+ 
+        /***** SOLUZIONE ALTERNATIVA DI SQL EXPERT  PER GLI OPERATORI *****/
+        /*
+        -- Verifica se il luogo di consegna ha già un operatore assegnato
+        SELECT OperatoreID INTO v_operatore_id
+        FROM consegne
+        WHERE luogoConsegna = v_luogo_consegna;
+
+        -- Se non esiste un assegnamento, procedi a selezionare un operatore
+        IF v_operatore_id IS NULL THEN
+            -- Trova il numero minimo di assegnamenti tra gli operatori
+            SELECT MIN(assegnamenti) INTO @min_assegnamenti
+            FROM (
+                SELECT o.CodiceID, COUNT(c.luogoConsegna) AS assegnamenti
+                FROM operatore o
+                LEFT JOIN consegne c ON o.CodiceID = c.OperatoreID
+                WHERE o.ruolo = 'Addetto-consegne'
+                GROUP BY o.CodiceID
+            ) AS conteggi;
+
+            -- Seleziona l'operatore con il numero minimo di assegnamenti e il CodiceID più basso
+            SELECT o.CodiceID INTO v_operatore_id
+            FROM operatore o
+            LEFT JOIN consegne c ON o.CodiceID = c.OperatoreID
+            WHERE o.ruolo = 'Addetto-consegne'
+            GROUP BY o.CodiceID
+            HAVING COUNT(c.luogoConsegna) = @min_assegnamenti
+            AND o.CodiceID = MIN(o.CodiceID);
+
+            -- Assegna l'operatore al luogo di consegna
+            INSERT INTO consegne (luogoConsegna, OperatoreID)
+            VALUES (v_luogo_consegna, v_operatore_id);
+        END IF;
+        */
+
     END;
 END$$
-
 DELIMITER ;
+
+GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Studente'@'localhost';
+GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Personale-Docente'@'localhost';
+GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Personale-Ata'@'localhost';
+GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Personale-Segreteria'@'localhost';
 
 -- ****** TUTTE PROCEDURE DI CLAUDE DA CONTROLLARE BENE ******
 DELIMITER $$
