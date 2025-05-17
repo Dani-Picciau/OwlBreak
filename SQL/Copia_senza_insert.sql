@@ -1,6 +1,12 @@
 CREATE DATABASE owlbreak;
 
 USE owlbreak;
+CREATE USER 'Studente'@'%localhost' IDENTIFIED BY '';
+CREATE USER 'Personale-Docente'@'%localhost' IDENTIFIED BY '';
+CREATE USER 'Personale-Ata'@'%localhost' IDENTIFIED BY '';
+CREATE USER 'Personale-Segreteria'@'%localhost' IDENTIFIED BY '';
+CREATE USER 'Operatore'@'%localhost' IDENTIFIED BY '';
+CREATE USER 'Fornitore'@'%localhost' IDENTIFIED BY '';
 
 
 /* CREAZIONE TABELLE */
