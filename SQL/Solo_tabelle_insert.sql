@@ -89,7 +89,11 @@ CREATE TABLE rifornimento (
     FOREIGN KEY (FornitoreID) REFERENCES Fornitore(CodiceID)
 );
 
-/*Qua ci andrebbe la tabella "consegna"*/
+CREATE TABLE consegna (
+    luogoConsegna VARCHAR(100) PRIMARY KEY,
+    OperatoreID INT,
+    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID)
+);
 
 #passw: "Pluto_paperino12" per tutti i clienti, gli operatori e i fornitori
 INSERT INTO cliente (email, passw, nome, cognome, luogoConsegna, tipoCliente) VALUES
@@ -101,7 +105,7 @@ INSERT INTO cliente (email, passw, nome, cognome, luogoConsegna, tipoCliente) VA
 
 ('e.verdi1@studenti.boscogrigio.it', '$2y$10$6QvwA/asaUwHdGlnAXcv7uR2BkerpUzIfk1nd2K5H3pgjNcdt/kVq', 'Eleonora', 'Verdi', '2A', 'Studente'),
 ('m.rossi1@studenti.boscogrigio.it', '$2y$10$Dvc0uMIes.L.HqUAAPok9uqD12T0r.9MqNBUz5bmMN6BsoQ5Q.i0e', 'Michele', 'Rossi', '2A', 'Studente'),
-('a.sanna@studenti.boscogrigio.it', ' $2y$10$FxYPMXOVya99nbzk9/cXW.GlsPxK4ZeYinZlD4El3CxZUeKMI77TG', 'Alessandro', 'Sanna', '2A', 'Studente'),
+('a.sanna@studenti.boscogrigio.it', '$2y$10$FxYPMXOVya99nbzk9/cXW.GlsPxK4ZeYinZlD4El3CxZUeKMI77TG', 'Alessandro', 'Sanna', '2A', 'Studente'),
 ('f.masala@studenti.boscogrigio.it', '$2y$10$DtuP7UrHWV0376uUf0Zvfup4ZxH7I4YXT.2uUvWi8eEmkpFtqSOEq', 'Flavio', 'Masala', '2A', 'Studente'),
 ('m.secchi@studenti.boscogrigio.it', '$2y$10$DVGaYYRSSlz7mXbWbCs4suZlRGrqxuQ5k8QZySGctrPG5PyVpKEx2', 'Miriam', 'Secchi', '2A', 'Studente'),
 
@@ -512,10 +516,6 @@ INSERT INTO fornitore (CodiceID, nomeTitolare, nomeAzienda, email, passw) VALUES
 (103, 'Domenico Ferri', 'SnackItalia S.r.l.','info_consegne@snackitalia.it', '$2y$10$pyhT8I3C3IXE7HYnc9i7/.d9HwZfiAT/OU/yZz..By1Px1lX/4MmS'),
 (104, 'Mariangela Lai', 'Brio Distribuzioni','consegne.bevande@briodistribuzioni.it', '$2y$10$vAs02qjG0clzUM0J7aiXzeuzL3bdB3Td0k18FZgsp2SHmbCvIUPM.');
 
-#----------------------------------------
-# Qui ci vanno gli insert di Rifornimento
-#----------------------------------------
-
 INSERT INTO rifornimento (CodiceID, ingrediente, quantità, data, ora, consegnato, OperatoreID, FornitoreID) VALUES
 (1000, 'Acqua naturale', 1500, '2025-05-12','8:32:25', TRUE, 1, 104),
 (1001, 'Coca cola', 1000, '2025-05-12','8:32:25', TRUE, 1, 104),
@@ -523,102 +523,3 @@ INSERT INTO rifornimento (CodiceID, ingrediente, quantità, data, ora, consegnat
 (1003, 'Schiacciatine al rosmarino', 500, '2025-05-15','10:12:57', FALSE, 4, 103),
 (1004, 'Muffin al cioccolato', 500, '2025-05-15','10:12:57', FALSE, 4, 102),
 (1005, 'Salame', 100, '2025-05-15','10:12:57', FALSE, 4, 101);
-
-# Impedisce la modifica ai clienti tipo="Studente" sul luogo di consegna
-DELIMITER $$
-CREATE TRIGGER check_luogoConsegna_modifica
-BEFORE UPDATE ON cliente
-FOR EACH ROW
-BEGIN
-    IF OLD.tipoCliente = 'Studente' AND NEW.luogoConsegna <> OLD.luogoConsegna THEN
-        SIGNAL SQLSTATE '45000'
-        SET MESSAGE_TEXT = 'Gli studenti non possono modificare il luogo di consegna.';
-    END IF;
-END$$
-DELIMITER ;
-
-
-DELIMITER $$
-CREATE TRIGGER verifica_orario_ordine
-BEFORE INSERT ON ordine -- non faccio anche il trigger before update perché questi campi non li aggiorna nessuno
-FOR EACH ROW
-BEGIN
-  DECLARE giorno_settimana INT;
-  SET giorno_settimana = WEEKDAY(NEW.data); -- Lunedì=0, ..., Domenica=6
-
-  -- Controllo: no domenica
-  IF giorno_settimana = 6 THEN
-    SIGNAL SQLSTATE '45000' 
-    SET MESSAGE_TEXT = 'Non si possono fare ordini la domenica';
-  END IF;
-
-  -- Controllo: fascia oraria 08:00–10:00
-  IF NEW.ora < '08:00:00' OR NEW.ora > '10:00:00' THEN
-    SIGNAL SQLSTATE '45000' 
-    SET MESSAGE_TEXT = 'Gli ordini sono consentiti solo tra le 08:00 e le 10:00';
-  END IF;
-END$$
-DELIMITER ;
-
-
-DELIMITER $$
-CREATE TRIGGER aggiorna_ingredienti_ordine
-AFTER INSERT ON ordine
-FOR EACH ROW
-BEGIN
-    -- aggiorno le quantità degli ingredienti presenti nei prodotti ordinati
-    UPDATE ingrediente
-    SET quantità = quantità - NEW.quantità
-    WHERE nome IN (
-        SELECT nomeIngrediente
-        FROM composizione
-        WHERE nomeProdotto = NEW.nomeProdotto
-    );
-
-    -- se qualche ingrediente è a 0 metto a FALSE la disponibilità di un prodotto
-    UPDATE prodotto
-    SET disponibilità = FALSE
-    WHERE nome IN (
-        SELECT DISTINCT nomeProdotto
-        FROM composizione
-        WHERE nomeIngrediente IN (
-           SELECT nome
-           FROM ingrediente
-           WHERE quantità=0
-        )
-    );
-
-END; $$
-DELIMITER ;
-
-
-DELIMITER $$
-CREATE TRIGGER aggiorna_ingredienti_rifornimento
-AFTER UPDATE ON Rifornimento
-FOR EACH ROW
-BEGIN
-    
-    IF OLD.consegnato = 0 AND NEW.consegnato = 1 THEN
-
-        -- aggiornamento quantità ingredienti
-        UPDATE Ingrediente
-        SET quantità = quantità + NEW.quantità
-        WHERE nome = NEW.ingrediente;
-
-        -- ripristino disponibilità prodotti
-        UPDATE Prodotto
-        SET disponibilità = TRUE
-        WHERE disponibilità = FALSE AND nome NOT IN (
-            SELECT DISTINCT nomeProdotto
-            FROM Composizione
-            WHERE nomeIngrediente IN (
-                SELECT nome
-                FROM Ingrediente
-                WHERE quantità = 0
-            )
-        );
-
-    END IF;
-
-END$$
-DELIMITER ;
