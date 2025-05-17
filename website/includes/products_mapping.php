@@ -336,7 +336,7 @@
             'category' => 'Caramelle e condimenti'
         ],
 
-        'Big Bubbles' => [
+        'Big Babol' => [
             'img'  => 'big_babbol.jpg',
             'desc' => 'Gusto fruttato, bolle giganti e un tocco di spensieratezza.',
             'category' => 'Caramelle e condimenti'

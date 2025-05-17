@@ -1,6 +1,6 @@
 <?php
-    require_once('../includes/mysqli_connect.php');
     require_once('../includes/loggedin.php');
+    require_once('../includes/mysqli_connect.php');
     $mapped_products = require('../includes/products_mapping.php');
     
     // Tutti i tipi di utenti cliente che possono accedere a questa pagina
