@@ -89,6 +89,8 @@ CREATE TABLE rifornimento (
     FOREIGN KEY (FornitoreID) REFERENCES Fornitore(CodiceID)
 );
 
+/*Qua ci andrebbe la tabella "consegna"*/
+
 #passw: "Pluto_paperino12" per tutti i clienti, gli operatori e i fornitori
 INSERT INTO cliente (email, passw, nome, cognome, luogoConsegna, tipoCliente) VALUES
 ('m.rossi@studenti.boscogrigio.it', '$2y$10$HVcL3DiZzf37uZMG7XtSUuigqqzdMBfzi4GVdMeQk78RbUm9Rj5dS', 'Marco', 'Rossi', '1A', 'Studente'), 
