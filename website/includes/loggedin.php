@@ -24,4 +24,18 @@
 			exit();
 		}
 	}
+
+
+	// ——— Gestione cart_owner ———
+	//Se l'utente non ha ancora un proprietario del carrello, lo inizializzo
+	if (!isset($_SESSION['cart_owner'])) {
+    	// il cart_owner è l'email dell'utente loggato
+    	$_SESSION['cart_owner'] = $_SESSION['email'];
+	}
+
+	// Se il proprietario salvato non coincide con l'email corrente, significa che è cambiato utente e quindi resetto il carrello
+	if ($_SESSION['cart_owner'] !== $_SESSION['email']) {
+		unset($_SESSION['cart']);
+		$_SESSION['cart_owner'] = $_SESSION['email'];
+	}
 ?>

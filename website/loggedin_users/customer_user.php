@@ -81,12 +81,12 @@
                         </div>
                         <span>
                             <?php 
-                            if (isset($_SESSION['cart'])) {
-                                echo count($_SESSION['cart']);
-                            } else {
-                                echo "0";
-                            }
-                            ;?>
+                                if (isset($_SESSION['cart'])) {
+                                    echo count($_SESSION['cart']);
+                                } else {
+                                    echo "0";
+                                }
+                            ?>
                         </span>
                     </div>
                     <div class="menu-category" data-category="Cronologia ordini">
