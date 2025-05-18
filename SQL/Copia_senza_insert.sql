@@ -504,15 +504,31 @@ GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Ata'@'localhos
 -- PRIVILEGI SEGRETERIA
 GRANT SELECT ON owlbreak.ordine TO 'Personale-Segreteria'@'localhost';
 GRANT SELECT ON owlbreak.prodotto TO 'Personale-Segreteria'@'localhost';
+GRANT SELECT ON owlbreak.cliente TO 'Personale-Segreteria'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Segreteria'@'localhost';
 
 -- PRIVILEGI TITOLARE
+GRANT SELECT ON owlbreak.operatore TO 'Titolare'@'localhost';
+GRANT SELECT ON owlbreak.ordine TO 'Titolare'@'localhost';
+GRANT SELECT ON owlbreak.prodotto TO 'Titolare'@'localhost';
+GRANT SELECT ON owlbreak.composizione TO 'Titolare'@'localhost';
+GRANT SELECT ON owlbreak.ingrediente TO 'Titolare'@'localhost';
+GRANT SELECT ON owlbreak.rifornimento TO 'Titolare'@'localhost';
+GRANT SELECT ON owlbreak.fornitore TO 'Titolare'@'localhost';
 
 
 -- PRIVILEGI ADDETTI VENDITE
-
+GRANT SELECT ON owlbreak.ordine TO 'Addetto-vendite'@'localhost';
+GRANT SELECT ON owlbreak.prodotto TO 'Addetto-vendite'@'localhost';
+GRANT SELECT ON owlbreak.composizione TO 'Addetto-vendite'@'localhost';
+GRANT SELECT ON owlbreak.ingrediente TO 'Addetto-vendite'@'localhost';
+GRANT SELECT ON owlbreak.rifornimento TO 'Addetto-vendite'@'localhost';
+GRANT SELECT ON owlbreak.fornitore TO 'Addetto-vendite'@'localhost';
 
 -- PRIVILEGI ADDETTI CCONSEGNE
+GRANT SELECT ON owlbreak.ordine TO 'Addetto-consegne'@'localhost';
+GRANT SELECT ON owlbreak.consegna TO 'Addetto-consegne'@'localhost';
 
 
 -- PRIVILEGI FORNITORI
+GRANT SELECT ON owlbreak.rifornimento TO 'Fornitore'@'localhost';
