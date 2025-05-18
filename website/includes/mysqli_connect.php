@@ -1,6 +1,6 @@
 <?php
     define('db_host', 'localhost');
-    define('db_user', /* $_SESSION['user_type'] */'root');
+    define('db_user', 'root');
     define('db_password', '');
     define('db_name', 'owlbreak');
 

@@ -1,7 +1,7 @@
 <?php
     session_start();
 
-    if(!isset($_SESSION['loggato']) || $_SESSION['loggato'] !== true){
+	if(!isset($_SESSION['loggato']) || $_SESSION['loggato'] !== true){
         header("location: /owlbreak/website/login_files/index.php");
         exit;
     }
@@ -15,7 +15,7 @@
    		perché 'Studente' non è tra i tipi di utente consentiti (non viene specificato nella chiamata a check_user_type()).
 	*/
 
-	//SI tre puntini servono per dire che la funzione può ricevere un numero variabile di argomenti, che verranno raccolti in un array.
+	//I tre puntini servono per dire che la funzione può ricevere un numero variabile di argomenti, che verranno raccolti in un array.
 	function check_user_type(...$expected_user_types) {
 		// Verifica se il tipo di utente corrente è tra quelli consentiti
 		if (!isset($_SESSION['user_type']) || !in_array($_SESSION['user_type'], $expected_user_types)) {

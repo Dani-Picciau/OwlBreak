@@ -92,6 +92,8 @@
                                                     session_start();
                                                     $_SESSION['loggato'] = true;
                                                     $_SESSION['user_type'] = $row['tipoCliente'];
+                                                    $_SESSION['db_pass'] = 'Cliente';
+
                                                     //Store the user info in the session:
                                                     $_SESSION['email'] = $row['email']; 
                                                     $_SESSION['nome'] = $row['nome']; 
@@ -105,6 +107,8 @@
                                                     session_start();
                                                     $_SESSION['loggato'] = true;
                                                     $_SESSION['user_type'] = $row['ruolo'];
+                                                    $_SESSION['db_pass'] = 'Operatore';
+
                                                     //Store the user info in the session:
                                                     $_SESSION['email'] = $row['email']; 
                                                     $_SESSION['nome'] = $row['nome']; 
@@ -118,6 +122,8 @@
                                                     session_start();
                                                     $_SESSION['loggato'] = true;
                                                     $_SESSION['user_type'] = 'Fornitore';
+                                                    $_SESSION['db_pass'] = 'Fornitore';
+
                                                     //Store the user info in the session:
                                                     $_SESSION['email'] = $row['email']; 
                                                     $_SESSION['nomeAzienda'] = $row['nomeAzienda'];
