@@ -1,15 +1,18 @@
+-- ***** CREAZIONE USER *****
+
+CREATE USER 'Studente'@'localhost' IDENTIFIED BY 'Cliente';
+CREATE USER 'Personale-Docente'@'localhost' IDENTIFIED BY 'Cliente';
+CREATE USER 'Personale-Ata'@'localhost' IDENTIFIED BY 'Cliente';
+CREATE USER 'Personale-Segreteria'@'localhost' IDENTIFIED BY 'Cliente';
+CREATE USER 'Titolare'@'localhost' IDENTIFIED BY 'Operatore';
+CREATE USER 'Addetto-consegne'@'localhost' IDENTIFIED BY 'Operatore';
+CREATE USER 'Addetto-vendite'@'localhost' IDENTIFIED BY 'Operatore';
+CREATE USER 'Fornitore'@'localhost' IDENTIFIED BY 'Fornitore';
+
+-- Creazione Database
 CREATE DATABASE owlbreak;
 
 USE owlbreak;
-
-/*
-CREATE USER 'Studente'@'localhost' IDENTIFIED BY '';
-CREATE USER 'Personale-Docente'@'localhost' IDENTIFIED BY '';
-CREATE USER 'Personale-Ata'@'localhost' IDENTIFIED BY '';
-CREATE USER 'Personale-Segreteria'@'localhost' IDENTIFIED BY '';
-CREATE USER 'Operatore'@'localhost' IDENTIFIED BY '';
-CREATE USER 'Fornitore'@'localhost' IDENTIFIED BY '';
-*/
 
 CREATE TABLE cliente (
     email VARCHAR(100) PRIMARY KEY,
@@ -811,13 +814,6 @@ BEGIN
 END$$
 DELIMITER ;
 
--- mettere qui permessi per usare la procedura precedente 
-GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Studente'@'localhost';
-GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Personale-Docente'@'localhost';
-GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Personale-Ata'@'localhost';
-GRANT EXECUTE ON PROCEDURE effettua_ordine TO 'Personale-Segreteria'@'localhost';
-
-
 /*
 -- ****** TUTTE PROCEDURE DI CLAUDE DA CONTROLLARE BENE ******
 DELIMITER $$
@@ -935,3 +931,37 @@ BEGIN
 END $$
 DELIMITER ;
 */
+
+
+-- ***** PRIVILEGI *****
+
+-- PRIVILEGI STUDENTI
+GRANT SELECT ON owlbreak.ordine TO 'Studente'@'localhost';
+GRANT SELECT ON owlbreak.prodotti TO 'Studente'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Studente'@'localhost';
+
+-- PRIVILEGI DOCENTI 
+GRANT SELECT ON owlbreak.ordine TO 'Personale-Docente'@'localhost';
+GRANT SELECT ON owlbreak.prodotti TO 'Personale-Docente'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Docente'@'localhost';
+
+-- PRIVILEGI ATA
+GRANT SELECT ON owlbreak.ordine TO 'Personale-Ata'@'localhost';
+GRANT SELECT ON owlbreak.prodotti TO 'Personale-Ata'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Ata'@'localhost';
+
+-- PRIVILEGI SEGRETERIA
+GRANT SELECT ON owlbreak.ordine TO 'Personale-Segreteria'@'localhost';
+GRANT SELECT ON owlbreak.prodotti TO 'Personale-Segreteria'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Segreteria'@'localhost';
+
+-- PRIVILEGI TITOLARE
+
+
+-- PRIVILEGI ADDETTI VENDITE
+
+
+-- PRIVILEGI ADDETTI CCONSEGNE
+
+
+-- PRIVILEGI FORNITORI
