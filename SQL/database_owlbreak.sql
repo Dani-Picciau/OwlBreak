@@ -937,22 +937,22 @@ DELIMITER ;
 
 -- PRIVILEGI STUDENTI
 GRANT SELECT ON owlbreak.ordine TO 'Studente'@'localhost';
-GRANT SELECT ON owlbreak.prodotti TO 'Studente'@'localhost';
+GRANT SELECT ON owlbreak.prodotto TO 'Studente'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Studente'@'localhost';
 
 -- PRIVILEGI DOCENTI 
 GRANT SELECT ON owlbreak.ordine TO 'Personale-Docente'@'localhost';
-GRANT SELECT ON owlbreak.prodotti TO 'Personale-Docente'@'localhost';
+GRANT SELECT ON owlbreak.prodotto TO 'Personale-Docente'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Docente'@'localhost';
 
 -- PRIVILEGI ATA
 GRANT SELECT ON owlbreak.ordine TO 'Personale-Ata'@'localhost';
-GRANT SELECT ON owlbreak.prodotti TO 'Personale-Ata'@'localhost';
+GRANT SELECT ON owlbreak.prodotto TO 'Personale-Ata'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Ata'@'localhost';
 
 -- PRIVILEGI SEGRETERIA
 GRANT SELECT ON owlbreak.ordine TO 'Personale-Segreteria'@'localhost';
-GRANT SELECT ON owlbreak.prodotti TO 'Personale-Segreteria'@'localhost';
+GRANT SELECT ON owlbreak.prodotto TO 'Personale-Segreteria'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Segreteria'@'localhost';
 
 -- PRIVILEGI TITOLARE
