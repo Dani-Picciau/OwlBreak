@@ -577,6 +577,8 @@ END$$
 DELIMITER ;
 
 
+/*trigger per aggiornare la disponibilità dei prodotti 
+e la quantità rimasta degli ingredienti dopo un ordine*/
 DELIMITER $$
 CREATE TRIGGER aggiorna_ingredienti_ordine
 AFTER INSERT ON ordine
@@ -590,6 +592,39 @@ BEGIN
         FROM composizione
         WHERE nomeProdotto = NEW.nomeProdotto
     );
+    
+    -- L'upate di ingrediente attiva il trigger per aggiornare la disponibilità dei prodotti
+
+END; $$
+DELIMITER ;
+
+/*trigger per aggiornare la disponibilità dei prodotti 
+e la quantità degli ingredienti dopo un rifornimento*/
+DELIMITER $$
+CREATE TRIGGER aggiorna_ingredienti_rifornimento
+AFTER UPDATE ON Rifornimento
+FOR EACH ROW
+BEGIN
+    
+    IF OLD.consegnato = 0 AND NEW.consegnato = 1 THEN
+
+        -- aggiornamento quantità ingredienti
+        UPDATE Ingrediente
+        SET quantità = quantità + NEW.quantità
+        WHERE nome = NEW.ingrediente;
+
+        -- L'upate di ingrediente attiva il trigger per aggiornare la disponibilità dei prodotti
+
+    END IF;
+
+END$$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER aggiorna_disp_prodotti
+AFTER UPDATE ON ingrediente
+FOR EACH ROW
+BEGIN
 
     -- se qualche ingrediente è a 0 metto a FALSE la disponibilità di un prodotto
     UPDATE prodotto
@@ -604,39 +639,20 @@ BEGIN
         )
     );
 
+     -- ripristino disponibilità prodotti
+    UPDATE Prodotto
+    SET disponibilità = TRUE
+    WHERE disponibilità = FALSE AND nome NOT IN (
+        SELECT DISTINCT nomeProdotto
+        FROM Composizione
+        WHERE nomeIngrediente IN (
+            SELECT nome
+            FROM Ingrediente
+            WHERE quantità = 0
+        )
+    );
+
 END; $$
-DELIMITER ;
-
-
-DELIMITER $$
-CREATE TRIGGER aggiorna_ingredienti_rifornimento
-AFTER UPDATE ON Rifornimento
-FOR EACH ROW
-BEGIN
-    
-    IF OLD.consegnato = 0 AND NEW.consegnato = 1 THEN
-
-        -- aggiornamento quantità ingredienti
-        UPDATE Ingrediente
-        SET quantità = quantità + NEW.quantità
-        WHERE nome = NEW.ingrediente;
-
-        -- ripristino disponibilità prodotti
-        UPDATE Prodotto
-        SET disponibilità = TRUE
-        WHERE disponibilità = FALSE AND nome NOT IN (
-            SELECT DISTINCT nomeProdotto
-            FROM Composizione
-            WHERE nomeIngrediente IN (
-                SELECT nome
-                FROM Ingrediente
-                WHERE quantità = 0
-            )
-        );
-
-    END IF;
-
-END$$
 DELIMITER ;
 
 
@@ -658,6 +674,7 @@ BEGIN
     DECLARE v_ingredienti_disponibili BOOLEAN DEFAULT TRUE;
     DECLARE v_ingrediente_non_disponibile VARCHAR(50);
     DECLARE v_luogo_consegna VARCHAR(100);
+    DECLARE v_min_assegnamenti INT;
 
     this_procedure: BEGIN
 
@@ -673,7 +690,7 @@ BEGIN
         END IF;
         
         -- Verifica orario (solo dalle 8 alle 10)
-        IF (v_ora_corrente < '08:00:00' OR v_ora_corrente > '10:00:00') THEN
+        IF (v_ora_corrente < '08:00:00' OR v_ora_corrente > '22:00:00') THEN
             SET p_messaggio = 'Gli ordini sono accettati solo dalle 8:00 alle 10:00';
             LEAVE this_procedure;
         END IF;
@@ -704,17 +721,8 @@ BEGIN
         -- ***** CONTROLLO DISPONIBILITÀ QUANTITÀ INGREDIENTI PER N PRODOTTI *****
 
         -- Verifica disponibilità ingredienti
-        
-
         -- Controlliamo se tutti gli ingredienti sono disponibili nella quantità necessaria
         -- Troviamo l'ingrediente con la minore disponibilità proporzionale
-        /* SELECT i.nome INTO v_ingrediente_non_disponibile
-        FROM ingrediente i
-        JOIN composizione c ON i.nome = c.nomeIngrediente
-        WHERE c.nomeProdotto = p_nome_prodotto
-        AND i.quantità < p_quantita  -- Se la quantità disponibile è minore di quella richiesta
-        LIMIT 1;  -- Possiamo usare una variabile temporanea per evitare LIMIT  */
-
         -- Alternativa senza LIMIT:
         SELECT MIN(i.nome) INTO v_ingrediente_non_disponibile
         FROM ingrediente i
@@ -738,35 +746,45 @@ BEGIN
         -- gli unici operatori che possono prendere in carico gli ordini sono gli addetti alle consegne
 
         -- Recupera il luogo di consegna del cliente
-        SELECT luogoConsegna INTO v_luogo_consegna 
-        FROM cliente 
+        SELECT luogoConsegna INTO v_luogo_consegna
+        FROM cliente
         WHERE email = p_email_cliente;
-        
-        -- Verifica se il luogo di consegna è già mappato a un operatore
-        SELECT OperatoreID INTO v_operatore_id 
-        FROM consegne 
+
+        -- Verifica se il luogo è già associato a un operatore
+        SELECT OperatoreID INTO v_operatore_id
+        FROM consegna
         WHERE luogoConsegna = v_luogo_consegna;
-        
-        -- Se il luogo non è mappato, assegna un operatore di tipo "Addetto-consegne"
+
+        -- Se non è già assegnato, scegli l'operatore più bilanciato
         IF v_operatore_id IS NULL THEN
-            -- Seleziona un operatore 
-            SELECT CodiceID INTO v_operatore_id
+
+            -- Trova il numero minimo di assegnamenti per operatore
+            SELECT MIN(assegnamenti) INTO v_min_assegnamenti
             FROM (
-                SELECT CodiceID, RAND() AS r
-                FROM operatore
-                WHERE ruolo = 'Addetto-consegne'
-            ) AS rand_addettiC
-            GROUP BY CodiceID
-            HAVING r = MIN(r);
-            
-            -- Controlla se è stato trovato un operatore disponibile
+                SELECT o.CodiceID, COUNT(c.luogoConsegna) AS assegnamenti
+                FROM operatore o
+                LEFT JOIN consegna c ON o.CodiceID = c.OperatoreID
+                WHERE o.ruolo = 'Addetto-consegne'
+                GROUP BY o.CodiceID
+            ) AS conteggi;
+
+            -- Seleziona l'operatore con quel numero minimo di assegnamenti e CodiceID più basso
+            SELECT o.CodiceID INTO v_operatore_id
+            FROM operatore o
+            LEFT JOIN consegna c ON o.CodiceID = c.OperatoreID
+            WHERE o.ruolo = 'Addetto-consegne'
+            GROUP BY o.CodiceID
+            HAVING COUNT(c.luogoConsegna) = v_min_assegnamenti
+            AND o.CodiceID = MIN(o.CodiceID);
+
+            -- Se nessun operatore disponibile
             IF v_operatore_id IS NULL THEN
-                SET p_messaggio = 'Nessun operatore di consegna disponibile';
+                SET p_messaggio = 'Nessun operatore disponibile';
                 LEAVE this_procedure;
             END IF;
-            
-            -- Inserisci il nuovo mapping nella tabella consegne
-            INSERT INTO consegne (luogoConsegna, OperatoreID)
+
+            -- Assegna l'operatore a questo nuovo luogo
+            INSERT INTO consegna (luogoConsegna, OperatoreID)
             VALUES (v_luogo_consegna, v_operatore_id);
         END IF;
         
@@ -775,40 +793,6 @@ BEGIN
         VALUES (v_data_corrente, v_ora_corrente, p_email_cliente, p_nome_prodotto, FALSE, p_quantita, v_operatore_id);
         
         SET p_messaggio = 'Ordine effettuato con successo';
- 
-        /***** SOLUZIONE ALTERNATIVA DI SQL EXPERT  PER GLI OPERATORI *****/
-        /*
-        -- Verifica se il luogo di consegna ha già un operatore assegnato
-        SELECT OperatoreID INTO v_operatore_id
-        FROM consegne
-        WHERE luogoConsegna = v_luogo_consegna;
-
-        -- Se non esiste un assegnamento, procedi a selezionare un operatore
-        IF v_operatore_id IS NULL THEN
-            -- Trova il numero minimo di assegnamenti tra gli operatori
-            SELECT MIN(assegnamenti) INTO @min_assegnamenti
-            FROM (
-                SELECT o.CodiceID, COUNT(c.luogoConsegna) AS assegnamenti
-                FROM operatore o
-                LEFT JOIN consegne c ON o.CodiceID = c.OperatoreID
-                WHERE o.ruolo = 'Addetto-consegne'
-                GROUP BY o.CodiceID
-            ) AS conteggi;
-
-            -- Seleziona l'operatore con il numero minimo di assegnamenti e il CodiceID più basso
-            SELECT o.CodiceID INTO v_operatore_id
-            FROM operatore o
-            LEFT JOIN consegne c ON o.CodiceID = c.OperatoreID
-            WHERE o.ruolo = 'Addetto-consegne'
-            GROUP BY o.CodiceID
-            HAVING COUNT(c.luogoConsegna) = @min_assegnamenti
-            AND o.CodiceID = MIN(o.CodiceID);
-
-            -- Assegna l'operatore al luogo di consegna
-            INSERT INTO consegne (luogoConsegna, OperatoreID)
-            VALUES (v_luogo_consegna, v_operatore_id);
-        END IF;
-        */
 
     END;
 END$$
@@ -936,24 +920,27 @@ DELIMITER ;
 -- ***** PRIVILEGI *****
 
 -- PRIVILEGI STUDENTI
+GRANT SELECT ON owlbreak.cliente TO 'Studente'@'localhost'; -- per poter recuperare i propri dati
 GRANT SELECT ON owlbreak.ordine TO 'Studente'@'localhost';
 GRANT SELECT ON owlbreak.prodotto TO 'Studente'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Studente'@'localhost';
 
--- PRIVILEGI DOCENTI 
+-- PRIVILEGI DOCENTI
+GRANT SELECT ON owlbreak.cliente TO 'Personale-Docente'@'localhost'; -- per poter recuperare i propri dati
 GRANT SELECT ON owlbreak.ordine TO 'Personale-Docente'@'localhost';
 GRANT SELECT ON owlbreak.prodotto TO 'Personale-Docente'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Docente'@'localhost';
 
 -- PRIVILEGI ATA
+GRANT SELECT ON owlbreak.cliente TO 'Personale-Ata'@'localhost'; -- per poter recuperare i propri dati
 GRANT SELECT ON owlbreak.ordine TO 'Personale-Ata'@'localhost';
 GRANT SELECT ON owlbreak.prodotto TO 'Personale-Ata'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Ata'@'localhost';
 
 -- PRIVILEGI SEGRETERIA
+GRANT SELECT ON owlbreak.cliente TO 'Personale-Segreteria'@'localhost'; -- per poter recuperare i propri dati e quelli degli altri
 GRANT SELECT ON owlbreak.ordine TO 'Personale-Segreteria'@'localhost';
 GRANT SELECT ON owlbreak.prodotto TO 'Personale-Segreteria'@'localhost';
-GRANT SELECT ON owlbreak.cliente TO 'Personale-Segreteria'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Segreteria'@'localhost';
 
 -- PRIVILEGI TITOLARE
