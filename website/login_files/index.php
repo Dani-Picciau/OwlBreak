@@ -28,7 +28,7 @@
             </svg>
         </div>
         <div class="log-in">
-            <h2>Log in into your account</h2>
+            <h2>Accedi al tuo account</h2>
         </div>
         <div class="container">
             <form action="index.php" method="post">
@@ -38,11 +38,11 @@
 				</div>
 
 				<div>
-					<input type="password" name="login-pwd" id="login-pwd" required>
+					<input type="password" name="login-pwd" id="login-pwd" required show>
 					<label for="login-pwd">Password</label>
 				</div>
 
-				<a href="#" id="forgot-pwd">Forgot Password?</a>
+				<a href="#" id="forgot-pwd">Password dimenticata?</a>
 
                 <div>
                     <?php
@@ -148,7 +148,7 @@
                 </div>
 
 				<button class="button" id="btn-submit">
-					<span class="button--text">Log In</span>
+					<span class="button--text">Accedi</span>
 
 					<!-- Air -->
 					<div class="button--loader">
