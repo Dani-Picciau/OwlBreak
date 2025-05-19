@@ -1,13 +1,14 @@
 <?php
-    require_once('../includes/loggedin.php');
-    require_once('../includes/mysqli_connect_user.php');
-    $mapped_products = require('../includes/products_mapping.php');
+    require_once('../../includes/loggedin.php');
+    require_once('../../includes/mysqli_connect_user.php');
+
+    $mapped_products = require('customer_user_includes/products_mapping.php');
     
     // Tutti i tipi di utenti cliente che possono accedere a questa pagina
     check_user_type('Studente', 'Personale-Docente', 'Personale-Ata', 'Personale-Segreteria');
 
     //Gestione parte ajax lato php
-    require_once('../includes/customer_ajax.php');
+    require_once('customer_user_includes/customer_ajax.php');
 ?>
 
 <!DOCTYPE html>
@@ -31,7 +32,7 @@
     </head>
     <body>
         <?php
-            require('../includes/header.php');
+            require('../../includes/header.php');
         ?>
 
         <div class="content-box"  id="page-content">
@@ -97,15 +98,15 @@
                         </form>
                     </div>
                     <div class="product-box">
-                        <?php require('../includes/product_availability.php'); ?>
+                        <?php require('customer_user_includes/product_availability.php'); ?>
                     </div>
 
                     <div class="orders-history">
-                        <?php require('../includes/orders_history.php'); ?>
+                        <?php require('customer_user_includes/orders_history.php'); ?>
                     </div>
 
                     <div class="cart-item-container">
-                        <?php require('../includes/user_cart.php'); ?>
+                        <?php require('customer_user_includes/user_cart.php'); ?>
                     </div>
                 </div>
             </div>

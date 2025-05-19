@@ -6,23 +6,23 @@
             case 'Personale-Docente':
             case 'Personale-Ata': 
             case 'Personale-Segreteria': {
-                header("location: /owlbreak/website/loggedin_users/customer_user.php"); 
+                header("location: /owlbreak/website/loggedin_users/customers/customer_user.php"); 
                 break;
             }
             case 'Titolare': {
-                header("location: /owlbreak/website/loggedin_users/holder_operator_user.php"); 
+                header("location: /owlbreak/website/loggedin_users/operators/holder_operator_user.php"); 
                 break;
             }
             case 'Addetto-Consegne': {
-                header("location: /owlbreak/website/loggedin_users/delivery_operator_user.php");
+                header("location: /owlbreak/website/loggedin_users/operators/delivery_operator_user.php");
                 break;
             }
             case 'Addetto-Vendite': {
-                header("location: /owlbreak/website/loggedin_users/sales_operator_user.php"); 
+                header("location: /owlbreak/website/loggedin_users/operators/sales_operator_user.php"); 
                 break;
             }
             case 'Fornitore': {
-                header("location: /owlbreak/website/loggedin_users/supplier_user.php"); 
+                header("location: /owlbreak/website/loggedin_users/operators/supplier_user.php"); 
                 break;
             }
             default: {

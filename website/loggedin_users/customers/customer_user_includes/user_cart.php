@@ -1,6 +1,6 @@
 <?php
     //Per evitare di accedere direttamente alla pagina
-    require_once('../includes/loggedin.php');   
+    require_once('../../includes/loggedin.php');   
 
     //Controllo che la variabile superglobale "$_SESSION['cart']" sia stata creata e che al suo interno contenga degli elementi, ad indicare che dei prodotti sono stati aggiunti al carrello tramite il bottone in product_availability.php, altrimenti, viene stampato un messaggio di "Carrello vuoto".
     if (isset($_SESSION['cart']) && count($_SESSION['cart']) > 0) {
@@ -22,7 +22,7 @@
             // Recupero l'immagine del prodotto da product_mapping.php
             if (isset($mapped_products[$nomeProdotto])) {
                 $imageFile = $mapped_products[$nomeProdotto]['img'];
-                $imagePath = '../images/product_images/' . $imageFile;
+                $imagePath = '../../images/product_images/' . $imageFile;
             } else {
                 $imageFile = 'default.jpg';
             }
@@ -112,7 +112,7 @@
                         Luogo di consegna
                     </div>
                     <div>
-                        <?php require('../includes/customer_place_delivery.php');?>
+                        <?php require('customer_place_delivery.php');?>
                     </div>
                 </div>
 

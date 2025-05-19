@@ -1,6 +1,4 @@
 <?php
-    require_once('loggedin.php');
-
     // Verifica che siano settate anche le credenziali per il database
 	if (!isset($_SESSION['user_type'], $_SESSION['db_pass'])) {
 		// Se mancano, significa che qualcosa è andato storto nel login

@@ -1,6 +1,6 @@
 <?php
     //Per evitare di accedere direttamente alla pagina
-    require_once('../includes/loggedin.php');   
+    require_once('../../includes/loggedin.php');   
 
     $email = $_SESSION['email'];
     //Fetch degli ordini

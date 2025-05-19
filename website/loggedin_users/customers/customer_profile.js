@@ -17,7 +17,9 @@ window.addEventListener('scroll', function() {
 // Codice per mostrare solo i prodotti appartenenti alla propria categoria
 document.addEventListener('DOMContentLoaded', () => {
   const menuItems = document.querySelectorAll('.menu-category');
-  const info_box= document.querySelector('.personal-information-box');
+  const info_box = document.querySelector('.personal-information-box');
+  const security_box = document.querySelector('.security-box');
+  const statistics_box = document.querySelector('.statistics-box');
 
   menuItems.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -30,10 +32,18 @@ document.addEventListener('DOMContentLoaded', () => {
       // Gestione visualizzazione della cronologia ordini
       if (cat === 'informazioni-personali') {
         info_box.classList.add('show');
+        security_box.classList.remove('show');
+        statistics_box.classList.remove('show');
         
       } else {
         info_box.classList.remove('show');
-        
+        if (cat === 'sicurezza'){
+          security_box.classList.add('show');
+          statistics_box.classList.remove('show');
+        }else{
+          security_box.classList.remove('show');
+          statistics_box.classList.add('show');
+        }
       }
       
     });

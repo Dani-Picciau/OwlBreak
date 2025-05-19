@@ -1,6 +1,7 @@
 <?php
-    require_once('../../includes/mysqli_connect_user.php');
     require_once('../../includes/loggedin.php');
+    require_once('../../includes/mysqli_connect_user.php');
+
     // Tutti i tipi di utenti cliente che possono accedere a questa pagina
     check_user_type('Studente', 'Personale-Docente', 'Personale-Ata', 'Personale-Segreteria');
 ?>
@@ -66,7 +67,7 @@
                 <div class="separator2"></div>
                 <div class="container">
                     <div class="personal-information-box">
-                        <?php require('includes/customer_information.php'); ?>
+                        <?php require('customer_profile_includes/customer_information.php'); ?>
                     </div>
                     <div class="security-box">
                         sicurezza
@@ -79,6 +80,6 @@
             </div>
         </div>
 
-        <script src="customer_profile.js"></script>
+        <script src="customer_profile.js?v=1.02"></script>
     </body>
 </html>

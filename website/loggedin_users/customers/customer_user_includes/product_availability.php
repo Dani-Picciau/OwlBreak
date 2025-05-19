@@ -1,6 +1,6 @@
 <?php
     //Per evitare di accedere direttamente alla pagina
-    require_once('../includes/loggedin.php');   
+    require_once('../../includes/loggedin.php');   
 
     //Fetch dei prodotti
     $sql = "SELECT nome, prezzo, disponibilità FROM prodotto";
@@ -26,7 +26,7 @@
         }
         
         // percorso immagine di default
-        $imgPath    = '../images/product_images/'.$imgFile;
+        $imgPath    = '../../images/product_images/'.$imgFile;
     
         // se non disponibile, aggiungo la classe
         $extraClass = $disponibile ? "" : " unavailable";

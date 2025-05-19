@@ -1,5 +1,5 @@
 <?php
-    require_once('../includes/loggedin.php');
+    require_once('../../includes/loggedin.php');
 
     if($_SESSION['user_type'] === 'Studente') {
         ?>
