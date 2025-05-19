@@ -1002,7 +1002,7 @@ figure:hover footer svg {
     padding: 1rem;
     display: flex;
     flex-direction: column;
-    background-color: rgba(79, 70, 229, 0.1); /* Sfondo più chiaro basato sul nuovo colore */
+    background-color: rgba(79, 70, 229, 0.1); 
     border-radius: 8px;
     gap:0.5rem;
 }
