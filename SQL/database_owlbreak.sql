@@ -798,6 +798,80 @@ BEGIN
 END$$
 DELIMITER ;
 
+DELIMITER $$
+CREATE PROCEDURE insert_cliente(
+    IN p_nome VARCHAR(50),
+    IN p_cognome VARCHAR(50),
+    IN p_tipo_cliente VARCHAR(30),
+    IN p_luogo_consegna VARCHAR(100),
+    IN p_default_pssw VARCHAR(255),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_dominio VARCHAR(30);
+    DECLARE v_iniziale VARCHAR(1);
+    DECLARE v_nominativo_base VARCHAR(50);
+    DECLARE v_nominativo VARCHAR(60);
+    DECLARE v_email VARCHAR(100);
+    DECLARE v_numero INT DEFAULT 0;
+    DECLARE v_tipo_cliente VARCHAR(30);
+    DECLARE v_nome VARCHAR(50);
+    DECLARE v_cognome VARCHAR(50);
+
+    this_procedure: BEGIN
+
+        CASE LOWER(p_tipo_cliente)
+            WHEN 'studente' THEN SET v_tipo_cliente = 'Studente';
+            WHEN 'personale-docente' THEN SET v_tipo_cliente = 'Personale-Docente';
+            WHEN 'personale-ata' THEN SET v_tipo_cliente = 'Personale-Ata';
+            WHEN 'personale-segreteria' THEN SET v_tipo_cliente = 'Personale-Segreteria';
+            WHEN 'personale docente' THEN SET v_tipo_cliente = 'Personale-Docente';
+            WHEN 'personale ata' THEN SET v_tipo_cliente = 'Personale-Ata';
+            WHEN 'personale segreteria' THEN SET v_tipo_cliente = 'Personale-Segreteria';
+        ELSE
+            SET p_messaggio = CONCAT('Tipo cliente non valido: ', p_tipo_cliente);
+            LEAVE this_procedure;
+        END CASE;
+
+        -- creazione mail univoca
+        IF v_tipo_cliente = 'Studente' THEN
+            SET v_dominio = 'studenti.boscogrigio.it';
+        ELSE
+            SET v_dominio = 'boscogrigio.it';
+        END IF;
+
+        SET v_iniziale = LEFT(p_nome, 1);
+        SET v_nominativo_base = CONCAT_WS('.', v_iniziale, p_cognome);
+
+        -- Controlla quanti clienti hanno già quella base email
+        SELECT COUNT(*) INTO v_numero
+        FROM cliente
+        WHERE email LIKE CONCAT(LOWER(v_nominativo_base), '%@', v_dominio);
+
+        -- Aggiungi numero se necessario
+        IF v_numero = 0 THEN
+            SET v_nominativo = v_nominativo_base;
+        ELSE
+            SET v_nominativo = CONCAT(v_nominativo_base, v_numero);
+        END IF;
+
+        -- Mail finale in minuscolo
+        SET v_email = LOWER(CONCAT_WS('@', v_nominativo, v_dominio));
+
+        -- Normalizzazione nome e cognome
+        SET v_nome = CONCAT( UPPER(LEFT(p_nome, 1)), LOWER(SUBSTRING(p_nome, 2)));
+        SET v_cognome = CONCAT( UPPER(LEFT(p_cognome, 1)), LOWER(SUBSTRING(p_cognome, 2)));
+
+        -- Inserimento cliente
+        INSERT INTO cliente (nome, cognome, tipoCliente, luogoConsegna, email, passw)
+        VALUES (v_nome, v_cognome, v_tipo_cliente, p_luogo_consegna, v_email, p_default_pssw);
+
+        SET p_messaggio = CONCAT('Cliente inserito con email: ', v_email);
+
+    END this_procedure;
+END $$
+DELIMITER ;
+
 /*
 -- ****** TUTTE PROCEDURE DI CLAUDE DA CONTROLLARE BENE ******
 DELIMITER $$
@@ -942,6 +1016,7 @@ GRANT SELECT ON owlbreak.cliente TO 'Personale-Segreteria'@'localhost'; -- per p
 GRANT SELECT ON owlbreak.ordine TO 'Personale-Segreteria'@'localhost';
 GRANT SELECT ON owlbreak.prodotto TO 'Personale-Segreteria'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Segreteria'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.insert_cliente TO 'Personale-Segreteria'@'localhost'
 
 -- PRIVILEGI TITOLARE
 GRANT SELECT ON owlbreak.operatore TO 'Titolare'@'localhost';
