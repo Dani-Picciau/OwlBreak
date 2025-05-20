@@ -530,9 +530,10 @@ nav .initials{
 .statistics-box{
     max-width: 100%;
     display: flex;
-    flex-direction: column;
-    justify-content: flex-start;
-    gap:1rem;
+    flex-direction: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap:1.5rem;
 
     opacity:0;
     visibility:hidden;
@@ -548,3 +549,46 @@ nav .initials{
     visibility: visible;
     position: relative;  
 }
+
+.statistic {
+    flex-basis: 200px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    padding: 1rem;
+    background-color: rgba(79, 70, 229, 0.09);
+    border-radius: 8px;
+    transform: scale(1);
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1); /* Ombra leggera di default */
+    transition: transform .3s ease-in-out, box-shadow .3s ease-in-out;
+}
+
+.statistic:hover {
+    transform: scale(1.05);
+    cursor: pointer;
+    box-shadow: 0px 10px 20px rgba(0, 0, 0, 0.2); 
+}
+
+.statistic p{
+    font-size:1.8rem;
+    margin:0;
+    font-family: var(--font-family-inter);
+    font-weight: 700;
+}
+
+.statistic-type{
+    display:flex;
+    align-items: center;
+    gap:0.5rem;
+    font-family: var(--font-family-inter);
+    font-weight: 500;
+    font-size: 0.9rem;
+    color:#3F51B5;
+}
+
+.statistic-type svg{
+    height:21px;
+    width:21px;
+    fill: #3F51B5;
+}
+
