@@ -768,14 +768,15 @@ BEGIN
                 GROUP BY o.CodiceID
             ) AS conteggi;
 
-            -- Seleziona l'operatore con quel numero minimo di assegnamenti e CodiceID più basso
-            SELECT o.CodiceID INTO v_operatore_id
-            FROM operatore o
-            LEFT JOIN consegna c ON o.CodiceID = c.OperatoreID
-            WHERE o.ruolo = 'Addetto-consegne'
-            GROUP BY o.CodiceID
-            HAVING COUNT(c.luogoConsegna) = v_min_assegnamenti
-            AND o.CodiceID = MIN(o.CodiceID);
+            -- Prendi il CodiceID più piccolo tra quelli che hanno conteggio = v_min_assegnamenti
+            SELECT MIN(o2.CodiceID) INTO v_operatore_id
+            FROM operatore o2
+            WHERE o2.ruolo = 'Addetto-consegne'
+              AND (
+                SELECT COUNT(*) 
+                  FROM consegna c2 
+                  WHERE c2.OperatoreID = o2.CodiceID
+              ) = v_min_assegnamenti;
 
             -- Se nessun operatore disponibile
             IF v_operatore_id IS NULL THEN
@@ -872,123 +873,6 @@ BEGIN
 END $$
 DELIMITER ;
 
-/*
--- ****** TUTTE PROCEDURE DI CLAUDE DA CONTROLLARE BENE ******
-DELIMITER $$
-
-CREATE PROCEDURE segna_ordine_consegnato(
-    IN p_data DATE,
-    IN p_ora TIME,
-    IN p_email_cliente VARCHAR(100),
-    IN p_nome_prodotto VARCHAR(50),
-    IN p_operatore_id INT,
-    OUT p_messaggio VARCHAR(255)
-)
-BEGIN
-    DECLARE v_ordine_esiste BOOLEAN;
-    DECLARE v_operatore_corretto BOOLEAN;
-    DECLARE v_gia_consegnato BOOLEAN;
-    
-    segna_consegna: BEGIN
-        -- Verifica se l'ordine esiste
-        SELECT COUNT(*) > 0 INTO v_ordine_esiste
-        FROM ordine
-        WHERE data = p_data 
-          AND ora = p_ora 
-          AND emailCliente = p_email_cliente 
-          AND nomeProdotto = p_nome_prodotto;
-        
-        IF NOT v_ordine_esiste THEN
-            SET p_messaggio = 'Ordine non trovato';
-            LEAVE segna_consegna;
-        END IF;
-        
-        -- Verifica se l'operatore è quello assegnato all'ordine
-        SELECT COUNT(*) > 0 INTO v_operatore_corretto
-        FROM ordine
-        WHERE data = p_data 
-          AND ora = p_ora 
-          AND emailCliente = p_email_cliente 
-          AND nomeProdotto = p_nome_prodotto
-          AND OperatoreID = p_operatore_id;
-        
-        IF NOT v_operatore_corretto THEN
-            SET p_messaggio = 'Non sei autorizzato a modificare questo ordine';
-            LEAVE segna_consegna;
-        END IF;
-        
-        -- Verifica se l'ordine è già stato consegnato
-        SELECT consegnato INTO v_gia_consegnato
-        FROM ordine
-        WHERE data = p_data 
-          AND ora = p_ora 
-          AND emailCliente = p_email_cliente 
-          AND nomeProdotto = p_nome_prodotto;
-        
-        IF v_gia_consegnato THEN
-            SET p_messaggio = 'Questo ordine risulta già consegnato';
-            LEAVE segna_consegna;
-        END IF;
-        
-        -- Aggiorna l'ordine come consegnato
-        UPDATE ordine
-        SET consegnato = TRUE
-        WHERE data = p_data 
-          AND ora = p_ora 
-          AND emailCliente = p_email_cliente 
-          AND nomeProdotto = p_nome_prodotto;
-        
-        SET p_messaggio = 'Ordine segnato come consegnato con successo';
-    END;
-    
-END$$
-DELIMITER ;
-
-DELIMITER $$
--- Procedura per visualizzare gli ordini assegnati a un operatore
-CREATE PROCEDURE VisualizzaOrdiniOperatore(
-    IN p_operatoreID INT
-)
-BEGIN
-    SELECT o.data, o.ora, o.emailCliente, c.nome AS nomeCliente, c.cognome AS cognomeCliente,
-           c.luogoConsegna, o.nomeProdotto, o.quantità, o.consegnato
-    FROM ordine o
-    JOIN cliente c ON o.emailCliente = c.email
-    WHERE o.OperatoreID = p_operatoreID
-    ORDER BY o.data DESC, o.ora DESC;
-END //
-
--- Procedura per riassegnare un operatore a un luogo di consegna
-CREATE PROCEDURE RiassegnaOperatoreConsegna(
-    IN p_luogoConsegna VARCHAR(100),
-    IN p_nuovoOperatoreID INT
-)
-BEGIN
-    DECLARE v_ruoloOperatore VARCHAR(30);
-    
-    -- Verifica che il nuovo operatore sia un addetto alle consegne
-    SELECT ruolo INTO v_ruoloOperatore 
-    FROM operatore 
-    WHERE CodiceID = p_nuovoOperatoreID;
-    
-    IF v_ruoloOperatore != 'Addetto-consegne' THEN
-        SIGNAL SQLSTATE '45000' SET MESSAGE_TEXT = 'L\'operatore selezionato non è un addetto alle consegne';
-    ELSE
-        -- Aggiorna il mapping nella tabella consegne
-        UPDATE consegne 
-        SET OperatoreID = p_nuovoOperatoreID
-        WHERE luogoConsegna = p_luogoConsegna;
-        
-        -- Aggiorna tutti gli ordini non ancora consegnati per questo luogo
-        UPDATE ordine o
-        JOIN cliente c ON o.emailCliente = c.email
-        SET o.OperatoreID = p_nuovoOperatoreID
-        WHERE c.luogoConsegna = p_luogoConsegna
-        AND o.consegnato = FALSE;
-    END IF;
-END $$
-DELIMITER ;
-*/
 
 
 -- ***** PRIVILEGI *****
@@ -1016,7 +900,7 @@ GRANT SELECT ON owlbreak.cliente TO 'Personale-Segreteria'@'localhost'; -- per p
 GRANT SELECT ON owlbreak.ordine TO 'Personale-Segreteria'@'localhost';
 GRANT SELECT ON owlbreak.prodotto TO 'Personale-Segreteria'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Segreteria'@'localhost';
-GRANT EXECUTE ON PROCEDURE owlbreak.insert_cliente TO 'Personale-Segreteria'@'localhost'
+GRANT EXECUTE ON PROCEDURE owlbreak.insert_cliente TO 'Personale-Segreteria'@'localhost';
 
 -- PRIVILEGI TITOLARE
 GRANT SELECT ON owlbreak.operatore TO 'Titolare'@'localhost';

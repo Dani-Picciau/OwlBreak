@@ -347,13 +347,24 @@ BEGIN
             ) AS conteggi;
 
             -- Seleziona l'operatore con quel numero minimo di assegnamenti e CodiceID più basso
-            SELECT o.CodiceID INTO v_operatore_id
+            /*SELECT o.CodiceID INTO v_operatore_id
             FROM operatore o
             LEFT JOIN consegna c ON o.CodiceID = c.OperatoreID
             WHERE o.ruolo = 'Addetto-consegne'
             GROUP BY o.CodiceID
             HAVING COUNT(c.luogoConsegna) = v_min_assegnamenti
-            AND o.CodiceID = MIN(o.CodiceID);
+            AND o.CodiceID = MIN(o.CodiceID);*/
+            -- Prendi il CodiceID più piccolo tra quelli che hanno conteggio = v_min_assegnamenti
+            SELECT MIN(o2.CodiceID)
+              INTO v_operatore_id
+            FROM operatore o2
+            WHERE o2.ruolo = 'Addetto-consegne'
+              AND (
+                SELECT COUNT(*) 
+                  FROM consegna c2 
+                  WHERE c2.OperatoreID = o2.CodiceID
+              ) = v_min_assegnamenti;
+
 
             -- Se nessun operatore disponibile
             IF v_operatore_id IS NULL THEN
@@ -482,6 +493,82 @@ BEGIN
         SET p_messaggio = CONCAT('Cliente inserito con email: ', v_email);
 
     END this_procedure;
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE PROCEDURE insert_cliente(
+    IN p_email VARCHAR (100),
+    IN p_nome VARCHAR(50),
+    IN p_cognome VARCHAR(50),
+    IN p_tipo_cliente VARCHAR(30),
+    IN p_luogo_consegna VARCHAR(100),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_dominio VARCHAR(30);
+    DECLARE v_iniziale VARCHAR(1);
+    DECLARE v_nominativo_base VARCHAR(50);
+    DECLARE v_nominativo VARCHAR(60);
+    DECLARE v_email VARCHAR(100);
+    DECLARE v_numero INT DEFAULT 0;
+    DECLARE v_tipo_cliente VARCHAR(30);
+    DECLARE v_nome VARCHAR(50);
+    DECLARE v_cognome VARCHAR(50);
+
+    this_procedure: BEGIN
+
+        CASE LOWER(p_tipo_cliente)
+            WHEN 'studente' THEN SET v_tipo_cliente = 'Studente';
+            WHEN 'personale-docente' THEN SET v_tipo_cliente = 'Personale-Docente';
+            WHEN 'personale-ata' THEN SET v_tipo_cliente = 'Personale-Ata';
+            WHEN 'personale-segreteria' THEN SET v_tipo_cliente = 'Personale-Segreteria';
+            WHEN 'personale docente' THEN SET v_tipo_cliente = 'Personale-Docente';
+            WHEN 'personale ata' THEN SET v_tipo_cliente = 'Personale-Ata';
+            WHEN 'personale segreteria' THEN SET v_tipo_cliente = 'Personale-Segreteria';
+        ELSE
+            SET p_messaggio = CONCAT('Tipo cliente non valido: ', p_tipo_cliente);
+            LEAVE this_procedure;
+        END CASE;
+
+
+        -- creazione mail univoca
+        IF v_tipo_cliente = 'Studente' THEN
+            SET v_dominio = 'studenti.boscogrigio.it';
+        ELSE
+            SET v_dominio = 'boscogrigio.it';
+        END IF;
+
+        SET v_iniziale = LEFT(p_nome, 1);
+        SET v_nominativo_base = CONCAT_WS('.', v_iniziale, p_cognome);
+
+        -- Controlla quanti clienti hanno già quella base email
+        SELECT COUNT(*) INTO v_numero
+        FROM cliente
+        WHERE email LIKE CONCAT(LOWER(v_nominativo_base), '%@', v_dominio);
+
+        -- Aggiungi numero se necessario
+        IF v_numero = 0 THEN
+            SET v_nominativo = v_nominativo_base;
+        ELSE
+            SET v_nominativo = CONCAT(v_nominativo_base, v_numero);
+        END IF;
+
+        -- Mail finale in minuscolo
+        SET v_email = LOWER(CONCAT_WS('@', v_nominativo, v_dominio));
+
+        -- Normalizzazione nome e cognome
+        SET v_nome = CONCAT( UPPER(LEFT(p_nome, 1)), LOWER(SUBSTRING(p_nome, 2)));
+        SET v_cognome = CONCAT( UPPER(LEFT(p_cognome, 1)), LOWER(SUBSTRING(p_cognome, 2)));
+
+        -- Inserimento cliente
+        UPDATE cliente (nome, cognome, tipoCliente, luogoConsegna, email)
+        VALUES (v_nome, v_cognome, v_tipo_cliente, p_luogo_consegna, v_email);
+
+        SET p_messaggio = CONCAT('Cliente inserito con email: ', v_email);
+
+    END this_procedure;
+
 END $$
 DELIMITER ;
 
