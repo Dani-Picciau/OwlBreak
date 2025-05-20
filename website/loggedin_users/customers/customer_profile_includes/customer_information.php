@@ -1,11 +1,10 @@
 <?php
-    $email = $_SESSION['email'];
     $sql = "SELECT email, nome, cognome, tipoCliente FROM cliente WHERE email = '$email'";
     $result = mysqli_query($dbc, $sql);
     if (!$result) {
         die("DB query error: " . mysqli_error($dbc));
     }
-
+    if (@mysqli_num_rows($result) == 1) {
         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
         ?>
             <div class="information">
@@ -37,5 +36,7 @@
                 <span><?= $row['tipoCliente']; ?></span>
             </div>
         <?php
-    
+    } else{
+        echo '<p>Errore nella visualizzazione delle informazioni</p>';
+    }
 ?>

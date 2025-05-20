@@ -66,14 +66,15 @@
                 </div>
                 <div class="separator2"></div>
                 <div class="container">
+                    <?php $email = $_SESSION['email']; ?>
                     <div class="personal-information-box">
                         <?php require('customer_profile_includes/customer_information.php'); ?>
                     </div>
                     <div class="security-box">
-                        sicurezza
+                    
                     </div>
                     <div class="statistics-box">
-                        statistiche
+                        <?php require('customer_profile_includes/customer_statistics.php'); ?>
                     </div>
                     
                 </div>

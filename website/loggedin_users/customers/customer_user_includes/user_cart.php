@@ -116,9 +116,11 @@
                     </div>
                 </div>
 
-                <button id="confirmBtn" class="confirm-button">
-                    Conferma ordine
-                </button>
+                <form action="order_submit.php" method="post">
+                    <button type="submit" class="confirm-button">
+                        Conferma ordine
+                    </button>
+                </form>
             </div>
         <?php
     } else {
