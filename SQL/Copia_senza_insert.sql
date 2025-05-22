@@ -40,7 +40,7 @@ CREATE TABLE prodotto (
 
 CREATE TABLE operatore (
     CodiceID INT PRIMARY KEY AUTO_INCREMENT,
-    email VARCHAR(100) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE, -- non è chiave primaria
     passw VARCHAR(255) NOT NULL,
     nome VARCHAR(50) NOT NULL,
     cognome VARCHAR(50) NOT NULL,
@@ -212,7 +212,7 @@ BEGIN
         )
     );
 
-     -- ripristino disponibilità prodotti
+    -- ripristino disponibilità prodotti
     UPDATE Prodotto
     SET disponibilità = TRUE
     WHERE disponibilità = FALSE AND nome NOT IN (
@@ -357,14 +357,13 @@ BEGIN
             AND o.CodiceID = MIN(o.CodiceID);*/ -- se due op hanno = num consegne restituisce più di una tupla
 
             -- Prendi il CodiceID più piccolo tra quelli che hanno conteggio = v_min_assegnamenti
-            SELECT MIN(o2.CodiceID)
-              INTO v_operatore_id
-            FROM operatore o2
-            WHERE o2.ruolo = 'Addetto-consegne'
+            SELECT MIN(o.CodiceID) INTO v_operatore_id
+            FROM operatore o
+            WHERE o.ruolo = 'Addetto-consegne'
               AND (
                 SELECT COUNT(*) 
-                  FROM consegna c2 
-                  WHERE c2.OperatoreID = o2.CodiceID
+                  FROM consegna c 
+                  WHERE c.OperatoreID = o.CodiceID
               ) = v_min_assegnamenti;
 
 
@@ -424,6 +423,8 @@ BEGIN
 END$$
 DELIMITER ;
 
+
+-- ***** PROCEDURE SUI DATI DEI CLIENTI *****
 DELIMITER $$
 CREATE PROCEDURE insert_cliente(
     IN p_nome VARCHAR(50),
@@ -681,16 +682,16 @@ END $$
 DELIMITER ;
 
 
--- procedura per cambiare la pssw
+-- procedura per cambiare la pssw cliente 
 DELIMITER $$
 CREATE PROCEDURE cambio_pssw_cliente(
     IN p_email VARCHAR(100),
-    IN p_v_pssw VARCHAR (255),
+    -- IN p_v_pssw VARCHAR (255),
     IN p_n_pssw VARCHAR (255),
     OUT p_messaggio VARCHAR(255)
 )
 BEGIN
-    DECLARE v_v_pssw VARCHAR(255);
+    -- DECLARE v_v_pssw VARCHAR(255);
     DECLARE v_cliente_esiste BOOLEAN;
 
     this_procedure: BEGIN
@@ -710,7 +711,7 @@ BEGIN
             LEAVE this_procedure;
         END IF;
 
-        SELECT passw INTO v_v_pssw
+        /*SELECT passw INTO v_v_pssw
         FROM cliente
         WHERE email = p_email;
 
@@ -724,12 +725,384 @@ BEGIN
             WHERE email = p_email;
 
             SET p_messaggio = 'Password aggiornata con successo!';
-        END IF;
+        END IF;*/
+
+        UPDATE cliente
+        SET passw = p_n_pssw
+        WHERE email = p_email;
+
+        SET p_messaggio = 'Password aggiornata con successo!';
 
     END this_procedure;
 END $$
 DELIMITER ;
 
+-- ***** PROCEDURE SUI DATI DEGLI OPERATORI *****
+
+-- procedura per inserire un operatore
+DELIMITER $$
+CREATE PROCEDURE insert_operatore(
+    IN p_nome VARCHAR(50),
+    IN p_cognome VARCHAR(50),
+    IN p_ruolo VARCHAR(30),
+    IN p_email VARCHAR(100),
+    IN p_default_pssw VARCHAR(255),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_ruolo VARCHAR(30);
+    DECLARE v_nome VARCHAR(50);
+    DECLARE v_cognome VARCHAR(50);
+    DECLARE v_id INT;
+
+    this_procedure: BEGIN
+        -- normailizzazione ruolo
+        CASE LOWER(p_ruolo)
+            WHEN 'titolare' THEN SET v_ruolo = 'Titolare';
+            WHEN 'addetto-vendite' THEN SET v_ruolo = 'Addetto-vendite';
+            WHEN 'addetto-consegne' THEN SET v_ruolo = 'Addetto-consegne';
+            WHEN 'addetto vendite' THEN SET v_ruolo = 'Addetto-vendite';
+            WHEN 'addetto consegne' THEN SET v_ruolo = 'Addetto-consegne';
+        ELSE
+            SET p_messaggio = CONCAT('Ruolo operatore non valido: ', p_ruolo);
+            LEAVE this_procedure;
+        END CASE;
+
+        -- Normalizzazione nome e cognome
+        SET v_nome = CONCAT( UPPER(LEFT(p_nome, 1)), LOWER(SUBSTRING(p_nome, 2)));
+        SET v_cognome = CONCAT( UPPER(LEFT(p_cognome, 1)), LOWER(SUBSTRING(p_cognome, 2)));
+
+        -- Inserimento cliente
+        INSERT INTO operatore (nome, cognome, ruolo, email, passw)
+        VALUES (v_nome, v_cognome, v_ruolo, LOWER(p_email), p_default_pssw);
+
+        SELECT CodiceID into v_id
+        FROM operatore
+        WHERE email = LOWER(p_email);
+
+        SET p_messaggio = CONCAT('Inserito nuovo operatore: ',v_nome,' ', v_cognome, ' ',LOWER(p_email), ' ',v_ruolo, ' con ID: ', v_id );
+
+    END this_procedure;
+END $$
+DELIMITER ;
+
+-- procedura per la modifica dei dati di un operatore
+DELIMITER $$
+CREATE PROCEDURE modifica_operatore(
+    IN p_id VARCHAR (100),
+    IN p_email VARCHAR(100),
+    IN p_nome VARCHAR(50),
+    IN p_cognome VARCHAR(50),
+    IN p_ruolo VARCHAR(30),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_ruolo VARCHAR(30);
+    DECLARE v_nome VARCHAR(50);
+    DECLARE v_cognome VARCHAR(50);
+
+    this_procedure: BEGIN
+        -- controllo esistenza op
+        SELECT COUNT(*) > 0 INTO v_op_esiste
+        FROM operatore
+        WHERE CodeiceID = p_id;
+
+        IF NOT v_op_esiste THEN
+            SET p_messaggio = 'Operatore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        -- normailizzazione ruolo
+        CASE LOWER(p_ruolo)
+            WHEN 'titolare' THEN SET v_ruolo = 'Titolare';
+            WHEN 'addetto-vendite' THEN SET v_ruolo = 'Addetto-vendite';
+            WHEN 'addetto-consegne' THEN SET v_ruolo = 'Addetto-consegne';
+            WHEN 'addetto vendite' THEN SET v_ruolo = 'Addetto-vendite';
+            WHEN 'addetto consegne' THEN SET v_ruolo = 'Addetto-consegne';
+        ELSE
+            SET p_messaggio = CONCAT('Ruolo operatore non valido: ', p_ruolo);
+            LEAVE this_procedure;
+        END CASE;
+
+        -- Normalizzazione nome e cognome
+        SET v_nome = CONCAT( UPPER(LEFT(p_nome, 1)), LOWER(SUBSTRING(p_nome, 2)));
+        SET v_cognome = CONCAT( UPPER(LEFT(p_cognome, 1)), LOWER(SUBSTRING(p_cognome, 2)));
+
+        -- Esegui UPDATE
+        UPDATE operatore
+        SET nome = v_nome,
+            cognome = v_cognome,
+            ruolo = v_ruolo,
+            email = LOWER(p_email)
+        WHERE CodiceID = p_id;
+
+        SET p_messaggio = CONCAT('Operatore con ID:', p_id ,' aggiornato con nuovi dati: ', v_nome,' ', v_cognome,' ', LOWER(p_email),' ', v_tipo_cliente,' ', p_luogo_consegna); 
+
+    END this_procedure;
+
+END $$
+DELIMITER ;
+
+
+-- procedura per cambiare la pssw operatore
+DELIMITER $$
+CREATE PROCEDURE cambio_pssw_operatore(
+    IN p_id VARCHAR(100),
+    -- IN p_v_pssw VARCHAR (255),
+    IN p_n_pssw VARCHAR (255),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    -- DECLARE v_v_pssw VARCHAR(255);
+    DECLARE v_op_esiste BOOLEAN;
+
+    this_procedure: BEGIN
+        -- controllo esistenza op
+        SELECT COUNT(*) > 0 INTO v_op_esiste
+        FROM operatore
+        WHERE CodeiceID = p_id;
+
+        IF NOT v_op_esiste THEN
+            SET p_messaggio = 'Operatore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        -- controllo che la nuova pssw non sia vuota
+        IF LENGTH(TRIM(p_n_pssw)) = 0 THEN
+            SET p_messaggio = 'La nuova password non può essere vuota';
+            LEAVE this_procedure;
+        END IF;
+
+        /*SELECT passw INTO v_v_pssw
+        FROM operatore
+        WHERE email = p_email;
+
+        -- controllo che la vecchia password inserita dal cliente corrisponda a quella memorizzata del database
+        IF p_v_pssw <> v_v_pssw THEN
+            SET p_messaggio = 'La password non corrisponde';
+            LEAVE this_procedure;
+        ELSE 
+            UPDATE operatore
+            SET passw = p_n_pssw
+            WHERE email = p_email;
+
+            SET p_messaggio = 'Password aggiornata con successo!';
+        END IF;*/
+
+        UPDATE operatore
+        SET passw = p_n_pssw
+        WHERE CodeiceID = p_id;
+
+        SET p_messaggio = 'Password aggiornata con successo!';
+
+    END this_procedure;
+END $$
+DELIMITER ;
+
+
+-- procedura per eliminare un operatore
+DELIMITER $$
+CREATE PROCEDURE elimina_operatore(
+    IN p_id VARCHAR(100),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_op_esiste BOOLEAN;
+    DECLARE v_ruolo VARCHAR(30);
+    DECLARE v_num_titolari INT; 
+
+    this_procedure: BEGIN
+        -- Verifica esistenza operatore
+        SELECT COUNT(*) > 0 INTO v_op_esiste
+        FROM operatore
+        WHERE CodideID = p_id;
+
+        IF NOT v_op_esiste THEN
+            SET p_messaggio = 'Operatore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        /* Controllo se l'oeratore che si vuole eliminare è un titolare
+        in caso affermativo lo cancello solo se ne esiste almeno un altro*/
+        SELECT ruolo INTO v_ruolo
+        FROM operatore
+        WHERE CodiceID = p_id;
+
+        -- Se è un titolare, controlla quanti ce ne sono
+        IF v_ruolo = 'Titolare' THEN
+            SELECT COUNT(*) INTO v_num_titolari
+            FROM operatore
+            WHERE ruolo = 'Titolare';
+
+            IF v_num_titolari = 1 THEN
+                SET p_messaggio = 'Non è possibile eliminare l\'unico titolare presente';
+                LEAVE this_procedure;
+            END IF;
+        END IF;
+
+        DELETE FROM operatore
+        WHERE CodiceID = p_id;
+
+        SET p_messaggio = CONCAT("Operatore con codice ID ", p_id, " eliminato dal database");
+
+    END this_procedure;
+END $$
+DELIMITER ;
+
+
+-- ***** PROCEDURE SUI DATI DEI FORNITORI *****
+
+-- procedura per inserire un fornitore
+DELIMITER $$
+CREATE PROCEDURE insert_fornitore(
+    IN p_nome_titolare VARCHAR(50),
+    IN p_nome_azienda VARCHAR(50),
+    IN p_email VARCHAR(100),
+    IN p_default_pssw VARCHAR(255),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_id INT;
+
+    this_procedure: BEGIN
+        -- Inserimento fornitore
+        INSERT INTO fornitore (nomeTitolare, nomeAzienda, email, passw)
+        VALUES (p_nome_titolare, p_nome_azienda, LOWER(p_email), p_default_pssw);
+
+        SELECT CodiceID into v_id
+        FROM fornitore
+        WHERE email = LOWER(p_email);
+
+        SET p_messaggio = CONCAT('Inserito nuovo fornitore: ',p_nome_titolare,' ', p_nome_azienda, ' ',LOWER(p_email), ' con ID: ', v_id);
+
+    END this_procedure;
+END $$
+DELIMITER ;
+
+-- procedura per modificare un fornitore
+DELIMITER $$
+CREATE PROCEDURE modifica_fornitore(
+    IN p_nome_titolare VARCHAR(50),
+    IN p_nome_azienda VARCHAR(50),
+    IN p_email VARCHAR(100),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_id INT;
+    DECLARE v_fornitore_esiste BOOLEAN;
+
+    this_procedure: BEGIN
+
+        -- Verifica esistenza fornitore
+        SELECT COUNT(*) > 0 INTO v_fornitore_esiste
+        FROM fornitore
+        WHERE CodideID = p_id;
+
+        IF NOT v_fornitore_esiste THEN
+            SET p_messaggio = 'Fornitore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Esegui UPDATE
+        UPDATE fornitore
+        SET nomeTitolare = p_nome_titolare,
+            nomeAzienda = p_nome_azienda
+            email = LOWER(p_email)
+        WHERE CodiceID = p_id;
+
+        SELECT CodiceID into v_id
+        FROM fornitore
+        WHERE email = LOWER(p_email);
+
+        SET p_messaggio = CONCAT('Fornitore con ID: ', v_id,' aggiornato con nuovi dati: ', p_nome_titolare,' ', p_nome_azienda, ' ',LOWER(p_email));
+
+    END this_procedure;
+END $$
+DELIMITER ;
+
+-- procedura per cambiare la pssw fornitori 
+DELIMITER $$
+CREATE PROCEDURE cambio_pssw_fornitore(
+    IN p_email VARCHAR(100),
+    -- IN p_v_pssw VARCHAR (255),
+    IN p_n_pssw VARCHAR (255),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    -- DECLARE v_v_pssw VARCHAR(255);
+    DECLARE v_fornitore_esiste BOOLEAN;
+
+    this_procedure: BEGIN
+        -- controllo esistenza fornitore
+        SELECT COUNT(*) > 0 INTO v_fornitore_esiste
+        FROM fornitore
+        WHERE CodideID = p_id;
+
+        IF NOT v_fornitore_esiste THEN
+            SET p_messaggio = 'Fornitore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        -- controllo che la nuova pssw non sia vuota
+        IF LENGTH(TRIM(p_n_pssw)) = 0 THEN
+            SET p_messaggio = 'La nuova password non può essere vuota';
+            LEAVE this_procedure;
+        END IF;
+
+       /* SELECT passw INTO v_v_pssw
+        FROM fornitore
+        WHERE email = p_email;
+
+        -- controllo che la vecchia password inserita dal cliente corrisponda a quella memorizzata del database
+        IF p_v_pssw <> v_v_pssw THEN
+            SET p_messaggio = 'La password non corrisponde';
+            LEAVE this_procedure;
+        ELSE 
+            UPDATE fornitore
+            SET passw = p_n_pssw
+            WHERE email = p_email;
+
+            SET p_messaggio = 'Password aggiornata con successo!';
+        END IF;*/
+
+        UPDATE fornitore
+        SET passw = p_n_pssw
+        WHERE CodiceID = p_id;
+
+        SET p_messaggio = 'Password aggiornata con successo!';
+
+    END this_procedure;
+END $$
+DELIMITER ;
+
+-- procedura per eliminare un fornitore
+DELIMITER $$
+CREATE PROCEDURE elimina_fornitore(
+    IN p_email VARCHAR(100),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_fornitore_esiste BOOLEAN;
+
+    this_procedure: BEGIN
+        -- Verifica esistenza fornitore
+        SELECT COUNT(*) > 0 INTO v_fornitore_esiste
+        FROM fornitore
+        WHERE CodideID = p_id;
+
+        IF NOT v_fornitore_esiste THEN
+            SET p_messaggio = 'Fornitore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        DELETE FROM fornitore
+        WHERE email = p_email;
+
+        SET p_messaggio = CONCAT("Fornitore con email ", p_email, " eliminato dal database");
+
+    END this_procedure;
+END $$
+DELIMITER ;
 
 -- procedura per effettuare un rifornimento
 
@@ -904,6 +1277,7 @@ GRANT SELECT ON owlbreak.composizione TO 'Titolare'@'localhost';
 GRANT SELECT ON owlbreak.ingrediente TO 'Titolare'@'localhost';
 GRANT SELECT ON owlbreak.rifornimento TO 'Titolare'@'localhost';
 GRANT SELECT ON owlbreak.fornitore TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Titolare'@'localhost';
 
 
 -- PRIVILEGI ADDETTI VENDITE
@@ -913,11 +1287,13 @@ GRANT SELECT ON owlbreak.composizione TO 'Addetto-vendite'@'localhost';
 GRANT SELECT ON owlbreak.ingrediente TO 'Addetto-vendite'@'localhost';
 GRANT SELECT ON owlbreak.rifornimento TO 'Addetto-vendite'@'localhost';
 GRANT SELECT ON owlbreak.fornitore TO 'Addetto-vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Addetto-vendite'@'localhost';
 
 -- PRIVILEGI ADDETTI CCONSEGNE
 GRANT SELECT ON owlbreak.ordine TO 'Addetto-consegne'@'localhost';
 GRANT SELECT ON owlbreak.consegna TO 'Addetto-consegne'@'localhost';
-
+GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Addetto-consegne'@'localhost';
 
 -- PRIVILEGI FORNITORI
 GRANT SELECT ON owlbreak.rifornimento TO 'Fornitore'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_fornitore TO 'Fornitore'@'localhost';
