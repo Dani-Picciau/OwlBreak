@@ -49,11 +49,6 @@
     }
 } */
 
-/* WebKit/Blink (Chrome, Safari, Edge, Opera) */
-::-webkit-scrollbar {
-  width: 0px; /* Larghezza molto sottile */
-}
-
 * {
     margin: 0;
     padding: 0;
@@ -815,6 +810,10 @@ figure:hover footer svg {
     transform: scale(1.1)
 }
 
+.add-to-cart:active{
+    transform: scale(0.6);
+}
+
 .cart-item-container{
     max-width:100%;
     display: flex;
@@ -1181,7 +1180,7 @@ figure:hover footer svg {
 
 /* Effetti hover */
 .confirm-button:hover {
-    background-color: rgb(67, 56, 202); /* Versione leggermente più scura */
+    background-color: rgb(67, 56, 202);
     transform: translateY(-2px);
     box-shadow: 0 4px 12px rgba(79, 70, 229, 0.3);
 }

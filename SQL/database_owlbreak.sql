@@ -1155,16 +1155,16 @@ GRANT SELECT ON owlbreak.fornitore TO 'Titolare'@'localhost';
 
 
 -- PRIVILEGI ADDETTI VENDITE
-GRANT SELECT ON owlbreak.ordine TO 'Addetto-vendite'@'localhost';
-GRANT SELECT ON owlbreak.prodotto TO 'Addetto-vendite'@'localhost';
-GRANT SELECT ON owlbreak.composizione TO 'Addetto-vendite'@'localhost';
-GRANT SELECT ON owlbreak.ingrediente TO 'Addetto-vendite'@'localhost';
-GRANT SELECT ON owlbreak.rifornimento TO 'Addetto-vendite'@'localhost';
-GRANT SELECT ON owlbreak.fornitore TO 'Addetto-vendite'@'localhost';
+GRANT SELECT ON owlbreak.ordine TO 'Addetto-Vendite'@'localhost';
+GRANT SELECT ON owlbreak.prodotto TO 'Addetto-Vendite'@'localhost';
+GRANT SELECT ON owlbreak.composizione TO 'Addetto-Vendite'@'localhost';
+GRANT SELECT ON owlbreak.ingrediente TO 'Addetto-Vendite'@'localhost';
+GRANT SELECT ON owlbreak.rifornimento TO 'Addetto-Vendite'@'localhost';
+GRANT SELECT ON owlbreak.fornitore TO 'Addetto-Vendite'@'localhost';
 
 -- PRIVILEGI ADDETTI CCONSEGNE
-GRANT SELECT ON owlbreak.ordine TO 'Addetto-consegne'@'localhost';
-GRANT SELECT ON owlbreak.consegna TO 'Addetto-consegne'@'localhost';
+GRANT SELECT ON owlbreak.ordine TO 'Addetto-Consegne'@'localhost';
+GRANT SELECT ON owlbreak.consegna TO 'Addetto-Consegne'@'localhost';
 
 
 -- PRIVILEGI FORNITORI

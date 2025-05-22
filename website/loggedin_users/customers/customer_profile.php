@@ -11,6 +11,7 @@
     <head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/owlbreak/website/images/logo.svg" type="svg">
         <title>User profile</title>
         <!-- Normalize CSS -->
         <link rel="stylesheet" href="customer_profile.css?v=<?=time()?>" />
@@ -71,7 +72,7 @@
                         <?php require('customer_profile_includes/customer_information.php'); ?>
                     </div>
                     <div class="security-box">
-                    
+                        <?php require('customer_profile_includes/customer_security.php'); ?>
                     </div>
                     <div class="statistics-box">
                         <?php require('customer_profile_includes/customer_statistics.php'); ?>

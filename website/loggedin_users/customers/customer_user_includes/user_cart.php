@@ -116,7 +116,7 @@
                     </div>
                 </div>
 
-                <form action="order_submit.php" method="post">
+                <form action="customer_user_includes/order_submit.php" method="post">
                     <button type="submit" class="confirm-button">
                         Conferma ordine
                     </button>

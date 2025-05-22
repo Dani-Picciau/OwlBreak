@@ -1,0 +1,49 @@
+<?php
+    require_once('../../../includes/loggedin.php');
+    require_once('../../../includes/mysqli_connect_user.php');
+
+    if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
+        die('<p>Carrello vuoto. <a href="user_cart.php">Torna al carrello</a></p>');
+    }
+
+    $emailCliente = $_SESSION['email'];
+    $results      = [];
+
+    foreach ($_SESSION['cart'] as $nomeProdotto => $quantita) {
+        // Chiama la procedura per ciascun prodotto
+        $stmt = $dbc->prepare("CALL effettua_ordine(?, ?, ?, @out_messaggio)");
+        $stmt->bind_param("ssi", $emailCliente, $nomeProdotto, $quantita);
+        $stmt->execute();
+        $stmt->close();
+
+        // Recupera il messaggio OUT
+        $res = $dbc->query("SELECT @out_messaggio AS messaggio");
+        $row = $res->fetch_assoc();
+        $results[] = [
+            'product'  => $nomeProdotto,
+            'quantity' => $quantita,
+            'message'  => $row['messaggio']
+        ];
+    }
+
+    // Svuota il carrello se tutti gli ordini sono andati a buon fine
+    $all_ok = true;
+    foreach ($results as $r) {
+        if ($r['message'] !== 'Ordine effettuato con successo') {
+            $all_ok = false;
+            break;
+        }
+    }
+
+    if ($all_ok) {
+        unset($_SESSION['cart']);
+    }
+
+    // Salva i risultati in sessione per mostrarli nella pagina di conferma
+    $_SESSION['order_results'] = $results;
+    $_SESSION['order_success'] = $all_ok;
+
+    // Reindirizza alla pagina di conferma
+    header('Location: order_confirmation.php');
+    exit;
+?>
