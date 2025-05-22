@@ -5,8 +5,8 @@ CREATE USER 'Personale-Docente'@'localhost' IDENTIFIED BY 'Cliente';
 CREATE USER 'Personale-Ata'@'localhost' IDENTIFIED BY 'Cliente';
 CREATE USER 'Personale-Segreteria'@'localhost' IDENTIFIED BY 'Cliente';
 CREATE USER 'Titolare'@'localhost' IDENTIFIED BY 'Operatore';
-CREATE USER 'Addetto-consegne'@'localhost' IDENTIFIED BY 'Operatore';
-CREATE USER 'Addetto-vendite'@'localhost' IDENTIFIED BY 'Operatore';
+CREATE USER 'Addetto-Consegne'@'localhost' IDENTIFIED BY 'Operatore';
+CREATE USER 'Addetto-Vendite'@'localhost' IDENTIFIED BY 'Operatore';
 CREATE USER 'Fornitore'@'localhost' IDENTIFIED BY 'Fornitore';
 
 -- Creazione Database
@@ -47,8 +47,8 @@ CREATE TABLE operatore (
     ruolo VARCHAR(30) NOT NULL CHECK (
         ruolo IN (
             'Titolare',
-            'Addetto-consegne',
-            'Addetto-vendite'
+            'Addetto-Consegne',
+            'Addetto-Vendite'
         )
     )
 );
@@ -343,7 +343,7 @@ BEGIN
                 SELECT o.CodiceID, COUNT(c.luogoConsegna) AS assegnamenti
                 FROM operatore o
                 LEFT JOIN consegna c ON o.CodiceID = c.OperatoreID
-                WHERE o.ruolo = 'Addetto-consegne'
+                WHERE o.ruolo = 'Addetto-Consegne'
                 GROUP BY o.CodiceID
             ) AS conteggi;
 
@@ -359,7 +359,7 @@ BEGIN
             -- Prendi il CodiceID più piccolo tra quelli che hanno conteggio = v_min_assegnamenti
             SELECT MIN(o.CodiceID) INTO v_operatore_id
             FROM operatore o
-            WHERE o.ruolo = 'Addetto-consegne'
+            WHERE o.ruolo = 'Addetto-Consegne'
               AND (
                 SELECT COUNT(*) 
                   FROM consegna c 
@@ -759,10 +759,10 @@ BEGIN
         -- normailizzazione ruolo
         CASE LOWER(p_ruolo)
             WHEN 'titolare' THEN SET v_ruolo = 'Titolare';
-            WHEN 'addetto-vendite' THEN SET v_ruolo = 'Addetto-vendite';
-            WHEN 'addetto-consegne' THEN SET v_ruolo = 'Addetto-consegne';
-            WHEN 'addetto vendite' THEN SET v_ruolo = 'Addetto-vendite';
-            WHEN 'addetto consegne' THEN SET v_ruolo = 'Addetto-consegne';
+            WHEN 'addetto-vendite' THEN SET v_ruolo = 'Addetto-Vendite';
+            WHEN 'addetto-consegne' THEN SET v_ruolo = 'Addetto-Consegne';
+            WHEN 'addetto vendite' THEN SET v_ruolo = 'Addetto-Vendite';
+            WHEN 'addetto consegne' THEN SET v_ruolo = 'Addetto-Consegne';
         ELSE
             SET p_messaggio = CONCAT('Ruolo operatore non valido: ', p_ruolo);
             LEAVE this_procedure;
@@ -789,7 +789,7 @@ DELIMITER ;
 -- procedura per la modifica dei dati di un operatore
 DELIMITER $$
 CREATE PROCEDURE modifica_operatore(
-    IN p_id VARCHAR (100),
+    IN p_id INT,
     IN p_email VARCHAR(100),
     IN p_nome VARCHAR(50),
     IN p_cognome VARCHAR(50),
@@ -800,12 +800,13 @@ BEGIN
     DECLARE v_ruolo VARCHAR(30);
     DECLARE v_nome VARCHAR(50);
     DECLARE v_cognome VARCHAR(50);
+    DECLARE v_op_esiste BOOLEAN;
 
     this_procedure: BEGIN
         -- controllo esistenza op
         SELECT COUNT(*) > 0 INTO v_op_esiste
         FROM operatore
-        WHERE CodeiceID = p_id;
+        WHERE CodiceID = p_id;
 
         IF NOT v_op_esiste THEN
             SET p_messaggio = 'Operatore non trovato';
@@ -815,10 +816,10 @@ BEGIN
         -- normailizzazione ruolo
         CASE LOWER(p_ruolo)
             WHEN 'titolare' THEN SET v_ruolo = 'Titolare';
-            WHEN 'addetto-vendite' THEN SET v_ruolo = 'Addetto-vendite';
-            WHEN 'addetto-consegne' THEN SET v_ruolo = 'Addetto-consegne';
-            WHEN 'addetto vendite' THEN SET v_ruolo = 'Addetto-vendite';
-            WHEN 'addetto consegne' THEN SET v_ruolo = 'Addetto-consegne';
+            WHEN 'addetto-vendite' THEN SET v_ruolo = 'Addetto-Vendite';
+            WHEN 'addetto-consegne' THEN SET v_ruolo = 'Addetto-Consegne';
+            WHEN 'addetto vendite' THEN SET v_ruolo = 'Addetto-Vendite';
+            WHEN 'addetto consegne' THEN SET v_ruolo = 'Addetto-Consegne';
         ELSE
             SET p_messaggio = CONCAT('Ruolo operatore non valido: ', p_ruolo);
             LEAVE this_procedure;
@@ -836,7 +837,7 @@ BEGIN
             email = LOWER(p_email)
         WHERE CodiceID = p_id;
 
-        SET p_messaggio = CONCAT('Operatore con ID:', p_id ,' aggiornato con nuovi dati: ', v_nome,' ', v_cognome,' ', LOWER(p_email),' ', v_tipo_cliente,' ', p_luogo_consegna); 
+        SET p_messaggio = CONCAT('Operatore con ID:', p_id ,' aggiornato con nuovi dati: ', v_nome,' ', v_cognome,' ', LOWER(p_email),' ', v_ruolo); 
 
     END this_procedure;
 
@@ -847,7 +848,7 @@ DELIMITER ;
 -- procedura per cambiare la pssw operatore
 DELIMITER $$
 CREATE PROCEDURE cambio_pssw_operatore(
-    IN p_id VARCHAR(100),
+    IN p_id INT,
     -- IN p_v_pssw VARCHAR (255),
     IN p_n_pssw VARCHAR (255),
     OUT p_messaggio VARCHAR(255)
@@ -860,7 +861,7 @@ BEGIN
         -- controllo esistenza op
         SELECT COUNT(*) > 0 INTO v_op_esiste
         FROM operatore
-        WHERE CodeiceID = p_id;
+        WHERE CodiceID = p_id;
 
         IF NOT v_op_esiste THEN
             SET p_messaggio = 'Operatore non trovato';
@@ -891,7 +892,7 @@ BEGIN
 
         UPDATE operatore
         SET passw = p_n_pssw
-        WHERE CodeiceID = p_id;
+        WHERE CodiceID = p_id;
 
         SET p_messaggio = 'Password aggiornata con successo!';
 
@@ -903,7 +904,7 @@ DELIMITER ;
 -- procedura per eliminare un operatore
 DELIMITER $$
 CREATE PROCEDURE elimina_operatore(
-    IN p_id VARCHAR(100),
+    IN p_id INT,
     OUT p_messaggio VARCHAR(255)
 )
 BEGIN
@@ -915,7 +916,7 @@ BEGIN
         -- Verifica esistenza operatore
         SELECT COUNT(*) > 0 INTO v_op_esiste
         FROM operatore
-        WHERE CodideID = p_id;
+        WHERE CodiceID = p_id;
 
         IF NOT v_op_esiste THEN
             SET p_messaggio = 'Operatore non trovato';
@@ -982,13 +983,13 @@ DELIMITER ;
 -- procedura per modificare un fornitore
 DELIMITER $$
 CREATE PROCEDURE modifica_fornitore(
+    IN p_id INT,
     IN p_nome_titolare VARCHAR(50),
     IN p_nome_azienda VARCHAR(50),
     IN p_email VARCHAR(100),
     OUT p_messaggio VARCHAR(255)
 )
 BEGIN
-    DECLARE v_id INT;
     DECLARE v_fornitore_esiste BOOLEAN;
 
     this_procedure: BEGIN
@@ -996,7 +997,7 @@ BEGIN
         -- Verifica esistenza fornitore
         SELECT COUNT(*) > 0 INTO v_fornitore_esiste
         FROM fornitore
-        WHERE CodideID = p_id;
+        WHERE CodiceID = p_id;
 
         IF NOT v_fornitore_esiste THEN
             SET p_messaggio = 'Fornitore non trovato';
@@ -1006,15 +1007,11 @@ BEGIN
         -- Esegui UPDATE
         UPDATE fornitore
         SET nomeTitolare = p_nome_titolare,
-            nomeAzienda = p_nome_azienda
+            nomeAzienda = p_nome_azienda,
             email = LOWER(p_email)
         WHERE CodiceID = p_id;
 
-        SELECT CodiceID into v_id
-        FROM fornitore
-        WHERE email = LOWER(p_email);
-
-        SET p_messaggio = CONCAT('Fornitore con ID: ', v_id,' aggiornato con nuovi dati: ', p_nome_titolare,' ', p_nome_azienda, ' ',LOWER(p_email));
+        SET p_messaggio = CONCAT('Fornitore con ID: ', p_id,' aggiornato con nuovi dati: ', p_nome_titolare,' ', p_nome_azienda, ' ',LOWER(p_email));
 
     END this_procedure;
 END $$
@@ -1023,7 +1020,8 @@ DELIMITER ;
 -- procedura per cambiare la pssw fornitori 
 DELIMITER $$
 CREATE PROCEDURE cambio_pssw_fornitore(
-    IN p_email VARCHAR(100),
+    IN p_id INT,
+    -- IN p_email VARCHAR(100),
     -- IN p_v_pssw VARCHAR (255),
     IN p_n_pssw VARCHAR (255),
     OUT p_messaggio VARCHAR(255)
@@ -1036,7 +1034,7 @@ BEGIN
         -- controllo esistenza fornitore
         SELECT COUNT(*) > 0 INTO v_fornitore_esiste
         FROM fornitore
-        WHERE CodideID = p_id;
+        WHERE CodiceID = p_id;
 
         IF NOT v_fornitore_esiste THEN
             SET p_messaggio = 'Fornitore non trovato';
@@ -1078,7 +1076,7 @@ DELIMITER ;
 -- procedura per eliminare un fornitore
 DELIMITER $$
 CREATE PROCEDURE elimina_fornitore(
-    IN p_email VARCHAR(100),
+    IN p_id VARCHAR(100),
     OUT p_messaggio VARCHAR(255)
 )
 BEGIN
@@ -1088,7 +1086,7 @@ BEGIN
         -- Verifica esistenza fornitore
         SELECT COUNT(*) > 0 INTO v_fornitore_esiste
         FROM fornitore
-        WHERE CodideID = p_id;
+        WHERE CodiceID = p_id;
 
         IF NOT v_fornitore_esiste THEN
             SET p_messaggio = 'Fornitore non trovato';
@@ -1096,9 +1094,9 @@ BEGIN
         END IF;
 
         DELETE FROM fornitore
-        WHERE email = p_email;
+        WHERE CodiceID = p_id;
 
-        SET p_messaggio = CONCAT("Fornitore con email ", p_email, " eliminato dal database");
+        SET p_messaggio = CONCAT("Fornitore con codce ID ", p_id, " eliminato dal database");
 
     END this_procedure;
 END $$
@@ -1277,22 +1275,31 @@ GRANT SELECT ON owlbreak.composizione TO 'Titolare'@'localhost';
 GRANT SELECT ON owlbreak.ingrediente TO 'Titolare'@'localhost';
 GRANT SELECT ON owlbreak.rifornimento TO 'Titolare'@'localhost';
 GRANT SELECT ON owlbreak.fornitore TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.insert_operatore TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.modifica_operatore TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.elimina_operatore TO 'Titolare'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.insert_fornitore TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.modifica_fornitore TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.elimina_fornitore TO 'Titolare'@'localhost';
+
 
 
 -- PRIVILEGI ADDETTI VENDITE
-GRANT SELECT ON owlbreak.ordine TO 'Addetto-vendite'@'localhost';
-GRANT SELECT ON owlbreak.prodotto TO 'Addetto-vendite'@'localhost';
-GRANT SELECT ON owlbreak.composizione TO 'Addetto-vendite'@'localhost';
-GRANT SELECT ON owlbreak.ingrediente TO 'Addetto-vendite'@'localhost';
-GRANT SELECT ON owlbreak.rifornimento TO 'Addetto-vendite'@'localhost';
-GRANT SELECT ON owlbreak.fornitore TO 'Addetto-vendite'@'localhost';
-GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Addetto-vendite'@'localhost';
+GRANT SELECT ON owlbreak.operatore TO 'Addetto-Vendite'@'localhost';
+GRANT SELECT ON owlbreak.ordine TO 'Addetto-Vendite'@'localhost';
+GRANT SELECT ON owlbreak.prodotto TO 'Addetto-Vendite'@'localhost';
+GRANT SELECT ON owlbreak.composizione TO 'Addetto-Vendite'@'localhost';
+GRANT SELECT ON owlbreak.ingrediente TO 'Addetto-Vendite'@'localhost';
+GRANT SELECT ON owlbreak.rifornimento TO 'Addetto-Vendite'@'localhost';
+GRANT SELECT ON owlbreak.fornitore TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Addetto-Vendite'@'localhost';
 
 -- PRIVILEGI ADDETTI CCONSEGNE
-GRANT SELECT ON owlbreak.ordine TO 'Addetto-consegne'@'localhost';
-GRANT SELECT ON owlbreak.consegna TO 'Addetto-consegne'@'localhost';
-GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Addetto-consegne'@'localhost';
+GRANT SELECT ON owlbreak.operatore TO 'Addetto-Consegne'@'localhost';
+GRANT SELECT ON owlbreak.ordine TO 'Addetto-Consegne'@'localhost';
+GRANT SELECT ON owlbreak.consegna TO 'Addetto-Consegne'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Addetto-Consegne'@'localhost';
 
 -- PRIVILEGI FORNITORI
 GRANT SELECT ON owlbreak.rifornimento TO 'Fornitore'@'localhost';
