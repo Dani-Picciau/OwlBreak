@@ -45,8 +45,8 @@ CREATE TABLE operatore (
     ruolo VARCHAR(30) NOT NULL CHECK (
         ruolo IN (
             'Titolare',
-            'Addetto-consegne',
-            'Addetto-vendite'
+            'Addetto-Consegne',
+            'Addetto-Vendite'
         )
     )
 );
