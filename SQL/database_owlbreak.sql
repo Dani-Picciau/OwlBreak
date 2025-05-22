@@ -764,14 +764,14 @@ BEGIN
                 SELECT o.CodiceID, COUNT(c.luogoConsegna) AS assegnamenti
                 FROM operatore o
                 LEFT JOIN consegna c ON o.CodiceID = c.OperatoreID
-                WHERE o.ruolo = 'Addetto-consegne'
+                WHERE o.ruolo = 'Addetto-Consegne'
                 GROUP BY o.CodiceID
             ) AS conteggi;
 
             -- Prendi il CodiceID più piccolo tra quelli che hanno conteggio = v_min_assegnamenti
             SELECT MIN(o2.CodiceID) INTO v_operatore_id
             FROM operatore o2
-            WHERE o2.ruolo = 'Addetto-consegne'
+            WHERE o2.ruolo = 'Addetto-Consegne'
               AND (
                 SELECT COUNT(*) 
                   FROM consegna c2 
