@@ -359,6 +359,86 @@ height: 30px;
     gap: 3px;
 }
 
+.menu-category{
+    font-family: var(--font-family-inter);
+    font-weight:600;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+    padding: 0.5rem;
+    cursor: pointer;
+    transition-property: background-color, color;
+}
+
+.menu-box .menu-category:nth-child(8){
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.menu-box .menu-category:nth-child(8) div{
+    font-family: var(--font-family-inter);
+    font-weight:600;
+    gap: 1rem;
+    display: flex;
+    align-items: center;
+}
+
+.menu-box .menu-category:nth-child(8) span{
+    font-family: var(--font-family-inter);
+    font-weight:700;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 20px;
+    height: 20px;
+    background-color: black;
+    color: white;
+    border-radius: 50%;
+    font-size: 12px;
+    transition: background-color .2s ease-in-out, color .2s ease-in-out;
+}
+
+.menu-box .menu-category:nth-child(8):hover span{
+    background-color: rgb(211, 211, 211);
+    color:var(--accent-color);
+}
+
+.menu-box .menu-category:nth-child(8).active span{
+    background-color: rgb(211, 211, 211);
+    color:var(--accent-color);
+}
+
+.menu-category svg{
+    transition-property: fill;
+}
+
+.menu-category:hover{
+    background-color: var(--hover-bg);
+    border-radius: .375rem;
+    color: var(--accent-color);
+}
+.menu-category:hover svg{
+    fill: var(--accent-color);
+}
+
+.menu-category.active {
+    background-color: var(--hover-bg);
+    border-radius: .375rem;
+    color: var(--accent-color);
+}
+
+.menu-category.active svg {
+    fill: var(--accent-color);
+}
+
+.menu-category,
+.menu-category svg{
+    transition-duration: .2s;
+    transition-timing-function: ease-in-out;
+}
+
 .separator1{
     width: auto;
     height: 2px;
@@ -481,87 +561,6 @@ height: 30px;
     pointer-events: auto;
     visibility: visible;
     position: relative;  /* ripristino l'elemento nel flusso quando è visibile */
-}
-
-
-.menu-category{
-    font-family: var(--font-family-inter);
-    font-weight:600;
-    display: flex;
-    flex-direction: row;
-    align-items: center;
-    gap: 1rem;
-    padding: 0.5rem;
-    cursor: pointer;
-    transition-property: background-color, color;
-}
-
-.menu-box .menu-category:nth-child(8){
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-}
-
-.menu-box .menu-category:nth-child(8) div{
-    font-family: var(--font-family-inter);
-    font-weight:600;
-    gap: 1rem;
-    display: flex;
-    align-items: center;
-}
-
-.menu-box .menu-category:nth-child(8) span{
-    font-family: var(--font-family-inter);
-    font-weight:700;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 20px;
-    height: 20px;
-    background-color: black;
-    color: white;
-    border-radius: 50%;
-    font-size: 12px;
-    transition: background-color .2s ease-in-out, color .2s ease-in-out;
-}
-
-.menu-box .menu-category:nth-child(8):hover span{
-    background-color: rgb(211, 211, 211);
-    color:var(--accent-color);
-}
-
-.menu-box .menu-category:nth-child(8).active span{
-    background-color: rgb(211, 211, 211);
-    color:var(--accent-color);
-}
-
-.menu-category svg{
-    transition-property: fill;
-}
-
-.menu-category:hover{
-    background-color: var(--hover-bg);
-    border-radius: .375rem;
-    color: var(--accent-color);
-}
-.menu-category:hover svg{
-    fill: var(--accent-color);
-}
-
-.menu-category.active {
-    background-color: var(--hover-bg);
-    border-radius: .375rem;
-    color: var(--accent-color);
-}
-
-.menu-category.active svg {
-    fill: var(--accent-color);
-}
-
-.menu-category,
-.menu-category svg{
-    transition-duration: .2s;
-    transition-timing-function: ease-in-out;
 }
 
 .product {
