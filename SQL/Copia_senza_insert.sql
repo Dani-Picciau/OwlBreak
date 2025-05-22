@@ -111,8 +111,9 @@ CREATE TABLE consegna (
     FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID)
 );
 
-# Impedisce la modifica ai clienti tipo="Studente" sul luogo di consegna
-DELIMITER $$
+# Impedisce la modifica ai clienti tipo="Studente" sul luogo di consegna 
+-- non va bene pk gli studenti non lo possono modificare da soli ma i segretari possono cambiarglielo
+/*DELIMITER $$
 CREATE TRIGGER check_luogoConsegna_modifica
 BEFORE UPDATE ON cliente
 FOR EACH ROW
@@ -122,7 +123,7 @@ BEGIN
         SET MESSAGE_TEXT = 'Gli studenti non possono modificare il luogo di consegna.';
     END IF;
 END$$
-DELIMITER ;
+DELIMITER ;*/
 
 
 -- Trigger per permettere ordini solo dalle 8 alle 10
@@ -353,7 +354,8 @@ BEGIN
             WHERE o.ruolo = 'Addetto-consegne'
             GROUP BY o.CodiceID
             HAVING COUNT(c.luogoConsegna) = v_min_assegnamenti
-            AND o.CodiceID = MIN(o.CodiceID);*/
+            AND o.CodiceID = MIN(o.CodiceID);*/ -- se due op hanno = num consegne restituisce più di una tupla
+
             -- Prendi il CodiceID più piccolo tra quelli che hanno conteggio = v_min_assegnamenti
             SELECT MIN(o2.CodiceID)
               INTO v_operatore_id
@@ -496,9 +498,11 @@ BEGIN
 END $$
 DELIMITER ;
 
+
+-- procedura per la modifica dei dati di un cliente
 DELIMITER $$
-CREATE PROCEDURE insert_cliente(
-    IN p_email VARCHAR (100),
+CREATE PROCEDURE modifica_cliente(
+    IN p_email_corrente VARCHAR (100),
     IN p_nome VARCHAR(50),
     IN p_cognome VARCHAR(50),
     IN p_tipo_cliente VARCHAR(30),
@@ -515,65 +519,221 @@ BEGIN
     DECLARE v_tipo_cliente VARCHAR(30);
     DECLARE v_nome VARCHAR(50);
     DECLARE v_cognome VARCHAR(50);
+    DECLARE v_nome_corrente VARCHAR(50);
+    DECLARE v_cognome_corrente VARCHAR(50);
+    DECLARE v_tipo_corrente VARCHAR(30);
+    DECLARE v_cliente_esiste BOOLEAN;
+    DECLARE v_n_class VARCHAR(1); /*Queste due variabili mi servono per non cambiare la mail se non è necessario,*/
+    DECLARE v_v_class VARCHAR(1); /*tipo se uno era segnato come segretario e poi come docente*/
 
     this_procedure: BEGIN
 
-        CASE LOWER(p_tipo_cliente)
-            WHEN 'studente' THEN SET v_tipo_cliente = 'Studente';
-            WHEN 'personale-docente' THEN SET v_tipo_cliente = 'Personale-Docente';
-            WHEN 'personale-ata' THEN SET v_tipo_cliente = 'Personale-Ata';
-            WHEN 'personale-segreteria' THEN SET v_tipo_cliente = 'Personale-Segreteria';
-            WHEN 'personale docente' THEN SET v_tipo_cliente = 'Personale-Docente';
-            WHEN 'personale ata' THEN SET v_tipo_cliente = 'Personale-Ata';
-            WHEN 'personale segreteria' THEN SET v_tipo_cliente = 'Personale-Segreteria';
-        ELSE
-            SET p_messaggio = CONCAT('Tipo cliente non valido: ', p_tipo_cliente);
+        -- Verifica esistenza cliente
+        SELECT COUNT(*) > 0 INTO v_cliente_esiste
+        FROM cliente
+        WHERE email = p_email_corrente;
+
+        IF NOT v_cliente_esiste THEN
+            SET p_messaggio = 'Cliente non trovato';
             LEAVE this_procedure;
+        END IF;
+
+        -- Recupera i dati attuali del cliente
+        SELECT nome, cognome, tipoCliente
+        INTO v_nome_corrente, v_cognome_corrente, v_tipo_corrente
+        FROM cliente
+        WHERE email = p_email_corrente;
+
+        IF (v_tipo_corrente = 'Studente') THEN
+            SET v_v_class = 'S';
+        ELSE 
+            SET v_v_class = 'P';
+        END IF;
+
+        -- normalizzazione tipo cliente
+        CASE LOWER(p_tipo_cliente)
+            WHEN 'studente' THEN 
+                BEGIN
+                    SET v_tipo_cliente = 'Studente';
+                    SET v_n_class = 'S';
+                END;
+            WHEN 'personale-docente' THEN 
+                BEGIN
+                    SET v_tipo_cliente = 'Personale-Docente';
+                    SET v_n_class = 'P';
+                END;
+            WHEN 'personale-ata' THEN 
+                BEGIN
+                    SET v_tipo_cliente = 'Personale-Ata';
+                    SET v_n_class = 'P';
+                END;
+            WHEN 'personale-segreteria' THEN 
+                BEGIN
+                    SET v_tipo_cliente = 'Personale-Segreteria';
+                    SET v_n_class = 'P';
+                END;
+            WHEN 'personale docente' THEN 
+                BEGIN
+                    SET v_tipo_cliente = 'Personale-Docente';
+                    SET v_n_class = 'P';
+                END;
+            WHEN 'personale ata' THEN 
+                BEGIN
+                    SET v_tipo_cliente = 'Personale-Ata';
+                    SET v_n_class = 'P';
+                END;
+            WHEN 'personale segreteria' THEN 
+                BEGIN
+                    SET v_tipo_cliente = 'Personale-Segreteria';
+                    SET v_n_class = 'P';
+                END;
+        ELSE
+            BEGIN
+                SET p_messaggio = CONCAT('Tipo cliente non valido: ', p_tipo_cliente);
+                LEAVE this_procedure;
+            END;
         END CASE;
 
+        IF  /*LOWER(p_nome) <> LOWER(v_nome_corrente)*/
+            LEFT(LOWER(p_nome), 1) <> LEFT(LOWER(v_nome_corrente), 1)
+            OR LOWER(p_cognome) <> LOWER(v_cognome_corrente) 
+            OR (LOWER(v_tipo_cliente) <> LOWER(v_tipo_corrente) AND v_v_class <> v_n_class)THEN
 
-        -- creazione mail univoca
-        IF v_tipo_cliente = 'Studente' THEN
-            SET v_dominio = 'studenti.boscogrigio.it';
+            /*Creouna nuova mail solo se è cambiata l'iniziale del nome o è cambiato il cognome oppure se
+            è cambiato il tipo di cliente ma solo se è cambiata la classificazione studente o personale,
+            ovvero se c'è bisogno di cambiare dominio*/
+        
+            -- creazione mail univoca
+            IF v_tipo_cliente = 'Studente' THEN
+                SET v_dominio = 'studenti.boscogrigio.it';
+            ELSE
+                SET v_dominio = 'boscogrigio.it';
+            END IF;
+
+            SET v_iniziale = LEFT(p_nome, 1);
+            SET v_nominativo_base = CONCAT_WS('.', v_iniziale, p_cognome);
+
+            -- Controlla quanti clienti hanno già quella base email
+            SELECT COUNT(*) INTO v_numero
+            FROM cliente
+            WHERE email LIKE CONCAT(LOWER(v_nominativo_base), '%@', v_dominio);
+
+            -- Aggiungi numero se necessario
+            IF v_numero = 0 THEN
+                SET v_nominativo = v_nominativo_base;
+            ELSE
+                SET v_nominativo = CONCAT(v_nominativo_base, v_numero);
+            END IF;
+
+            -- Mail finale in minuscolo
+            SET v_email = LOWER(CONCAT_WS('@', v_nominativo, v_dominio));
+
         ELSE
-            SET v_dominio = 'boscogrigio.it';
+            SET v_email = p_email_corrente;
         END IF;
-
-        SET v_iniziale = LEFT(p_nome, 1);
-        SET v_nominativo_base = CONCAT_WS('.', v_iniziale, p_cognome);
-
-        -- Controlla quanti clienti hanno già quella base email
-        SELECT COUNT(*) INTO v_numero
-        FROM cliente
-        WHERE email LIKE CONCAT(LOWER(v_nominativo_base), '%@', v_dominio);
-
-        -- Aggiungi numero se necessario
-        IF v_numero = 0 THEN
-            SET v_nominativo = v_nominativo_base;
-        ELSE
-            SET v_nominativo = CONCAT(v_nominativo_base, v_numero);
-        END IF;
-
-        -- Mail finale in minuscolo
-        SET v_email = LOWER(CONCAT_WS('@', v_nominativo, v_dominio));
 
         -- Normalizzazione nome e cognome
         SET v_nome = CONCAT( UPPER(LEFT(p_nome, 1)), LOWER(SUBSTRING(p_nome, 2)));
         SET v_cognome = CONCAT( UPPER(LEFT(p_cognome, 1)), LOWER(SUBSTRING(p_cognome, 2)));
 
-        -- Inserimento cliente
-        UPDATE cliente (nome, cognome, tipoCliente, luogoConsegna, email)
-        VALUES (v_nome, v_cognome, v_tipo_cliente, p_luogo_consegna, v_email);
+        -- Esegui UPDATE
+        UPDATE cliente
+        SET nome = v_nome,
+            cognome = v_cognome,
+            tipoCliente = v_tipo_cliente,
+            luogoConsegna = p_luogo_consegna,
+            email = v_email
+        WHERE email = p_email_corrente;
 
-        SET p_messaggio = CONCAT('Cliente inserito con email: ', v_email);
+        SET p_messaggio = CONCAT('Cliente inserito con nuovi dati: ', v_nome,' ', v_cognome,' ', v_email,' ', v_tipo_cliente,' ', p_luogo_consegna);
 
     END this_procedure;
+END $$
+DELIMITER ;
 
+-- procedura per eliminare un cliente
+DELIMITER $$
+CREATE PROCEDURE elimina_cliente(
+    IN p_email VARCHAR(100),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_cliente_esiste BOOLEAN;
+
+    this_procedure: BEGIN
+        -- Verifica esistenza cliente
+        SELECT COUNT(*) > 0 INTO v_cliente_esiste
+        FROM cliente
+        WHERE email = p_email;
+
+        IF NOT v_cliente_esiste THEN
+            SET p_messaggio = 'Cliente non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        DELETE FROM cliente
+        WHERE email = p_email;
+
+        SET p_messaggio = CONCAT("Cliente con email ", p_email, " eliminato dal database");
+
+    END this_procedure;
 END $$
 DELIMITER ;
 
 
--- porcedura per effettuare un rifornimento
+-- procedura per cambiare la pssw
+DELIMITER $$
+CREATE PROCEDURE cambio_pssw_cliente(
+    IN p_email VARCHAR(100),
+    IN p_v_pssw VARCHAR (255),
+    IN p_n_pssw VARCHAR (255),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_v_pssw VARCHAR(255);
+    DECLARE v_cliente_esiste BOOLEAN;
+
+    this_procedure: BEGIN
+        -- controllo esistenza cliente
+        SELECT COUNT(*) > 0 INTO v_cliente_esiste
+        FROM cliente
+        WHERE email = p_email;
+
+        IF NOT v_cliente_esiste THEN
+            SET p_messaggio = 'Cliente non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        -- controllo che la nuova pssw non sia vuota
+        IF LENGTH(TRIM(p_n_pssw)) = 0 THEN
+            SET p_messaggio = 'La nuova password non può essere vuota';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT passw INTO v_v_pssw
+        FROM cliente
+        WHERE email = p_email;
+
+        -- controllo che la vecchia password inserita dal cliente corrisponda a quella memorizzata del database
+        IF p_v_pssw <> v_v_pssw THEN
+            SET p_messaggio = 'La password non corrisponde';
+            LEAVE this_procedure;
+        ELSE 
+            UPDATE cliente
+            SET passw = p_n_pssw
+            WHERE email = p_email;
+
+            SET p_messaggio = 'Password aggiornata con successo!';
+        END IF;
+
+    END this_procedure;
+END $$
+DELIMITER ;
+
+
+-- procedura per effettuare un rifornimento
+
+
 
 /*
 -- ****** TUTTE PROCEDURE DI CLAUDE DA CONTROLLARE BENE ******
@@ -706,18 +866,24 @@ GRANT SELECT ON owlbreak.cliente TO 'Studente'@'localhost'; -- per poter recuper
 GRANT SELECT ON owlbreak.ordine TO 'Studente'@'localhost';
 GRANT SELECT ON owlbreak.prodotto TO 'Studente'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Studente'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_cliente TO 'Studente'@'localhost';
+
 
 -- PRIVILEGI DOCENTI
 GRANT SELECT ON owlbreak.cliente TO 'Personale-Docente'@'localhost'; -- per poter recuperare i propri dati
 GRANT SELECT ON owlbreak.ordine TO 'Personale-Docente'@'localhost';
 GRANT SELECT ON owlbreak.prodotto TO 'Personale-Docente'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Docente'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_cliente TO 'Personale-Docente'@'localhost';
+
 
 -- PRIVILEGI ATA
 GRANT SELECT ON owlbreak.cliente TO 'Personale-Ata'@'localhost'; -- per poter recuperare i propri dati
 GRANT SELECT ON owlbreak.ordine TO 'Personale-Ata'@'localhost';
 GRANT SELECT ON owlbreak.prodotto TO 'Personale-Ata'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Ata'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_cliente TO 'Personale-Ata'@'localhost';
+
 
 -- PRIVILEGI SEGRETERIA
 GRANT SELECT ON owlbreak.cliente TO 'Personale-Segreteria'@'localhost'; -- per poter recuperare i propri dati e quelli degli altri
@@ -725,6 +891,10 @@ GRANT SELECT ON owlbreak.ordine TO 'Personale-Segreteria'@'localhost';
 GRANT SELECT ON owlbreak.prodotto TO 'Personale-Segreteria'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Segreteria'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.insert_cliente TO 'Personale-Segreteria'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.modifica_cliente TO 'Personale-Segreteria'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.elimina_cliente TO 'Personale-Segreteria'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_cliente TO 'Personale-Segreteria'@'localhost';
+
 
 -- PRIVILEGI TITOLARE
 GRANT SELECT ON owlbreak.operatore TO 'Titolare'@'localhost';
