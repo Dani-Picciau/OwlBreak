@@ -5,8 +5,8 @@ CREATE USER 'Personale-Docente'@'localhost' IDENTIFIED BY 'Cliente';
 CREATE USER 'Personale-Ata'@'localhost' IDENTIFIED BY 'Cliente';
 CREATE USER 'Personale-Segreteria'@'localhost' IDENTIFIED BY 'Cliente';
 CREATE USER 'Titolare'@'localhost' IDENTIFIED BY 'Operatore';
-CREATE USER 'Addetto-consegne'@'localhost' IDENTIFIED BY 'Operatore';
-CREATE USER 'Addetto-vendite'@'localhost' IDENTIFIED BY 'Operatore';
+CREATE USER 'Addetto-Consegne'@'localhost' IDENTIFIED BY 'Operatore';
+CREATE USER 'Addetto-Vendite'@'localhost' IDENTIFIED BY 'Operatore';
 CREATE USER 'Fornitore'@'localhost' IDENTIFIED BY 'Fornitore';
 
 -- Creazione Database
@@ -1155,6 +1155,7 @@ GRANT SELECT ON owlbreak.fornitore TO 'Titolare'@'localhost';
 
 
 -- PRIVILEGI ADDETTI VENDITE
+GRANT SELECT ON owlbreak.operatore TO 'Addetto-Vendite'@'localhost';
 GRANT SELECT ON owlbreak.ordine TO 'Addetto-Vendite'@'localhost';
 GRANT SELECT ON owlbreak.prodotto TO 'Addetto-Vendite'@'localhost';
 GRANT SELECT ON owlbreak.composizione TO 'Addetto-Vendite'@'localhost';
@@ -1162,10 +1163,13 @@ GRANT SELECT ON owlbreak.ingrediente TO 'Addetto-Vendite'@'localhost';
 GRANT SELECT ON owlbreak.rifornimento TO 'Addetto-Vendite'@'localhost';
 GRANT SELECT ON owlbreak.fornitore TO 'Addetto-Vendite'@'localhost';
 
--- PRIVILEGI ADDETTI CCONSEGNE
+
+-- PRIVILEGI ADDETTI CONSEGNE
+GRANT SELECT ON owlbreak.operatore TO 'Addetto-Consegne'@'localhost';
 GRANT SELECT ON owlbreak.ordine TO 'Addetto-Consegne'@'localhost';
 GRANT SELECT ON owlbreak.consegna TO 'Addetto-Consegne'@'localhost';
 
 
 -- PRIVILEGI FORNITORI
+GRANT SELECT ON owlbreak.fornitore TO 'Fornitore'@'localhost';
 GRANT SELECT ON owlbreak.rifornimento TO 'Fornitore'@'localhost';
