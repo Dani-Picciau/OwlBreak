@@ -223,158 +223,37 @@ INSERT INTO operatore (CodiceID, email, passw, nome, cognome, ruolo) VALUES
 (4,'m.romano@owlbreak.it', '$2y$10$1FedTJ/UGefggQVyb17UkeFB8Typof3OFkpLlOXqOVMyHsV1ZnXya', 'Maria Grazia', 'Romano', 'Addetto-Vendite'),
 (5,'e.serra@owlbreak.it', '$2y$10$kgoUKF.d1MEjWKVyEngRjuDZ6f3cbVrdeHy7gy24SuQsazGKGQPSG', 'Elena', 'Serra', 'Addetto-Consegne');
 
+INSERT INTO consegna(luogoConsegna, OperatoreID) VALUES
+('4A', 2),
+('Segreteria Centrale', 5);
+
 INSERT INTO ordine(data, ora, emailCliente, nomeProdotto, consegnato, quantità, OperatoreID) VALUES
-('2025-04-26', '9:54:34', 'm.rossi@studenti.boscogrigio.it', 'The freddo verde', TRUE, 1, 2),
-('2025-05-03', '9:07:38', 'm.rossi@studenti.boscogrigio.it', 'Acqua naturale', TRUE, 3, 2),
-('2025-05-03', '8:20:00', 'm.rossi@studenti.boscogrigio.it', 'Cingomme AIR', FALSE, 2, 2),
+('2025-05-03', '8:52:20', 'd.picciau@studenti.boscogrigio.it', 'Chupachups assortiti', TRUE, 2, 2),
+('2025-05-03', '9:00:26', 'd.picciau@studenti.boscogrigio.it', 'Acqua naturale', FALSE, 1, 2),
+('2025-05-03', '9:00:26', 'd.picciau@studenti.boscogrigio.it', 'Schiacciatine al rosmarino', FALSE, 1, 2),
+('2025-04-26', '8:31:47', 'd.picciau@studenti.boscogrigio.it', 'Panino al salame', TRUE, 2, 2),
+('2025-04-26', '9:53:13', 'd.picciau@studenti.boscogrigio.it', 'Schiacciatine al rosmarino', TRUE, 2, 2),
+('2025-04-24', '8:09:33', 'd.picciau@studenti.boscogrigio.it', 'Torta di mele', TRUE, 2, 2),
+('2025-04-17', '8:17:56', 'd.picciau@studenti.boscogrigio.it', 'Acqua naturale', TRUE, 1, 2),
+('2025-04-17', '8:17:56', 'd.picciau@studenti.boscogrigio.it', 'Pizzetta sfoglia cagliaritana', TRUE, 3, 2),
 
-('2025-05-03', '9:09:45', 'e.verdi@studenti.boscogrigio.it', 'Crostata alla Nutella', FALSE, 1, 5),
-('2025-04-26', '9:06:03', 'e.verdi@studenti.boscogrigio.it', 'The caldo', TRUE, 1, 5),
-('2025-04-26', '8:36:54', 'e.verdi@studenti.boscogrigio.it', 'Torta di mele', TRUE, 3, 5),
+('2025-05-03', '9:40:54', 'm.manai@studenti.boscogrigio.it', 'Patatine rustiche', FALSE, 1, 2),
+('2025-05-03', '8:53:18', 'm.manai@studenti.boscogrigio.it', 'Cingomme AIR', FALSE, 3, 2),
+('2025-04-26', '9:24:47', 'm.manai@studenti.boscogrigio.it', 'Patatine alla paprika', TRUE, 1, 2),
 
-('2025-04-26', '8:42:32', 'a.neri@studenti.boscogrigio.it', 'Cornetto alla marmellata', TRUE, 1, 2),
-('2025-05-03', '9:32:57', 'a.neri@studenti.boscogrigio.it', 'Fanta', FALSE, 1, 5),
-('2025-05-03', '8:53:35', 'a.neri@studenti.boscogrigio.it', 'Panino con prosciutto crudo', FALSE, 2, 5),
+('2025-05-03', '9:14:55', 'l.brodo@boscogrigio.it', 'Coca Cola', FALSE, 2, 5),
+('2025-05-03', '9:00:26', 'l.brodo@boscogrigio.it', 'Acqua naturale', FALSE, 1, 5),
+('2025-05-03', '9:00:26', 'l.brodo@boscogrigio.it', 'Schiacciatine al rosmarino', FALSE, 1, 5),
+('2025-04-26', '9:18:45', 'l.brodo@boscogrigio.it', 'Patatine piccanti', TRUE, 1, 5),
+('2025-04-26', '8:10:06', 'l.brodo@boscogrigio.it', 'Muffin con gocce di cioccolato', TRUE, 2, 5),
+('2025-04-23', '8:31:47', 'l.brodo@boscogrigio.it', 'Panino al salame', TRUE, 2, 5),
+('2025-04-17', '8:09:33', 'l.brodo@boscogrigio.it', 'Torta di mele', TRUE, 2, 5),
+('2025-04-15', '8:17:56', 'l.brodo@boscogrigio.it', 'Acqua naturale', TRUE, 1, 5),
+('2025-04-15', '8:17:56', 'l.brodo@boscogrigio.it', 'Pizzetta sfoglia cagliaritana', TRUE, 3, 5),
 
-('2025-05-03', '9:07:49', 'f.rossi@studenti.boscogrigio.it', 'Panino al prosciutto cotto con fontina', TRUE, 3, 2),
-('2025-04-26', '8:44:52', 'f.rossi@studenti.boscogrigio.it', 'Acqua naturale', TRUE, 3, 5),
-('2025-04-26', '8:24:55', 'f.rossi@studenti.boscogrigio.it', 'Panino con prosciutto crudo', TRUE, 2, 5),
-
-('2025-04-26', '8:50:06', 'l.bianchi@studenti.boscogrigio.it', 'The freddo pesca', TRUE, 1, 2),
-('2025-04-26', '8:54:36', 'l.bianchi@studenti.boscogrigio.it', 'The freddo limone', TRUE, 3, 5),
-('2025-04-26', '9:11:27', 'l.bianchi@studenti.boscogrigio.it', 'Pringles piccanti', TRUE, 3, 5),
-
-('2025-05-03', '9:34:25', 'e.verdi1@studenti.boscogrigio.it', 'Crostata alle mele', FALSE, 3, 5),
-('2025-04-26', '9:55:49', 'e.verdi1@studenti.boscogrigio.it', 'Panino con mortadella', TRUE, 3, 2),
-('2025-05-03', '9:41:50', 'e.verdi1@studenti.boscogrigio.it', 'Panino al salame con fontina', FALSE, 2, 2),
-
-('2025-05-03', '8:14:17', 'm.rossi1@studenti.boscogrigio.it', 'Cornetto ai frutti di bosco', TRUE, 1, 2),
-('2025-05-03', '9:35:10', 'm.rossi1@studenti.boscogrigio.it', 'Panino al salame', TRUE, 3, 2),
-('2025-04-26', '9:04:08', 'm.rossi1@studenti.boscogrigio.it', 'Panino al salame con fontina', TRUE, 1, 5),
-
-('2025-04-26', '8:14:47', 'a.sanna@studenti.boscogrigio.it', 'Patatine alla paprika', TRUE, 2, 2),
-('2025-05-03', '8:20:40', 'a.sanna@studenti.boscogrigio.it', 'Croccantelle gusto bacon', FALSE, 3, 5),
-('2025-04-26', '8:49:47', 'a.sanna@studenti.boscogrigio.it', 'Torta al cioccolato', TRUE, 3, 2),
-
-('2025-05-03', '8:40:38', 'f.masala@studenti.boscogrigio.it', 'Cornetto al pistacchio', TRUE, 3, 3),
-('2025-04-26', '8:41:35', 'f.masala@studenti.boscogrigio.it', 'Caffè macchiato', TRUE, 1, 4),
-('2025-05-03', '8:47:40', 'f.masala@studenti.boscogrigio.it', 'Patatine piccanti', TRUE, 1, 4),
-
-('2025-05-03', '9:20:51', 'm.secchi@studenti.boscogrigio.it', 'Patatine piccanti', TRUE, 3, 4),
-('2025-04-26', '9:26:33', 'm.secchi@studenti.boscogrigio.it', 'Schiacciatine alle olive', TRUE, 3, 3),
-('2025-05-03', '9:29:38', 'm.secchi@studenti.boscogrigio.it', 'Muffin con gocce di cioccolato', FALSE, 2, 1),
-
-('2025-05-03', '8:30:55', 'g.pinna@studenti.boscogrigio.it', 'Cingomme AIR', FALSE, 2, 3),
-('2025-05-03', '9:30:43', 'g.pinna@studenti.boscogrigio.it', 'Coca Cola', TRUE, 2, 4),
-('2025-04-26', '8:37:42', 'g.pinna@studenti.boscogrigio.it', 'Schiacciatine al rosmarino', TRUE, 2, 4),
-
-('2025-04-26', '8:15:56', 'g.manai@studenti.boscogrigio.it', 'Panino con prosciutto crudo e fontina', TRUE, 2, 4),
-('2025-05-03', '8:23:49', 'g.manai@studenti.boscogrigio.it', 'Panino al salame con fontina', FALSE, 1, 3),
-('2025-05-03', '8:04:29', 'g.manai@studenti.boscogrigio.it', 'Schiacciatine al rosmarino', TRUE, 1, 1),
-
-('2025-04-26', '8:40:59', 'm.neri@studenti.boscogrigio.it', 'Panino al prosciutto cotto', TRUE, 3, 3),
-('2025-05-03', '8:12:21', 'm.neri@studenti.boscogrigio.it', 'Chupachups assortiti', TRUE, 1, 4),
-('2025-05-03', '9:00:13', 'm.neri@studenti.boscogrigio.it', 'Succo di pera', TRUE, 2, 1),
-
-('2025-05-03', '8:33:44', 'g.melis@studenti.boscogrigio.it', 'Acqua gasata', FALSE, 2, 3),
-('2025-05-03', '8:13:11', 'g.melis@studenti.boscogrigio.it', 'Panino al prosciutto cotto', TRUE, 1, 3),
-('2025-05-03', '9:57:19', 'g.melis@studenti.boscogrigio.it', 'Muffin con gocce di cioccolato', FALSE, 1, 1),
-
-('2025-05-03', '8:35:15', 'a.sanna1@studenti.boscogrigio.it', 'Cornetto al cioccolato', FALSE, 3, 3),
-('2025-04-26', '9:28:32', 'a.sanna1@studenti.boscogrigio.it', 'Panino al prosciutto cotto con fontina', TRUE, 1, 4),
-('2025-04-26', '9:28:04', 'a.sanna1@studenti.boscogrigio.it', 'Cingomme AIR', TRUE, 2, 1),
-
-
-('2025-05-03', '8:52:20', 'd.picciau@studenti.boscogrigio.it', 'Chupachups assortiti', TRUE, 2, 4),
-('2025-05-03', '9:00:26', 'd.picciau@studenti.boscogrigio.it', 'Acqua naturale', FALSE, 1, 1),
-('2025-05-03', '9:00:26', 'd.picciau@studenti.boscogrigio.it', 'Schiacciatine al rosmarino', FALSE, 1, 1),
-('2025-04-26', '8:31:47', 'd.picciau@studenti.boscogrigio.it', 'Panino al salame', TRUE, 2, 3),
-('2025-04-26', '9:53:13', 'd.picciau@studenti.boscogrigio.it', 'Schiacciatine al rosmarino', TRUE, 2, 1),
-('2025-04-24', '8:09:33', 'd.picciau@studenti.boscogrigio.it', 'Torta di mele', TRUE, 2, 4),
-('2025-04-17', '8:17:56', 'd.picciau@studenti.boscogrigio.it', 'Acqua naturale', TRUE, 1, 3),
-('2025-04-17', '8:17:56', 'd.picciau@studenti.boscogrigio.it', 'Pizzetta sfoglia cagliaritana', TRUE, 3, 3),
-
-('2025-05-03', '9:40:54', 'm.manai@studenti.boscogrigio.it', 'Patatine rustiche', FALSE, 1, 3),
-('2025-05-03', '8:53:18', 'm.manai@studenti.boscogrigio.it', 'Cingomme AIR', FALSE, 3, 1),
-('2025-04-26', '9:24:47', 'm.manai@studenti.boscogrigio.it', 'Patatine alla paprika', TRUE, 1, 1),
-
-('2025-04-26', '9:02:28', 'm.pedoni@studenti.boscogrigio.it', 'Succo ACE', TRUE, 1, 3),
-('2025-05-03', '9:19:08', 'm.pedoni@studenti.boscogrigio.it', 'Patatine piccanti', FALSE, 2, 3),
-('2025-05-03', '9:27:59', 'm.pedoni@studenti.boscogrigio.it', 'Succo di pesca', TRUE, 1, 4),
-
-('2025-05-03', '9:48:09', 'a.fiori@studenti.boscogrigio.it', 'Croccantelle gusto pizza', TRUE, 1, 1),
-('2025-04-26', '8:31:51', 'a.fiori@studenti.boscogrigio.it', 'Muffin con gocce di cioccolato', TRUE, 1, 4),
-('2025-04-26', '8:35:50', 'a.fiori@studenti.boscogrigio.it', 'Cornetto al cioccolato', TRUE, 2, 3),
-
-('2025-04-26', '8:25:28', 'd.perazzona@studenti.boscogrigio.it', 'Coca Cola', TRUE, 2, 1),
-('2025-05-03', '8:11:32', 'd.perazzona@studenti.boscogrigio.it', 'The freddo limone', TRUE, 2, 4),
-('2025-05-03', '9:34:49', 'd.perazzona@studenti.boscogrigio.it', 'Schiacciatine al rosmarino', TRUE, 3, 1),
-
-('2025-05-03', '8:42:06', 'a.sanna2@studenti.boscogrigio.it', 'Latte macchiato', FALSE, 2, 3),
-('2025-05-03', '8:05:09', 'a.sanna2@studenti.boscogrigio.it', 'Patatine rustiche', FALSE, 2, 4),
-('2025-04-26', '9:24:48', 'a.sanna2@studenti.boscogrigio.it', 'Patatine rustiche', TRUE, 3, 1),
-
-('2025-05-03', '8:14:28', 'f.ruiu@studenti.boscogrigio.it', 'The caldo', FALSE, 3, 3),
-('2025-04-26', '9:19:21', 'f.ruiu@studenti.boscogrigio.it', 'Muffin al cioccolato', TRUE, 1, 4),
-('2025-05-03', '8:28:09', 'f.ruiu@studenti.boscogrigio.it', 'Cornetto al pistacchio', FALSE, 3, 4),
-
-('2025-04-26', '9:30:59', 'g.bianchi@studenti.boscogrigio.it', 'Cornetto alla marmellata', TRUE, 2, 3),
-('2025-04-26', '8:59:04', 'g.bianchi@studenti.boscogrigio.it', 'The freddo verde', TRUE, 2, 3),
-('2025-04-26', '9:10:02', 'g.bianchi@studenti.boscogrigio.it', 'Acqua gasata', TRUE, 2, 3),
-
-('2025-05-03', '9:11:45', 'g.esposito@studenti.boscogrigio.it', 'Succo di pera', TRUE, 3, 3),
-('2025-04-26', '9:57:51', 'g.esposito@studenti.boscogrigio.it', 'Chupachups assortiti', TRUE, 3, 3),
-('2025-04-26', '8:06:51', 'g.esposito@studenti.boscogrigio.it', 'Cornetto ai frutti di bosco', TRUE, 2, 1),
-
-('2025-05-03', '9:12:17', 'a.leonardi@studenti.boscogrigio.it', 'Fanta', TRUE, 1, 4),
-('2025-04-26', '8:36:02', 'a.leonardi@studenti.boscogrigio.it', 'The freddo limone', TRUE, 3, 1),
-('2025-05-03', '8:27:44', 'a.leonardi@studenti.boscogrigio.it', 'Spremuta d\'arancia', FALSE, 3, 3),
-
-('2025-05-03', '8:25:56', 'l.bianchi@boscogrigio.it', 'The freddo verde', TRUE, 1, 4),
-('2025-04-26', '9:41:57', 'l.bianchi@boscogrigio.it', 'Latte macchiato', TRUE, 2, 4),
-('2025-05-03', '8:06:28', 'l.bianchi@boscogrigio.it', 'Patatine classiche', TRUE, 1, 1),
-
-('2025-04-26', '9:48:01', 'l.riva@boscogrigio.it', 'Fanta', TRUE, 3, 1),
-('2025-04-26', '8:51:45', 'l.riva@boscogrigio.it', 'Schiacciatine al rosmarino', TRUE, 3, 4),
-('2025-04-26', '8:17:32', 'l.riva@boscogrigio.it', 'Torta allo yogurt', TRUE, 2, 4),
-
-('2025-04-26', '9:42:11', 'l.sanna@boscogrigio.it', 'Cingomme Vivident', TRUE, 2, 3),
-('2025-05-03', '8:46:00', 'l.sanna@boscogrigio.it', 'Cornetto al pistacchio', TRUE, 2, 1),
-('2025-04-26', '8:34:51', 'l.sanna@boscogrigio.it', 'Muffin classico', TRUE, 1, 3),
-
-('2025-05-03', '8:32:25', 'a.lagorio@boscogrigio.it', 'Panino con mortadella e fontina', TRUE, 3, 3),
-('2025-04-26', '9:45:41', 'a.lagorio@boscogrigio.it', 'Torta allo yogurt', TRUE, 1, 1),
-('2025-04-26', '9:59:59', 'a.lagorio@boscogrigio.it', 'Cornetto alla crema', TRUE, 2, 3),
-
-('2025-05-03', '8:50:52', 'r.delussu@boscogrigio.it', 'Coca Cola', FALSE, 3, 1),
-('2025-04-26', '9:31:00', 'r.delussu@boscogrigio.it', 'Panino al salame', TRUE, 3, 1),
-('2025-04-26', '9:35:00', 'r.delussu@boscogrigio.it', 'Coca Cola', TRUE, 2, 1),
-
-('2025-05-03', '9:52:40', 'g.delogu@boscogrigio.it', 'Panino con prosciutto crudo e fontina', FALSE, 3, 3),
-('2025-05-03', '9:39:35', 'g.delogu@boscogrigio.it', 'Cornetto ai frutti di bosco', FALSE, 1, 1),
-('2025-04-26', '8:59:46', 'g.delogu@boscogrigio.it', 'Patatine piccanti', TRUE, 3, 1),
-
-('2025-04-26', '9:47:53', 'g.meloni@boscogrigio.it', 'Cornetto ai frutti di bosco', TRUE, 1, 4),
-('2025-05-03', '9:18:01', 'g.meloni@boscogrigio.it', 'Panino con prosciutto crudo', TRUE, 3, 4),
-('2025-05-03', '9:52:45', 'g.meloni@boscogrigio.it', 'The caldo', TRUE, 1, 1),
-
-('2025-05-03', '9:29:41', 'm.salvini@boscogrigio.it', 'Succo ACE', TRUE, 3, 4),
-('2025-05-03', '9:32:40', 'm.salvini@boscogrigio.it', 'Panino al prosciutto cotto', TRUE, 1, 3),
-('2025-05-03', '8:30:52', 'm.salvini@boscogrigio.it', 'Acqua naturale', TRUE, 3, 1),
-
-('2025-05-03', '9:14:55', 'l.brodo@boscogrigio.it', 'Coca Cola', FALSE, 2, 3),
-('2025-05-03', '9:00:26', 'l.brodo@boscogrigio.it', 'Acqua naturale', FALSE, 1, 1),
-('2025-05-03', '9:00:26', 'l.brodo@boscogrigio.it', 'Schiacciatine al rosmarino', FALSE, 1, 1),
-('2025-04-26', '9:18:45', 'l.brodo@boscogrigio.it', 'Patatine piccanti', TRUE, 1, 1),
-('2025-04-26', '8:10:06', 'l.brodo@boscogrigio.it', 'Muffin con gocce di cioccolato', TRUE, 2, 1),
-('2025-04-23', '8:31:47', 'l.brodo@boscogrigio.it', 'Panino al salame', TRUE, 2, 3),
-('2025-04-17', '8:09:33', 'l.brodo@boscogrigio.it', 'Torta di mele', TRUE, 2, 4),
-('2025-04-15', '8:17:56', 'l.brodo@boscogrigio.it', 'Acqua naturale', TRUE, 1, 3),
-('2025-04-15', '8:17:56', 'l.brodo@boscogrigio.it', 'Pizzetta sfoglia cagliaritana', TRUE, 3, 3),
-
-('2025-04-26', '8:55:24', 'l.ghiani@boscogrigio.it', 'Muffin classico', TRUE, 3, 1),
-('2025-05-03', '9:40:13', 'l.ghiani@boscogrigio.it', 'Ginseng', FALSE, 2, 1),
-('2025-04-26', '8:48:14', 'l.ghiani@boscogrigio.it', 'Fanta', TRUE, 2, 4);
+('2025-04-26', '8:55:24', 'l.ghiani@boscogrigio.it', 'Muffin classico', TRUE, 3, 5),
+('2025-05-03', '9:40:13', 'l.ghiani@boscogrigio.it', 'Ginseng', FALSE, 2, 5),
+('2025-04-26', '8:48:14', 'l.ghiani@boscogrigio.it', 'Fanta', TRUE, 2, 5);
 
 
 INSERT INTO ingrediente (nome, allergeni, quantità) VALUES
@@ -1420,6 +1299,79 @@ BEGIN
     END this_procedure;
 END $$
 DELIMITER ;
+
+-- Procedura per permettere agli operaatori di segnare un ordine come consegnato
+DELIMITER $$
+CREATE PROCEDURE segna_ordine_consegnato(
+    IN p_data DATE,
+    IN p_ora TIME,
+    IN p_email_cliente VARCHAR(100),
+    IN p_nome_prodotto VARCHAR(50),
+    IN p_operatore_id INT,
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_ordine_esiste BOOLEAN;
+    DECLARE v_operatore_corretto BOOLEAN;
+    DECLARE v_gia_consegnato BOOLEAN;
+    
+    segna_consegna: BEGIN
+        -- Verifica se l'ordine esiste
+        SELECT COUNT(*) > 0 INTO v_ordine_esiste
+        FROM ordine
+        WHERE data = p_data 
+          AND ora = p_ora 
+          AND emailCliente = p_email_cliente 
+          AND nomeProdotto = p_nome_prodotto;
+        
+        IF NOT v_ordine_esiste THEN
+            SET p_messaggio = 'Ordine non trovato';
+            LEAVE segna_consegna;
+        END IF;
+        
+        -- Verifica se l'operatore è quello assegnato all'ordine
+        SELECT COUNT(*) > 0 INTO v_operatore_corretto
+        FROM ordine
+        WHERE data = p_data 
+          AND ora = p_ora 
+          AND emailCliente = p_email_cliente 
+          AND nomeProdotto = p_nome_prodotto
+          AND OperatoreID = p_operatore_id;
+        
+        IF NOT v_operatore_corretto THEN
+            SET p_messaggio = 'Non sei autorizzato a modificare questo ordine';
+            LEAVE segna_consegna;
+        END IF;
+        
+        -- Verifica se l'ordine è già stato consegnato
+        SELECT consegnato INTO v_gia_consegnato
+        FROM ordine
+        WHERE data = p_data 
+          AND ora = p_ora 
+          AND emailCliente = p_email_cliente 
+          AND nomeProdotto = p_nome_prodotto;
+        
+        IF v_gia_consegnato THEN
+            SET p_messaggio = 'Questo ordine risulta già consegnato';
+            LEAVE segna_consegna;
+        END IF;
+        
+        -- Aggiorna l'ordine come consegnato
+        UPDATE ordine
+        SET consegnato = TRUE
+        WHERE data = p_data 
+          AND ora = p_ora 
+          AND emailCliente = p_email_cliente 
+          AND nomeProdotto = p_nome_prodotto;
+        
+        SET p_messaggio = 'Ordine segnato come consegnato con successo';
+    END;
+    
+END$$
+DELIMITER ;
+
+
+
 
 -- ***** PRIVILEGI *****
 

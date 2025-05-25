@@ -1105,10 +1105,6 @@ DELIMITER ;
 -- procedura per effettuare un rifornimento
 
 
-
-/*
--- ****** TUTTE PROCEDURE DI CLAUDE DA CONTROLLARE BENE ******
-
 -- Procedura per permettere agli operaatori di segnare un ordine come consegnato
 -- Bisogna farne una simile per i rifornimenti
 DELIMITER $$
@@ -1179,6 +1175,11 @@ BEGIN
     
 END$$
 DELIMITER ;
+
+
+
+/*
+-- ****** TUTTE PROCEDURE DI CLAUDE DA CONTROLLARE BENE ******
 
 -- Procedura per visualizzare gli ordini assegnati a un operatore
 DELIMITER $$
