@@ -111,10 +111,10 @@
                                                     $_SESSION['db_pass'] = 'Operatore';
 
                                                     //Store the user info in the session:
+                                                    $_SESSION['CodiceID'] = $row['CodiceID'];
                                                     $_SESSION['email'] = $row['email']; 
                                                     $_SESSION['nome'] = $row['nome']; 
                                                     $_SESSION['cognome'] = $row['cognome']; 
-                                                    $_SESSION['ruolo'] = $row['ruolo'];
                                                     //Redirect the user
                                                     redirect_users($row['ruolo']);
                                                     break;

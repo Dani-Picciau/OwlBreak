@@ -1442,6 +1442,7 @@ GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Addetto-Vendite'@'
 GRANT SELECT ON owlbreak.operatore TO 'Addetto-Consegne'@'localhost';
 GRANT SELECT ON owlbreak.ordine TO 'Addetto-Consegne'@'localhost';
 GRANT SELECT ON owlbreak.consegna TO 'Addetto-Consegne'@'localhost';
+GRANT SELECT ON owlbreak.cliente TO 'Addetto-Consegne'@'localhost'; --Mi serve per accedere ai dati dell'ordine del cliente
 GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Addetto-Consegne'@'localhost';
 
 -- PRIVILEGI FORNITORI
