@@ -14,11 +14,12 @@ window.addEventListener('scroll', function() {
   }
 });
 
-// Codice per mostrare solo i prodotti appartenenti alla propria categoria
+// Codice per mostrare gli ordini in attesa o consegnati
 document.addEventListener('DOMContentLoaded', () => {
   const menuItems = document.querySelectorAll('.menu-category');
   const waiting_box = document.querySelector('.waiting-box');
   const delivered_box = document.querySelector('.delivered-box');
+  const orders = document.querySelectorAll('.order');
   
   menuItems.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -28,34 +29,61 @@ document.addEventListener('DOMContentLoaded', () => {
       menuItems.forEach(i => i.classList.remove('active'));
       btn.classList.add('active');
 
-      // Gestione visualizzazione della cronologia ordini
+      // Gestione visualizzazione ordini
       if (cat === 'attesa') {
         waiting_box.classList.add('show');
         delivered_box.classList.remove('show');
+        // Mostra solo ordini in attesa
+        orders.forEach(p => {
+          if (p.dataset.category === cat) {
+            p.classList.add('show');
+          } else {
+            p.classList.remove('show');
+          }
+        });
       } else {
-        waiting_box.classList.remove('show');
         delivered_box.classList.add('show');
-      }
-      
+        waiting_box.classList.remove('show');
+        // Mostra solo ordini consegnati
+        orders.forEach(p => {
+          if (p.dataset.category === cat) {
+            p.classList.add('show');
+          } else {
+            p.classList.remove('show');
+          }
+        });
+      } 
     });
   });
 
   menuItems[0].click();
 });
 
-const toggleInput = document.getElementById('orderToggle');
-const toggleSlider = document.querySelector('.thumb');
-const sliderContainer = document.querySelector('.toggle-slider');
-const borderContainer = document.querySelector('.order');
 
-toggleInput.addEventListener('change', function() {
+document.querySelectorAll('.orderToggle').forEach(function(toggleInput) {
+
+  const orderElement = toggleInput.closest('.order');
+  const sliderContainer = orderElement.querySelector('.toggle-slider');
+  const toggleSlider = orderElement.querySelector('.thumb');
+  
+  //Serve per sincronizzare il toggle con gli ordini già consegnati al caricamento della pagina
   if (toggleInput.checked) {
+    toggleSlider.classList.add('active');
+    sliderContainer.classList.add('active');
+    orderElement.classList.add('active');
+  }
+  
+  toggleInput.addEventListener('change', function() {
+    if (toggleInput.checked) {
       toggleSlider.classList.add('active');
       sliderContainer.classList.add('active');
-      borderContainer.classList.add('active');
-  } else {
+      orderElement.classList.add('active');
+    } else {
       toggleSlider.classList.remove('active');
       sliderContainer.classList.remove('active');
-      borderContainer.classList.remove('active');
-  }
+      orderElement.classList.remove('active');
+    }
+  });
 });
+
+

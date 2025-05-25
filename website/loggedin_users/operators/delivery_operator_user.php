@@ -3,6 +3,32 @@
     require_once('../../includes/mysqli_connect_user.php');
 
     check_user_type('Addetto-Consegne');
+    
+
+    $CodiceID = $_SESSION['CodiceID']; 
+
+    $sql = "SELECT o.emailCliente, o.data, o.ora, c.nome, c.cognome, c.luogoConsegna, o.consegnato
+            FROM ordine o, cliente c
+            WHERE c.email = o.emailCliente AND o.OperatoreID = '$CodiceID'
+            GROUP BY o.emailCliente, o.data, o.ora
+            ORDER BY o.data DESC, o.ora DESC
+        ";
+    if (!$result = mysqli_query($dbc, $sql)) {
+        die("DB query error: " . mysqli_error($dbc));
+    }
+
+    $ordiniAttesa = [];
+    $ordiniConsegnati = [];
+
+    /* Una volta eseguita la query, tramite il while scorro tutta la tabella risultante e separo le tuple degli ordini consegnati dalle tuple degli ordini ancora non consegnati, inserendole in due array appositi in modo tale da avere i dati pronti all'uso.
+    In questo modo posso anche avere il numero di tuple all'interno di ogni array, semplicemente facendo count(). */
+    while ($ordine = mysqli_fetch_assoc($result)) {
+        if ($ordine['consegnato'] == TRUE) {
+            $ordiniConsegnati[] = $ordine;
+        } else {
+            $ordiniAttesa[] = $ordine;
+        }
+    }                 
 ?>
 
 <!DOCTYPE html>
@@ -43,7 +69,7 @@
                             In attesa
                         </div>
                         <span>
-                            <p>0</p>
+                            <p><?= count($ordiniAttesa) ?></p>
                         <span>
                     </div>
                     <div class="menu-category" data-category="consegnato">
@@ -52,69 +78,22 @@
                             Consegnati
                         </div>
                         <span>
-                            <p>0</p>
+                            <p><?= count($ordiniConsegnati) ?></p>
                         <span>
                     </div>
                 </div>
                 <div class="separator2"></div>
                 <div class="container">
-                    <?php 
-                        $CodiceID = $_SESSION['CodiceID']; 
-
-                        //Fetch degli ordini
-                        $sql = "SELECT c.nome, c.cognome, o.data, o.ora, o.nomeProdotto, o.consegnato, o.quantità, c.luogoConsegna FROM ordine AS o, cliente AS c WHERE c.email = o.emailCliente  AND o.OperatoreID = '$CodiceID' ORDER BY  o.data ASC, o.ora ASC";
-                        if (!$result = mysqli_query($dbc, $sql)) {
-                            die("DB query error: " . mysqli_error($dbc));
-                        }
-                    ?>
                     <div class="waiting-box">
-                        <?php 
-                            while($row = mysqli_fetch_assoc($result)){
-                                $nome           = $row['nome'];
-                                $cognome        = $row['cognome'];
-                                $data           = $row['data'];
-                                $ora            = $row['ora'];
-                                $nomeProdotto   = $row['nomeProdotto'];
-                                $stato          = $row['consegnato'];
-                                $quantità       = $row['quantità'];
-                                $luogoConsegna  = $row['luogoConsegna'];
-
-                                if($stato == FALSE){
-                                    ?>
-                                        <div class="order">
-                                            <section>
-                                                <div>
-                                                    <span><?=$nome?> <?=$cognome?></span>
-                                                    <span>Luogo di consegna: <?= $luogoConsegna; ?></span>
-                                                    <span>Ordinato alle <?= $ora ?></span>
-                                                </div>
-                                                <div>
-                                                    <span class="status delivered">consegnato</span>
-                                                    <label class="toggle-slider">
-                                                        <input type="checkbox" id="orderToggle" />
-                                                        <span class="thumb"></span>
-                                                    </label>
-                                                </div>
-                                            </section>
-                                            <hr>
-                                            <span>Prodotti ordinati:</span>
-                                            <div>
-                                                <span><?=$nomeProdotto?> x 1</span>
-                                                <span>Caffè x 2</span>
-                                                <span>Cornetto alla marmellata x 3</span>
-                                            </div>
-                                            <footer>
-                                                <span>Totale: €8,50</span>
-                                            </footer>
-                                        </div>
-                                    <?php
-                                }
-
-                            } 
-                        ?>
+                        <?php if (count($ordiniAttesa) > 0): ?>
+                            <?php require('delivery_operator_includes/waiting_panel.php'); ?>
+                        <?php endif; ?>
                     </div>
                     <div class="delivered-box">
-                        ordini consegnati
+                        <?php if (count($ordiniConsegnati) > 0): ?>
+                            <?php require('delivery_operator_includes/delivered_panel.php'); ?>
+                        <?php endif; ?>
+                        
                     </div>
                 </div>
             </div>
