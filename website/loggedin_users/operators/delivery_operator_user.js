@@ -43,15 +43,19 @@ document.addEventListener('DOMContentLoaded', () => {
   menuItems[0].click();
 });
 
+const toggleInput = document.getElementById('orderToggle');
 const toggleSlider = document.querySelector('.thumb');
 const sliderContainer = document.querySelector('.toggle-slider');
+const borderContainer = document.querySelector('.order');
 
-toggleSlider.addEventListener('click', function() {
-  if (toggleSlider.classList.contains('active')) { //Verifico se la classe .active è già attiva
-      toggleSlider.classList.remove('active');
-      sliderContainer.classList.remove('active');
-  } else {
+toggleInput.addEventListener('change', function() {
+  if (toggleInput.checked) {
       toggleSlider.classList.add('active');
       sliderContainer.classList.add('active');
+      borderContainer.classList.add('active');
+  } else {
+      toggleSlider.classList.remove('active');
+      sliderContainer.classList.remove('active');
+      borderContainer.classList.remove('active');
   }
 });
