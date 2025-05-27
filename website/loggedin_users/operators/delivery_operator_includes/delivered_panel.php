@@ -1,6 +1,9 @@
 <?php
     //Per evitare di accedere direttamente alla pagina
-    require_once('../../includes/loggedin.php');   
+    require_once('../../../includes/loggedin.php');  
+    require_once('../../../includes/mysqli_connect_user.php');
+    
+    require_once('load_orders.php');
 
     foreach ($ordiniConsegnati as $ordine) {
         $nome           = $ordine['nome'];
@@ -20,7 +23,10 @@
             die("DB query error: " . mysqli_error($dbc));
         }
         ?>
-            <div class="order" data-category="consegnato">
+            <div class="order" data-category="consegnato"
+                data-email="<?= $email ?>"
+                data-date="<?= $data ?>"
+                data-time="<?= $ora ?>">
                 <section>
                     <div>
                         <span><?=$nome?> <?=$cognome?></span>
@@ -30,7 +36,7 @@
                     <div>
                         <span class="status delivered">Consegnato</span>
                         <label class="toggle-slider">
-                            <input type="checkbox" class="orderToggle" checked=true />
+                            <input type="checkbox" class="orderToggle"/>
                             <span class="thumb"></span>
                         </label>
                     </div>
@@ -40,7 +46,11 @@
                 <div>
                     <?php
                         while ($prodotto = mysqli_fetch_assoc($res_prod)) {
-                            ?> <span><?= $prodotto['nomeProdotto'] ?> x <?= $prodotto['quantità'] ?></span> <?php
+                            ?> 
+                                <span class="product-item" data-product="<?= $prodotto['nomeProdotto'] ?>">
+                                    <?= $prodotto['nomeProdotto'] ?> x <?= $prodotto['quantità'] ?>
+                                </span> 
+                            <?php
                         }
                     ?>
                 </div>
