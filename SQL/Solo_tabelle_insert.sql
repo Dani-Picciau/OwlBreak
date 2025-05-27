@@ -211,7 +211,7 @@ INSERT INTO operatore (CodiceID, email, passw, nome, cognome, ruolo) VALUES
 (4,'m.romano@owlbreak.it', '$2y$10$1FedTJ/UGefggQVyb17UkeFB8Typof3OFkpLlOXqOVMyHsV1ZnXya', 'Maria Grazia', 'Romano', 'Addetto-Vendite'),
 (5,'e.serra@owlbreak.it', '$2y$10$kgoUKF.d1MEjWKVyEngRjuDZ6f3cbVrdeHy7gy24SuQsazGKGQPSG', 'Elena', 'Serra', 'Addetto-Consegne');
 
-INSERT INTO ordine(data, ora, emailCliente, nomeProdotto, consegnato, quantità, OperatoreID) VALUES
+/*INSERT INTO ordine(data, ora, emailCliente, nomeProdotto, consegnato, quantità, OperatoreID) VALUES
 ('2025-04-26', '9:54:34', 'm.rossi@studenti.boscogrigio.it', 'The freddo verde', TRUE, 1, 2),
 ('2025-05-03', '9:07:38', 'm.rossi@studenti.boscogrigio.it', 'Acqua naturale', TRUE, 3, 2),
 ('2025-05-03', '8:20:00', 'm.rossi@studenti.boscogrigio.it', 'Cingomme AIR', FALSE, 2, 2),
@@ -362,7 +362,39 @@ INSERT INTO ordine(data, ora, emailCliente, nomeProdotto, consegnato, quantità,
 
 ('2025-04-26', '8:55:24', 'l.ghiani@boscogrigio.it', 'Muffin classico', TRUE, 3, 1),
 ('2025-05-03', '9:40:13', 'l.ghiani@boscogrigio.it', 'Ginseng', FALSE, 2, 1),
-('2025-04-26', '8:48:14', 'l.ghiani@boscogrigio.it', 'Fanta', TRUE, 2, 4);
+('2025-04-26', '8:48:14', 'l.ghiani@boscogrigio.it', 'Fanta', TRUE, 2, 4);*/
+
+INSERT INTO consegna(luogoConsegna, OperatoreID) VALUES
+('4A', 2),
+('Segreteria Centrale', 5);
+
+INSERT INTO ordine(data, ora, emailCliente, nomeProdotto, consegnato, quantità, OperatoreID) VALUES
+('2025-05-03', '8:52:20', 'd.picciau@studenti.boscogrigio.it', 'Chupachups assortiti', TRUE, 2, 2),
+('2025-05-03', '9:00:26', 'd.picciau@studenti.boscogrigio.it', 'Acqua naturale', FALSE, 1, 2),
+('2025-05-03', '9:00:26', 'd.picciau@studenti.boscogrigio.it', 'Schiacciatine al rosmarino', FALSE, 1, 2),
+('2025-04-26', '8:31:47', 'd.picciau@studenti.boscogrigio.it', 'Panino al salame', TRUE, 2, 2),
+('2025-04-26', '9:53:13', 'd.picciau@studenti.boscogrigio.it', 'Schiacciatine al rosmarino', TRUE, 2, 2),
+('2025-04-24', '8:09:33', 'd.picciau@studenti.boscogrigio.it', 'Torta di mele', TRUE, 2, 2),
+('2025-04-17', '8:17:56', 'd.picciau@studenti.boscogrigio.it', 'Acqua naturale', TRUE, 1, 2),
+('2025-04-17', '8:17:56', 'd.picciau@studenti.boscogrigio.it', 'Pizzetta sfoglia cagliaritana', TRUE, 3, 2),
+
+('2025-05-03', '9:40:54', 'm.manai@studenti.boscogrigio.it', 'Patatine rustiche', FALSE, 1, 2),
+('2025-05-03', '8:53:18', 'm.manai@studenti.boscogrigio.it', 'Cingomme AIR', FALSE, 3, 2),
+('2025-04-26', '9:24:47', 'm.manai@studenti.boscogrigio.it', 'Patatine alla paprika', TRUE, 1, 2),
+
+('2025-05-03', '9:14:55', 'l.brodo@boscogrigio.it', 'Coca Cola', FALSE, 2, 5),
+('2025-05-03', '9:00:26', 'l.brodo@boscogrigio.it', 'Acqua naturale', FALSE, 1, 5),
+('2025-05-03', '9:00:26', 'l.brodo@boscogrigio.it', 'Schiacciatine al rosmarino', FALSE, 1, 5),
+('2025-04-26', '9:18:45', 'l.brodo@boscogrigio.it', 'Patatine piccanti', TRUE, 1, 5),
+('2025-04-26', '8:10:06', 'l.brodo@boscogrigio.it', 'Muffin con gocce di cioccolato', TRUE, 2, 5),
+('2025-04-23', '8:31:47', 'l.brodo@boscogrigio.it', 'Panino al salame', TRUE, 2, 5),
+('2025-04-17', '8:09:33', 'l.brodo@boscogrigio.it', 'Torta di mele', TRUE, 2, 5),
+('2025-04-15', '8:17:56', 'l.brodo@boscogrigio.it', 'Acqua naturale', TRUE, 1, 5),
+('2025-04-15', '8:17:56', 'l.brodo@boscogrigio.it', 'Pizzetta sfoglia cagliaritana', TRUE, 3, 5),
+
+('2025-04-26', '8:55:24', 'l.ghiani@boscogrigio.it', 'Muffin classico', TRUE, 3, 5),
+('2025-05-03', '9:40:13', 'l.ghiani@boscogrigio.it', 'Ginseng', FALSE, 2, 5),
+('2025-04-26', '8:48:14', 'l.ghiani@boscogrigio.it', 'Fanta', TRUE, 2, 5);
 
 
 INSERT INTO ingrediente (nome, allergeni, quantità) VALUES
