@@ -505,11 +505,20 @@ nav .initials{
     justify-content: flex-start;
     gap:1rem;
 
+    pointer-events: none;
     opacity:0;
-    visibility:hidden;
     position: absolute;
+    visibility: hidden;
     transform: translate3d(-3rem, 0, 0);
     transition: opacity .6s ease-in-out, transform .6s ease-in-out;
+}
+
+.security-box input, .security-box button             {
+    display: none;
+}
+
+.security-box.show input, .security-box.show button{
+    display: block;
 }
 
 .security-box.show{

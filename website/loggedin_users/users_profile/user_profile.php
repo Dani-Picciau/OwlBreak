@@ -2,8 +2,8 @@
     require_once('../../includes/loggedin.php');
     require_once('../../includes/mysqli_connect_user.php');
 
-    // Tutti i tipi di utenti cliente che possono accedere a questa pagina
-    check_user_type('Studente', 'Personale-Docente', 'Personale-Ata', 'Personale-Segreteria');
+    // Nessun controllo con check_user_type perché tutti gli utenti possono accedere alla pagina
+    //check_user_type('Studente', 'Personale-Docente', 'Personale-Ata', 'Personale-Segreteria');
 ?>
 
 <!DOCTYPE html>
@@ -14,7 +14,7 @@
         <link rel="icon" href="/owlbreak/website/images/logo.svg" type="svg">
         <title>User profile</title>
         <!-- Normalize CSS -->
-        <link rel="stylesheet" href="customer_profile.css?v=<?=time()?>" />
+        <link rel="stylesheet" href="user_profile.css?v=<?=time()?>" />
 
         <!-- Icons -->
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
@@ -69,19 +69,28 @@
                 <div class="container">
                     <?php $email = $_SESSION['email']; ?>
                     <div class="personal-information-box">
-                        <?php require('customer_profile_includes/customer_information.php'); ?>
+                        <?php require('users_profile_includes/user_information.php'); ?>
                     </div>
                     <div class="security-box">
-                        <?php require('customer_profile_includes/customer_security.php'); ?>
+                        <?php require('users_profile_includes/user_security.php'); ?>
                     </div>
                     <div class="statistics-box">
-                        <?php require('customer_profile_includes/customer_statistics.php'); ?>
+                        <?php 
+                            switch ($_SESSION['user_type']) {
+                                case 'Studente':
+                                case 'Personale-Docente':
+                                case 'Personale-Ata':
+                                case 'Personale-Segreteria':{
+                                    require('../customers/customer_profile_includes/customer_statistics.php');
+                                }
+                            }
+                        ?>
                     </div>
                     
                 </div>
             </div>
         </div>
 
-        <script src="customer_profile.js?v=1.02"></script>
+        <script src="user_profile.js?v=1.02"></script>
     </body>
 </html>
