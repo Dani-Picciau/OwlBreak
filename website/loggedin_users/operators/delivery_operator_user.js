@@ -14,6 +14,8 @@ window.addEventListener('scroll', function() {
   }
 });
 
+window.addEventListener('DOMContentLoaded', refreshOrders);
+
 function refreshOrders() {
   Promise.all([
     fetch('delivery_operator_includes/delivered_panel.php')
@@ -32,11 +34,22 @@ function refreshOrders() {
     attachToggleListeners();
     attachMenuLogic();
     toggleStyle();
+    updateOrderCounts();
   })
   .catch(error => console.error('Errore durante l\'aggiornamento dei pannelli:', error));
 }
 
-window.addEventListener('DOMContentLoaded', refreshOrders);
+function updateOrderCounts() {
+  const waitingOrders = document.querySelectorAll('.order[data-category="attesa"]').length;
+  const deliveredOrders = document.querySelectorAll('.order[data-category="consegnato"]').length;
+  
+  // Aggiorna i conteggi nel menu
+  const waitingCount = document.querySelector('.menu-category[data-category="attesa"] span p');
+  const deliveredCount = document.querySelector('.menu-category[data-category="consegnato"] span p');
+  
+  if (waitingCount) waitingCount.textContent = waitingOrders;
+  if (deliveredCount) deliveredCount.textContent = deliveredOrders;
+}
 
 function attachMenuLogic() {
   const menuItems = document.querySelectorAll('.menu-category');
@@ -79,13 +92,6 @@ function toggleStyle() {
     const orderElement = toggleInput.closest('.order');
     const sliderContainer = orderElement.querySelector('.toggle-slider');
     const toggleSlider = orderElement.querySelector('.thumb');
-    
-    //Serve per sincronizzare il toggle con gli ordini già consegnati al caricamento della pagina
-    if (toggleInput.checked) {
-      toggleSlider.classList.add('active');
-      sliderContainer.classList.add('active');
-      orderElement.classList.add('active');
-    }
     
     toggleInput.addEventListener('change', function() {
       if (toggleInput.checked) {
