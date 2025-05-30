@@ -90,7 +90,7 @@ CREATE TABLE fornitore (
 );
 
 CREATE TABLE rifornimento (
-    CodiceID INT NOT NULL AUTO_INCREMENT,
+    CodiceID INT PRIMARY KEY AUTO_INCREMENT,
     ingrediente VARCHAR(50) NOT NULL,
     quantità INT NOT NULL,
     data DATE NOT NULL,
@@ -98,7 +98,6 @@ CREATE TABLE rifornimento (
     consegnato BOOLEAN DEFAULT FALSE,
     OperatoreID INT,
     FornitoreID INT,
-    PRIMARY KEY (CodiceID, ingrediente),
     FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID),
     FOREIGN KEY (FornitoreID) REFERENCES Fornitore(CodiceID)
 );
@@ -125,6 +124,8 @@ BEGIN
 END$$
 DELIMITER ;*/
 
+/* *** OPERAZIONI SU INGREDIENTI E PRODOTTI *** */
+
 
 -- Trigger per permettere ordini solo dalle 8 alle 10
 DELIMITER $$
@@ -141,7 +142,7 @@ BEGIN
     SET MESSAGE_TEXT = 'Non si possono fare ordini la domenica';
   END IF;
 
-  -- Controllo: fascia oraria 08:00–10:00
+  -- Controllo: fascia oraria 08:00–10:00 modificare per provarlo dopo le 10 del mattino 
   IF NEW.ora < '08:00:00' OR NEW.ora > '10:00:00' THEN
     SIGNAL SQLSTATE '45000' 
     SET MESSAGE_TEXT = 'Gli ordini sono consentiti solo tra le 08:00 e le 10:00';
@@ -226,6 +227,352 @@ BEGIN
     );
 
 END; $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE aggiungi_ingrediente(
+    IN p_operatore_id INT,
+    IN p_nome_ingrediente VARCHAR(50),
+    IN p_allergeni VARCHAR(200),
+    IN p_quantita INT,
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_ruolo VARCHAR(30);
+    DECLARE v_operatore_esiste BOOLEAN;
+    DECLARE v_ingrediente_esiste BOOLEAN;
+    DECLARE v_allergeni VARCHAR(200);
+
+    this_procedure: BEGIN
+
+        -- Verifica operatore
+        SELECT COUNT(*) > 0 INTO v_operatore_esiste
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF NOT v_operatore_esiste THEN
+            SET p_messaggio = 'Operatore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT ruolo INTO v_ruolo
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF v_ruolo NOT IN ('Titolare', 'Addetto-Vendite') THEN
+            SET p_messaggio = 'Non autorizzato ad aggiungere ingredienti';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Verifica esistenza ingrediente (case-insensitive)
+        SELECT COUNT(*) > 0 INTO v_ingrediente_esiste
+        FROM ingrediente
+        WHERE LOWER(nome) = LOWER(p_nome_ingrediente);
+
+        IF v_ingrediente_esiste THEN
+            SET p_messaggio = 'Ingrediente già presente';
+            LEAVE this_procedure;
+        END IF;
+
+        IF p_quantita < 0 THEN
+            SET p_messaggio = 'La quantità non può essere negativa';
+            LEAVE this_procedure;
+        END IF;
+
+        IF p_allergeni IS NULL THEN 
+            SET v_allergeni = '';
+        ELSE
+            SET v_allergeni = p_allergeni;
+        END IF; 
+
+        INSERT INTO ingrediente (nome, allergeni, quantità)
+        VALUES (LOWER(p_nome_ingrediente), LOWER(v_allergeni), p_quantita);
+
+        SET p_messaggio = 'Ingrediente aggiunto con successo';
+
+    END;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE elimina_ingrediente(
+    IN p_operatore_id INT,
+    IN p_nome_ingrediente VARCHAR(50),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_ruolo VARCHAR(30);
+    DECLARE v_operatore_esiste BOOLEAN;
+    DECLARE v_ingrediente_esiste BOOLEAN;
+
+    this_procedure: BEGIN
+
+        SELECT COUNT(*) > 0 INTO v_operatore_esiste
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF NOT v_operatore_esiste THEN
+            SET p_messaggio = 'Operatore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT ruolo INTO v_ruolo
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF v_ruolo NOT IN ('Titolare', 'Addetto-Vendite') THEN
+            SET p_messaggio = 'Non autorizzato a eliminare ingredienti';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT COUNT(*) > 0 INTO v_ingrediente_esiste
+        FROM ingrediente
+        WHERE LOWER(nome) = LOWER(p_nome_ingrediente);
+
+        IF NOT v_ingrediente_esiste THEN
+            SET p_messaggio = 'Ingrediente non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        DELETE FROM ingrediente
+        WHERE LOWER(nome) = LOWER(p_nome_ingrediente);
+
+        SET p_messaggio = 'Ingrediente eliminato con successo';
+
+    END;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE aggiungi_prodotto(
+    IN p_operatore_id INT,
+    IN p_nome_prodotto VARCHAR(50),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_ruolo VARCHAR(30);
+    DECLARE v_operatore_esiste BOOLEAN;
+    DECLARE v_prodotto_esiste BOOLEAN;
+
+    this_procedure: BEGIN
+
+        SELECT COUNT(*) > 0 INTO v_operatore_esiste
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF NOT v_operatore_esiste THEN
+            SET p_messaggio = 'Operatore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT ruolo INTO v_ruolo
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF v_ruolo NOT IN ('Titolare', 'Addetto-Vendite') THEN
+            SET p_messaggio = 'Non autorizzato ad aggiungere prodotti';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT COUNT(*) > 0 INTO v_prodotto_esiste
+        FROM prodotto
+        WHERE LOWER(nome) = LOWER(p_nome_prodotto);
+
+        IF v_prodotto_esiste THEN
+            SET p_messaggio = 'Prodotto già esistente';
+            LEAVE this_procedure;
+        END IF;
+
+        INSERT INTO prodotto (nome, disponibilità)
+        VALUES (LOWER(p_nome_prodotto), FALSE);
+
+        SET p_messaggio = 'Prodotto aggiunto con successo';
+
+    END;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE elimina_prodotto(
+    IN p_operatore_id INT,
+    IN p_nome_prodotto VARCHAR(50),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_ruolo VARCHAR(30);
+    DECLARE v_operatore_esiste BOOLEAN;
+    DECLARE v_prodotto_esiste BOOLEAN;
+
+    this_procedure: BEGIN
+
+        SELECT COUNT(*) > 0 INTO v_operatore_esiste
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF NOT v_operatore_esiste THEN
+            SET p_messaggio = 'Operatore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT ruolo INTO v_ruolo
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF v_ruolo NOT IN ('Titolare', 'Addetto-Vendite') THEN
+            SET p_messaggio = 'Non autorizzato a eliminare prodotti';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT COUNT(*) > 0 INTO v_prodotto_esiste
+        FROM prodotto
+        WHERE LOWER(nome) = LOWER(p_nome_prodotto);
+
+        IF NOT v_prodotto_esiste THEN
+            SET p_messaggio = 'Prodotto non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        DELETE FROM prodotto
+        WHERE LOWER(nome) = LOWER(p_nome_prodotto);
+
+        SET p_messaggio = 'Prodotto eliminato con successo';
+
+    END;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE associa_ingrediente_prodotto(
+    IN p_operatore_id INT,
+    IN p_nome_prodotto VARCHAR(50),
+    IN p_nome_ingrediente VARCHAR(50),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_ruolo VARCHAR(30);
+    DECLARE v_esiste_operatore BOOLEAN;
+    DECLARE v_associazione_esistente BOOLEAN;
+    DECLARE v_esiste_prodotto BOOLEAN;
+    DECLARE v_esiste_ingrediente BOOLEAN;
+
+    this_procedure: BEGIN
+
+        -- Controllo operatore
+        SELECT COUNT(*) > 0 INTO v_esiste_operatore
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF NOT v_esiste_operatore THEN
+            SET p_messaggio = 'Operatore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT ruolo INTO v_ruolo
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF v_ruolo NOT IN ('Titolare', 'Addetto-Vendite') THEN
+            SET p_messaggio = 'Non autorizzato ad associare ingredienti a prodotti';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Verifica esistenza prodotto
+        SELECT COUNT(*) > 0 INTO v_esiste_prodotto
+        FROM prodotto
+        WHERE LOWER(nome) = LOWER(p_nome_prodotto);
+
+        IF NOT v_esiste_prodotto THEN
+            SET p_messaggio = 'Prodotto inesistente';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Verifica esistenza ingrediente
+        SELECT COUNT(*) > 0 INTO v_esiste_ingrediente
+        FROM ingrediente
+        WHERE LOWER(nome) = LOWER(p_nome_ingrediente);
+
+        IF NOT v_esiste_ingrediente THEN
+            SET p_messaggio = 'Ingrediente inesistente';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Controllo composizione già presente
+        SELECT COUNT(*) > 0 INTO v_associazione_esistente
+        FROM composizione
+        WHERE LOWER(nomeProdotto) = LOWER(p_nome_prodotto)
+          AND LOWER(nomeIngrediente) = LOWER(p_nome_ingrediente);
+
+        IF v_associazione_esistente THEN
+            SET p_messaggio = 'Associazione già presente in composizione';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Inserisci nella composizione
+        INSERT INTO composizione (nomeProdotto, nomeIngrediente)
+        VALUES (LOWER(p_nome_prodotto), LOWER(p_nome_ingrediente));
+
+        SET p_messaggio = 'Ingrediente associato al prodotto con successo';
+
+    END;
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE elimina_composizione(
+    IN p_operatore_id INT,
+    IN p_nome_prodotto VARCHAR(50),
+    IN p_nome_ingrediente VARCHAR(50),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_ruolo VARCHAR(30);
+    DECLARE v_esiste_operatore BOOLEAN;
+    DECLARE v_associazione_esistente BOOLEAN;
+
+    this_procedure: BEGIN
+
+        SELECT COUNT(*) > 0 INTO v_esiste_operatore
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF NOT v_esiste_operatore THEN
+            SET p_messaggio = 'Operatore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT ruolo INTO v_ruolo
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF v_ruolo NOT IN ('Titolare', 'Addetto-Vendite') THEN
+            SET p_messaggio = 'Non autorizzato a modificare composizione';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT COUNT(*) > 0 INTO v_associazione_esistente
+        FROM composizione
+        WHERE LOWER(nomeProdotto) = LOWER(p_nome_prodotto)
+          AND LOWER(nomeIngrediente) = LOWER(p_nome_ingrediente);
+
+        IF NOT v_associazione_esistente THEN
+            SET p_messaggio = 'Associazione non trovata';
+            LEAVE this_procedure;
+        END IF;
+
+        DELETE FROM composizione
+        WHERE LOWER(nomeProdotto) = LOWER(p_nome_prodotto)
+          AND LOWER(nomeIngrediente) = LOWER(p_nome_ingrediente);
+
+        SET p_messaggio = 'Associazione rimossa con successo';
+
+    END;
+END $$
 DELIMITER ;
 
 
@@ -424,6 +771,206 @@ END$$
 DELIMITER ;
 
 
+-- Procedura per permettere agli operatori di segnare un ordine come consegnato
+DELIMITER $$
+CREATE PROCEDURE segna_ordine_consegnato(
+    IN p_data DATE,
+    IN p_ora TIME,
+    IN p_email_cliente VARCHAR(100),
+    IN p_nome_prodotto VARCHAR(50),
+    IN p_operatore_id INT,
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_ordine_esiste BOOLEAN;
+    DECLARE v_operatore_corretto BOOLEAN;
+    DECLARE v_gia_consegnato BOOLEAN;
+    
+    this_procedure: BEGIN
+        -- Verifica se l'ordine esiste
+        SELECT COUNT(*) > 0 INTO v_ordine_esiste
+        FROM ordine
+        WHERE data = p_data 
+          AND ora = p_ora 
+          AND emailCliente = p_email_cliente 
+          AND nomeProdotto = p_nome_prodotto;
+        
+        IF NOT v_ordine_esiste THEN
+            SET p_messaggio = 'Ordine non trovato';
+            LEAVE this_procedure;
+        END IF;
+        
+        -- Verifica se l'operatore è quello assegnato all'ordine
+        SELECT COUNT(*) > 0 INTO v_operatore_corretto
+        FROM ordine
+        WHERE data = p_data 
+          AND ora = p_ora 
+          AND emailCliente = p_email_cliente 
+          AND nomeProdotto = p_nome_prodotto
+          AND OperatoreID = p_operatore_id;
+        
+        IF NOT v_operatore_corretto THEN
+            SET p_messaggio = 'Non sei autorizzato a modificare questo ordine';
+            LEAVE this_procedure;
+        END IF;
+        
+        -- Verifica se l'ordine è già stato consegnato
+        SELECT consegnato INTO v_gia_consegnato
+        FROM ordine
+        WHERE data = p_data 
+          AND ora = p_ora 
+          AND emailCliente = p_email_cliente 
+          AND nomeProdotto = p_nome_prodotto;
+        
+        IF v_gia_consegnato THEN
+            SET p_messaggio = 'Questo ordine risulta già consegnato';
+            LEAVE this_procedure;
+        END IF;
+        
+        -- Aggiorna l'ordine come consegnato
+        UPDATE ordine
+        SET consegnato = TRUE
+        WHERE data = p_data 
+          AND ora = p_ora 
+          AND emailCliente = p_email_cliente 
+          AND nomeProdotto = p_nome_prodotto;
+        
+        SET p_messaggio = 'Ordine segnato come consegnato con successo';
+    END;
+    
+END$$
+DELIMITER ;
+
+
+-- procedura per effettuare un rifornimento
+DELIMITER $$
+CREATE PROCEDURE richiesta_rifornimento(
+    IN p_operatore_id INT,
+    IN p_fornitore_id INT,
+    IN p_ingrediente VARCHAR(50),
+    IN p_quantita INT,
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_ruolo VARCHAR(30);
+    DECLARE v_operatore_esiste BOOLEAN;
+    DECLARE v_fornitore_esiste BOOLEAN;
+    DECLARE v_ora_corrente TIME;
+    DECLARE v_data_corrente DATE;
+
+    this_procedure: BEGIN
+
+        SET v_ora_corrente = CURTIME();
+        SET v_data_corrente = CURDATE();
+
+        SELECT COUNT(*) > 0 INTO v_operatore_esiste
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF NOT v_operatore_esiste THEN
+            SET p_messaggio = 'Operatore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT COUNT(*) > 0 INTO v_fornitore_esiste
+        FROM fornitore
+        WHERE CodiceID = p_fornitore_id;
+
+        IF NOT v_fornitore_esiste THEN
+            SET p_messaggio = 'Fornitore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Verifica ruolo dell'operatore
+        SELECT ruolo INTO v_ruolo
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF v_ruolo NOT IN ('Addetto-Vendite', 'Titolare') THEN
+            SET p_messaggio = 'Solo gli operatori Addetto-Vendite o Titolare possono effettuare una richiesta di rifornimento.';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Inserisci richiesta di rifornimento
+        INSERT INTO rifornimento (ingrediente, quantità, data, ora, consegnato, OperatoreID, FornitoreID)
+        VALUES (p_ingrediente, p_quantita, v_data_corrente, v_ora_corrente, FALSE, p_operatore_id, p_fornitore_id);
+
+        SET p_messaggio = CONCAT('Rifornimento richiesto per ', p_quantita, ' unità di ', p_ingrediente);
+
+    END;
+
+END $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE segna_rifornimento_consegnato(
+    IN p_rifornimento_id INT,
+    IN p_ingrediente VARCHAR(50),
+    IN p_operatore_id INT,
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_operatore_esiste BOOLEAN;
+    DECLARE v_rifornimento_esiste BOOLEAN;
+    DECLARE v_ruolo VARCHAR(30);
+    DECLARE v_gia_consegnato BOOLEAN;
+
+    this_procedure: BEGIN
+
+        SELECT COUNT(*) > 0 INTO v_operatore_esiste
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF NOT v_operatore_esiste THEN
+            SET p_messaggio = 'Operatore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Verifica se il rifornimento esiste
+        SELECT COUNT(*) > 0 INTO v_rifornimento_esiste
+        FROM rifornimento
+        WHERE CodiceID = p_rifornimento_id AND ingrediente = p_ingrediente;
+
+        IF NOT v_rifornimento_esiste THEN
+            SET p_messaggio = 'Rifornimento non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Verifica ruolo operatore
+        SELECT ruolo INTO v_ruolo
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF v_ruolo NOT IN ('Titolare', 'Addetto-Vendite') THEN
+            SET p_messaggio = 'Non sei autorizzato a segnare il rifornimento come consegnato';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Verifica se l'ordine è già stato consegnato
+        SELECT consegnato INTO v_gia_consegnato
+        FROM rifornimento
+        WHERE CodiceID = p_rifornimento_id AND ingrediente = p_ingrediente;
+
+        IF v_gia_consegnato THEN
+            SET p_messaggio = 'Questo rifornimento risulta già consegnato';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Aggiorna stato a consegnato
+        UPDATE rifornimento
+        SET consegnato = TRUE
+        WHERE CodiceID = p_rifornimento_id AND ingrediente = p_ingrediente;
+
+        SET p_messaggio = 'Rifornimento segnato come consegnato con successo';
+
+    END;
+
+END $$
+DELIMITER ;
+
+
+
 -- ***** PROCEDURE SUI DATI DEI CLIENTI *****
 DELIMITER $$
 CREATE PROCEDURE insert_cliente(
@@ -495,7 +1042,7 @@ BEGIN
 
         SET p_messaggio = CONCAT('Cliente inserito con email: ', v_email);
 
-    END this_procedure;
+    END;
 END $$
 DELIMITER ;
 
@@ -648,7 +1195,7 @@ BEGIN
 
         SET p_messaggio = CONCAT('Cliente inserito con nuovi dati: ', v_nome,' ', v_cognome,' ', v_email,' ', v_tipo_cliente,' ', p_luogo_consegna);
 
-    END this_procedure;
+    END;
 END $$
 DELIMITER ;
 
@@ -677,7 +1224,7 @@ BEGIN
 
         SET p_messaggio = CONCAT("Cliente con email ", p_email, " eliminato dal database");
 
-    END this_procedure;
+    END;
 END $$
 DELIMITER ;
 
@@ -733,7 +1280,7 @@ BEGIN
 
         SET p_messaggio = 'Password aggiornata con successo!';
 
-    END this_procedure;
+    END;
 END $$
 DELIMITER ;
 
@@ -782,7 +1329,7 @@ BEGIN
 
         SET p_messaggio = CONCAT('Inserito nuovo operatore: ',v_nome,' ', v_cognome, ' ',LOWER(p_email), ' ',v_ruolo, ' con ID: ', v_id );
 
-    END this_procedure;
+    END;
 END $$
 DELIMITER ;
 
@@ -839,7 +1386,7 @@ BEGIN
 
         SET p_messaggio = CONCAT('Operatore con ID:', p_id ,' aggiornato con nuovi dati: ', v_nome,' ', v_cognome,' ', LOWER(p_email),' ', v_ruolo); 
 
-    END this_procedure;
+    END;
 
 END $$
 DELIMITER ;
@@ -896,7 +1443,7 @@ BEGIN
 
         SET p_messaggio = 'Password aggiornata con successo!';
 
-    END this_procedure;
+    END;
 END $$
 DELIMITER ;
 
@@ -946,7 +1493,7 @@ BEGIN
 
         SET p_messaggio = CONCAT("Operatore con codice ID ", p_id, " eliminato dal database");
 
-    END this_procedure;
+    END;
 END $$
 DELIMITER ;
 
@@ -976,7 +1523,7 @@ BEGIN
 
         SET p_messaggio = CONCAT('Inserito nuovo fornitore: ',p_nome_titolare,' ', p_nome_azienda, ' ',LOWER(p_email), ' con ID: ', v_id);
 
-    END this_procedure;
+    END;
 END $$
 DELIMITER ;
 
@@ -1013,7 +1560,7 @@ BEGIN
 
         SET p_messaggio = CONCAT('Fornitore con ID: ', p_id,' aggiornato con nuovi dati: ', p_nome_titolare,' ', p_nome_azienda, ' ',LOWER(p_email));
 
-    END this_procedure;
+    END;
 END $$
 DELIMITER ;
 
@@ -1069,7 +1616,7 @@ BEGIN
 
         SET p_messaggio = 'Password aggiornata con successo!';
 
-    END this_procedure;
+    END;
 END $$
 DELIMITER ;
 
@@ -1098,82 +1645,8 @@ BEGIN
 
         SET p_messaggio = CONCAT("Fornitore con codce ID ", p_id, " eliminato dal database");
 
-    END this_procedure;
-END $$
-DELIMITER ;
-
--- procedura per effettuare un rifornimento
-
-
--- Procedura per permettere agli operaatori di segnare un ordine come consegnato
--- Bisogna farne una simile per i rifornimenti
-DELIMITER $$
-CREATE PROCEDURE segna_ordine_consegnato(
-    IN p_data DATE,
-    IN p_ora TIME,
-    IN p_email_cliente VARCHAR(100),
-    IN p_nome_prodotto VARCHAR(50),
-    IN p_operatore_id INT,
-    OUT p_messaggio VARCHAR(255)
-)
-BEGIN
-    DECLARE v_ordine_esiste BOOLEAN;
-    DECLARE v_operatore_corretto BOOLEAN;
-    DECLARE v_gia_consegnato BOOLEAN;
-    
-    segna_consegna: BEGIN
-        -- Verifica se l'ordine esiste
-        SELECT COUNT(*) > 0 INTO v_ordine_esiste
-        FROM ordine
-        WHERE data = p_data 
-          AND ora = p_ora 
-          AND emailCliente = p_email_cliente 
-          AND nomeProdotto = p_nome_prodotto;
-        
-        IF NOT v_ordine_esiste THEN
-            SET p_messaggio = 'Ordine non trovato';
-            LEAVE segna_consegna;
-        END IF;
-        
-        -- Verifica se l'operatore è quello assegnato all'ordine
-        SELECT COUNT(*) > 0 INTO v_operatore_corretto
-        FROM ordine
-        WHERE data = p_data 
-          AND ora = p_ora 
-          AND emailCliente = p_email_cliente 
-          AND nomeProdotto = p_nome_prodotto
-          AND OperatoreID = p_operatore_id;
-        
-        IF NOT v_operatore_corretto THEN
-            SET p_messaggio = 'Non sei autorizzato a modificare questo ordine';
-            LEAVE segna_consegna;
-        END IF;
-        
-        -- Verifica se l'ordine è già stato consegnato
-        SELECT consegnato INTO v_gia_consegnato
-        FROM ordine
-        WHERE data = p_data 
-          AND ora = p_ora 
-          AND emailCliente = p_email_cliente 
-          AND nomeProdotto = p_nome_prodotto;
-        
-        IF v_gia_consegnato THEN
-            SET p_messaggio = 'Questo ordine risulta già consegnato';
-            LEAVE segna_consegna;
-        END IF;
-        
-        -- Aggiorna l'ordine come consegnato
-        UPDATE ordine
-        SET consegnato = TRUE
-        WHERE data = p_data 
-          AND ora = p_ora 
-          AND emailCliente = p_email_cliente 
-          AND nomeProdotto = p_nome_prodotto;
-        
-        SET p_messaggio = 'Ordine segnato come consegnato con successo';
     END;
-    
-END$$
+END $$
 DELIMITER ;
 
 
