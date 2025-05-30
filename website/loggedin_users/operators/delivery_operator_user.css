@@ -495,6 +495,8 @@ nav .initials{
     pointer-events: auto;
     visibility: visible;
     position: relative;  
+    opacity: 1;  
+    transform: translate3d(0, 0, 0);
 }
 
 .delivered-box{
@@ -549,13 +551,13 @@ nav .initials{
 .order.active > hr,
 .order.active > span,
 .order.active > div,
-.order.active > footer {
+.order.active > footer,
+.order.active .toggle-slider{
     opacity: 0.45;
 }
 
 
-.order.active .status,
-.order.active .toggle-slider {
+.order.active .status{
     opacity: 1;
 }
 
@@ -693,4 +695,52 @@ nav .initials{
     align-items: center;
     justify-content: flex-end;
     margin-top: 1rem;
+}
+
+.empty-panel-container{
+    display: flex;
+    flex-direction: column;
+    align-items:center;
+    justify-content: center;
+    max-width:100%;
+    width: 100%;
+    gap: 1rem;
+    min-height: 355px;
+}
+ 
+.panel-icon-container {
+    background-color: #f3f4f6;
+    border-radius: 50%;
+    width: 120px;
+    height: 120px;
+    padding:1rem;
+}
+        
+.panel-icon-container svg{
+    width: 64px;
+    height: 64px;
+    fill: #9ca3af;
+    position: relative;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+        
+.panel-title {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #1f2937;
+    text-align:center;
+    margin: 0;
+}
+
+.panel-message {
+    font-size: 1rem;
+    color: #6b7280;
+    line-height: 1.5;
+    max-width: 400px;
+    text-align:center;
+    margin:0;
+    font-family: var(--font-family-inter);
+    font-weight: 500;
 }

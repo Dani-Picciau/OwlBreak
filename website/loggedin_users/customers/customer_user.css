@@ -439,6 +439,13 @@ height: 30px;
     transition-timing-function: ease-in-out;
 }
 
+#sauce{
+    font-size: 1.25rem;
+    color:black;
+    display: flex;
+    align-items: center;
+}
+
 .separator1{
     width: auto;
     height: 2px;
@@ -834,6 +841,14 @@ figure:hover footer svg {
     pointer-events: auto;
     visibility: visible;
     position: relative;  
+}
+
+.cart-item-container button{
+    display: none;
+}
+
+.cart-item-container.show button{
+    display: block;
 }
 
 .cart-item{
@@ -1250,7 +1265,6 @@ figure:hover footer svg {
     margin:0;
     font-family: var(--font-family-inter);
     font-weight: 500;
-
 }
 
 .orders-history {

@@ -99,73 +99,73 @@
         'Panino al prosciutto cotto' => [
             'img'  => 'cotto.jpg',
             'desc' => 'Semplice e irresistibile: il gusto classico che non stanca mai.',
-            'category' => 'Panini farciti'
+            'category' => 'Panini e salse'
         ],
 
         'Panino al prosciutto cotto con fontina' => [
             'img'  => 'cotto_fontina.jpg',
             'desc' => 'Una combinazione delicata e cremosa che conquista il palato.',
-            'category' => 'Panini farciti'
+            'category' => 'Panini e salse'
         ],
 
         'Panino al salame' => [
             'img'  => 'salame.jpg',
             'desc' => 'Il sapore deciso che dà sprint alla tua giornata.',
-            'category' => 'Panini farciti'
+            'category' => 'Panini e salse'
         ],
 
         'Panino al salame con fontina' => [
             'img'  => 'salame_formaggio.jpg',
             'desc' => 'Il gusto deciso del salame incontra la morbidezza della fontina.',
-            'category' => 'Panini farciti'
+            'category' => 'Panini e salse'
         ],
 
         'Panino con mortadella' => [
             'img'  => 'mortadella.jpg',
             'desc' => 'Morbido, profumato, un tuffo nella tradizione.',
-            'category' => 'Panini farciti'
+            'category' => 'Panini e salse'
         ],
 
         'Panino con mortadella e fontina' => [
             'img'  => 'mortadella_fontina.jpg',
             'desc' => 'Un mix armonioso di sapori che sa di merenda genuina.',
-            'category' => 'Panini farciti'
+            'category' => 'Panini e salse'
         ],
         
         'Panino con prosciutto crudo' => [
             'img'  => 'crudo.jpg',
             'desc' => 'Rustico e ricco, per una pausa dal sapore autentico.',
-            'category' => 'Panini farciti'
+            'category' => 'Panini e salse'
         ],
 
         'Panino con prosciutto crudo e fontina' => [
             'img'  => 'crudo_fontina.jpg',
             'desc' => 'L\'incontro tra eleganza e gusto in ogni morso.',
-            'category' => 'Panini farciti'
+            'category' => 'Panini e salse'
         ],
 
         'Salsa senape' => [
             'img'  => '',
             'desc' => 'Decisa e leggermente piccante: il tocco che fa la differenza.',
-            'category' => 'Caramelle e condimenti'
+            'category' => 'Panini e salse'
         ],
 
         'Salsa maionese' => [
             'img'  => '.maionese.jpg',
             'desc' => 'Cremosa e delicata, la regina delle salse.',
-            'category' => 'Caramelle e condimenti'
+            'category' => 'Panini e salse'
         ],
 
         'Salsa rosa' => [
             'img'  => '',
             'desc' => 'Un equilibrio perfetto tra dolcezza e acidità.',
-            'category' => 'Caramelle e condimenti'
+            'category' => 'Panini e salse'
         ],
 
         'Salsa ketchup' => [
             'img'  => 'ketchup.jpg',
             'desc' => 'Un classico intramontabile che accompagna ogni snack.',
-            'category' => 'Caramelle e condimenti'
+            'category' => 'Panini e salse'
         ],
 
         'Muffin al cioccolato' => [
@@ -325,13 +325,13 @@
         ],
 
         'Cingomme AIR' => [
-            'img'  => '',
+            'img'  => 'air.jpg',
             'desc' => 'Freschezza immediata, lunga durata.',
             'category' => 'Caramelle e condimenti'
         ],
 
         'Cingomme Vivident' => [
-            'img'  => '',
+            'img'  => 'vivident.jpg',
             'desc' => 'Freschezza intensa per un alito sempre a prova di sorriso.',
             'category' => 'Caramelle e condimenti'
         ],
@@ -343,7 +343,7 @@
         ],
 
         'Chupachups assortiti' => [
-            'img'  => '',
+            'img'  => 'chupachups.jpg',
             'desc' => 'Un mondo di gusti colorati in un lecca-lecca senza età.',
             'category' => 'Caramelle e condimenti'
         ],
