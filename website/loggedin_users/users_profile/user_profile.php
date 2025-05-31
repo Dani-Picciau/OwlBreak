@@ -91,6 +91,70 @@
             </div>
         </div>
 
-        <script src="user_profile.js?v=1.02"></script>
+        <script src="user_profile.js"></script>
+
+        <!-- Solo quando faccio il submit del bottone in "user_security.php" imposto anche una variabile di sessione che al refresh della pagina mi permette  di mantenere selezionata la categoria "sicurezza". Al prossimo refresh la categoria selezionata torna ad essere la prima. 
+        Lo script in questo punto invece che nel file js dedicato, è necessario per riuscire a gestire php e javascript assieme -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            const menuItems = document.querySelectorAll('.menu-category');
+            
+                // Controlla la variabile PHP
+                <?php if (isset($_SESSION['show_security_after_refresh']) && $_SESSION['show_security_after_refresh']): ?>
+                    if (menuItems[1]) menuItems[1].click();
+                    <?php unset($_SESSION['show_security_after_refresh']); // Pulisci subito ?>
+                <?php else: ?>
+                    if (menuItems[0]) menuItems[0].click();
+                <?php endif; ?>
+            });
+        </script>
+
+        <!-- Qui gestisco i messaggi di errore in base a quale tipo di sessione viene restituito da "change_password.php" -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Se c'è un messaggio di password cambiata correttamente:
+                <?php if (isset($_SESSION['password_changed'])): ?>
+                    const successBox = document.getElementById('successMessage');
+                    if (successBox) {
+                        successBox.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['password_changed']); ?>
+                <?php endif; ?>
+
+                // Controllo le varie condizioni di errore:
+                <?php if (isset($_SESSION['input_not_filled'])): ?>
+                    const errorBox1 = document.getElementById('errorMessage');
+                    if (errorBox1) {
+                        errorBox1.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['input_not_filled']); ?>
+                <?php elseif (isset($_SESSION['currentPassword_noMatch'])): ?>
+                    const errorBox2 = document.getElementById('errorMessage');
+                    if (errorBox2) {
+                        errorBox2.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['currentPassword_noMatch']); ?>
+
+                <?php elseif (isset($_SESSION['equal_password'])): ?>
+                    const errorBox3 = document.getElementById('errorMessage');
+                    if (errorBox3) {
+                        errorBox3.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['equal_password']); ?>
+                <?php elseif (isset($_SESSION['confirm'])): ?>
+                    const errorBox4 = document.getElementById('errorMessage');
+                    if (errorBox4) {
+                        errorBox4.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['confirm']); ?>
+                <?php elseif (isset($_SESSION['requiremets'])): ?>
+                    const errorBox5 = document.getElementById('errorMessage');
+                    if (errorBox5) {
+                        errorBox5.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['requiremets']); ?>
+                <?php endif; ?>
+            });
+        </script>
     </body>
 </html>

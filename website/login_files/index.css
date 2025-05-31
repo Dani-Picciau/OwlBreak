@@ -172,11 +172,6 @@ a:hover {
     color: var(--gray-base);
 }
 
-#forgot-pwd {
-    display: block;
-    margin-bottom: 3rem;
-}
-
 p.error-message {
     padding:12px;
     background: #f8d7da;

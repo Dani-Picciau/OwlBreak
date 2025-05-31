@@ -513,7 +513,7 @@ nav .initials{
     transition: opacity .6s ease-in-out, transform .6s ease-in-out;
 }
 
-.security-box input, .security-box button             {
+.security-box input, .security-box button {
     display: none;
 }
 
@@ -545,6 +545,7 @@ nav .initials{
     height: 30px;
     fill: var(--accent-color);
 }
+
 
 .password-form {
     display: flex;
@@ -626,6 +627,8 @@ nav .initials{
     color: var(--text-primary);
     font-size: 0.875rem;
     margin-bottom: 0.5rem;
+    font-family: var(--font-family-inter);
+    font-weight: 500;
 }
 
 .requirements-list {
@@ -639,6 +642,8 @@ nav .initials{
     align-items: center;
     gap: 0.5rem;
     margin-bottom: 0.25rem;
+    font-family: var(--font-family-inter);
+    font-weight: 500;
 }
 
 .requirement-icon {
@@ -714,10 +719,28 @@ input{
 }
 
 .error-message {
-    color: #ef4444;
-    font-size: 0.875rem;
-    margin-top: 0.25rem;
+    background: #ef4444;
+    color: white;
+    padding: 1rem;
+    border-radius: 8px;
+    border: 1px solid #bbf7d0;
     display: none;
+    align-items: flex-start;
+    gap: 0.5rem;
+}
+
+.error-message svg{
+    fill: white;
+    width: 23px;
+    height: 23px;
+    min-width: 23px;
+    min-height: 23px;
+    padding-top:3px;
+}
+
+.error-message span{
+    font-family: var(--font-family-inter);
+    font-weight: 500;
 }
 
 .success-message {
@@ -731,12 +754,34 @@ input{
     gap: 0.5rem;
 }
 
-@media (max-width: 640px) {
+.success-message svg{
+    fill: #166534;
+    width: 23px;
+    height: 23px;
+    min-width: 23px;
+    min-height: 23px;
+    padding-top:3px;
+}
 
+.success-message span{
+    font-family: var(--font-family-inter);
+    font-weight: 500;
+}
+
+
+@media (max-width: 400px) {
+    .success-message{
+        align-items: flex-start;
+    }
+    .error-message{
+        align-items: flex-start;
+    }
+}
+
+@media (max-width: 640px) {
     .form-actions {
         flex-direction: column;
     }
-    
     .btn {
         flex: none;
     }

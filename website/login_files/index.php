@@ -39,11 +39,9 @@
 				</div>
 
 				<div>
-					<input type="password" name="login-pwd" id="login-pwd" required show>
+					<input type="password" name="login-pwd" id="login-pwd" required>
 					<label for="login-pwd">Password</label>
 				</div>
-
-				<a href="#" id="forgot-pwd">Password dimenticata?</a>
 
                 <div>
                     <?php
@@ -82,9 +80,11 @@
                                         "type" => "fornitore"
                                     ]
                                 ];
+                                $found = false;
                                 foreach($queries as $q){
                                     $result = mysqli_query($dbc, $q['query']) or trigger_error("Query: {$q['query']}\n<br>MySQL Error: " . mysqli_error($dbc));
                                     if (@mysqli_num_rows($result) == 1) { // A match was made.
+                                        $found = true;
                                         $row = mysqli_fetch_array($result, MYSQLI_ASSOC);
                                         mysqli_free_result($result);
                                         if(password_verify($passw, $row['passw'])){
@@ -141,7 +141,7 @@
                                         }
                                     }
                                 }
-                                echo '<p class="error-message">L\'account non esiste.</p>';
+                                if (!$found) echo '<p class="error-message">L\'account non esiste.</p>';
                             } else echo '<p class="error-message">Si prega di riprovare.</p>';
                             mysqli_close($dbc); 
                         }

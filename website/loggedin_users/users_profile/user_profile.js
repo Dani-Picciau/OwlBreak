@@ -1,4 +1,4 @@
-// Effetto caricamento pagina utente
+// Effetto caricamento pagina dall'alto al basso
 const PageContent = document.querySelector('#page-content');
 window.addEventListener('load', () => {
   PageContent.classList.add('visible');
@@ -48,10 +48,9 @@ document.addEventListener('DOMContentLoaded', () => {
       
     });
   });
-
-  menuItems[0].click();
 });
 
+//onclick sull'occhio permette di mostrare la password tramite questa funzione
 function togglePassword(inputId) {
   const input = document.getElementById(inputId);
   const toggleBtn = input.nextElementSibling;
@@ -69,7 +68,22 @@ function togglePassword(inputId) {
   }
 }
 
-function validatePassword(password) {
+/* L'event listener sull'input di testo 'newPassword' permette di richiamare la funzione updateRequirements e aggiornare in tempo reale i requisiti della nuova password dopo ogni inserimento ('input') di ogni lettera */
+document.getElementById('newPassword').addEventListener('input', function() {
+  const password = this.value;
+  if (password) {
+    updateRequirements(password);
+  } else {
+    // Reset tutti i requisiti se il campo è vuoto
+    document.querySelectorAll('.requirement-icon').forEach(icon => {
+      icon.className = 'requirement-icon requirement-invalid';
+    });
+  }
+});
+
+/* La funzione updateRequirements controlla che la password in ingresso alla funzione, ovvero quella che l'utente sta inserendo, rispecchi determinati requisiti. Nel caso in cui le contizioni in requirements = {...} si avverino, la classe dell'elemento corrispondente viene cambiata e il check diventa verde. 
+Lo scopo di tutto ciò è per avere un'esperienza utente migliore, gli stessi controlli verranno effettuati anche lato php, per avere maggiore sicurezza prima, che la password venga inserita nella procedura */
+function updateRequirements(password) {
   const requirements = {
     length: password.length >= 8,
     uppercase: /[A-Z]/.test(password),
@@ -78,90 +92,32 @@ function validatePassword(password) {
     special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
   };
   
-  return requirements;
-}
-
-function updateRequirements(password) {
-  const requirements = validatePassword(password);
-  
   document.getElementById('lengthReq').className = `requirement-icon ${requirements.length ? 'requirement-valid' : 'requirement-invalid'}`;
   document.getElementById('uppercaseReq').className = `requirement-icon ${requirements.uppercase ? 'requirement-valid' : 'requirement-invalid'}`;
   document.getElementById('lowercaseReq').className = `requirement-icon ${requirements.lowercase ? 'requirement-valid' : 'requirement-invalid'}`;
   document.getElementById('numberReq').className = `requirement-icon ${requirements.number ? 'requirement-valid' : 'requirement-invalid'}`;
   document.getElementById('specialReq').className = `requirement-icon ${requirements.special ? 'requirement-valid' : 'requirement-invalid'}`;
-  
-  return Object.values(requirements).every(req => req);
 }
 
-function validateForm() {
-  const currentPassword = document.getElementById('currentPassword').value;
-  const newPassword = document.getElementById('newPassword').value;
-  const confirmPassword = document.getElementById('confirmPassword').value;
-  const submitBtn = document.getElementById('submitBtn');
-  
-  let isValid = true;
-  
-  // Reset error messages
-  document.querySelectorAll('.error-message').forEach(el => {
-    el.style.display = 'none';
-    el.textContent = '';
-  });
-  
-  // Validate current password
-  if (!currentPassword) {
-    isValid = false;
-  }
-  
-  // Validate new password
-  if (!newPassword) {
-      isValid = false;
-  } else {
-    const passwordValid = updateRequirements(newPassword);
-    if (!passwordValid) {
-      isValid = false;
-    }
-      
-    // Check if new password is same as current
-    if (newPassword === currentPassword && currentPassword) {
-      document.getElementById('newPasswordError').textContent = 'La nuova password deve essere diversa da quella attuale';
-      document.getElementById('newPasswordError').style.display = 'block';
-      isValid = false;
-    }
-  }
-  
-  // Validate confirm password
-  if (!confirmPassword) {
-    isValid = false;
-  } else if (newPassword !== confirmPassword) {
-    document.getElementById('confirmPasswordError').textContent = 'Le password non coincidono';
-    document.getElementById('confirmPasswordError').style.display = 'block';
-    isValid = false;
-  }
-  
-  submitBtn.disabled = !isValid;
-}
-
-// Event listeners
-document.getElementById('newPassword').addEventListener('input', validateForm);
-document.getElementById('currentPassword').addEventListener('input', validateForm);
-document.getElementById('confirmPassword').addEventListener('input', validateForm);
-
-document.getElementById('passwordForm').addEventListener('submit', function(e) {
-  e.preventDefault();
-  
-  // Simulate successful password change
+/*Qui gestisco il tempo di visualizzazione per i box di:
+  - successo cambiamento password;
+  - errore cambiamento password.
+  Una volta che i messaggi vengono visualizzati, scompaiono dopo 10000ms.
+*/
+document.addEventListener('DOMContentLoaded', function() {
   const successMessage = document.getElementById('successMessage');
-  successMessage.style.display = 'flex';
+  const errorMessage = document.getElementById('errorMessage');
   
-  // Reset form
-  this.reset();
-  validateForm();
-  
-  // Hide success message after 5 seconds
-  setTimeout(() => {
+  if (successMessage && successMessage.style.display !== 'none') {
+    setTimeout(() => {
       successMessage.style.display = 'none';
-  }, 5000);
+    }, 10000);
+  }
+  
+  if (errorMessage && errorMessage.style.display !== 'none') {
+    setTimeout(() => {
+      errorMessage.style.display = 'none';
+    }, 10000);
+  }
 });
 
-// Initial validation
-validateForm();

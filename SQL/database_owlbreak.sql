@@ -1449,3 +1449,5 @@ GRANT EXECUTE ON PROCEDURE owlbreak.segna_ordine_consegnato TO 'Addetto-Consegne
 -- PRIVILEGI FORNITORI
 GRANT SELECT ON owlbreak.rifornimento TO 'Fornitore'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_fornitore TO 'Fornitore'@'localhost';
+
+
