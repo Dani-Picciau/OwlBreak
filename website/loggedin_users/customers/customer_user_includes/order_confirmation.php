@@ -1,6 +1,10 @@
 <?php
-    require_once('../../../includes/loggedin.php');
+    require_once(__DIR__ . '/../../../includes/loggedin.php');
+    // Tutti i tipi di utenti cliente che possono accedere a questa pagina
+    check_user_type('Studente', 'Personale-Docente', 'Personale-Ata', 'Personale-Segreteria');
+?>
 
+<?php
     // Se l'utente ha cliccato il pulsante per tornare alla home
     if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['clear_session'])) {
         unset($_SESSION['order_results'], $_SESSION['order_success']);

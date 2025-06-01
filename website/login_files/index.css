@@ -8,7 +8,7 @@
     --gray-tint-40: #737374;
     --accent-base: #2FA2BD;
     --accent-tint-90: #EAF6F8;
-    
+    --accent-color: rgb(79 70 229 / 1);
     --gradient-color1: rgba(47, 162, 189, 0.15); /* Azzurro trasparente */
     --gradient-color2: rgba(165, 31, 246, 0.12); /* Viola trasparente */
 }
@@ -118,7 +118,7 @@ h2 {
     justify-content: center;
     width: 100%;
     max-width: 19.5rem;
-    background-color: rgba(255, 255, 255, 0.8); /* Leggero sfondo bianco trasparente */
+    background-color: rgba(255, 255, 255, 0.8);
     border-radius: 16px;
     backdrop-filter: blur(5px);
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.05);
@@ -207,4 +207,30 @@ p.error-message {
     .logo-container img {
         max-width: 15rem;
     }
+}
+
+.input-wrapper {
+    position: relative;
+}
+
+.eye-open,
+.eye-closed{
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 20px;
+    height: 20px;
+    cursor: pointer;
+    fill: #9ca3af;
+    transition: color 0.3s ease;
+}
+
+.eye-closed{
+    display: none;
+}
+
+.eye-open:hover,
+.eye-closed:hover {
+    fill: var(--accent-color);
 }

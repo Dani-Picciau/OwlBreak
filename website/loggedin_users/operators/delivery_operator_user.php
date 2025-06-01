@@ -1,8 +1,8 @@
 <?php
-	require_once('../../includes/loggedin.php');
+    require_once(__DIR__. '/../../includes/loggedin.php'); 
+    check_user_type('Addetto-Consegne'); 
+    
     require_once('../../includes/mysqli_connect_user.php');
-
-    check_user_type('Addetto-Consegne');
 ?>
 
 <!DOCTYPE html>

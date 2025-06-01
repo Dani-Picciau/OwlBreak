@@ -1,8 +1,18 @@
 <?php
-    require_once('../../../includes/loggedin.php');
+    //Per evitare di accedere direttamente alla pagina
+    require_once(__DIR__. '/../../../includes/loggedin.php'); 
+    check_user_type('Addetto-Consegne'); 
     require_once('../../../includes/mysqli_connect_user.php');
-    check_user_type('Addetto-Consegne');
 
+    if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+    strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
+        // Il file è stato eseguito direttamente
+        http_response_code(403);
+        header("location: /owlbreak/website/includes/error_403.php");
+    }
+?>
+
+<?php
     // inizio file, niente whitespace!
     header('Content-Type: application/json; charset=utf-8');
 

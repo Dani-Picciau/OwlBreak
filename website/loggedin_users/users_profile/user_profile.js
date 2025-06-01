@@ -20,6 +20,8 @@ document.addEventListener('DOMContentLoaded', () => {
   const info_box = document.querySelector('.personal-information-box');
   const security_box = document.querySelector('.security-box');
   const statistics_box = document.querySelector('.statistics-box');
+  const add_user_box = document.querySelector('.add-user-box');
+  const remove_user_box = document.querySelector('.remove-user-box');
 
   menuItems.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -53,18 +55,19 @@ document.addEventListener('DOMContentLoaded', () => {
 //onclick sull'occhio permette di mostrare la password tramite questa funzione
 function togglePassword(inputId) {
   const input = document.getElementById(inputId);
-  const toggleBtn = input.nextElementSibling;
+  const container = input.parentElement; // Prendi il div contenitore
+  const toggleBtn = container.querySelector('span'); // Trova lo span nel contenitore
   const eyeOpen = toggleBtn.querySelector('.eye-open');
   const eyeClosed = toggleBtn.querySelector('.eye-closed');
   
   if (input.type === 'password') {
-    input.type = 'text';
     eyeOpen.style.display = 'none';
     eyeClosed.style.display = 'block';
+    input.type = 'text';
   } else {
-    input.type = 'password';
     eyeOpen.style.display = 'block';
     eyeClosed.style.display = 'none';
+    input.type = 'password';
   }
 }
 

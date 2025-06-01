@@ -18,16 +18,20 @@ window.addEventListener('DOMContentLoaded', refreshOrders);
 
 function refreshOrders() {
   Promise.all([
-    fetch('delivery_operator_includes/delivered_panel.php')
-      .then(res => res.text())
-      .then(html => {
-        document.querySelector('.delivered-box').innerHTML = html;
-      }),
-    fetch('delivery_operator_includes/waiting_panel.php')
-      .then(res => res.text())
-      .then(html => {
-        document.querySelector('.waiting-box').innerHTML = html;
-      })
+    fetch('delivery_operator_includes/delivered_panel.php', {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(res => res.text())
+    .then(html => {
+      document.querySelector('.delivered-box').innerHTML = html;
+    }),
+    fetch('delivery_operator_includes/waiting_panel.php', {
+      headers: { 'X-Requested-With': 'XMLHttpRequest' }
+    })
+    .then(res => res.text())
+    .then(html => {
+      document.querySelector('.waiting-box').innerHTML = html;
+    })
   ])
   .then(() => {
     // Riattacco gli event listener per i toggle appena inseriti
@@ -133,7 +137,8 @@ function attachToggleListeners() {
 
         return fetch('delivery_operator_includes/update_order_status.php', {
           method: 'POST',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded',
+            'X-Requested-With': 'XMLHttpRequest'},
           body
         })
         .then(resp => {

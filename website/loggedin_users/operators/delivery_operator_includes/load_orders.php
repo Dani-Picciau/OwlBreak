@@ -1,4 +1,16 @@
 <?php
+    //Per evitare di accedere direttamente alla pagina
+    require_once(__DIR__. '/../../../includes/loggedin.php'); 
+    check_user_type('Addetto-Consegne'); 
+
+    if (basename(__FILE__) === basename($_SERVER['SCRIPT_FILENAME'])) {
+        // Il file è stato eseguito direttamente
+        http_response_code(403);
+        header("location: /owlbreak/website/includes/error_403.php");
+    }
+?>
+
+<?php
     $CodiceID = $_SESSION['CodiceID']; 
 
     $sql = "SELECT o.emailCliente, o.data, o.ora, c.nome, c.cognome, c.luogoConsegna, o.consegnato
@@ -23,5 +35,4 @@
             $ordiniAttesa[] = $ordine;
         }
     }    
-
 ?>

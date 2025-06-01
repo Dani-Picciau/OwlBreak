@@ -1,7 +1,11 @@
 <?php
-    require_once('../../../includes/loggedin.php');
+    require_once(__DIR__ . '/../../../includes/loggedin.php');
+    // Tutti i tipi di utenti cliente che possono accedere a questa pagina
+    check_user_type('Studente', 'Personale-Docente', 'Personale-Ata', 'Personale-Segreteria');
     require_once('../../../includes/mysqli_connect_user.php');
+?>
 
+<?php
     if (!isset($_SESSION['cart']) || empty($_SESSION['cart'])) {
         die('<p>Carrello vuoto. <a href="user_cart.php">Torna al carrello</a></p>');
     }

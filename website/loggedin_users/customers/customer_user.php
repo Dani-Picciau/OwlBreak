@@ -1,12 +1,10 @@
 <?php
-    require_once('../../includes/loggedin.php');
-    require_once('../../includes/mysqli_connect_user.php');
-
-    $mapped_products = require('customer_user_includes/products_mapping.php');
-    
+    require_once(__DIR__ . '/../../includes/loggedin.php');
     // Tutti i tipi di utenti cliente che possono accedere a questa pagina
     check_user_type('Studente', 'Personale-Docente', 'Personale-Ata', 'Personale-Segreteria');
-
+    
+    require_once('../../includes/mysqli_connect_user.php');
+    $mapped_products = require('customer_user_includes/products_mapping.php');
     //Gestione parte ajax lato php
     require_once('customer_user_includes/customer_ajax.php');
 ?>

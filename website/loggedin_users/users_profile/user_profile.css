@@ -592,27 +592,26 @@ nav .initials{
     border-color: var(--accent-color);
 }
 
-.toggle-password {
+.eye-open,
+.eye-closed{
     position: absolute;
-    right: 1rem;
+    right: 15px;
     top: 50%;
     transform: translateY(-50%);
-    background: none;
-    border: none;
+    width: 20px;
+    height: 20px;
     cursor: pointer;
-    color: var(--text-secondary);
-    padding: 0.25rem;
-    border-radius: 4px;
+    fill: #9ca3af;
     transition: color 0.3s ease;
 }
 
-.toggle-password:hover {
-    color: var(--accent-color);
+.eye-closed{
+    display: none;
 }
 
-.toggle-password svg {
-    width: 20px;
-    height: 20px;
+.eye-open:hover,
+.eye-closed:hover {
+    fill: var(--accent-color);
 }
 
 .password-requirements {

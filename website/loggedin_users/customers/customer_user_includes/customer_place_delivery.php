@@ -1,6 +1,15 @@
 <?php
-    require_once('../../includes/loggedin.php');
+    if (basename(__FILE__) === basename($_SERVER['SCRIPT_FILENAME'])) {
+        // Il file è stato eseguito direttamente
+        http_response_code(403);
+        header("location: /owlbreak/website/includes/error_403.php");
+    }
+    require_once(__DIR__ . '/../../../includes/loggedin.php');
+    // Tutti i tipi di utenti cliente che possono accedere a questa pagina
+    check_user_type('Studente', 'Personale-Docente', 'Personale-Ata', 'Personale-Segreteria');
+?>
 
+<?php
     if($_SESSION['user_type'] === 'Studente') {
         ?>
             <span>

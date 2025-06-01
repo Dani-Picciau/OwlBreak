@@ -1,10 +1,20 @@
 <?php
     //Per evitare di accedere direttamente alla pagina
-    require_once('../../../includes/loggedin.php');  
-    require_once('../../../includes/mysqli_connect_user.php');
+    require_once(__DIR__. '/../../../includes/loggedin.php'); 
+    check_user_type('Addetto-Consegne'); 
     
+    require_once('../../../includes/mysqli_connect_user.php');
     require_once('load_orders.php');
 
+    if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
+    strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
+        // Il file è stato eseguito direttamente
+        http_response_code(403);
+        header("location: /owlbreak/website/includes/error_403.php");
+    }
+?>
+
+<?php
     foreach ($ordiniConsegnati as $ordine) {
         $nome           = $ordine['nome'];
         $cognome        = $ordine['cognome'];

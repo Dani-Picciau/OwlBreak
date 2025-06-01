@@ -1,7 +1,14 @@
 <?php
-    require_once('../../../includes/loggedin.php');
-    require_once('../../../includes/mysqli_connect_user.php');
+    if (basename(__FILE__) === basename($_SERVER['SCRIPT_FILENAME'])) {
+        // Il file è stato eseguito direttamente
+        http_response_code(403);
+        header("location: /owlbreak/website/includes/error_403.php");
+    }
+    require_once(__DIR__. '/../../../includes/loggedin.php');
+    require_once(__DIR__. '/../../../includes/mysqli_connect_user.php');
+?>
 
+<?php
     if($_SERVER['REQUEST_METHOD'] == 'POST'){
         //Recupero tutti i dati dal form
         $currentPassword  = trim($_POST['currentPassword'] ?? '');
