@@ -77,7 +77,7 @@ CREATE TABLE composizione (
     nomeProdotto VARCHAR(50),
     nomeIngrediente VARCHAR(50),
     PRIMARY KEY (nomeProdotto, nomeIngrediente),
-    FOREIGN KEY (nomeProdotto) REFERENCES Prodotto(nome),
+    FOREIGN KEY (nomeProdotto) REFERENCES Prodotto(nome) ON DELETE CASCADE,
     FOREIGN KEY (nomeIngrediente) REFERENCES Ingrediente(nome)
 );
 
@@ -227,6 +227,39 @@ BEGIN
     );
 
 END; $$
+DELIMITER ;
+
+
+DELIMITER $$
+CREATE PROCEDURE aggiorna_disp_prodotti()
+BEGIN
+    -- se qualche ingrediente è a 0 metto a FALSE la disponibilità di un prodotto
+    UPDATE prodotto
+    SET disponibilità = FALSE
+    WHERE nome IN (
+        SELECT DISTINCT nomeProdotto
+        FROM composizione
+        WHERE nomeIngrediente IN (
+           SELECT nome
+           FROM ingrediente
+           WHERE quantità=0
+        )
+    );
+
+    -- ripristino disponibilità prodotti
+    UPDATE prodotto
+    SET disponibilità = TRUE
+    WHERE disponibilità = FALSE AND nome NOT IN (
+        SELECT DISTINCT nomeProdotto
+        FROM Composizione
+        WHERE nomeIngrediente IN (
+            SELECT nome
+            FROM Ingrediente
+            WHERE quantità = 0
+        )
+    );
+
+END$$
 DELIMITER ;
 
 
