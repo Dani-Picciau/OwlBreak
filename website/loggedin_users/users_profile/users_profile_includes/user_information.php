@@ -1,9 +1,13 @@
 <?php
     if (basename(__FILE__) === basename($_SERVER['SCRIPT_FILENAME'])) {
-        // Il file è stato eseguito direttamente
+        //Se la condizione è verificata significa che il file è stato cercato in modo diretto nella barra di ricerca e qualsiasi sia il tipo di utente, esso viene rispedito alla home. 
         http_response_code(403);
-        header("location: /owlbreak/website/includes/error_403.php");
+        session_start();
+        require_once(__DIR__. '/../../../includes/redirect_users.php');
+        redirect_users($_SESSION['user_type']);
     }
+
+    //Dato che il file non può essere acceduto direttamente, ma solo tramite require(...) questa rappresenta un ulteriore precauzione per specificare quali tipi di utenti hanno accesso alla pagina
     require_once(__DIR__. '/../../../includes/loggedin.php');
 ?>
 

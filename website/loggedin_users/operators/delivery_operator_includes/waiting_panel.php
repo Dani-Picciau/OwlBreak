@@ -1,16 +1,18 @@
 <?php
-    require_once(__DIR__. '/../../../includes/loggedin.php'); 
-    check_user_type('Addetto-Consegne'); 
-
-    require_once('../../../includes/mysqli_connect_user.php');
-    require_once('load_orders.php');
-
     if (!isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
     strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) != 'xmlhttprequest') {
-        // Il file è stato eseguito direttamente
+        //Se la condizione è verificata significa che il file è stato cercato in modo diretto nella barra di ricerca e qualsiasi sia il tipo di utente, esso viene rispedito alla home. 
         http_response_code(403);
-        header("location: /owlbreak/website/includes/error_403.php");
+        session_start();
+        require_once(__DIR__. '/../../../includes/redirect_users.php');
+        redirect_users($_SESSION['user_type']);
     }
+
+    //Dato che il file non può essere acceduto direttamente, ma solo tramite require(...) questa rappresenta un ulteriore precauzione per specificare quali tipi di utenti hanno accesso alla pagina
+    require_once(__DIR__. '/../../../includes/loggedin.php'); 
+    check_user_type('Addetto-Consegne'); 
+    require_once('../../../includes/mysqli_connect_user.php');
+    require_once('load_orders.php');
 ?>
 
 <?php

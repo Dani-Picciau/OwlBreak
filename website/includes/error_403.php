@@ -1,5 +1,5 @@
 <?php
-    require_once (__DIR__ . '/loggedin.php');
+    session_start();
 
     // Se l'utente è loggato e ha un tipo di utente valido, lo reindirizzo
     if (isset($_SESSION['user_type'])) {
