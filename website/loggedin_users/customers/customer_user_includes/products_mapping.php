@@ -159,19 +159,19 @@
         ],
 
         'Salsa senape' => [
-            'img'  => '',
+            'img'  => 'senape.jpg',
             'desc' => 'Decisa e leggermente piccante: il tocco che fa la differenza.',
             'category' => 'Panini e salse'
         ],
 
         'Salsa maionese' => [
-            'img'  => '.maionese.jpg',
+            'img'  => 'maionese.jpg',
             'desc' => 'Cremosa e delicata, la regina delle salse.',
             'category' => 'Panini e salse'
         ],
 
         'Salsa rosa' => [
-            'img'  => '',
+            'img'  => 'salsa_rosa.jpg',
             'desc' => 'Un equilibrio perfetto tra dolcezza e acidità.',
             'category' => 'Panini e salse'
         ],
