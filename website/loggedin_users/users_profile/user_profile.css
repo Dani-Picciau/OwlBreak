@@ -589,6 +589,17 @@ nav .initials{
     font-weight: 500;
 }
 
+.form-select option{
+    font-size: 0.95rem;
+    appearance: none;
+}
+
+@media (max-width: 400px) {
+    .form-select option{
+        font-size: 0.8rem;
+    }
+}
+
 .form-select select{
     appearance: none;
 }
@@ -895,11 +906,15 @@ input{
     transition: opacity .6s ease-in-out, transform .6s ease-in-out;
 }
 
-.add-user-box input, .add-user-box button {
+.add-user-box input, 
+.add-user-box button,
+.add-user-box select{
     display: none;
 }
 
-.add-user-box.show input, .add-user-box.show button{
+.add-user-box.show input, 
+.add-user-box.show button,
+.add-user-box.show select{
     display: block;
 }
 
@@ -926,11 +941,13 @@ input{
     transition: opacity .6s ease-in-out, transform .6s ease-in-out;
 }
 
-.remove-user-box input, .remove-user-box button {
+.remove-user-box input, 
+.remove-user-box button{
     display: none;
 }
 
-.remove-user-box.show input, .remove-user-box.show button{
+.remove-user-box.show input, 
+.remove-user-box.show button{
     display: block;
 }
 

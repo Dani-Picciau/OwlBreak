@@ -92,7 +92,7 @@ const inputs = ['newPassword', 'defaultPassword'];
 inputs.forEach(id => {
   document.getElementById(id).addEventListener('input', function() {
     //type prende il risultato "new" o "default" in base a quale dei due input sta eseguendo l'evento
-    const type = (id === 'newPassword') ? 'new' : 'default';
+    const type = (id === 'newPassword') ? 'security' : 'add-user';
     if (this.value) {
       updateRequirements(this.value, type);
     } else {
@@ -112,7 +112,7 @@ function updateRequirements(password, type) {
     special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
   };
   
-  const suffix = (type === 'new') ? '' : '2';
+  const suffix = (type === 'security') ? '' : '2';
   // Aggiorno solo i requisiti della nuova password in base al suffisso
   document.getElementById(`lengthReq${suffix}`).className = `requirement-icon ${requirements.length ? `requirement-valid${suffix}` : `requirement-invalid${suffix}`}`;
   document.getElementById(`uppercaseReq${suffix}`).className = `requirement-icon ${requirements.uppercase ? `requirement-valid${suffix}` : `requirement-invalid${suffix}`}`;
@@ -123,7 +123,7 @@ function updateRequirements(password, type) {
 
 // Mi serve anche un altra funzione per resettare i requisiti di una specifica password che viene inserita in un form differente, altrimenti i due check entrerebbero in conflitto
 function resetRequirements(type) {
-  const suffix = (type === 'new') ? '' : '2';
+  const suffix = (type === 'security') ? '' : '2';
   
   // Reset solo i requisiti della nuova password
   document.getElementById(`lengthReq${suffix}`).className = `requirement-icon requirement-invalid${suffix}`;
@@ -133,25 +133,73 @@ function resetRequirements(type) {
   document.getElementById(`specialReq${suffix}`).className = `requirement-icon requirement-invalid${suffix}`;
 }
 
+//Qui gestisco i diversi tasti "annulla" per i diversi form nella pagina
+const inputsButton = ['reset-form-security', 'reset-form-add-user', 'reset-form-remove-user'];
+inputsButton.forEach(id => {
+  document.getElementById(id).addEventListener('click', () => {
+    if(id == 'reset-form-security'){
+      const form = document.getElementById('securityForm'); //Riferimento al form su cui voglio effettuare le operazioni
+      form.reset();
+      resetRequirements('security');
+    } else if(id == 'reset-form-add-user'){
+      const form = document.getElementById('addUserForm'); //Riferimento al form su cui voglio effettuare le operazioni
+      form.reset();
+      resetRequirements('add-user');
+    } else{
+      const form = document.getElementById('removeUserForm'); //Riferimento al form su cui voglio effettuare le operazioni
+      form.reset();
+    }
+  });
+});
+
 /*Qui gestisco il tempo di visualizzazione per i box di:
   - successo cambiamento password;
   - errore cambiamento password.
-  Una volta che i messaggi vengono visualizzati, scompaiono dopo 10000ms.
+  Una volta che i messaggi vengono visualizzati, scompaiono dopo 7000ms=7s.
 */
 document.addEventListener('DOMContentLoaded', function() {
-  const successMessage = document.getElementById('successMessage');
-  const errorMessage = document.getElementById('errorMessage');
-  
-  if (successMessage && successMessage.style.display !== 'none') {
+  const successMessage_security = document.getElementById('successMessage-security');
+  const errorMessage_security = document.getElementById('errorMessage-security');
+  const successMessage_addUser = document.getElementById('successMessage-addUser');
+  const errorMessage_addUser = document.getElementById('errorMessage-addUser');
+  const successMessage_removeUser = document.getElementById('successMessage-removeUser');
+  const errorMessage_removeUser = document.getElementById('errorMessage-removeUser');
+
+
+  if (successMessage_security && successMessage_security.style.display !== 'none') {
     setTimeout(() => {
-      successMessage.style.display = 'none';
-    }, 10000);
+      successMessage_security.style.display = 'none';
+    }, 7000);
   }
-  
-  if (errorMessage && errorMessage.style.display !== 'none') {
+
+  if (errorMessage_security && errorMessage_security.style.display !== 'none') {
     setTimeout(() => {
-      errorMessage.style.display = 'none';
-    }, 10000);
+      errorMessage_security.style.display = 'none';
+    }, 7000);
+  }
+
+  if (successMessage_addUser && successMessage_addUser.style.display !== 'none') {
+    setTimeout(() => {
+      successMessage_addUser.style.display = 'none';
+    }, 7000);
+  }
+
+  if (errorMessage_addUser && errorMessage_addUser.style.display !== 'none') {
+    setTimeout(() => {
+      errorMessage_addUser.style.display = 'none';
+    }, 7000);
+  }
+
+  if (successMessage_removeUser && successMessage_removeUser.style.display !== 'none') {
+    setTimeout(() => {
+      successMessage_removeUser.style.display = 'none';
+    }, 7000);
+  }
+
+  if (errorMessage_removeUser && errorMessage_removeUser.style.display !== 'none') {
+    setTimeout(() => {
+      errorMessage_removeUser.style.display = 'none';
+    }, 7000);
   }
 });
 

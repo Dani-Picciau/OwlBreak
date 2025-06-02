@@ -1,12 +1,4 @@
 <?php
-    if (basename(__FILE__) === basename($_SERVER['SCRIPT_FILENAME'])) {
-        //Se la condizione è verificata significa che il file è stato cercato in modo diretto nella barra di ricerca e qualsiasi sia il tipo di utente, esso viene rispedito alla home. 
-        http_response_code(403);
-        session_start();
-        require_once(__DIR__. '/../../../includes/redirect_users.php');
-        redirect_users($_SESSION['user_type']);
-    }
-
     //Dato che il file non può essere acceduto direttamente, ma solo tramite require(...) questa rappresenta un ulteriore precauzione per specificare quali tipi di utenti hanno accesso alla pagina
     require_once(__DIR__. '/../../../includes/loggedin.php');
     require_once(__DIR__. '/../../../includes/mysqli_connect_user.php');
@@ -69,33 +61,33 @@
         //Da qui, avendo recuperato tutti i dati necessari, iniziano i controlli:
         //1. form non compilato correttamente
         if (empty($currentPassword) || empty($newPassword) || empty($confirmPassword)){ 
-            $_SESSION['input_not_filled'] = true;
+            $_SESSION['input_not_filled_security'] = true;
             $_SESSION['show_security_after_refresh'] = true;
             header("Location:/owlbreak/website/loggedin_users/users_profile/user_profile.php");
             exit;
         }
         //2. Controllo che la password corrente inserita sia effettivamente quella dell'utente
         else if(!password_verify($currentPassword, $row['passw'])){  
-            $_SESSION['currentPassword_noMatch'] = true;
+            $_SESSION['currentPassword_noMatch_security'] = true;
             $_SESSION['show_security_after_refresh'] = true;
             header("Location:/owlbreak/website/loggedin_users/users_profile/user_profile.php");
             exit;
         } 
         //3. Controllo che la nuova password sia diversa da quella attuale
         else if($newPassword == $currentPassword){
-            $_SESSION['equal_password'] = true;
+            $_SESSION['equal_password_security'] = true;
             $_SESSION['show_security_after_refresh'] = true;
             header("Location:/owlbreak/website/loggedin_users/users_profile/user_profile.php");
             exit;
         }
         //4. Se i controlli 1. e 2. passano, allora mi assicuro che la nuova password sia stata inserita correttamente
         else if ($newPassword !== $confirmPassword){
-            $_SESSION['confirm'] = true;
+            $_SESSION['confirm_security'] = true;
             $_SESSION['show_security_after_refresh'] = true;
             header("Location:/owlbreak/website/loggedin_users/users_profile/user_profile.php");
             exit;
         }
-        //5. Controllo dei requisiti password
+        //5. Controllo dei requisiti password, vanno effettuati lato php perché alla procedura la password arriverà già hashata, rendendo impossibile il controllo dei requisiti all'interno della procedura
         else if (
             strlen($newPassword) < 8 ||
             !preg_match('/[A-Z]/', $newPassword) ||
@@ -103,7 +95,7 @@
             !preg_match('/\d/', $newPassword) ||
             !preg_match('/[!@#$%^&*()_+\-=\[\]{};\'":\\\\|,.<>\/?]/', $newPassword)
         ) {
-            $_SESSION['requiremets'] = true;
+            $_SESSION['requiremets_security'] = true;
             $_SESSION['show_security_after_refresh'] = true;
             header("Location:/owlbreak/website/loggedin_users/users_profile/user_profile.php");
             exit;
@@ -129,6 +121,14 @@
             $_SESSION['show_security_after_refresh'] = true;
             header("Location:/owlbreak/website/loggedin_users/users_profile/user_profile.php");
             exit;
+        }
+    } else {
+        if (basename(__FILE__) === basename($_SERVER['SCRIPT_FILENAME'])) {
+            //Se la condizione è verificata significa che il file è stato cercato in modo diretto nella barra di ricerca e qualsiasi sia il tipo di utente, esso viene rispedito alla home. 
+            http_response_code(403);
+            session_start();
+            require_once(__DIR__. '/../../../includes/redirect_users.php');
+            redirect_users($_SESSION['user_type']);
         }
     }
 ?>
