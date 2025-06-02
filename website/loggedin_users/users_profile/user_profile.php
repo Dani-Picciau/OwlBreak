@@ -89,13 +89,23 @@
                             }
                         ?>
                     </div>
-   
-                    
+                    <?php
+                        if($_SESSION['user_type'] === 'Personale-Segreteria'){
+                            ?>
+                                <div class="add-user-box">
+                                    <?php require('users_profile_includes/add_user.php'); ?>
+                                </div>
+                                <div class="remove-user-box">
+                                    rimozione utente
+                                </div>
+                            <?php
+                        }
+                    ?>  
                 </div>
             </div>
         </div>
 
-        <script src="user_profile.js"></script>
+        <script src="user_profile.js?v=1.02"></script>
 
         <!-- Solo quando faccio il submit del bottone in "user_security.php" imposto anche una variabile di sessione che al refresh della pagina mi permette  di mantenere selezionata la categoria "sicurezza". Al prossimo refresh la categoria selezionata torna ad essere la prima. 
         Lo script in questo punto, invece che nel file js dedicato, è necessario per riuscire a gestire php e javascript assieme -->

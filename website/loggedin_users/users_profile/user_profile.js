@@ -36,18 +36,34 @@ document.addEventListener('DOMContentLoaded', () => {
         info_box.classList.add('show');
         security_box.classList.remove('show');
         statistics_box.classList.remove('show');
-        
+        add_user_box.classList.remove('show');
+        remove_user_box.classList.remove('show');
       } else {
         info_box.classList.remove('show');
         if (cat === 'sicurezza'){
           security_box.classList.add('show');
           statistics_box.classList.remove('show');
-        }else{
+          add_user_box.classList.remove('show');
+          remove_user_box.classList.remove('show');
+        } else {
           security_box.classList.remove('show');
-          statistics_box.classList.add('show');
+          if(cat === 'statistiche'){
+            statistics_box.classList.add('show');
+            add_user_box.classList.remove('show');
+            remove_user_box.classList.remove('show');
+          } else{
+            statistics_box.classList.remove('show');
+            if(cat === 'aggiunta-utente'){
+              add_user_box.classList.add('show');
+              remove_user_box.classList.remove('show');
+            }
+            else {
+              remove_user_box.classList.add('show');
+              add_user_box.classList.remove('show');
+            } 
+          }
         }
       }
-      
     });
   });
 });
@@ -71,22 +87,23 @@ function togglePassword(inputId) {
   }
 }
 
-/* L'event listener sull'input di testo 'newPassword' permette di richiamare la funzione updateRequirements e aggiornare in tempo reale i requisiti della nuova password dopo ogni inserimento ('input') di ogni lettera */
-document.getElementById('newPassword').addEventListener('input', function() {
-  const password = this.value;
-  if (password) {
-    updateRequirements(password);
-  } else {
-    // Reset tutti i requisiti se il campo è vuoto
-    document.querySelectorAll('.requirement-icon').forEach(icon => {
-      icon.className = 'requirement-icon requirement-invalid';
-    });
-  }
+/* L'event listener sugli input di testo permette di richiamare la funzione updateRequirements e aggiornare in tempo reale i requisiti delle password dopo ogni inserimento ('input') di ogni lettera. Ogni input aggiorna solo i propri requisiti specifici */
+const inputs = ['newPassword', 'defaultPassword'];
+inputs.forEach(id => {
+  document.getElementById(id).addEventListener('input', function() {
+    //type prende il risultato "new" o "default" in base a quale dei due input sta eseguendo l'evento
+    const type = (id === 'newPassword') ? 'new' : 'default';
+    if (this.value) {
+      updateRequirements(this.value, type);
+    } else {
+      resetRequirements(type);
+    }
+  });
 });
 
 /* La funzione updateRequirements controlla che la password in ingresso alla funzione, ovvero quella che l'utente sta inserendo, rispecchi determinati requisiti. Nel caso in cui le contizioni in requirements = {...} si avverino, la classe dell'elemento corrispondente viene cambiata e il check diventa verde. 
-Lo scopo di tutto ciò è per avere un'esperienza utente migliore, gli stessi controlli verranno effettuati anche lato php, per avere maggiore sicurezza prima, che la password venga inserita nella procedura */
-function updateRequirements(password) {
+Lo scopo di tutto ciò è per avere un'esperienza utente migliore, gli stessi controlli verranno effettuati anche lato php, per avere una maggiore sicurezza prima che la password venga inserita nella procedura */
+function updateRequirements(password, type) {
   const requirements = {
     length: password.length >= 8,
     uppercase: /[A-Z]/.test(password),
@@ -95,11 +112,25 @@ function updateRequirements(password) {
     special: /[!@#$%^&*()_+\-=\[\]{};':"\\|,.<>\/?]/.test(password)
   };
   
-  document.getElementById('lengthReq').className = `requirement-icon ${requirements.length ? 'requirement-valid' : 'requirement-invalid'}`;
-  document.getElementById('uppercaseReq').className = `requirement-icon ${requirements.uppercase ? 'requirement-valid' : 'requirement-invalid'}`;
-  document.getElementById('lowercaseReq').className = `requirement-icon ${requirements.lowercase ? 'requirement-valid' : 'requirement-invalid'}`;
-  document.getElementById('numberReq').className = `requirement-icon ${requirements.number ? 'requirement-valid' : 'requirement-invalid'}`;
-  document.getElementById('specialReq').className = `requirement-icon ${requirements.special ? 'requirement-valid' : 'requirement-invalid'}`;
+  const suffix = (type === 'new') ? '' : '2';
+  // Aggiorno solo i requisiti della nuova password in base al suffisso
+  document.getElementById(`lengthReq${suffix}`).className = `requirement-icon ${requirements.length ? `requirement-valid${suffix}` : `requirement-invalid${suffix}`}`;
+  document.getElementById(`uppercaseReq${suffix}`).className = `requirement-icon ${requirements.uppercase ? `requirement-valid${suffix}` : `requirement-invalid${suffix}`}`;
+  document.getElementById(`lowercaseReq${suffix}`).className = `requirement-icon ${requirements.lowercase ? `requirement-valid${suffix}` : `requirement-invalid${suffix}`}`;
+  document.getElementById(`numberReq${suffix}`).className = `requirement-icon ${requirements.number ? `requirement-valid${suffix}` : `requirement-invalid${suffix}`}`;
+  document.getElementById(`specialReq${suffix}`).className = `requirement-icon ${requirements.special ? `requirement-valid${suffix}` : `requirement-invalid${suffix}`}`;
+}
+
+// Mi serve anche un altra funzione per resettare i requisiti di una specifica password che viene inserita in un form differente, altrimenti i due check entrerebbero in conflitto
+function resetRequirements(type) {
+  const suffix = (type === 'new') ? '' : '2';
+  
+  // Reset solo i requisiti della nuova password
+  document.getElementById(`lengthReq${suffix}`).className = `requirement-icon requirement-invalid${suffix}`;
+  document.getElementById(`uppercaseReq${suffix}`).className = `requirement-icon requirement-invalid${suffix}`;
+  document.getElementById(`lowercaseReq${suffix}`).className = `requirement-icon requirement-invalid${suffix}`;
+  document.getElementById(`numberReq${suffix}`).className = `requirement-icon requirement-invalid${suffix}`;
+  document.getElementById(`specialReq${suffix}`).className = `requirement-icon requirement-invalid${suffix}`;
 }
 
 /*Qui gestisco il tempo di visualizzazione per i box di:
