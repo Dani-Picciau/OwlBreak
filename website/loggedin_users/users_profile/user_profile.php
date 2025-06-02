@@ -96,7 +96,7 @@
                                     <?php require('users_profile_includes/add_user.php'); ?>
                                 </div>
                                 <div class="remove-user-box">
-                                    rimozione utente
+                                    <?php require('users_profile_includes/remove_user.php'); ?>
                                 </div>
                             <?php
                         }
@@ -113,60 +113,131 @@
             document.addEventListener('DOMContentLoaded', () => {
             const menuItems = document.querySelectorAll('.menu-category');
             
-                // Controlla la variabile PHP
+                // Controllo la variabile di sessione per capire su quale categoria fermarmi dopo il submit del bottone
                 <?php if (isset($_SESSION['show_security_after_refresh']) && $_SESSION['show_security_after_refresh']): ?>
                     if (menuItems[1]) menuItems[1].click();
-                    <?php unset($_SESSION['show_security_after_refresh']); // Pulisci subito ?>
+                    //Una volta settata la categoria, rimuovo la variabile di sessione
+                    <?php unset($_SESSION['show_security_after_refresh']); ?>
+
+                <?php elseif (isset($_SESSION['show_add_user']) && $_SESSION['show_add_user']): ?>
+                    if (menuItems[3]) menuItems[3].click();
+                    //Una volta settata la categoria, rimuovo la variabile di sessione
+                    <?php unset($_SESSION['show_add_user']); ?>
+
+                <?php elseif (isset($_SESSION['show_remove_user']) && $_SESSION['show_remove_user']): ?>
+                    if (menuItems[4]) menuItems[4].click();
+                    //Una volta settata la categoria, rimuovo la variabile di sessione
+                    <?php unset($_SESSION['show_remove_user']); ?>
                 <?php else: ?>
                     if (menuItems[0]) menuItems[0].click();
                 <?php endif; ?>
             });
         </script>
 
-        <!-- Qui gestisco i messaggi di errore in base a quale tipo di sessione viene restituito da "change_password.php" -->
+        <!-- Qui gestisco i messaggi di errore o successo in base a quale tipo di sessione viene restituito da "change_password.php", "adding_user.php" o "removing_user.php"-->
         <script>
             document.addEventListener('DOMContentLoaded', () => {
-                // Se c'è un messaggio di password cambiata correttamente:
+                //Mostro il messaggio di conferma in base a quale file mi manda la variabile di sessione:
+                //change_password.php
                 <?php if (isset($_SESSION['password_changed'])): ?>
-                    const successBox = document.getElementById('successMessage');
+                    const successBox = document.getElementById('successMessage-security');
                     if (successBox) {
                         successBox.style.display = 'flex';
                     }
                     <?php unset($_SESSION['password_changed']); ?>
+                //--------------------------------------------------
+                //adding_user.php
+                <?php elseif (isset($_SESSION['added_user'])): ?>
+                    const succesBox2 = document.getElementById('successMessage-addUser');
+                    if (succesBox2) {
+                        succesBox2.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['added_user']); ?>
+                //--------------------------------------------------
+                //removing_user.php
+                <?php elseif (isset($_SESSION['removed_user'])): ?>
+                    const succesBox3 = document.getElementById('successMessage-removeUser');
+                    if (succesBox3) {
+                        succesBox3.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['removed_user']); ?>
+
                 <?php endif; ?>
 
-                // Controllo le varie condizioni di errore:
-                <?php if (isset($_SESSION['input_not_filled'])): ?>
-                    const errorBox1 = document.getElementById('errorMessage');
+                //Mostro il messaggio errore in base a quale file mi manda la variabile di sessione:
+                //change_password.php
+                <?php if (isset($_SESSION['input_not_filled_security'])): ?>
+                    const errorBox0 = document.getElementById('errorMessage-security');
+                    if (errorBox0) {
+                        errorBox0.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['input_not_filled_security']); ?>
+
+                <?php elseif (isset($_SESSION['currentPassword_noMatch_security'])): ?>
+                    const errorBox1 = document.getElementById('errorMessage-security');
                     if (errorBox1) {
                         errorBox1.style.display = 'flex';
                     }
-                    <?php unset($_SESSION['input_not_filled']); ?>
-                <?php elseif (isset($_SESSION['currentPassword_noMatch'])): ?>
-                    const errorBox2 = document.getElementById('errorMessage');
+                    <?php unset($_SESSION['currentPassword_noMatch_security']); ?>
+
+                <?php elseif (isset($_SESSION['equal_password_security'])): ?>
+                    const errorBox2 = document.getElementById('errorMessage-security');
                     if (errorBox2) {
                         errorBox2.style.display = 'flex';
                     }
-                    <?php unset($_SESSION['currentPassword_noMatch']); ?>
+                    <?php unset($_SESSION['equal_password_security']); ?>
 
-                <?php elseif (isset($_SESSION['equal_password'])): ?>
-                    const errorBox3 = document.getElementById('errorMessage');
+                <?php elseif (isset($_SESSION['confirm_security'])): ?>
+                    const errorBox3 = document.getElementById('errorMessage-security');
                     if (errorBox3) {
                         errorBox3.style.display = 'flex';
                     }
-                    <?php unset($_SESSION['equal_password']); ?>
-                <?php elseif (isset($_SESSION['confirm'])): ?>
-                    const errorBox4 = document.getElementById('errorMessage');
+                    <?php unset($_SESSION['confirm_security']); ?>
+
+                <?php elseif (isset($_SESSION['requiremets_security'])): ?>
+                    const errorBox4 = document.getElementById('errorMessage-security');
                     if (errorBox4) {
                         errorBox4.style.display = 'flex';
                     }
-                    <?php unset($_SESSION['confirm']); ?>
-                <?php elseif (isset($_SESSION['requiremets'])): ?>
-                    const errorBox5 = document.getElementById('errorMessage');
+                    <?php unset($_SESSION['requiremets_security']); ?>
+                //--------------------------------------------------
+                //adding_user.php
+                <?php elseif (isset($_SESSION['input_not_filled_add_user'])): ?>
+                    const errorBox5 = document.getElementById('errorMessage-addUser');
                     if (errorBox5) {
                         errorBox5.style.display = 'flex';
                     }
-                    <?php unset($_SESSION['requiremets']); ?>
+                    <?php unset($_SESSION['input_not_filled_add_user']); ?>
+
+                <?php elseif (isset($_SESSION['confirm_add_user'])): ?>
+                    const errorBox6 = document.getElementById('errorMessage-addUser');
+                    if (errorBox6) {
+                        errorBox6.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['confirm_add_user']); ?>
+
+                <?php elseif (isset($_SESSION['requiremets_add_user'])): ?>
+                    const errorBox7 = document.getElementById('errorMessage-addUser');
+                    if (errorBox7) {
+                        errorBox7.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['requiremets_add_user']); ?>
+                //--------------------------------------------------
+                //removing_user.php
+                <?php elseif (isset($_SESSION['input_not_filled_remove_user'])): ?>
+                    const errorBox8 = document.getElementById('errorMessage-removeUser');
+                    if (errorBox8) {
+                        errorBox8.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['input_not_filled_remove_user']); ?>
+
+                <?php elseif (isset($_SESSION['removed_user_error'])): ?>
+                    const errorBox9 = document.getElementById('errorMessage-removeUser');
+                    if (errorBox9) {
+                        errorBox9.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['removed_user_error']); ?>
+
                 <?php endif; ?>
             });
         </script>
