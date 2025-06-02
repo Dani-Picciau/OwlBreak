@@ -615,6 +615,60 @@ DELIMITER ;
 
 
 DELIMITER $$
+CREATE PROCEDURE elimina_composizione(
+    IN p_operatore_id INT,
+    IN p_nome_prodotto VARCHAR(50),
+    IN p_nome_ingrediente VARCHAR(50),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_ruolo VARCHAR(30);
+    DECLARE v_operatore_esiste BOOLEAN;
+    DECLARE v_composizione_esiste BOOLEAN;
+
+    this_procedure: BEGIN
+
+        SELECT COUNT(*) > 0 INTO v_operatore_esiste
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF NOT v_operatore_esiste THEN
+            SET p_messaggio = 'Operatore non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT ruolo INTO v_ruolo
+        FROM operatore
+        WHERE CodiceID = p_operatore_id;
+
+        IF v_ruolo NOT IN ('Titolare', 'Addetto-Vendite') THEN
+            SET p_messaggio = 'Non autorizzato a modificare composizione';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT COUNT(*) > 0 INTO v_composizione_esiste
+        FROM composizione
+        WHERE LOWER(nomeProdotto) = LOWER(p_nome_prodotto)
+          AND LOWER(nomeIngrediente) = LOWER(p_nome_ingrediente);
+
+        IF NOT v_composizione_esiste THEN
+            SET p_messaggio = 'Composizione non trovata';
+            LEAVE this_procedure;
+        END IF;
+
+        DELETE FROM composizione
+        WHERE LOWER(nomeProdotto) = LOWER(p_nome_prodotto)
+          AND LOWER(nomeIngrediente) = LOWER(p_nome_ingrediente);
+
+        SET p_messaggio = 'Composizione rimossa con successo';
+
+    END;
+END $$
+DELIMITER ;
+
+
+
+DELIMITER $$
 CREATE PROCEDURE effettua_ordine(
     IN p_email_cliente VARCHAR(100),
     IN p_nome_prodotto VARCHAR(50),
