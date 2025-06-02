@@ -169,7 +169,7 @@ BEGIN
     
     -- L'upate di ingrediente attiva il trigger per aggiornare la disponibilità dei prodotti
 
-END; $$
+END $$
 DELIMITER ;
 
 /*trigger per aggiornare la disponibilità dei prodotti 
@@ -195,12 +195,12 @@ END$$
 DELIMITER ;
 
 DELIMITER $$
-CREATE TRIGGER aggiorna_disp_prodotti
+CREATE TRIGGER aggiorna_prodotti_1
 AFTER UPDATE ON ingrediente
 FOR EACH ROW
 BEGIN
 
-    -- se qualche ingrediente è a 0 metto a FALSE la disponibilità di un prodotto
+    /* -- se qualche ingrediente è a 0 metto a FALSE la disponibilità di un prodotto
     UPDATE prodotto
     SET disponibilità = FALSE
     WHERE nome IN (
@@ -224,11 +224,21 @@ BEGIN
             FROM Ingrediente
             WHERE quantità = 0
         )
-    );
+    ); */
 
-END; $$
+    CALL aggiorna_disp_prodotti();
+
+END $$
 DELIMITER ;
 
+DELIMITER $$
+CREATE TRIGGER aggiorna_prodotti_2 
+AFTER INSERT ON composizione
+FOR EACH ROW 
+BEGIN
+    CALL aggiorna_disp_prodotti();
+END $$
+DELIMITER ;
 
 DELIMITER $$
 CREATE PROCEDURE aggiorna_disp_prodotti()
@@ -308,7 +318,12 @@ BEGIN
             LEAVE this_procedure;
         END IF;
 
-        IF p_quantita < 0 THEN
+        IF p_nome_ingrediente IS NULL OR LENGTH(TRIM(p_nome_ingrediente)) = 0 THEN
+            SET p_messaggio = 'Il nome dell\'ingredinte non può essere vuoto';
+            LEAVE this_procedure;
+        END IF;
+
+        IF p_quantita IS NULL OR p_quantita < 0 THEN
             SET p_messaggio = 'La quantità non può essere negativa';
             LEAVE this_procedure;
         END IF;
@@ -320,7 +335,7 @@ BEGIN
         END IF; 
 
         INSERT INTO ingrediente (nome, allergeni, quantità)
-        VALUES (LOWER(p_nome_ingrediente), LOWER(v_allergeni), p_quantita);
+        VALUES (p_nome_ingrediente, v_allergeni, p_quantita);
 
         SET p_messaggio = 'Ingrediente aggiunto con successo';
 
@@ -369,6 +384,24 @@ BEGIN
             LEAVE this_procedure;
         END IF;
 
+        /* Prima di eliminare l'ingrediente devo mettere a FALSE la disponibilità dei prodotti di cui è parte 
+        ed eliminarli anche dalla tabella composizione, così il prodotto rimane non disponibile */
+
+        UPDATE prodotto
+        SET disponibilità = FALSE
+        WHERE nome IN (
+            SELECT nomeProdotto
+            FROM composizione
+            WHERE LOWER(nomeIngrediente) = LOWER(p_nome_ingrediente)
+        );
+
+        DELETE FROM composizione
+        WHERE nomeProdotto IN (
+            SELECT nomeProdotto
+            FROM composizione
+            WHERE LOWER(nomeIngrediente) = LOWER(p_nome_ingrediente)
+        );
+
         DELETE FROM ingrediente
         WHERE LOWER(nome) = LOWER(p_nome_ingrediente);
 
@@ -383,6 +416,7 @@ DELIMITER $$
 CREATE PROCEDURE aggiungi_prodotto(
     IN p_operatore_id INT,
     IN p_nome_prodotto VARCHAR(50),
+    IN p_prezzo DECIMAL(6,2),
     OUT p_messaggio VARCHAR(255)
 )
 BEGIN
@@ -391,7 +425,7 @@ BEGIN
     DECLARE v_prodotto_esiste BOOLEAN;
 
     this_procedure: BEGIN
-
+        -- Controllo operatore
         SELECT COUNT(*) > 0 INTO v_operatore_esiste
         FROM operatore
         WHERE CodiceID = p_operatore_id;
@@ -410,6 +444,19 @@ BEGIN
             LEAVE this_procedure;
         END IF;
 
+        -- Controllo nome prodotto
+        IF p_nome_prodotto IS NULL OR LENGTH(TRIM(p_nome_prodotto)) = 0 THEN
+            SET p_messaggio = 'Il nome del prodotto non può essere vuoto';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Controllo prezzo
+        IF p_prezzo IS NULL OR p_prezzo <= 0 THEN
+            SET p_messaggio = 'Prezzo non valido. Deve essere maggiore di 0';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Controllo se il prodotto è già presente (case-insensitive)
         SELECT COUNT(*) > 0 INTO v_prodotto_esiste
         FROM prodotto
         WHERE LOWER(nome) = LOWER(p_nome_prodotto);
@@ -419,13 +466,14 @@ BEGIN
             LEAVE this_procedure;
         END IF;
 
-        INSERT INTO prodotto (nome, disponibilità)
-        VALUES (LOWER(p_nome_prodotto), FALSE);
+        -- Inserimento del nuovo prodotto
+        INSERT INTO prodotto (nome, disponibilità, prezzo)
+        VALUES (p_nome_prodotto, FALSE, p_prezzo);
 
         SET p_messaggio = 'Prodotto aggiunto con successo';
 
     END;
-END $$
+END$$
 DELIMITER ;
 
 
@@ -488,19 +536,21 @@ CREATE PROCEDURE associa_ingrediente_prodotto(
 )
 BEGIN
     DECLARE v_ruolo VARCHAR(30);
-    DECLARE v_esiste_operatore BOOLEAN;
-    DECLARE v_associazione_esistente BOOLEAN;
-    DECLARE v_esiste_prodotto BOOLEAN;
-    DECLARE v_esiste_ingrediente BOOLEAN;
+    DECLARE v_operatore_esiste BOOLEAN;
+    DECLARE v_associazione_esiste BOOLEAN;
+    DECLARE v_prodotto_esiste BOOLEAN;
+    DECLARE v_ingrediente_esiste BOOLEAN;
+    DECLARE v_prodotto VARCHAR(50);
+    DECLARE v_ingrediente VARCHAR(50);
 
     this_procedure: BEGIN
 
         -- Controllo operatore
-        SELECT COUNT(*) > 0 INTO v_esiste_operatore
+        SELECT COUNT(*) > 0 INTO v_operatore_esiste
         FROM operatore
         WHERE CodiceID = p_operatore_id;
 
-        IF NOT v_esiste_operatore THEN
+        IF NOT v_operatore_esiste THEN
             SET p_messaggio = 'Operatore non trovato';
             LEAVE this_procedure;
         END IF;
@@ -515,39 +565,47 @@ BEGIN
         END IF;
 
         -- Verifica esistenza prodotto
-        SELECT COUNT(*) > 0 INTO v_esiste_prodotto
+        SELECT COUNT(*) > 0 INTO v_prodotto_esiste
         FROM prodotto
         WHERE LOWER(nome) = LOWER(p_nome_prodotto);
 
-        IF NOT v_esiste_prodotto THEN
+        IF NOT v_prodotto_esiste THEN
             SET p_messaggio = 'Prodotto inesistente';
             LEAVE this_procedure;
         END IF;
 
+        SELECT nome INTO v_prodotto
+        FROM prodotto
+        WHERE LOWER(nome) = LOWER(p_nome_prodotto);
+
         -- Verifica esistenza ingrediente
-        SELECT COUNT(*) > 0 INTO v_esiste_ingrediente
+        SELECT COUNT(*) > 0 INTO v_ingrediente_esiste
         FROM ingrediente
         WHERE LOWER(nome) = LOWER(p_nome_ingrediente);
 
-        IF NOT v_esiste_ingrediente THEN
+        IF NOT v_ingrediente_esiste THEN
             SET p_messaggio = 'Ingrediente inesistente';
             LEAVE this_procedure;
         END IF;
 
+        SELECT nome INTO v_ingrediente
+        FROM ingrediente
+        WHERE LOWER(nome) = LOWER(p_nome_ingrediente);
+
         -- Controllo composizione già presente
-        SELECT COUNT(*) > 0 INTO v_associazione_esistente
+        SELECT COUNT(*) > 0 INTO v_associazione_esiste
         FROM composizione
         WHERE LOWER(nomeProdotto) = LOWER(p_nome_prodotto)
           AND LOWER(nomeIngrediente) = LOWER(p_nome_ingrediente);
 
-        IF v_associazione_esistente THEN
+        IF v_associazione_esiste THEN
             SET p_messaggio = 'Associazione già presente in composizione';
             LEAVE this_procedure;
         END IF;
 
         -- Inserisci nella composizione
         INSERT INTO composizione (nomeProdotto, nomeIngrediente)
-        VALUES (LOWER(p_nome_prodotto), LOWER(p_nome_ingrediente));
+        VALUES (v_prodotto, v_ingrediente);
 
         SET p_messaggio = 'Ingrediente associato al prodotto con successo';
 
@@ -565,16 +623,16 @@ CREATE PROCEDURE elimina_composizione(
 )
 BEGIN
     DECLARE v_ruolo VARCHAR(30);
-    DECLARE v_esiste_operatore BOOLEAN;
-    DECLARE v_associazione_esistente BOOLEAN;
+    DECLARE v_operatore_esiste BOOLEAN;
+    DECLARE v_composizione_esiste BOOLEAN;
 
     this_procedure: BEGIN
 
-        SELECT COUNT(*) > 0 INTO v_esiste_operatore
+        SELECT COUNT(*) > 0 INTO v_operatore_esiste
         FROM operatore
         WHERE CodiceID = p_operatore_id;
 
-        IF NOT v_esiste_operatore THEN
+        IF NOT v_operatore_esiste THEN
             SET p_messaggio = 'Operatore non trovato';
             LEAVE this_procedure;
         END IF;
@@ -588,13 +646,13 @@ BEGIN
             LEAVE this_procedure;
         END IF;
 
-        SELECT COUNT(*) > 0 INTO v_associazione_esistente
+        SELECT COUNT(*) > 0 INTO v_composizione_esiste
         FROM composizione
         WHERE LOWER(nomeProdotto) = LOWER(p_nome_prodotto)
           AND LOWER(nomeIngrediente) = LOWER(p_nome_ingrediente);
 
-        IF NOT v_associazione_esistente THEN
-            SET p_messaggio = 'Associazione non trovata';
+        IF NOT v_composizione_esiste THEN
+            SET p_messaggio = 'Composizione non trovata';
             LEAVE this_procedure;
         END IF;
 
@@ -602,11 +660,12 @@ BEGIN
         WHERE LOWER(nomeProdotto) = LOWER(p_nome_prodotto)
           AND LOWER(nomeIngrediente) = LOWER(p_nome_ingrediente);
 
-        SET p_messaggio = 'Associazione rimossa con successo';
+        SET p_messaggio = 'Composizione rimossa con successo';
 
     END;
 END $$
 DELIMITER ;
+
 
 
 DELIMITER $$
@@ -994,6 +1053,17 @@ BEGIN
         UPDATE rifornimento
         SET consegnato = TRUE
         WHERE CodiceID = p_rifornimento_id AND ingrediente = p_ingrediente;
+
+        /* 
+           *Questo farà partire il trigger per aggiornare la quantità degli ingredienti
+            che a sua volta farà partire quello per la disponibilità dei prodotti.
+
+           *Se l'ingrediente non è presente nella tabella degli ingredienti e non viene aggiunto 
+            tramite la procedura "aggiungi_ingrediente" prima che il rifornimento risulti consegnato, 
+            l'ingrediente rifornito non sarà visibile nella tabella degli ingredienti. 
+            Quindi la quantità viene aggiornata correttamente solo se l'ingrediente è nella tabella 
+            prima che il rifornimento venga segnato come consegnato.
+        */
 
         SET p_messaggio = 'Rifornimento segnato come consegnato con successo';
 
@@ -1789,7 +1859,13 @@ GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Titolare'@'localho
 GRANT EXECUTE ON PROCEDURE owlbreak.insert_fornitore TO 'Titolare'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.modifica_fornitore TO 'Titolare'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.elimina_fornitore TO 'Titolare'@'localhost';
-
+GRANT EXECUTE ON PROCEDURE owlbreak.aggiungi_ingrediente TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.elimina_ingrediente TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.aggiungi_prodotto TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.elimina_prodotto TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.associa_ingrediente_prodotto TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.richiesta_rifornimento TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.segna_rifornimento_consegnato TO 'Titolare'@'localhost';
 
 
 -- PRIVILEGI ADDETTI VENDITE
@@ -1801,6 +1877,13 @@ GRANT SELECT ON owlbreak.ingrediente TO 'Addetto-Vendite'@'localhost';
 GRANT SELECT ON owlbreak.rifornimento TO 'Addetto-Vendite'@'localhost';
 GRANT SELECT ON owlbreak.fornitore TO 'Addetto-Vendite'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.aggiungi_ingrediente TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.elimina_ingrediente TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.aggiungi_prodotto TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.elimina_prodotto TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.associa_ingrediente_prodotto TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.richiesta_rifornimento TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.segna_rifornimento_consegnato TO 'Addetto-Vendite'@'localhost';
 
 -- PRIVILEGI ADDETTI CONSEGNE
 GRANT SELECT ON owlbreak.operatore TO 'Addetto-Consegne'@'localhost';
