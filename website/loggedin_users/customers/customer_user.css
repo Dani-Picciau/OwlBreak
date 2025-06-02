@@ -843,11 +843,11 @@ figure:hover footer svg {
     position: relative;  
 }
 
-.cart-item-container button{
+.cart-item-container .confirm-button{
     display: none;
 }
 
-.cart-item-container.show button{
+.cart-item-container.show .confirm-button{
     display: block;
 }
 
@@ -859,9 +859,16 @@ figure:hover footer svg {
     flex-direction: row;
     justify-content: space-between;
     align-items: center;
+    flex-wrap: wrap;
     box-shadow:rgba(0, 0, 0, 0.75);
     background-color: #F5F5F7;
     border-radius: .375rem;
+}
+
+@media (max-width: 675px) {
+    .cart-item{
+        justify-content: center;
+    }
 }
 
 .box1{
@@ -906,6 +913,12 @@ figure:hover footer svg {
     gap:0.7rem;
 }
 
+@media (max-width: 675px) {
+    .box2{
+        flex-direction: row-reverse;
+    }
+}
+
 .box2 .delete-item{
     fill: red;
     color:red;
@@ -915,7 +928,6 @@ figure:hover footer svg {
     justify-content:center;
     gap: 0.4rem;
     padding: 0.4rem;
-    justify-content: center;
     transition: background-color .4s ease-in-out, border-radius .4s ease-in-out;
     font-family: var(--font-family-inter);
     font-weight:500;
@@ -1281,32 +1293,6 @@ figure:hover footer svg {
     opacity: 1;
     transform: translate3d(0, 0, 0);
     position: relative;
-}
-
-.filters {
-    display: flex;
-    gap: 16px;
-    margin-bottom: 20px;
-}
-
-.filter-group {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-}
-
-.filter-group label {
-    font-size: 14px;
-    color: #555;
-}
-
-.filter-group select, .filter-group input {
-    font-family: var(--font-family-inter);
-    font-weight: 500;
-    padding: 8px 12px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    font-size: 14px;
 }
 
 .order-table {
