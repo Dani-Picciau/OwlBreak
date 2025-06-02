@@ -1000,6 +1000,17 @@ BEGIN
         SET consegnato = TRUE
         WHERE CodiceID = p_rifornimento_id AND ingrediente = p_ingrediente;
 
+        /* 
+           *Questo farà partire il trigger per aggiornare la quantità degli ingredienti
+            che a sua volta farà partire quello per la disponibilità dei prodotti.
+
+           *Se l'ingrediente non è presente nella tabella degli ingredienti e non viene aggiunto 
+            tramite la procedura "aggiungi_ingrediente" prima che il rifornimento risulti consegnato, 
+            l'ingrediente rifornito non sarà visibile nella tabella degli ingredienti. 
+            Quindi la quantità viene aggiornata correttamente solo se l'ingrediente è nella tabella 
+            prima che il rifornimento venga segnato come consegnato.
+        */
+
         SET p_messaggio = 'Rifornimento segnato come consegnato con successo';
 
     END;
@@ -1794,7 +1805,13 @@ GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Titolare'@'localho
 GRANT EXECUTE ON PROCEDURE owlbreak.insert_fornitore TO 'Titolare'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.modifica_fornitore TO 'Titolare'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.elimina_fornitore TO 'Titolare'@'localhost';
-
+GRANT EXECUTE ON PROCEDURE owlbreak.aggiungi_ingrediente TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.elimina_ingrediente TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.aggiungi_prodotto TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.elimina_prodotto TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.associa_ingrediente_prodotto TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.richiesta_rifornimento TO 'Titolare'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.segna_rifornimento_consegnato TO 'Titolare'@'localhost';
 
 
 -- PRIVILEGI ADDETTI VENDITE
@@ -1806,6 +1823,13 @@ GRANT SELECT ON owlbreak.ingrediente TO 'Addetto-Vendite'@'localhost';
 GRANT SELECT ON owlbreak.rifornimento TO 'Addetto-Vendite'@'localhost';
 GRANT SELECT ON owlbreak.fornitore TO 'Addetto-Vendite'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.aggiungi_ingrediente TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.elimina_ingrediente TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.aggiungi_prodotto TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.elimina_prodotto TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.associa_ingrediente_prodotto TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.richiesta_rifornimento TO 'Addetto-Vendite'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.segna_rifornimento_consegnato TO 'Addetto-Vendite'@'localhost';
 
 -- PRIVILEGI ADDETTI CONSEGNE
 GRANT SELECT ON owlbreak.operatore TO 'Addetto-Consegne'@'localhost';
