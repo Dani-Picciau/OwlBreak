@@ -499,12 +499,28 @@ DELIMITER ;
 
 DELIMITER $$
 CREATE TRIGGER aggiorna_prodotti_2 
+AFTER DELETE ON ingrediente
+FOR EACH ROW 
+BEGIN
+    CALL aggiorna_disp_prodotti();
+END $$
+DELIMITER ;
+
+DELIMITER $$
+CREATE TRIGGER aggiorna_prodotti_3 
 AFTER INSERT ON composizione
 FOR EACH ROW 
 BEGIN
-
     CALL aggiorna_disp_prodotti();
+END $$
+DELIMITER ;
 
+DELIMITER $$
+CREATE TRIGGER aggiorna_prodotti_4 
+AFTER DELETE ON composizione
+FOR EACH ROW 
+BEGIN
+    CALL aggiorna_disp_prodotti();
 END $$
 DELIMITER ;
 
@@ -524,7 +540,7 @@ BEGIN
         )
     );
 
-    -- ripristino disponibilità prodotti
+    -- ripristino disponibilità prodotti se nessuno dei suoi ingredienti è a 0
     UPDATE prodotto
     SET disponibilità = TRUE
     WHERE disponibilità = FALSE AND nome NOT IN (
@@ -535,6 +551,15 @@ BEGIN
             FROM Ingrediente
             WHERE quantità = 0
         )
+    );
+
+    -- Se un prodotto non è presente nella tabella composizione, e quindi non ha nessun ingrediente associato,
+    -- metto la disponibilità a FALSE
+    UPDATE prodotto
+    SET disponibilità = FALSE
+    WHERE nome NOT IN (
+        SELECT DISTINCT nomeProdotto
+        FROM composizione
     );
 
 END$$
@@ -1164,6 +1189,8 @@ CREATE PROCEDURE segna_rifornimento_consegnato(
     IN p_ingrediente VARCHAR(50),
     IN p_operatore_id INT,
     OUT p_messaggio VARCHAR(255)
+    -- chiedo sia il'ID che l'ingrediente per evitare errori da parte dell'utente
+    -- anche se per identificare un rifornimento basterebbe solo l'ID
 )
 BEGIN
     DECLARE v_operatore_esiste BOOLEAN;
@@ -1231,7 +1258,6 @@ BEGIN
         SET p_messaggio = 'Rifornimento segnato come consegnato con successo';
 
     END;
-
 END $$
 DELIMITER ;
 
@@ -1531,6 +1557,57 @@ BEGIN
     END;
 END $$
 DELIMITER ;
+
+
+-- procedura per cambiare il luogo di consegna di un cliente != Studente
+DELIMITER $$
+CREATE PROCEDURE cambio_luogo_consegna(
+    IN p_email VARCHAR(100),
+    IN p_nuovo_luogo VARCHAR(100),
+    OUT p_messaggio VARCHAR(255)
+)
+BEGIN
+    DECLARE v_cliente_esiste BOOLEAN;
+    DECLARE v_tipo_cliente VARCHAR(30);
+    DECLARE v_vecchio_luogo VARCHAR(100);
+
+    this_procedure: BEGIN
+        -- Verifica esistenza cliente
+        SELECT COUNT(*) > 0 INTO v_cliente_esiste
+        FROM cliente
+        WHERE email = p_email;
+
+        IF NOT v_cliente_esiste THEN
+            SET p_messaggio = 'Cliente non trovato';
+            LEAVE this_procedure;
+        END IF;
+
+        -- Controlla il tipo di cliente
+        SELECT tipoCliente INTO v_tipo_cliente
+        FROM cliente
+        WHERE email = p_email;
+
+        IF v_tipo_cliente = 'Studente' THEN
+            SET p_messaggio = 'Gli studenti non possono cambiare il luogo di consegna';
+            LEAVE this_procedure;
+        END IF;
+
+        SELECT luogoConsegna INTO v_vecchio_luogo
+        FROM cliente
+        WHERE email = p_email;
+
+        -- Esegui UPDATE per cambiare il luogo di consegna
+        UPDATE cliente
+        SET luogoConsegna = p_nuovo_luogo
+        WHERE email = p_email;
+
+        SET p_messaggio = CONCAT('Luogo di consegna aggiornato da ', v_vecchio_luogo, ' a ', p_nuovo_luogo, ' per il cliente con email: ', p_email);
+
+    END;
+END $$
+DELIMITER ;
+
+
 
 -- ***** PROCEDURE SUI DATI DEGLI OPERATORI *****
 
@@ -1878,6 +1955,7 @@ GRANT SELECT ON owlbreak.ordine TO 'Personale-Docente'@'localhost';
 GRANT SELECT ON owlbreak.prodotto TO 'Personale-Docente'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Docente'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_cliente TO 'Personale-Docente'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.cambio_luogo_consegna TO 'Personale-Docente'@'localhost';
 
 
 -- PRIVILEGI ATA
@@ -1886,6 +1964,7 @@ GRANT SELECT ON owlbreak.ordine TO 'Personale-Ata'@'localhost';
 GRANT SELECT ON owlbreak.prodotto TO 'Personale-Ata'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.effettua_ordine TO 'Personale-Ata'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_cliente TO 'Personale-Ata'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.cambio_luogo_consegna TO 'Personale-Ata'@'localhost';
 
 
 -- PRIVILEGI SEGRETERIA
@@ -1897,6 +1976,7 @@ GRANT EXECUTE ON PROCEDURE owlbreak.insert_cliente TO 'Personale-Segreteria'@'lo
 GRANT EXECUTE ON PROCEDURE owlbreak.modifica_cliente TO 'Personale-Segreteria'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.elimina_cliente TO 'Personale-Segreteria'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_cliente TO 'Personale-Segreteria'@'localhost';
+GRANT EXECUTE ON PROCEDURE owlbreak.cambio_luogo_consegna TO 'Personale-Segreteria'@'localhost';
 
 
 -- PRIVILEGI TITOLARE
