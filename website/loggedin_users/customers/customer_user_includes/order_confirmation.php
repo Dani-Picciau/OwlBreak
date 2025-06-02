@@ -25,15 +25,44 @@
 ?>
 
 <!DOCTYPE html>
-<html lang="it">
+<html lang="en">
     <head>
         <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="icon" href="/owlbreak/website/images/logo.svg" type="svg">
         <title>Esito Ordine</title>
+
+        <!-- Icons -->
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+
+        <!-- Google Fonts -->
+        <link rel="preconnect" href="https://fonts.googleapis.com" />
+        <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+        <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@100;300;500;700&display=swap" rel="stylesheet" />
+        <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@200;400;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400;700&display=swap" rel="stylesheet">
         <style>
-            body { font-family: sans-serif; max-width: 600px; margin: 2em auto; }
-            .success { color: green; }
-            .error   { color: red; }
-            ul { padding-left: 1.2em; }
+            * {
+                margin: 0;
+                padding: 0;
+                box-sizing: border-box;
+                font-family: 'Poppins', sans-serif;
+                font-weight:700;
+            }
+            body { 
+                font-family: sans-serif; 
+                max-width: 600px; 
+                margin: 2em auto; 
+            }
+            .success { 
+                color: green; 
+            }
+            .error { 
+                color: red; 
+            }
+            ul { 
+                padding-left: 1.2em; 
+            }
         </style>
     </head>
     <body>
