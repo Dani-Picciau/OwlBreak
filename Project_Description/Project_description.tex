@@ -189,6 +189,9 @@
         \item Eliminazione di un cliente dal sistema;
         \item Eliminazione di un operatore dal sistema;
         \item Eliminazione di un fornitore dal sistema;
+        \item Eliminazione di un prodotto dal sistema;
+        \item Eliminazione di un ingrediente dal sistema;
+        \item Eliminazione di una composizione dal sistema;
     \end{enumerate}
 
     \subsubsection{Operazioni di conferma e aggiornamento}
@@ -205,7 +208,7 @@
         \item Visualizzazione degli ordini giornalieri di un singolo cliente;
         \item Visualizzazione della cronologia ordini di un singolo cliente;
         \item Visualizzazione del prezzo totale di un ordine da parte di un cliente;
-        \item Visualizzazione dei prodotti disponibili ad essere ordinati.
+        \item Visualizzazione dei prodotti disponibili ad essere ordinati;
         \item Visualizzazione, per gli operatori, degli ordini giornalieri suddivisi per luogo di consegna;
         \item Visualizzazione dei dati relativi ai fornitori da parte degli operatori;
         \item Visualizzazione delle richieste di rifornimento da parte degli operatori, raggruppate per fornitore;
@@ -257,7 +260,6 @@
     \subsubsection{Regole di derivazione}
     \begin{enumerate}[leftmargin=3em,label=\textbf{(RD\arabic*)}]
         \item  Il numero di ordini effettuati da un cliente può essere calcolato contando le istanze della relazione Richiesta\_C-O associate a quel cliente.
-        \item Il numero di ordini effettuati da un cliente si orriene calcolando il numero di tuple dove la mail del cliente coincide con l'email del cliente che ha effettuato l'ordine;
         \item Il totale speso in ordini da un determinato cliente può essere calcolato sommando i prezzi dei prodotti inclusi negli ordini effettuati da quel cliente.
         \item La media spesa per ordine di un determinato cliente può essere calcolata dividendo il totale speso in ordini per il numero di ordini effettuati da quel cliente.
         \item Gli ordini associati ad un determinato operatore "\textit{Addetto-Consegna}" possono essere ottenuti grazie ai luoghi di consegna associati a quell'operatore nella tabella Assegnazione, e filtrando gli ordini in base al luogo di consegana associato al cliente che ha effettuato l'ordine; 
@@ -418,17 +420,19 @@
             \centering
             \begin{tabular}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{1cm}|>{\centering\arraybackslash}m{3cm}|}
                 \hline
-                \textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza} \\
+                \textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza}\\
                 \hline
-                Op. 1 & I & 1400 al giorno\\
+                Op. 1 & I & 125 all'anno\\
                 \hline
-                Op. 2 & I & 35 al giorno\\
+                Op. 2 & I & 3 all'anno\\
                 \hline
-                Op.3 & I & 1400 al giorno\\
+                Op. 3 & I & 3 all'anno\\
                 \hline
-                Op.4 & I & 35 al giorno\\
+                Op. 3 & I & 3 all'anno\\
                 \hline
-                Op.5 & I & 1435 al giorno\\
+                Op. 3 & I & 3 all'anno\\
+                \hline
+                Op. 3 & I & 3 all'anno\\
                 \hline
             \end{tabular}
             \begin{center}
@@ -460,24 +464,28 @@
             \centering
             \begin{tabular}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{1cm}|>{\centering\arraybackslash}m{3cm}|}
                 \hline
-                \textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza}\\
+                \textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza} \\
                 \hline
-                Op. 1 & I & 125 all'anno\\
+                Op. 1 & I & 1400 al giorno\\
                 \hline
-                Op. 2 & I & 3 all'anno\\
+                Op. 2 & I & 35 al giorno\\
                 \hline
-                Op. 3 & I & 3 all'anno\\
+                Op.3 & I & 1400 al giorno\\
+                \hline
+                Op.4 & I & 35 al giorno\\
+                \hline
+                Op.5 & I & 1435 al giorno\\
                 \hline
             \end{tabular}
             \caption*{\textbf{Operazioni di cancellazione}}
         \end{minipage}
-        \vspace{-4pt}
+        \vspace{-7pt}
         \caption{Riepilogo delle operazioni previste nello schema}
+        \vspace{-8pt}
         \label{tab:operazioni_4x}
     \end{table}
     
     \FloatBarrier
-    \vspace{-8pt}
     \begin{tcolorbox}[
         colback=yellow!10, 
         colframe=yellow!50!black, 

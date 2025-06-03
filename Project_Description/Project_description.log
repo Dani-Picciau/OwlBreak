@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  3 JUN 2025 17:53
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  3 JUN 2025 20:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -881,73 +881,73 @@ Underfull \hbox (badness 10000) in paragraph at lines 160--161
  []
 
 [3]
-Overfull \hbox (24.53648pt too wide) in paragraph at lines 197--198
+Overfull \hbox (24.53648pt too wide) in paragraph at lines 200--201
 []\T1/bch/m/n/12 (-20) Conferma della con-segna di un ri-forn-i-mento da parte di un for-n-i-tore (im-plica l'aggiornamento
  []
 
-[4]
-<figures/Conceptual_model.pdf, id=233, 957.5775pt x 413.29407pt>
+[4] [5]
+<figures/Conceptual_model.pdf, id=240, 957.5775pt x 413.29407pt>
 File: figures/Conceptual_model.pdf Graphic file (type pdf)
 <use figures/Conceptual_model.pdf>
-Package pdftex.def Info: figures/Conceptual_model.pdf  used on input line 224.
+Package pdftex.def Info: figures/Conceptual_model.pdf  used on input line 227.
 (pdftex.def)             Requested size: 483.69687pt x 208.76544pt.
- [5 <./figures/Conceptual_model.pdf>] [6]
-<figures/Conceptual_model2.pdf, id=270, 934.24031pt x 353.82187pt>
+ [6 <./figures/Conceptual_model.pdf>] [7]
+<figures/Conceptual_model2.pdf, id=276, 934.24031pt x 353.82187pt>
 File: figures/Conceptual_model2.pdf Graphic file (type pdf)
 <use figures/Conceptual_model2.pdf>
-Package pdftex.def Info: figures/Conceptual_model2.pdf  used on input line 288.
+Package pdftex.def Info: figures/Conceptual_model2.pdf  used on input line 290.
 (pdftex.def)             Requested size: 483.69687pt x 183.18939pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 281--292
+Underfull \hbox (badness 10000) in paragraph at lines 283--294
 
  []
 
-[7 <./figures/Conceptual_model2.pdf>] [8]
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 395--414
+[8 <./figures/Conceptual_model2.pdf>] [9]
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 397--416
  [][] 
  []
 
 
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 419--434
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 421--438
  [][] 
  []
 
 
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 445--456
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 449--460
  [][] 
  []
 
 
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 461--472
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 465--480
  [][] 
  []
 
-LaTeX Font Info:    Trying to load font information for U+fontawesomethree on input line 485.
+LaTeX Font Info:    Trying to load font information for U+fontawesomethree on input line 493.
 (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome\ufontawesomethree.fd
 File: ufontawesomethree.fd 2016/05/22 Font definitions for U/fontawesomethree.
-) [9] [10{C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/fontawesome/fontawesomethree.enc}]
-<figures/g132.pdf, id=302, 13.04875pt x 13.04875pt>
+) [10] [11{C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/fontawesome/fontawesomethree.enc}]
+<figures/g132.pdf, id=308, 13.04875pt x 13.04875pt>
 File: figures/g132.pdf Graphic file (type pdf)
 <use figures/g132.pdf>
-Package pdftex.def Info: figures/g132.pdf  used on input line 597.
+Package pdftex.def Info: figures/g132.pdf  used on input line 605.
 (pdftex.def)             Requested size: 11.3072pt x 11.3079pt.
-<figures/path621.pdf, id=303, 12.045pt x 13.04875pt>
+<figures/path621.pdf, id=309, 12.045pt x 13.04875pt>
 File: figures/path621.pdf Graphic file (type pdf)
 <use figures/path621.pdf>
-Package pdftex.def Info: figures/path621.pdf  used on input line 599.
+Package pdftex.def Info: figures/path621.pdf  used on input line 607.
 (pdftex.def)             Requested size: 11.3072pt x 12.24948pt.
-<figures/Relational_model.pdf, id=304, 1831.84375pt x 782.925pt>
+<figures/Relational_model.pdf, id=310, 1831.84375pt x 782.925pt>
 File: figures/Relational_model.pdf Graphic file (type pdf)
 <use figures/Relational_model.pdf>
-Package pdftex.def Info: figures/Relational_model.pdf  used on input line 606.
+Package pdftex.def Info: figures/Relational_model.pdf  used on input line 614.
 (pdftex.def)             Requested size: 483.69687pt x 206.73346pt.
- [11 <./figures/g132.pdf> <./figures/path621.pdf
+ [12 <./figures/g132.pdf> <./figures/path621.pdf
 
 pdfTeX warning: pdflatex (file ./figures/path621.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 > <./figures/Relational_model.pdf
 
 pdfTeX warning: pdflatex (file ./figures/Relational_model.pdf): PDF inclusion: multiple pdfs with page group included in a single page
->] [12] [13] [14] [15] [16] (Project_description.aux)
+>] [13] [14] [15] [16] [17] (Project_description.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
@@ -956,17 +956,17 @@ Package rerunfilecheck Info: File `Project_description.out' has not changed.
 (rerunfilecheck)             Checksum: 7CB90B60A705104ADE42388F1D5DF35E;5105.
  ) 
 Here is how much of TeX's memory you used:
- 33792 strings out of 474486
- 663902 string characters out of 5743756
- 1953542 words of memory out of 5000000
+ 33795 strings out of 474486
+ 663923 string characters out of 5743756
+ 1955542 words of memory out of 5000000
  55174 multiletter control sequences out of 15000+600000
  606055 words of font info for 226 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 93i,14n,99p,1061b,607s stack positions out of 10000i,1000n,20000p,200000b,200000s
+ 93i,14n,99p,1061b,621s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/fontawesome/FontAwesome.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchb8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on Project_description.pdf (17 pages, 736785 bytes).
+Output written on Project_description.pdf (18 pages, 737747 bytes).
 PDF statistics:
- 1918 PDF objects out of 2073 (max. 8388607)
- 111 named destinations out of 1000 (max. 500000)
+ 1924 PDF objects out of 2073 (max. 8388607)
+ 114 named destinations out of 1000 (max. 500000)
  32659 words of extra memory for PDF output out of 35830 (max. 10000000)
 

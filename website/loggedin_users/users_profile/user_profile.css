@@ -770,7 +770,7 @@ input{
     padding-top:3px;
 }
 
-.error-message section span{
+.error-message span{
     font-family: var(--font-family-inter);
     font-weight: 500;
 }
@@ -795,7 +795,7 @@ input{
     padding-top:3px;
 }
 
-.success-message section span{
+.success-message span{
     font-family: var(--font-family-inter);
     font-weight: 500;
 }

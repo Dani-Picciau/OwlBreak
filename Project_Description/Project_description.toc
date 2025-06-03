@@ -7,21 +7,21 @@
 \contentsline {subsubsection}{\numberline {1.3.3}Operazioni di eliminazione}{4}{subsubsection.1.3.3}%
 \contentsline {subsubsection}{\numberline {1.3.4}Operazioni di conferma e aggiornamento}{4}{subsubsection.1.3.4}%
 \contentsline {subsubsection}{\numberline {1.3.5}Operazioni di visualizzazione}{4}{subsubsection.1.3.5}%
-\contentsline {section}{\numberline {2}Modellazione concettuale}{5}{section.2}%
-\contentsline {subsection}{\numberline {2.1}Schema E-R}{5}{subsection.2.1}%
-\contentsline {subsection}{\numberline {2.2}Descrizione dei vincoli}{5}{subsection.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.1}Cardinalità}{5}{subsubsection.2.2.1}%
-\contentsline {subsubsection}{\numberline {2.2.2}Regole di vincolo non esprimibili nello schema}{6}{subsubsection.2.2.2}%
-\contentsline {subsubsection}{\numberline {2.2.3}Regole di derivazione}{6}{subsubsection.2.2.3}%
-\contentsline {section}{\numberline {3}Modellazione logica}{7}{section.3}%
-\contentsline {subsection}{\numberline {3.1}Ristrutturazione dello schema E-R}{7}{subsection.3.1}%
-\contentsline {subsubsection}{\numberline {3.1.1}Eliminazione delle generalizzazioni}{7}{subsubsection.3.1.1}%
-\contentsline {subsection}{\numberline {3.2}Tavola dei volumi}{8}{subsection.3.2}%
-\contentsline {subsubsection}{\numberline {3.2.1}Volume delle associazioni}{8}{subsubsection.3.2.1}%
-\contentsline {subsection}{\numberline {3.3}Tavole delle operazioni}{9}{subsection.3.3}%
-\contentsline {subsection}{\numberline {3.4}Traduzione nel modello relazionale}{10}{subsection.3.4}%
-\contentsline {subsubsection}{\numberline {3.4.1}Vincoli di integrità referenziale}{11}{subsubsection.3.4.1}%
-\contentsline {subsubsection}{\numberline {3.4.2}Modello relazionale}{11}{subsubsection.3.4.2}%
-\contentsline {section}{\numberline {4}Normalizzazione}{12}{section.4}%
-\contentsline {subsection}{\numberline {4.1}Tecniche di normalizzazione}{12}{subsection.4.1}%
-\contentsline {section}{\numberline {5}Conclusioni}{16}{section.5}%
+\contentsline {section}{\numberline {2}Modellazione concettuale}{6}{section.2}%
+\contentsline {subsection}{\numberline {2.1}Schema E-R}{6}{subsection.2.1}%
+\contentsline {subsection}{\numberline {2.2}Descrizione dei vincoli}{6}{subsection.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.1}Cardinalità}{6}{subsubsection.2.2.1}%
+\contentsline {subsubsection}{\numberline {2.2.2}Regole di vincolo non esprimibili nello schema}{7}{subsubsection.2.2.2}%
+\contentsline {subsubsection}{\numberline {2.2.3}Regole di derivazione}{7}{subsubsection.2.2.3}%
+\contentsline {section}{\numberline {3}Modellazione logica}{8}{section.3}%
+\contentsline {subsection}{\numberline {3.1}Ristrutturazione dello schema E-R}{8}{subsection.3.1}%
+\contentsline {subsubsection}{\numberline {3.1.1}Eliminazione delle generalizzazioni}{8}{subsubsection.3.1.1}%
+\contentsline {subsection}{\numberline {3.2}Tavola dei volumi}{9}{subsection.3.2}%
+\contentsline {subsubsection}{\numberline {3.2.1}Volume delle associazioni}{9}{subsubsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.3}Tavole delle operazioni}{10}{subsection.3.3}%
+\contentsline {subsection}{\numberline {3.4}Traduzione nel modello relazionale}{11}{subsection.3.4}%
+\contentsline {subsubsection}{\numberline {3.4.1}Vincoli di integrità referenziale}{12}{subsubsection.3.4.1}%
+\contentsline {subsubsection}{\numberline {3.4.2}Modello relazionale}{12}{subsubsection.3.4.2}%
+\contentsline {section}{\numberline {4}Normalizzazione}{13}{section.4}%
+\contentsline {subsection}{\numberline {4.1}Tecniche di normalizzazione}{13}{subsection.4.1}%
+\contentsline {section}{\numberline {5}Conclusioni}{17}{section.5}%
