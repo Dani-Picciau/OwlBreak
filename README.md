@@ -10,6 +10,12 @@ Tutti i file riguardanti la parte web si troveranno dentro owlbreak/website/….
 
 * L'utente admin è utilizzato solo nel file java iin quanto non era stato previsto un utilizzo di un admin per l'applicazione web. 
   Quest'ultima è stata infatti sviluppata per scopo accademico e per questo l'admin del database siamo noi stessi con l'utente root.
+
+* Visto il contesto per il quale si volevano realizzare il database e il sito web, sono stati implementati dei vincoli sull'ordine da parte del cliente.  
+  Quest'ultimo era infatti previsto solo dalle 8:00 alle 10:00 e dal lunedì a sabato. Per semplicità e comodità di test, sono stati modificati.  
+  Si potrà notare che il trigger per il controllo sul giorno della settimana è commentato, così come il pezzo equivalente nella procedura effettua_ordine.
+  Il trigger sul controllo dell'orario è invece stato modificato per permettere ordini dalle 8:00 alle 22:00, stessa cosa per il controllo equivalente che è stato implementato nella procedura effettua_ordine. 
+  Qualora si vogliano testare queste funzionalità per determinati giorni e orari è possibile decommentare i pezzi di codice indicati sopra o modificare gli orari a prorpio piacimento. 
   
 # Profili utente per applicazione web e password:
 **Clienti con ordini effettuati**:  
