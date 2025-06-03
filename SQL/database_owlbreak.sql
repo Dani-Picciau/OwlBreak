@@ -101,7 +101,7 @@ CREATE TABLE rifornimento (
     FOREIGN KEY (FornitoreID) REFERENCES Fornitore(CodiceID)
 );
 
-CREATE TABLE consegna (
+CREATE TABLE assegnazione (
     luogoConsegna VARCHAR(100) PRIMARY KEY,
     OperatoreID INT,
     FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID)
@@ -223,7 +223,7 @@ INSERT INTO operatore (CodiceID, email, passw, nome, cognome, ruolo) VALUES
 (4,'m.romano@owlbreak.it', '$2y$10$1FedTJ/UGefggQVyb17UkeFB8Typof3OFkpLlOXqOVMyHsV1ZnXya', 'Maria Grazia', 'Romano', 'Addetto-Vendite'),
 (5,'e.serra@owlbreak.it', '$2y$10$kgoUKF.d1MEjWKVyEngRjuDZ6f3cbVrdeHy7gy24SuQsazGKGQPSG', 'Elena', 'Serra', 'Addetto-Consegne');
 
-INSERT INTO consegna(luogoConsegna, OperatoreID) VALUES
+INSERT INTO assegnazione(luogoConsegna, OperatoreID) VALUES
 ('4A', 2),
 ('Segreteria Centrale', 5);
 
@@ -1002,7 +1002,7 @@ BEGIN
 
         -- Verifica se il luogo è già associato a un operatore
         SELECT OperatoreID INTO v_operatore_id
-        FROM consegna
+        FROM assegnazione
         WHERE luogoConsegna = v_luogo_consegna;
 
         -- Se non è già assegnato, scegli l'operatore più bilanciato
@@ -1011,9 +1011,9 @@ BEGIN
             -- Trova il numero minimo di assegnamenti per operatore
             SELECT MIN(assegnamenti) INTO v_min_assegnamenti
             FROM (
-                SELECT o.CodiceID, COUNT(c.luogoConsegna) AS assegnamenti
+                SELECT o.CodiceID, COUNT(a.luogoConsegna) AS assegnamenti
                 FROM operatore o
-                LEFT JOIN consegna c ON o.CodiceID = c.OperatoreID
+                LEFT JOIN assegnazione a ON o.CodiceID = a.OperatoreID
                 WHERE o.ruolo = 'Addetto-Consegne'
                 GROUP BY o.CodiceID
             ) AS conteggi;
@@ -1024,8 +1024,8 @@ BEGIN
             WHERE o.ruolo = 'Addetto-Consegne'
               AND (
                 SELECT COUNT(*) 
-                  FROM consegna c 
-                  WHERE c.OperatoreID = o.CodiceID
+                  FROM assegnazione a 
+                  WHERE a.OperatoreID = o.CodiceID
               ) = v_min_assegnamenti;
 
 
@@ -1036,7 +1036,7 @@ BEGIN
             END IF;
 
             -- Assegna l'operatore a questo nuovo luogo
-            INSERT INTO consegna (luogoConsegna, OperatoreID)
+            INSERT INTO assegnazione (luogoConsegna, OperatoreID)
             VALUES (v_luogo_consegna, v_operatore_id);
         END IF;
         
