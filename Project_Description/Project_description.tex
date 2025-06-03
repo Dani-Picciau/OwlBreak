@@ -244,11 +244,23 @@
         \item  Gli ordini devono essere effettuati tra le 8 e le 10 del mattino;
         \item La quantità di ogni ingrediente deve essere aggiornata ogni volta che viene effettuato un ordine;
         \item La quantità di ogni ingrediente deve essere aggiornata ogni volta che un rifornimento viene consegnato;
+        \item La disponibilità dei prodotti deve essere aggiornata dopo ogni aggiornamento ed eliminazione di un ingrediente;
+        \item La disponibilità dei prodotti deve essere aggiornata dopo ogni inderimento ed eliminazione di una composizione;
+        \item Un cliente può modificare il proprio luogo consegan solo se il suo tipo non è "\textit{Studente}";
+        \item Un nuovo cliente può essere aggiunto solo da clienti con tipo "\textit{Addetto-Segreteria}";
+        \item Un nuovo operatore può essere aggiunto solo da clienti con tipo "\textit{Titolare}";
+        \item Un ordine può essere consegnato solo da un operatore con tipo "\textit{Addetto-Consegna}";
+        \item Un rifornimento può essere richiesto solo da un operatore con tipo "\textit{Addetto-Vendite}" o "\textit{Titolare}";
+        \item Un rifornimento può essere segnato come consegnato solo da un operatore con tipo "\textit{Addetto-Vendite}" o "\textit{Titolare}";
     \end{enumerate}
 
     \subsubsection{Regole di derivazione}
     \begin{enumerate}[leftmargin=3em,label=\textbf{(RD\arabic*)}]
         \item  Il numero di ordini effettuati da un cliente può essere calcolato contando le istanze della relazione Richiesta\_C-O associate a quel cliente.
+        \item Il numero di ordini effettuati da un cliente si orriene calcolando il numero di tuple dove la mail del cliente coincide con l'email del cliente che ha effettuato l'ordine;
+        \item Il totale speso in ordini da un determinato cliente può essere calcolato sommando i prezzi dei prodotti inclusi negli ordini effettuati da quel cliente.
+        \item La media spesa per ordine di un determinato cliente può essere calcolata dividendo il totale speso in ordini per il numero di ordini effettuati da quel cliente.
+        \item Gli ordini associati ad un determinato operatore "\textit{Addetto-Consegna}" possono essere ottenuti grazie ai luoghi di consegna associati a quell'operatore nella tabella Assegnazione, e filtrando gli ordini in base al luogo di consegana associato al cliente che ha effettuato l'ordine; 
     \end{enumerate}
 
     \newpage
