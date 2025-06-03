@@ -14,6 +14,100 @@ CREATE DATABASE owlbreak;
 
 USE owlbreak;
 
+
+/*CREATE TABLE cliente (
+    email VARCHAR(100) PRIMARY KEY,
+    passw VARCHAR(255) NOT NULL,
+    nome VARCHAR(50) NOT NULL,
+    cognome VARCHAR(50) NOT NULL,
+    luogoConsegna VARCHAR(100) NOT NULL,
+    tipoCliente VARCHAR(30) NOT NULL CHECK (
+        tipoCliente IN (
+            'Studente',
+            'Personale-Docente',
+            'Personale-Ata',
+            'Personale-Segreteria'
+        )
+    )
+);
+
+CREATE TABLE prodotto (
+    nome VARCHAR(50) PRIMARY KEY,
+    prezzo DECIMAL(6,2) NOT NULL,
+    disponibilità BOOLEAN NOT NULL
+);
+
+CREATE TABLE operatore (
+    CodiceID INT PRIMARY KEY AUTO_INCREMENT,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    passw VARCHAR(255) NOT NULL,
+    nome VARCHAR(50) NOT NULL,
+    cognome VARCHAR(50) NOT NULL,
+    ruolo VARCHAR(30) NOT NULL CHECK (
+        ruolo IN (
+            'Titolare',
+            'Addetto-Consegne',
+            'Addetto-Vendite'
+        )
+    )
+);
+
+CREATE TABLE ordine (
+    data DATE,
+    ora TIME,
+    emailCliente VARCHAR(100),
+    nomeProdotto VARCHAR(50),
+    consegnato BOOLEAN DEFAULT FALSE,
+    quantità INT NOT NULL CHECK (quantità > 0),
+    OperatoreID INT,
+    PRIMARY KEY (data, ora, emailCliente, nomeProdotto),
+    FOREIGN KEY (emailCliente) REFERENCES Cliente(email) ON DELETE CASCADE,
+    FOREIGN KEY (nomeProdotto) REFERENCES Prodotto(nome) ON DELETE CASCADE,
+    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID) ON DELETE SET NULL
+);
+
+CREATE TABLE ingrediente (
+    nome VARCHAR(50) PRIMARY KEY,
+    allergeni VARCHAR(200),
+    quantità INT NOT NULL CHECK (quantità >= 0)
+);
+
+CREATE TABLE composizione (
+    nomeProdotto VARCHAR(50),
+    nomeIngrediente VARCHAR(50),
+    PRIMARY KEY (nomeProdotto, nomeIngrediente),
+    FOREIGN KEY (nomeProdotto) REFERENCES Prodotto(nome) ON DELETE CASCADE,
+    FOREIGN KEY (nomeIngrediente) REFERENCES Ingrediente(nome) -- gestito nella procedura
+);
+
+CREATE TABLE fornitore (
+    CodiceID INT PRIMARY KEY AUTO_INCREMENT,
+    nomeTitolare VARCHAR(50),
+    nomeAzienda VARCHAR(50),
+    email VARCHAR(100),
+    passw VARCHAR(255)
+);
+
+CREATE TABLE rifornimento (
+    CodiceID INT NOT NULL AUTO_INCREMENT,
+    ingrediente VARCHAR(50) NOT NULL,
+    quantità INT NOT NULL,
+    data DATE NOT NULL,
+    ora TIME NOT NULL,
+    consegnato BOOLEAN DEFAULT FALSE,
+    OperatoreID INT,
+    FornitoreID INT,
+    PRIMARY KEY (CodiceID, ingrediente),
+    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID) ON DELETE SET NULL,
+    FOREIGN KEY (FornitoreID) REFERENCES Fornitore(CodiceID) ON DELETE SET NULL
+);
+
+CREATE TABLE assegnazione (
+    luogoConsegna VARCHAR(100) PRIMARY KEY,
+    OperatoreID INT,
+    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID) ON DELETE SET NULL
+);*/
+
 /* CREAZIONE TABELLE */
 
 CREATE TABLE cliente (
@@ -1883,6 +1977,57 @@ END $$
 DELIMITER ;
 
 */
+
+
+DELIMITER $$
+CREATE TRIGGER riassegna_operatore_before_delete
+BEFORE DELETE ON operatore
+FOR EACH ROW
+BEGIN
+    DECLARE nuovo_operatore_id INT;
+    DECLARE v_min_assegnamenti INT;
+    
+    -- Se l'operatore da eliminare è un Addetto-Consegne
+    IF OLD.ruolo = 'Addetto-Consegne' THEN
+        -- Trova il numero minimo di assegnamenti per operatore (stesso codice di effettua_ordine)
+        SELECT MIN(assegnamenti) INTO v_min_assegnamenti
+        FROM (
+            SELECT o.CodiceID, COUNT(a.luogoConsegna) AS assegnamenti
+            FROM operatore o
+            LEFT JOIN assegnazione a ON o.CodiceID = a.OperatoreID
+            WHERE o.ruolo = 'Addetto-Consegne' AND o.CodiceID != OLD.CodiceID
+            GROUP BY o.CodiceID
+        ) AS conteggi;
+
+        -- Se esistono altri operatori dello stesso tipo
+        IF v_min_assegnamenti IS NOT NULL THEN
+            -- Prendi il CodiceID più piccolo tra quelli che hanno conteggio = v_min_assegnamenti
+            SELECT MIN(o.CodiceID) INTO nuovo_operatore_id
+            FROM operatore o
+            WHERE o.ruolo = 'Addetto-Consegne' 
+              AND o.CodiceID != OLD.CodiceID
+              AND (
+                SELECT COUNT(*) 
+                FROM assegnazione a 
+                WHERE a.OperatoreID = o.CodiceID
+              ) = v_min_assegnamenti;
+
+            -- Se esiste un operatore disponibile, riassegna
+            IF nuovo_operatore_id IS NOT NULL THEN
+                -- Aggiorna gli ordini
+                UPDATE ordine
+                SET OperatoreID = nuovo_operatore_id
+                WHERE OperatoreID = OLD.CodiceID;
+                
+                -- Aggiorna le assegnazioni di luoghi di consegna
+                UPDATE assegnazione
+                SET OperatoreID = nuovo_operatore_id
+                WHERE OperatoreID = OLD.CodiceID;
+            END IF;
+        END IF;
+    END IF;
+END$$
+DELIMITER ;
 
 
 -- ***** PRIVILEGI *****
