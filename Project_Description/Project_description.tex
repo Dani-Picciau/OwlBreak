@@ -172,6 +172,9 @@
         \item Inserimento di un nuovo operatore nel sistema;
         \item Inserimento di una nuova richiesta di rifornimento da parte di un operatore verso un fornitore;
         \item Inserimento di un nuovo ordine da parte di un cliente (implica la rimozione della quantità corrispondente di ingredienti dal sistema).
+        \item Inserimento di un nuovo fornitore nel sistema;
+        \item Inserimento di un nuovo prodotto nel sistema;
+        \item Inserimento di un nuovo ingrediente nel sistema;
     \end{enumerate}
 
     \subsubsection{Operazioni di modifica}
@@ -179,21 +182,22 @@
         \item Modifica dei dati di un cliente;
         \item Modifica dei dati di un operatore;
         \item Modifica dei dati di un fornitore;
-        \item Modifica di una richiesta di rifornimento da parte di un operatore verso un fornitore.
     \end{enumerate}
 
     \subsubsection{Operazioni di eliminazione}
     \begin{enumerate}[leftmargin=2.8em,label=\textbf{Op.\arabic*}]
         \item Eliminazione di un cliente dal sistema;
         \item Eliminazione di un operatore dal sistema;
-        \item Eliminazione di un ordine da parte di un cliente (implica la riaggiunta della quantità corrispondente di ingredienti nel sistema);
-        \item Eliminazione di una richiesta di rifornimento da parte di un operatore verso un fornitore.
+        \item Eliminazione di un fornitore dal sistema;
     \end{enumerate}
 
     \subsubsection{Operazioni di conferma e aggiornamento}
     \begin{enumerate}[leftmargin=2.8em,label=\textbf{Op.\arabic*}]
         \item Conferma della consegna di un ordine da parte di un operatore;
         \item Conferma della consegna di un rifornimento da parte di un fornitore (implica l'aggiornamento delle scorte di ingredienti, con eventuale inserimento di nuovi ingredienti se necessario).
+        \item Aggiornamento della quantità di un ingrediente dopo un ordine;
+        \item Aggiornamento della quantità di un ingrediente dopo un rifornimento;
+        \item Aggiornamento della disponibilità di un prodotto;
     \end{enumerate}
 
     \subsubsection{Operazioni di visualizzazione}
@@ -294,7 +298,7 @@
             \hline
             Operatore & E & 10\\
             \hline
-            Assegnazione & E & 25\\
+            Assegnazione & E & 30\\
             \hline
             Rifornimento & E & 35\\
             \hline
@@ -308,7 +312,7 @@
             \hline
             Gestione & R & 1400\\
             \hline
-            Associamento & R & 25\\
+            Associamento & R & 30\\
             \hline
             Richiesta\_O-R & R & 35\\ 
             \hline
@@ -388,6 +392,12 @@
                 \hline
                 Op. 4 & I & 1400 al giorno\\
                 \hline
+                Op. 5 & I & 3 all'anno\\
+                \hline
+                Op.6 & I & 7 all'anno\\
+                \hline
+                Op.7 & I & 14 all'anno \\
+                \hline
             \end{tabular}
             \caption*{\textbf{Operazioni di inserimento}}
         \end{minipage}
@@ -396,18 +406,22 @@
             \centering
             \begin{tabular}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{1cm}|>{\centering\arraybackslash}m{3cm}|}
                 \hline
-                \textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza}\\
+                \textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza} \\
                 \hline
-                Op. 1 & I & 125 all'anno\\
+                Op. 1 & I & 1400 al giorno\\
                 \hline
-                Op. 2 & I & 3 all'anno\\
+                Op. 2 & I & 35 al giorno\\
                 \hline
-                Op. 3 & I & 350 al giorno\\
+                Op.3 & I & 1400 al giorno\\
                 \hline
-                Op. 4 & I & 5 a settimana\\
+                Op.4 & I & 35 al giorno\\
+                \hline
+                Op.5 & I & 1435 al giorno\\
                 \hline
             \end{tabular}
-            \caption*{\textbf{Operazioni di cancellazione}}
+            \begin{center}
+                \textbf{Operazioni di conferma e aggiornamento}
+            \end{center}
         \end{minipage}
     \end{table}
     \vspace{-0.5cm}
@@ -434,16 +448,16 @@
             \centering
             \begin{tabular}{|>{\centering\arraybackslash}m{2.5cm}|>{\centering\arraybackslash}m{1cm}|>{\centering\arraybackslash}m{3cm}|}
                 \hline
-                \textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza} \\
+                \textbf{Operazione} & \textbf{Tipo} & \textbf{Frequenza}\\
                 \hline
-                Op. 1 & I & 1400 al giorno\\
+                Op. 1 & I & 125 all'anno\\
                 \hline
-                Op. 2 & I & 35 al giorno\\
+                Op. 2 & I & 3 all'anno\\
+                \hline
+                Op. 3 & I & 3 all'anno\\
                 \hline
             \end{tabular}
-            \begin{center}
-                \textbf{Operazioni di conferma e aggiornamento}
-            \end{center}
+            \caption*{\textbf{Operazioni di cancellazione}}
         \end{minipage}
         \vspace{-4pt}
         \caption{Riepilogo delle operazioni previste nello schema}
