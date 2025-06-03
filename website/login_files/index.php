@@ -154,16 +154,8 @@
                     ?>
                 </div>
 
-				<button class="button" id="btn-submit">
+				<button type="submit" class="button" id="btn-submit">
 					<span class="button--text">Accedi</span>
-
-					<!-- Air -->
-					<div class="button--loader">
-						<div></div>
-						<div></div>
-						<div></div>
-					</div>
-					<!-- End Air -->
 				</button>
 			</form>
         </div>
