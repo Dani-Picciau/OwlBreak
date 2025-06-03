@@ -90,7 +90,8 @@
         \item Gli \textit{Ordini} effettuati dai \textit{Clienti};
         \item I \textit{Prodotti} disponibili per essere ordinati dai \textit{Clienti};
         \item Gli \textit{Ingredienti} necessari per la composizione di un \textit{Prodotto};
-        \item Gli \textit{Operatori} del bar, i quali si occuperanno di gestire gli ordini dei \textit{Clienti} e di effetuare a loro volta delle richieste di \textit{Rifornimento}
+        \item Gli \textit{Operatori} del bar, i quali si occuperanno di gestire gli ordini dei \textit{Clienti} e di effetuare a loro volta delle richieste di \textit{Rifornimento};
+        \item Le \textit{Assegnazioni}, che si occupano di associare un determinato luogo di consegna ad uno specifico \textit{Operatore};
         \item I \textit{Rifornimenti} richiesti dagli \textit{Operatori} per l'acquisto degli \textit{Ingredienti};
         \item I \textit{Fornitori} che possono visionare le richieste di \textit{Rifornimento} degli \textit{Operatori}.
     \end{itemize}
@@ -124,6 +125,10 @@
 
     \vspace{8pt}
     \noindent
+    Le \textit{Assegnazioni} sono identificate da un luogo di consegna il cui obiettivo è quello di definire le aree di competenza degli \textit{"addetti alle consegne"} per la gestione degli ordini.
+
+    \vspace{8pt}
+    \noindent
     Per i \textit{Rifornimenti}, identificati da un codice ID, si vuole memorizzare l'ingrediente richiesto, la quantità ordinata, la data e l'ora dell'ordine, nonché l'avvenuta consegna da parte dei fornitori.
 
     \vspace{8pt}
@@ -147,6 +152,8 @@
             Ingrediente & Materia prima utilizzata per la preparazione dei Prodotti. & Componente & Prodotto \\
             \hline
             Operatore & Utente autorizzato alla gestione degli ordini e della vendita. Può effettuare richieste di rifornimento. & Addetto, Venditore & Ordine, Rifornimento \\
+            \hline
+            Assegnazione & Permette di definire le aree di competenza degli operatori per la distribuzione degli ordini & Incarico, Area assegnata & Operatore \\
             \hline
             Rifornimento & Richiesta di approvvigionamento di Ingredienti ai Fornitori. & Fornitura & Fornitore, Operatore \\
             \hline
@@ -202,7 +209,7 @@
     \end{enumerate}
 
     \newpage
-    \section{Modellazione concettuale}
+    \section{Modellazione concettuale} 
     La modellazione concettuale rappresenta un passaggio fondamentale nella progettazione del sistema, in quanto consente di definire in modo chiaro e strutturato le entità coinvolte e le relazioni tra di esse.\\
     Attraverso l'uso del modello Entità-Relazione (E-R), è possibile ottenere una rappresentazione visiva e formale della logica del database, facilitando l'analisi e la comprensione del dominio applicativo. In questa parte verrà illustrato lo schema E-R del sistema, mettendo in evidenza le principali entità e relazioni. Successivamente, verranno descritte le cardinalità e i vincoli che regolano il funzionamento del sistema in esame.
 
@@ -223,6 +230,7 @@
         \item \textbf{Include} (1:\(N\)): Un ordine include uno e un solo prodotto, mentre un prodotto può essere incluso in 0 o \(N\) ordini;
         \item \textbf{Composizione} (\(N\):\(N\)): Un prodotto è composto da 1 o \(N\) ingredienti, mentre un ingrediente può essere parte di 1 o \(N\) prodotti;
         \item \textbf{Gestione} (1:\(N\)): Un ordine è gestito da uno e un solo operatore, mentre un operatore può gestire da 0 a \(N\) ordini;
+        \item \textbf{Associamento} (1:\(N\)): Un operatore può essere associato da 0 a \(N\) assegnazioni, mentre un'assegnazione è associata ad uno e un solo operatore;
         \item \textbf{Richiesta\_O-R} (1:\(N\)): Un operatore può effettuare da 0 a \(N\) richieste di rifornimento, mentre una richiesta di rifornimento è effettuata da uno e un solo operatore;
         \item \textbf{Visionato} (1:\(N\)): Un fornitore può visionare da 0 a \(N\) richieste di rifornimento, mentre una richiesta di rifornimento è visionata da uno e un solo fornitore;
     \end{itemize}
@@ -261,7 +269,7 @@
     \begin{figure}[H]
         \centering
         \vspace{-20pt}  % Riduce lo spazio sopra
-        \includegraphics[width=\textwidth]{figures/Conceptual_model_2.pdf}
+        \includegraphics[width=\textwidth]{figures/Conceptual_model2.pdf}
         \vspace{-20pt}  % Riduce lo spazio sopra
         \caption{Modello entità-relazione ristrutturato}
         \label{fig:Conceptual_model2}
@@ -286,6 +294,8 @@
             \hline
             Operatore & E & 10\\
             \hline
+            Assegnazione & E & 25\\
+            \hline
             Rifornimento & E & 35\\
             \hline
             Fornitore & E & 6\\
@@ -297,6 +307,8 @@
             Composizione & R & 95\\
             \hline
             Gestione & R & 1400\\
+            \hline
+            Associamento & R & 25\\
             \hline
             Richiesta\_O-R & R & 35\\ 
             \hline
@@ -324,7 +336,9 @@
         \item  \textbf{Richiesta\_C-O}: il numero di occorrenze è pari al numero di \textit{Ordini}, poiché dalla cardinalità si evince che un ordine è richiesto da un solo cliente;
         \item \textbf{Include}: il numero di occorrenze è pari al numero degli \textit{Ordini}, in quanto ogni tupla di ogni  di \textit{Ordini} include un solo prodotto;
         \item \textbf{Gestione}: il numero di occorrenze è pari a quello degli \textit{Ordini}, poiché ogni ordine viene gestito singolarmente da un operatore;
-        \item \textbf{Richiesta\_O-R}: il numero di occorrenze coincide con il numero dei \textit{Rifornimenti}, dato che dalla cardinalità risulta che ogni rifornimento è richiesto da un solo operatore;
+        \item \textbf{Associamento}: il numero di occorrenze è pari al numero di \textit{Assegnazioni}, poiché dalla cardinalità si evince che ogni assegnazione è associata ad un solo operatore; 
+        \item \textbf{Richiesta\_O-R}: il numero di occorrenze coincide con il numero dei \textit{Rifornimenti}, poiché dalla
+        cardinalità si evince che  ogni rifornimento è richiesto da un solo operatore;
         \item \textbf{Visionato}: Anche in questo caso, il numero delle occorrenze è pari al numero dei \textit{Rifornimenti},  perché ogni rifornimento è visionato da un solo fornitore.
     \end{itemize}
 
@@ -431,11 +445,13 @@
                 \textbf{Operazioni di conferma e aggiornamento}
             \end{center}
         \end{minipage}
+        \vspace{-4pt}
         \caption{Riepilogo delle operazioni previste nello schema}
-         \label{tab:operazioni_4x}
+        \label{tab:operazioni_4x}
     \end{table}
     
     \FloatBarrier
+    \vspace{-8pt}
     \begin{tcolorbox}[
         colback=yellow!10, 
         colframe=yellow!50!black, 
@@ -444,7 +460,6 @@
         Le frequenze indicate per le operazioni interattive (I) rappresentano stime medie del carico di lavoro previsto e possono variare in base all'utilizzo effettivo del sistema. Questi valori sono utilizzati come riferimento per il dimensionamento delle risorse e la valutazione delle prestazioni, ma non costituiscono limiti operativi.
     \end{tcolorbox}
     
-    \newpage
     \subsection{Traduzione nel modello relazionale}
     \begin{tcolorbox}[
         colback=gray!8,
@@ -508,7 +523,18 @@
         colframe=black!30,
         title=
     ]
-        \textbf{Rifornimento}(\textbf{\uline{CodiceID}}, \textbf{\uline{ingrediente}}, quantità, data, ora, consegnato, OperatoreID, \\FornitoreID)
+        \textbf{Assegnazione}(\textbf{\uline{LuogoConsegna}}, OperatoreID)
+        \begin{itemize}[leftmargin=1em]
+            \item \textit{OperatoreID} è chiave esterna di \textbf{Operatore}(CodiceID)
+        \end{itemize}
+    \end{tcolorbox}
+
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Rifornimento}(\textbf{\uline{CodiceID}}, ingrediente, quantità, data, ora, consegnato, OperatoreID, \\FornitoreID)
         \begin{itemize}[leftmargin=1em]
             \item \textit{OperatoreID} è chiave esterna di \textbf{Operatore}(CodiceID)
             \item \textit{FornitoreID} è chiave esterna di \textbf{Fornitore}(CodiceID)
@@ -530,11 +556,11 @@
         \item FOREIGN KEY \textbf{Ordine}(OperatoreID) REFERENCES \textbf{Operatore}(CodiceID)
         \item FOREIGN KEY \textbf{Composizione}(nomeProdotto) REFERENCES \textbf{Prodotto}(nome)
         \item FOREIGN KEY \textbf{Composizione}(nomeIngrediente) REFERENCES \textbf{Ingrediente}(nome)
+        \item FOREIGN KEY \textbf{Assegnazione}(OperatoreID) REFERENCES \textbf{Operatore}(CodiceID)
         \item FOREIGN KEY \textbf{Rifornimento}(OperatoreID) REFERENCES \textbf{Operatore}(CodiceID)
         \item FOREIGN KEY \textbf{Rifornimento}(FornitoreID) REFERENCES \textbf{Fornitore}(CodiceID)
     \end{itemize}
- 
-    \newpage
+
     \subsubsection{Modello relazionale}
     \begin{tcolorbox}[
         colback=gray!8,  
@@ -699,26 +725,42 @@
     \end{itemize}
     
 
-
-    \subsubsection*{Tabella Rifornimento}
+    \subsubsection*{Tabella Assegnazione}
     \begin{tcolorbox}[
         colback=gray!8,
         colframe=black!30,
         title=
     ]
-        \textbf{Rifornimento}(\textbf{\uline{CodiceID}}, \textbf{\uline{ingrediente}}, quantità, data, ora, consegnato, OperatoreID, \\FornitoreID)
+        \textbf{Assegnazione}(\textbf{\uline{LuogoConsegna}}, OperatoreID)
+    \end{tcolorbox}
+
+    \noindent
+    La relazione \textit{Assegnazione} soddisfa i requisiti ai punti \textit{1} e \textit{2a}, quindi è in \textbf{3NF} e, non avendo dipendenze transitive come quelle riportate al punto \textit{2b}, è anche in \textbf{BCNF}.\\
+    Di seguito vengono riportate le dipendenze funzionali della relazione \textit{Assegnazione}:
+    \begin{itemize}[leftmargin=1em, label=$\circ$]
+        \item LuogoConsegna $\rightarrow$ OperatoreID
+    \end{itemize}
+
+
+    \subsubsection*{Tabella Rifornimento}     
+    \begin{tcolorbox}[
+        colback=gray!8,
+        colframe=black!30,
+        title=
+    ]
+        \textbf{Rifornimento}(\textbf{\uline{CodiceID}}, ingrediente, quantità, data, ora, consegnato, OperatoreID, \\FornitoreID)
     \end{tcolorbox}
     
     \noindent
     La relazione \textit{Rifornimeto} soddisfa i requisiti ai punti \textit{1} e \textit{2a}, quindi è in \textbf{3NF} e, non avendo dipendenze transitive come quelle riportate al punto \textit{2b}, è anche in \textbf{BCNF}.\\
     Di seguito vengono riportate le dipendenze funzionali della relazione \textit{Rifornimento}:
     \begin{itemize}[leftmargin=1em, label=$\circ$]
-        \item (CodiceID, ingrediente) $\rightarrow$ quantità
-        \item (CodiceID, ingrediente) $\rightarrow$ data
-        \item (CodiceID, ingrediente) $\rightarrow$ ora
-        \item (CodiceID, ingrediente) $\rightarrow$ consegnato
-        \item (CodiceID, ingrediente) $\rightarrow$ OperatoreID
-        \item (CodiceID, ingrediente) $\rightarrow$ FornitoreID
+        \item (CodiceID) $\rightarrow$ quantità
+        \item (CodiceID) $\rightarrow$ data
+        \item (CodiceID) $\rightarrow$ ora
+        \item (CodiceID) $\rightarrow$ consegnato
+        \item (CodiceID) $\rightarrow$ OperatoreID
+        \item (CodiceID) $\rightarrow$ FornitoreID
     \end{itemize}
 
 
