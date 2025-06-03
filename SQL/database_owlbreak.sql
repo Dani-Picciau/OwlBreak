@@ -567,13 +567,15 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE aggiungi_ingrediente(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE aggiungi_ingrediente(
     IN p_operatore_id INT,
     IN p_nome_ingrediente VARCHAR(50),
     IN p_allergeni VARCHAR(200),
     IN p_quantita INT,
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_ruolo VARCHAR(30);
     DECLARE v_operatore_esiste BOOLEAN;
@@ -638,11 +640,13 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE elimina_ingrediente(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE elimina_ingrediente(
     IN p_operatore_id INT,
     IN p_nome_ingrediente VARCHAR(50),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_ruolo VARCHAR(30);
     DECLARE v_operatore_esiste BOOLEAN;
@@ -706,12 +710,14 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE aggiungi_prodotto(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE aggiungi_prodotto(
     IN p_operatore_id INT,
     IN p_nome_prodotto VARCHAR(50),
     IN p_prezzo DECIMAL(6,2),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_ruolo VARCHAR(30);
     DECLARE v_operatore_esiste BOOLEAN;
@@ -771,11 +777,13 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE elimina_prodotto(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE elimina_prodotto(
     IN p_operatore_id INT,
     IN p_nome_prodotto VARCHAR(50),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_ruolo VARCHAR(30);
     DECLARE v_operatore_esiste BOOLEAN;
@@ -821,12 +829,14 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE associa_ingrediente_prodotto(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE associa_ingrediente_prodotto(
     IN p_operatore_id INT,
     IN p_nome_prodotto VARCHAR(50),
     IN p_nome_ingrediente VARCHAR(50),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_ruolo VARCHAR(30);
     DECLARE v_operatore_esiste BOOLEAN;
@@ -908,12 +918,14 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE effettua_ordine(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE effettua_ordine(
     IN p_email_cliente VARCHAR(100),
     IN p_nome_prodotto VARCHAR(50),
     IN p_quantita INT,
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_prodotto_disponibile BOOLEAN;
     DECLARE v_cliente_esiste BOOLEAN;
@@ -1053,7 +1065,8 @@ DELIMITER ;
 
 -- Procedura per permettere agli operatori di segnare un ordine come consegnato
 DELIMITER $$
-CREATE PROCEDURE segna_ordine_consegnato(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE segna_ordine_consegnato(
     IN p_data DATE,
     IN p_ora TIME,
     IN p_email_cliente VARCHAR(100),
@@ -1061,6 +1074,7 @@ CREATE PROCEDURE segna_ordine_consegnato(
     IN p_operatore_id INT,
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_ordine_esiste BOOLEAN;
     DECLARE v_operatore_corretto BOOLEAN;
@@ -1124,13 +1138,15 @@ DELIMITER ;
 
 -- procedura per effettuare un rifornimento
 DELIMITER $$
-CREATE PROCEDURE richiesta_rifornimento(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE richiesta_rifornimento(
     IN p_operatore_id INT,
     IN p_fornitore_id INT,
     IN p_ingrediente VARCHAR(50),
     IN p_quantita INT,
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_ruolo VARCHAR(30);
     DECLARE v_operatore_esiste BOOLEAN;
@@ -1184,7 +1200,8 @@ DELIMITER ;
 
 
 DELIMITER $$
-CREATE PROCEDURE segna_rifornimento_consegnato(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE segna_rifornimento_consegnato(
     IN p_rifornimento_id INT,
     IN p_ingrediente VARCHAR(50),
     IN p_operatore_id INT,
@@ -1192,6 +1209,7 @@ CREATE PROCEDURE segna_rifornimento_consegnato(
     -- chiedo sia il'ID che l'ingrediente per evitare errori da parte dell'utente
     -- anche se per identificare un rifornimento basterebbe solo l'ID
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_operatore_esiste BOOLEAN;
     DECLARE v_rifornimento_esiste BOOLEAN;
@@ -1265,7 +1283,8 @@ DELIMITER ;
 
 -- ***** PROCEDURE SUI DATI DEI CLIENTI *****
 DELIMITER $$
-CREATE PROCEDURE insert_cliente(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE insert_cliente(
     IN p_nome VARCHAR(50),
     IN p_cognome VARCHAR(50),
     IN p_tipo_cliente VARCHAR(30),
@@ -1273,6 +1292,7 @@ CREATE PROCEDURE insert_cliente(
     IN p_default_pssw VARCHAR(255),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_dominio VARCHAR(30);
     DECLARE v_iniziale VARCHAR(1);
@@ -1341,7 +1361,8 @@ DELIMITER ;
 
 -- procedura per la modifica dei dati di un cliente
 DELIMITER $$
-CREATE PROCEDURE modifica_cliente(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE modifica_cliente(
     IN p_email_corrente VARCHAR (100),
     IN p_nome VARCHAR(50),
     IN p_cognome VARCHAR(50),
@@ -1349,6 +1370,7 @@ CREATE PROCEDURE modifica_cliente(
     IN p_luogo_consegna VARCHAR(100),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_dominio VARCHAR(30);
     DECLARE v_iniziale VARCHAR(1);
@@ -1493,10 +1515,12 @@ DELIMITER ;
 
 -- procedura per eliminare un cliente
 DELIMITER $$
-CREATE PROCEDURE elimina_cliente(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE elimina_cliente(
     IN p_email VARCHAR(100),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_cliente_esiste BOOLEAN;
 
@@ -1523,11 +1547,13 @@ DELIMITER ;
 
 -- procedura per cambiare la pssw cliente 
 DELIMITER $$
-CREATE PROCEDURE cambio_pssw_cliente(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE cambio_pssw_cliente(
     IN p_email VARCHAR(100),
     IN p_n_pssw VARCHAR (255),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_cliente_esiste BOOLEAN;
 
@@ -1561,11 +1587,13 @@ DELIMITER ;
 
 -- procedura per cambiare il luogo di consegna di un cliente != Studente
 DELIMITER $$
-CREATE PROCEDURE cambio_luogo_consegna(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE cambio_luogo_consegna(
     IN p_email VARCHAR(100),
     IN p_nuovo_luogo VARCHAR(100),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_cliente_esiste BOOLEAN;
     DECLARE v_tipo_cliente VARCHAR(30);
@@ -1613,7 +1641,8 @@ DELIMITER ;
 
 -- procedura per inserire un operatore
 DELIMITER $$
-CREATE PROCEDURE insert_operatore(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE insert_operatore(
     IN p_nome VARCHAR(50),
     IN p_cognome VARCHAR(50),
     IN p_ruolo VARCHAR(30),
@@ -1621,6 +1650,7 @@ CREATE PROCEDURE insert_operatore(
     IN p_default_pssw VARCHAR(255),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_ruolo VARCHAR(30);
     DECLARE v_nome VARCHAR(50);
@@ -1660,7 +1690,8 @@ DELIMITER ;
 
 -- procedura per la modifica dei dati di un operatore
 DELIMITER $$
-CREATE PROCEDURE modifica_operatore(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE modifica_operatore(
     IN p_id INT,
     IN p_email VARCHAR(100),
     IN p_nome VARCHAR(50),
@@ -1668,6 +1699,7 @@ CREATE PROCEDURE modifica_operatore(
     IN p_ruolo VARCHAR(30),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_ruolo VARCHAR(30);
     DECLARE v_nome VARCHAR(50);
@@ -1719,11 +1751,13 @@ DELIMITER ;
 
 -- procedura per cambiare la pssw operatore
 DELIMITER $$
-CREATE PROCEDURE cambio_pssw_operatore(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE cambio_pssw_operatore(
     IN p_id INT,
     IN p_n_pssw VARCHAR (255),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     -- DECLARE v_v_pssw VARCHAR(255);
     DECLARE v_op_esiste BOOLEAN;
@@ -1758,10 +1792,12 @@ DELIMITER ;
 
 -- procedura per eliminare un operatore
 DELIMITER $$
-CREATE PROCEDURE elimina_operatore(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE elimina_operatore(
     IN p_id INT,
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_op_esiste BOOLEAN;
     DECLARE v_ruolo VARCHAR(30);
@@ -1810,13 +1846,15 @@ DELIMITER ;
 
 -- procedura per inserire un fornitore
 DELIMITER $$
-CREATE PROCEDURE insert_fornitore(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE insert_fornitore(
     IN p_nome_titolare VARCHAR(50),
     IN p_nome_azienda VARCHAR(50),
     IN p_email VARCHAR(100),
     IN p_default_pssw VARCHAR(255),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_id INT;
 
@@ -1837,13 +1875,15 @@ DELIMITER ;
 
 -- procedura per modificare un fornitore
 DELIMITER $$
-CREATE PROCEDURE modifica_fornitore(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE modifica_fornitore(
     IN p_id INT,
     IN p_nome_titolare VARCHAR(50),
     IN p_nome_azienda VARCHAR(50),
     IN p_email VARCHAR(100),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_fornitore_esiste BOOLEAN;
 
@@ -1874,11 +1914,13 @@ DELIMITER ;
 
 -- procedura per cambiare la pssw fornitori 
 DELIMITER $$
-CREATE PROCEDURE cambio_pssw_fornitore(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE cambio_pssw_fornitore(
     IN p_id INT,
     IN p_n_pssw VARCHAR (255),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_fornitore_esiste BOOLEAN;
 
@@ -1911,10 +1953,12 @@ DELIMITER ;
 
 -- procedura per eliminare un fornitore
 DELIMITER $$
-CREATE PROCEDURE elimina_fornitore(
+CREATE DEFINER = 'root'@'localhost'
+PROCEDURE elimina_fornitore(
     IN p_id VARCHAR(100),
     OUT p_messaggio VARCHAR(255)
 )
+SQL SECURITY DEFINER
 BEGIN
     DECLARE v_fornitore_esiste BOOLEAN;
 
