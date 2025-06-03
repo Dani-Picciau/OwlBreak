@@ -750,12 +750,6 @@ input{
     background: var(--border-color);
 }
 
-.btn:disabled {
-    opacity: 0.6;
-    cursor: not-allowed;
-    transform: none !important;
-}
-
 .error-message {
     background: #ef4444;
     color: white;
