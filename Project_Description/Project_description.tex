@@ -823,7 +823,11 @@
     \section{Applicazione java}
     Al fine di testare alcune delle funzionalità di questo database, è stata realizzata un'applicazione Java che effettua operazioni differenti da quelle sviluppate nel sito web.\\
     Questa applicazione effettua la connessione al database come utente mySQL \textit{admin} che ha permessi di inserimento, modifica, eliminazione, selezione ed esecuzione su tutto il database.\\
-    Una volta eseguita la connessione come admin, si cercano nelle tabelle le credenziali del singolo utente dell'applicazione, per poter memorizzare il tipo di utente.
+    Una volta eseguita la connessione come admin, si cercano nelle tabelle le credenziali del singolo utente dell'applicazione, per poter memorizzare il tipo di utente. A questo punto le credenziali vengono passate come parametri all'interno di una funzione che controlla se l'utente web è valido. Per confrontare le due password viene utilizzata una funzione specifica che controlli i due hash delle password.\\
+    Si Vuole inoltre mostrare il funzionamento di tot procedurae  tot operazioni sul DB:
+    - op 1
+    - op 2 
+    ecc...
     
 
 \end{document}

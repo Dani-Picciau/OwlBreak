@@ -8,7 +8,7 @@ Tutti i file riguardanti la parte web si troveranno dentro owlbreak/website/….
 * Come concordato con il Professor Ghiani, non sono stati sviluppati i profili per tutti i tipi di utente.  
   Nell'applicazione web sono infatti presenti solo i profili per i clienti (Studente, Personale-Ata, Personale-Docente, Personale-Segreteria) e per gli operatori addetti alle consegne, ognuno di essi con differenti privilegi all'interno dell'applicazione.
 
-* L'utente admin è utilizzato solo nel file java iin quanto non era stato previsto un utilizzo di un admin per l'applicazione web. 
+* L'utente admin è utilizzato solo nel file java in quanto non era stato previsto un utilizzo di un admin per l'applicazione web. 
   Quest'ultima è stata infatti sviluppata per scopo accademico e per questo l'admin del database siamo noi stessi con l'utente root.
 
 * Visto il contesto per il quale si volevano realizzare il database e il sito web, sono stati implementati dei vincoli sull'ordine da parte del cliente.  
