@@ -757,7 +757,7 @@ input{
     border-radius: 8px;
     border: 1px solid #bbf7d0;
     display: none;
-    align-items: flex-start;
+    align-items: center;
     gap: 0.5rem;
 }
 
@@ -770,7 +770,7 @@ input{
     padding-top:3px;
 }
 
-.error-message span{
+.error-message section span{
     font-family: var(--font-family-inter);
     font-weight: 500;
 }
@@ -795,7 +795,7 @@ input{
     padding-top:3px;
 }
 
-.success-message span{
+.success-message section span{
     font-family: var(--font-family-inter);
     font-weight: 500;
 }

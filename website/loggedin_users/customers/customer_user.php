@@ -104,13 +104,21 @@
                     </div>
 
                     <div class="cart-item-container">
+                        <section class="success-message" id="successMessage-placeDelivery">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#1f1f1f"><path d="m424-296 282-282-56-56-226 226-114-114-56 56 170 170Zm56 216q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z"/></svg>
+                            <span>Luogo di consegna aggiornato con successo!</span>
+                        </section>
+                        <section class="error-message" id="errorMessage-placeDelivery">
+                            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 -960 960 960" fill="#1f1f1f"><path d="M480-280q17 0 28.5-11.5T520-320q0-17-11.5-28.5T480-360q-17 0-28.5 11.5T440-320q0 17 11.5 28.5T480-280Zm-40-160h80v-240h-80v240Zm40 360q-83 0-156-31.5T197-197q-54-54-85.5-127T80-480q0-83 31.5-156T197-763q54-54 127-85.5T480-880q83 0 156 31.5T763-763q54 54 85.5 127T880-480q0 83-31.5 156T763-197q-54 54-127 85.5T480-80Z"/></svg>
+                            <span>È necessario specificare un luogo di consegna, si prega di riprovare.</span>
+                        </section>
                         <?php require('customer_user_includes/user_cart.php'); ?>
                     </div>
                 </div>
             </div>
         </div>
 
-        <script src="customer_user.js?v=1.02"></script>
+        <script src="customer_user.js"></script>
 
         <!-- Solo quando faccio il submit del bottone in "customer_place_delivery.php" imposto anche una variabile di sessione che al refresh della pagina mi permette  di mantenere selezionata la categoria "sicurezza". Al prossimo refresh la categoria selezionata torna ad essere la prima. 
         Lo script in questo punto, invece che nel file js dedicato, è necessario per riuscire a gestire php e javascript assieme -->
