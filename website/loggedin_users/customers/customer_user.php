@@ -111,5 +111,45 @@
         </div>
 
         <script src="customer_user.js?v=1.02"></script>
+
+        <!-- Solo quando faccio il submit del bottone in "customer_place_delivery.php" imposto anche una variabile di sessione che al refresh della pagina mi permette  di mantenere selezionata la categoria "sicurezza". Al prossimo refresh la categoria selezionata torna ad essere la prima. 
+        Lo script in questo punto, invece che nel file js dedicato, è necessario per riuscire a gestire php e javascript assieme -->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+            const menuItems = document.querySelectorAll('.menu-category');
+            
+                // Controllo la variabile di sessione per capire su quale categoria fermarmi dopo il submit del bottone
+                <?php if (isset($_SESSION['show_cart']) && $_SESSION['show_cart']): ?>
+                    if (menuItems[6]) menuItems[6].click();
+                    //Una volta settata la categoria, rimuovo la variabile di sessione
+                    <?php unset($_SESSION['show_cart']); ?>
+                <?php endif; ?>
+            });
+        </script>
+
+        <!-- Qui gestisco i messaggi di errore o successo in base a quale tipo di sessione viene restituito da "change_place_delivery.php"-->
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                //Mostro il messaggio di conferma in base a quale file mi manda la variabile di sessione:
+                <?php if (isset($_SESSION['changed_place_delivery'])): ?>
+                    const successBox = document.getElementById('successMessage-placeDelivery');
+                    if (successBox) {
+                        successBox.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['changed_place_delivery']); ?>
+
+                <?php endif; ?>
+
+                //Mostro il messaggio errore in base a quale file mi manda la variabile di sessione:
+                <?php if (isset($_SESSION['input_not_filled_place_delivery'])): ?>
+                    const errorBox0 = document.getElementById('errorMessage-placeDelivery');
+                    if (errorBox0) {
+                        errorBox0.style.display = 'flex';
+                    }
+                    <?php unset($_SESSION['input_not_filled_place_delivery']); ?>
+
+                <?php endif; ?>
+            });
+        </script>
     </body>
 </html>

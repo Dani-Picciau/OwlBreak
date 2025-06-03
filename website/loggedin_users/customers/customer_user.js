@@ -148,3 +148,24 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   });
 });
+
+/*Qui gestisco il tempo di visualizzazione per i box di:
+- successo cambiamento luogo di consegna;
+- errore cambiamento luogo di consegna.
+Una volta che i messaggi vengono visualizzati, scompaiono dopo 7000ms=7s. */
+document.addEventListener('DOMContentLoaded', function() {
+  const successMessage_placeDelivery = document.getElementById('successMessage-placeDelivery');
+  const errorMessage_placeDelivery = document.getElementById('errorMessage-placeDelivery');
+
+  if (successMessage_placeDelivery && successMessage_placeDelivery.style.display !== 'none') {
+      setTimeout(() => {
+      successMessage_placeDelivery.style.display = 'none';
+      }, 7000);
+  }
+
+  if (errorMessage_placeDelivery && errorMessage_placeDelivery.style.display !== 'none') {
+      setTimeout(() => {
+      errorMessage_placeDelivery.style.display = 'none';
+      }, 7000);
+  }
+});
