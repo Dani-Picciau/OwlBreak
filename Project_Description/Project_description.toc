@@ -24,4 +24,4 @@
 \contentsline {subsubsection}{\numberline {3.4.2}Modello relazionale}{12}{subsubsection.3.4.2}%
 \contentsline {section}{\numberline {4}Normalizzazione}{13}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Tecniche di normalizzazione}{13}{subsection.4.1}%
-\contentsline {section}{\numberline {5}Conclusioni}{17}{section.5}%
+\contentsline {section}{\numberline {5}Applicazione java}{17}{section.5}%
