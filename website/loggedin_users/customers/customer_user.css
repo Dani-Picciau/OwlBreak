@@ -1100,7 +1100,7 @@ figure:hover footer svg {
     flex-direction: column;
 }
 
-.place-delivery div:nth-child(2) > span {
+.place-delivery div:nth-child(2) > span{
     display: flex;
     padding-left: 2rem;
     font-family: var(--font-family-inter);
@@ -1180,12 +1180,6 @@ figure:hover footer svg {
     background-color: rgba(79, 70, 229, 0.1);
     fill: rgb(79, 70, 229);
     transform: scale(1.1);
-}
-
-/* Stile extra per rendere l'input più elegante quando è disabilitato */
-.place-delivery div:nth-child(2) span .editable-delivery div input:disabled {
-    background-color: #f8fafc;
-    cursor: not-allowed;
 }
 
 .confirm-button {

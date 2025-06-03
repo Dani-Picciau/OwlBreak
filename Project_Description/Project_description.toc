@@ -1,8 +1,8 @@
 \contentsline {section}{\numberline {1}Analisi dei requisiti}{2}{section.1}%
 \contentsline {subsection}{\numberline {1.1}Descrizione del sistema informativo}{2}{subsection.1.1}%
 \contentsline {subsection}{\numberline {1.2}Glossario dei termini}{3}{subsection.1.2}%
-\contentsline {subsection}{\numberline {1.3}Elenco delle operazioni}{3}{subsection.1.3}%
-\contentsline {subsubsection}{\numberline {1.3.1}Operazioni di inserimento}{3}{subsubsection.1.3.1}%
+\contentsline {subsection}{\numberline {1.3}Elenco delle operazioni}{4}{subsection.1.3}%
+\contentsline {subsubsection}{\numberline {1.3.1}Operazioni di inserimento}{4}{subsubsection.1.3.1}%
 \contentsline {subsubsection}{\numberline {1.3.2}Operazioni di modifica}{4}{subsubsection.1.3.2}%
 \contentsline {subsubsection}{\numberline {1.3.3}Operazioni di eliminazione}{4}{subsubsection.1.3.3}%
 \contentsline {subsubsection}{\numberline {1.3.4}Operazioni di conferma e aggiornamento}{4}{subsubsection.1.3.4}%
@@ -24,4 +24,4 @@
 \contentsline {subsubsection}{\numberline {3.4.2}Modello relazionale}{11}{subsubsection.3.4.2}%
 \contentsline {section}{\numberline {4}Normalizzazione}{12}{section.4}%
 \contentsline {subsection}{\numberline {4.1}Tecniche di normalizzazione}{12}{subsection.4.1}%
-\contentsline {section}{\numberline {5}Conclusioni}{15}{section.5}%
+\contentsline {section}{\numberline {5}Conclusioni}{16}{section.5}%

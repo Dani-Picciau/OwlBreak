@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  30 MAY 2025 15:23
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  3 JUN 2025 03:04
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -856,93 +856,98 @@ LaTeX Font Info:    Trying to load font information for TS1+bch on input line 89
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1bch.fd
 File: ts1bch.fd 2004/10/18 font definitions for TS1/bch.
 ) [2]
-Underfull \hbox (badness 10000) in paragraph at lines 143--143
+Underfull \hbox (badness 10000) in paragraph at lines 148--148
 []|\T1/bch/m/n/12 (+20) Contiene le carat-ter-is-tiche
  []
 
 
-Underfull \hbox (badness 2626) in paragraph at lines 149--149
+Underfull \hbox (badness 2626) in paragraph at lines 154--154
 \T1/bch/m/n/12 (+20) ef-fet-tuare richi-este di ri-forn-i-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--153
+Underfull \hbox (badness 10000) in paragraph at lines 156--156
+[]|\T1/bch/m/n/12 (+20) Incarico, Area
+ []
+
+
+Underfull \hbox (badness 10000) in paragraph at lines 160--160
 []|\T1/bch/m/n/12 (+20) Azienda,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 153--154
+Underfull \hbox (badness 10000) in paragraph at lines 160--161
 []|\T1/bch/m/n/12 (+20) Rifornimento,
  []
 
 [3]
-Overfull \hbox (24.53648pt too wide) in paragraph at lines 189--190
+Overfull \hbox (24.53648pt too wide) in paragraph at lines 196--197
 []\T1/bch/m/n/12 (-20) Conferma della con-segna di un ri-forn-i-mento da parte di un for-n-i-tore (im-plica l'aggiornamento
  []
 
 [4]
-<figures/Conceptual_model.pdf, id=229, 814.54312pt x 413.29407pt>
+<figures/Conceptual_model.pdf, id=229, 957.5775pt x 413.29407pt>
 File: figures/Conceptual_model.pdf Graphic file (type pdf)
 <use figures/Conceptual_model.pdf>
-Package pdftex.def Info: figures/Conceptual_model.pdf  used on input line 213.
-(pdftex.def)             Requested size: 483.69687pt x 245.42427pt.
+Package pdftex.def Info: figures/Conceptual_model.pdf  used on input line 220.
+(pdftex.def)             Requested size: 483.69687pt x 208.76544pt.
  [5 <./figures/Conceptual_model.pdf>] [6]
-<figures/Conceptual_model_2.pdf, id=254, 843.15pt x 353.82187pt>
-File: figures/Conceptual_model_2.pdf Graphic file (type pdf)
-<use figures/Conceptual_model_2.pdf>
-Package pdftex.def Info: figures/Conceptual_model_2.pdf  used on input line 264.
-(pdftex.def)             Requested size: 483.69687pt x 202.98169pt.
+<figures/Conceptual_model2.pdf, id=254, 934.24031pt x 353.82187pt>
+File: figures/Conceptual_model2.pdf Graphic file (type pdf)
+<use figures/Conceptual_model2.pdf>
+Package pdftex.def Info: figures/Conceptual_model2.pdf  used on input line 272.
+(pdftex.def)             Requested size: 483.69687pt x 183.18939pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 257--268
+Underfull \hbox (badness 10000) in paragraph at lines 265--276
 
  []
 
-[7 <./figures/Conceptual_model_2.pdf>] [8]
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 365--378
+[7 <./figures/Conceptual_model2.pdf>] [8]
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 379--392
  [][] 
  []
 
 
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 383--396
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 397--410
  [][] 
  []
 
 
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 405--416
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 419--430
  [][] 
  []
 
 
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 421--430
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 435--444
  [][] 
  []
 
-LaTeX Font Info:    Trying to load font information for U+fontawesomethree on input line 443.
+LaTeX Font Info:    Trying to load font information for U+fontawesomethree on input line 459.
 (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome\ufontawesomethree.fd
 File: ufontawesomethree.fd 2016/05/22 Font definitions for U/fontawesomethree.
 ) [9{C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/fontawesome/fontawesomethree.enc}] [10]
 <figures/g132.pdf, id=286, 13.04875pt x 13.04875pt>
 File: figures/g132.pdf Graphic file (type pdf)
 <use figures/g132.pdf>
-Package pdftex.def Info: figures/g132.pdf  used on input line 545.
+Package pdftex.def Info: figures/g132.pdf  used on input line 571.
 (pdftex.def)             Requested size: 11.3072pt x 11.3079pt.
 <figures/path621.pdf, id=287, 12.045pt x 13.04875pt>
 File: figures/path621.pdf Graphic file (type pdf)
 <use figures/path621.pdf>
-Package pdftex.def Info: figures/path621.pdf  used on input line 547.
+Package pdftex.def Info: figures/path621.pdf  used on input line 573.
 (pdftex.def)             Requested size: 11.3072pt x 12.24948pt.
-<figures/Relational_model.pdf, id=288, 1836.8625pt x 870.25125pt>
+<figures/Relational_model.pdf, id=288, 1831.84375pt x 782.925pt>
 File: figures/Relational_model.pdf Graphic file (type pdf)
 <use figures/Relational_model.pdf>
-Package pdftex.def Info: figures/Relational_model.pdf  used on input line 554.
-(pdftex.def)             Requested size: 483.69687pt x 229.1548pt.
+Package pdftex.def Info: figures/Relational_model.pdf  used on input line 580.
+(pdftex.def)             Requested size: 483.69687pt x 206.73346pt.
  [11 <./figures/g132.pdf> <./figures/path621.pdf
 
 pdfTeX warning: pdflatex (file ./figures/path621.pdf): PDF inclusion: multiple pdfs with page group included in a single page
 > <./figures/Relational_model.pdf
 
 pdfTeX warning: pdflatex (file ./figures/Relational_model.pdf): PDF inclusion: multiple pdfs with page group included in a single page
->] [12] [13] [14] [15] (Project_description.aux)
+>] [12] [13] [14] [15] [16] (Project_description.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
@@ -951,17 +956,17 @@ Package rerunfilecheck Info: File `Project_description.out' has not changed.
 (rerunfilecheck)             Checksum: 7CB90B60A705104ADE42388F1D5DF35E;5105.
  ) 
 Here is how much of TeX's memory you used:
- 33775 strings out of 474486
- 663774 string characters out of 5743756
- 1949542 words of memory out of 5000000
- 55172 multiletter control sequences out of 15000+600000
- 606374 words of font info for 228 fonts, out of 8000000 for 9000
+ 33773 strings out of 474486
+ 663766 string characters out of 5743756
+ 1951542 words of memory out of 5000000
+ 55174 multiletter control sequences out of 15000+600000
+ 605795 words of font info for 224 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
  93i,14n,99p,1061b,607s stack positions out of 10000i,1000n,20000p,200000b,200000s
 <C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/fontawesome/FontAwesome.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchb8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on Project_description.pdf (16 pages, 815458 bytes).
+Output written on Project_description.pdf (17 pages, 733169 bytes).
 PDF statistics:
- 2658 PDF objects out of 2984 (max. 8388607)
- 93 named destinations out of 1000 (max. 500000)
+ 1898 PDF objects out of 2073 (max. 8388607)
+ 95 named destinations out of 1000 (max. 500000)
  32659 words of extra memory for PDF output out of 35830 (max. 10000000)
 
