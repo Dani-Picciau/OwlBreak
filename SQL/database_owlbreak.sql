@@ -2168,6 +2168,7 @@ GRANT SELECT ON owlbreak.operatore TO 'Addetto-Consegne'@'localhost';
 GRANT SELECT ON owlbreak.ordine TO 'Addetto-Consegne'@'localhost';
 GRANT SELECT ON owlbreak.assegnazione TO 'Addetto-Consegne'@'localhost';
 GRANT SELECT ON owlbreak.cliente TO 'Addetto-Consegne'@'localhost';
+GRANT SELECT ON owlbreak.prodotto TO 'Addetto-Consegne'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Addetto-Consegne'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.segna_ordine_consegnato TO 'Addetto-Consegne'@'localhost';
 
