@@ -1,5 +1,7 @@
 -- ***** CREAZIONE USER *****
 
+CREATE USER 'admin'@'localhost' IDENTIFIED BY 'admin_password';
+
 CREATE USER 'Studente'@'localhost' IDENTIFIED BY 'Cliente';
 CREATE USER 'Personale-Docente'@'localhost' IDENTIFIED BY 'Cliente';
 CREATE USER 'Personale-Ata'@'localhost' IDENTIFIED BY 'Cliente';
@@ -60,9 +62,9 @@ CREATE TABLE ordine (
     quantità INT NOT NULL CHECK (quantità > 0),
     OperatoreID INT,
     PRIMARY KEY (data, ora, emailCliente, nomeProdotto),
-    FOREIGN KEY (emailCliente) REFERENCES Cliente(email),
-    FOREIGN KEY (nomeProdotto) REFERENCES Prodotto(nome),
-    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID)
+    FOREIGN KEY (emailCliente) REFERENCES Cliente(email) ON DELETE CASCADE,
+    FOREIGN KEY (nomeProdotto) REFERENCES Prodotto(nome) ON DELETE CASCADE,
+    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID) ON DELETE SET NULL
 );
 
 CREATE TABLE ingrediente (
@@ -76,7 +78,7 @@ CREATE TABLE composizione (
     nomeIngrediente VARCHAR(50),
     PRIMARY KEY (nomeProdotto, nomeIngrediente),
     FOREIGN KEY (nomeProdotto) REFERENCES Prodotto(nome) ON DELETE CASCADE,
-    FOREIGN KEY (nomeIngrediente) REFERENCES Ingrediente(nome)
+    FOREIGN KEY (nomeIngrediente) REFERENCES Ingrediente(nome) -- gestito nella procedura
 );
 
 CREATE TABLE fornitore (
@@ -97,14 +99,14 @@ CREATE TABLE rifornimento (
     OperatoreID INT,
     FornitoreID INT,
     PRIMARY KEY (CodiceID, ingrediente),
-    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID),
-    FOREIGN KEY (FornitoreID) REFERENCES Fornitore(CodiceID)
+    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID) ON DELETE SET NULL,
+    FOREIGN KEY (FornitoreID) REFERENCES Fornitore(CodiceID) ON DELETE SET NULL
 );
 
 CREATE TABLE assegnazione (
     luogoConsegna VARCHAR(100) PRIMARY KEY,
     OperatoreID INT,
-    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID)
+    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID) ON DELETE SET NULL
 );
 
 #passw: "Pluto_paperino12" per tutti i clienti, gli operatori e i fornitori
@@ -1985,6 +1987,8 @@ DELIMITER ;
 
 -- ***** PRIVILEGI *****
 
+GRANT SELECT, INSERT, UPDATE, DELETE, EXECUTE ON Owlbreak.* TO 'admin'@'localhost';
+
 -- PRIVILEGI STUDENTI
 GRANT SELECT ON owlbreak.cliente TO 'Studente'@'localhost'; -- per poter recuperare i propri dati
 GRANT SELECT ON owlbreak.ordine TO 'Studente'@'localhost';
@@ -2067,7 +2071,7 @@ GRANT EXECUTE ON PROCEDURE owlbreak.segna_rifornimento_consegnato TO 'Addetto-Ve
 -- PRIVILEGI ADDETTI CONSEGNE
 GRANT SELECT ON owlbreak.operatore TO 'Addetto-Consegne'@'localhost';
 GRANT SELECT ON owlbreak.ordine TO 'Addetto-Consegne'@'localhost';
-GRANT SELECT ON owlbreak.consegna TO 'Addetto-Consegne'@'localhost';
+GRANT SELECT ON owlbreak.assegnazione TO 'Addetto-Consegne'@'localhost';
 GRANT SELECT ON owlbreak.cliente TO 'Addetto-Consegne'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.cambio_pssw_operatore TO 'Addetto-Consegne'@'localhost';
 GRANT EXECUTE ON PROCEDURE owlbreak.segna_ordine_consegnato TO 'Addetto-Consegne'@'localhost';
