@@ -62,9 +62,9 @@ CREATE TABLE ordine (
     quantità INT NOT NULL CHECK (quantità > 0),
     OperatoreID INT,
     PRIMARY KEY (data, ora, emailCliente, nomeProdotto),
-    FOREIGN KEY (emailCliente) REFERENCES Cliente(email) ON DELETE CASCADE,
-    FOREIGN KEY (nomeProdotto) REFERENCES Prodotto(nome) ON DELETE CASCADE,
-    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID) ON DELETE SET NULL
+    FOREIGN KEY (emailCliente) REFERENCES Cliente(email),
+    FOREIGN KEY (nomeProdotto) REFERENCES Prodotto(nome),
+    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID)
 );
 
 CREATE TABLE ingrediente (
@@ -78,7 +78,7 @@ CREATE TABLE composizione (
     nomeIngrediente VARCHAR(50),
     PRIMARY KEY (nomeProdotto, nomeIngrediente),
     FOREIGN KEY (nomeProdotto) REFERENCES Prodotto(nome) ON DELETE CASCADE,
-    FOREIGN KEY (nomeIngrediente) REFERENCES Ingrediente(nome) -- gestito nella procedura
+    FOREIGN KEY (nomeIngrediente) REFERENCES Ingrediente(nome)
 );
 
 CREATE TABLE fornitore (
@@ -99,14 +99,14 @@ CREATE TABLE rifornimento (
     OperatoreID INT,
     FornitoreID INT,
     PRIMARY KEY (CodiceID, ingrediente),
-    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID) ON DELETE SET NULL,
-    FOREIGN KEY (FornitoreID) REFERENCES Fornitore(CodiceID) ON DELETE SET NULL
+    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID),
+    FOREIGN KEY (FornitoreID) REFERENCES Fornitore(CodiceID)
 );
 
 CREATE TABLE assegnazione (
     luogoConsegna VARCHAR(100) PRIMARY KEY,
     OperatoreID INT,
-    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID) ON DELETE SET NULL
+    FOREIGN KEY (OperatoreID) REFERENCES Operatore(CodiceID)
 );
 
 #passw: "Pluto_paperino12" per tutti i clienti, gli operatori e i fornitori
