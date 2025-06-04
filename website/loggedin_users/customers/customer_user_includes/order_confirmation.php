@@ -42,7 +42,7 @@
         
         <style>
             :root {
-                /* Light mode colors */
+                /* colori per light mode */
                 --gradient-start: #c5e8f7;
                 --gradient-end: #e9d5f0;
                 --background-color: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));

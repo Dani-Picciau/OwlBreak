@@ -31,7 +31,7 @@
             ];
         }
 
-        // Svuota il carrello se tutti gli ordini sono andati a buon fine
+        // Svuoto il carrello se tutti gli ordini sono andati a buon fine
         $all_ok = true;
         foreach ($results as $r) {
             if ($r['message'] !== 'Ordine effettuato con successo') {
@@ -44,7 +44,7 @@
             unset($_SESSION['cart']);
         }
 
-        // Salva i risultati in sessione per mostrarli nella pagina di conferma
+        // Salvo i risultati in sessione per mostrarli nella pagina di conferma
         $_SESSION['order_results'] = $results;
         $_SESSION['order_success'] = $all_ok;
 

@@ -1,7 +1,7 @@
 function togglePassword(inputId) {
   const input = document.getElementById(inputId);
-  const container = input.parentElement; // Prendi il div contenitore
-  const toggleBtn = container.querySelector('span'); // Trova lo span nel contenitore
+  const container = input.parentElement;
+  const toggleBtn = container.querySelector('span'); 
   const eyeOpen = toggleBtn.querySelector('.eye-open');
   const eyeClosed = toggleBtn.querySelector('.eye-closed');
   

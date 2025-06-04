@@ -55,23 +55,23 @@
                             require('../includes/redirect_users.php');
                             require('../includes/mysqli_connect.php');
 
-                            // Validate the email address:
+                            // Controllo che l'email non sia vuota, se ok mando i dati con POST
                             if (!empty($_POST['login-email'])) {
                                 $email = mysqli_real_escape_string($dbc, trim($_POST['login-email']));
                             } else {
                                 $email = NULL;
-                                echo '<p class="error-message">You forgot to enter your email address!</p>';
+                                echo '<p class="error-message">Hai dimenticato di inserire l\'email!</p>';
                             }
 
-                            // Validate the password:
+                            // Controllo che la password non sia vuota, se ok mando i dati con POST
                             if (!empty($_POST['login-pwd'])) {
                                 $passw = mysqli_real_escape_string($dbc, trim($_POST['login-pwd']));
                             } else {
                                 $passw = NULL;
-                                echo '<p class="error-message">You forgot to enter your password!</p>';
+                                echo '<p class="error-message">Hai dimenticato di inserire la password!</p>';
                             }
 
-                            if($email && $passw){ //if the input are not empty
+                            if($email && $passw){ // Se gli input non sono vuoti.
                                 $queries = [
                                     [
                                         "query" => "SELECT * FROM cliente WHERE email = '$email'",
@@ -148,7 +148,7 @@
                                     }
                                 }
                                 if (!$found) echo '<p class="error-message">L\'account non esiste.</p>';
-                            } else echo '<p class="error-message">Si prega di riprovare.</p>';
+                            }
                             mysqli_close($dbc); 
                         }
                     ?>

@@ -15,7 +15,6 @@
 ?>
 
 <?php
-    // inizio file, niente whitespace!
     header('Content-Type: application/json; charset=utf-8');
 
     // cattura eventuali errori in JSON
@@ -25,14 +24,14 @@
         exit;
     });
 
-    // valida input
+    // Valido l'input
     $email     = $_POST['email']   ?? '';
     $data      = $_POST['date']    ?? '';
     $ora       = $_POST['time']    ?? '';
     $nomeProd  = $_POST['product'] ?? '';
     $operatore = $_SESSION['CodiceID'];
 
-    // chiami la stored procedure
+    // Chiamo la procedura
     $stmt = $dbc->prepare("CALL segna_ordine_consegnato(?, ?, ?, ?, ?, @msg);");
     $stmt->bind_param('ssssi', $data, $ora, $email, $nomeProd, $operatore);
     if (!$stmt->execute()) {
@@ -41,11 +40,11 @@
         exit;
     }
 
-    // preleva OUT parameter
+    // Prelevo il messaggio della procedura
     $res = $dbc->query("SELECT @msg AS message");
     $msg = ($res->fetch_assoc())['message'] ?? '';
 
-    // invia JSON di risposta
+    // Mando un json di risposta
     echo json_encode(['success' => true, 'message' => $msg]);
     exit;
 ?>

@@ -9,8 +9,7 @@
 <?php
     // Verifica che siano settate anche le credenziali per il database
 	if (!isset($_SESSION['user_type'], $_SESSION['db_pass'])) {
-		// Se mancano, significa che qualcosa è andato storto nel login
-		// e non è sicuro procedere
+		// Se mancano, significa che qualcosa è andato storto nel login e non è sicuro procedere
 		header("location: /owlbreak/website/login_files/index.php");
 		exit;
 	}

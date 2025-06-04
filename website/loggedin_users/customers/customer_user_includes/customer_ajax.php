@@ -13,7 +13,7 @@
 ?>
 
 <?php
-    // Controlla se è una richiesta AJAX
+    // Controllo se è una richiesta AJAX
     $isAjaxRequest = isset($_SERVER['HTTP_X_REQUESTED_WITH']) && 
     strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) === 'xmlhttprequest';
 
@@ -41,9 +41,9 @@
             unset($_SESSION['cart'][$nomeProdotto]);
         }
 
-        // Se è una richiesta AJAX, termina qui e non fare redirect
+        // Se è una richiesta AJAX, non faccio il redirect
         if ($isAjaxRequest) {
-            // Restituisci un JSON con i dati aggiornati del carrello
+            // Restituiscio un JSON con i dati aggiornati del carrello
             header('Content-Type: application/json');
             echo json_encode([
                 'success' => true,

@@ -148,7 +148,4 @@
             <p> <?= $Orario_ultima_consegna ?></p>
         </div>
     <?php
-
-
-
 ?>

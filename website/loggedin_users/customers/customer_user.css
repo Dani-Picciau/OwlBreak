@@ -1,5 +1,5 @@
 :root {
-    /* Light mode colors */
+    /* Colori light mode */
     --gradient-start: #c5e8f7;
     --gradient-end: #e9d5f0;
     --background-color: linear-gradient(90deg, var(--gradient-start), var(--gradient-end));
@@ -69,7 +69,7 @@ body {
 
 header {
     width: 100%;
-    height: 40vh; /* Usa vh (viewport height) invece di % */
+    height: 40vh;
     background-color: var(--header-bg);
     display: flex;
     align-items: top;
@@ -551,7 +551,7 @@ height: 30px;
     /* flex-grow: 1;
     flex-shrink: 1; */
     
-    display: flex;  /* Manteniamo sempre flex */
+    display: flex; 
     flex-wrap: wrap;
     max-width: 100%;
     flex-direction: row;
@@ -608,12 +608,11 @@ height: 30px;
 }
 
 .product.unavailable.show {
-    pointer-events: none;    /* i click rimangono disabilitati */
-    opacity: 0.6;            /* mantiene la card smorzata */
-    position: relative;      /* per l'etichetta */
+    pointer-events: none;    
+    opacity: 0.6;            
+    position: relative;      
     visibility: visible;
 }
-
 
 /* Scala di grigi solo sull'immagine */
 .product.unavailable.show figure img {
@@ -675,17 +674,17 @@ height: 30px;
     font-size: clamp(0.9rem, 2.5vw, 1rem);
 }
 
-/*css for the text in the cards product*/
+/*css per il testo nelle card prodotti*/
 main p {
     font-size: 1.3rem;
     font-weight: 600;
-    line-height: 120%; /* 2.625rem */
+    line-height: 120%;
     margin:0;
 }
 
 .price {
     font-variant-numeric: lining-nums proportional-nums;
-    line-height: 120%; /* 1.875rem */
+    line-height: 120%; 
     font-size: 1.5625rem;
 }
 
@@ -704,7 +703,7 @@ figure footer p.small {
     margin-bottom: 0;
 }
 
-/*css for the cards product*/
+/*css per le card*/
 figure {
     margin: 0;
     padding: 0;
@@ -770,7 +769,6 @@ figure footer svg {
     /*aggiungo il delay per fare in modo da vedere dopo l'hover sulla figura, la rotazione dei bottoni*/
     transition: opacity .3s ease-in-out .3s, transform .3s ease-in-out .3s, fill .2s ease-in-out;
 }
-
 
 figure:hover footer svg:hover {
    fill: #e06544;
@@ -1097,7 +1095,7 @@ figure:hover footer svg {
     flex-direction: row;
     gap:0.5rem;
     align-items: center;
-    color: rgb(67, 56, 202); /* Versione leggermente più scura per leggibilità */
+    color: rgb(67, 56, 202); 
     fill: rgb(67, 56, 202);
     font-family: var(--font-family-inter);
     font-weight:500;
