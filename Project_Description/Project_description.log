@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  4 JUN 2025 02:00
+This is pdfTeX, Version 3.141592653-2.6-1.40.25 (MiKTeX 24.1) (preloaded format=pdflatex 2025.3.9)  4 JUN 2025 10:07
 entering extended mode
  restricted \write18 enabled.
  file:line:error style messages enabled.
@@ -709,7 +709,7 @@ File: pgflibraryfadings.code.tex 2023-01-15 v3.1.10 (3.1.10)
 ))) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/tcolorbox\tcbposter.code.tex
 Library (tcolorbox): 'tcbposter.code.tex' version '6.2.0'
 ))
-LaTeX Font Info:    Trying to load font information for T1+bch on input line 42.
+LaTeX Font Info:    Trying to load font information for T1+bch on input line 68.
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1bch.fd
 File: t1bch.fd 2004/10/18 font definitions for T1/bch.
 ) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/l3backend\l3backend-pdftex.def
@@ -719,24 +719,24 @@ File: l3backend-pdftex.def 2024-01-04 L3 backend support: PDF output (pdfTeX)
 ) (Project_description.aux)
 \openout1 = `Project_description.aux'.
 
-LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
-LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 42.
-LaTeX Font Info:    ... okay on input line 42.
+LaTeX Font Info:    Checking defaults for OML/cmm/m/it on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for OMS/cmsy/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for OT1/cmr/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for T1/cmr/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for TS1/cmr/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for OMX/cmex/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for U/cmr/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for PD1/pdf/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
+LaTeX Font Info:    Checking defaults for PU/pdf/m/n on input line 68.
+LaTeX Font Info:    ... okay on input line 68.
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/context/base/mkii\supp-pdf.mkii
 [Loading MPS to PDF converter (version 2006.09.02).]
 \scratchcounter=\count348
@@ -756,20 +756,20 @@ Package epstopdf-base Info: Redefining graphics rule for `.eps' on input line 48
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/00miktex\epstopdf-sys.cfg
 File: epstopdf-sys.cfg 2021/03/18 v2.0 Configuration of epstopdf for MiKTeX
 ))
-LaTeX Info: Redefining \microtypecontext on input line 42.
-Package microtype Info: Applying patch `item' on input line 42.
-Package microtype Info: Applying patch `toc' on input line 42.
-Package microtype Info: Applying patch `eqnum' on input line 42.
-Package microtype Info: Applying patch `footnote' on input line 42.
-Package microtype Info: Applying patch `verbatim' on input line 42.
-LaTeX Info: Redefining \microtypesetup on input line 42.
+LaTeX Info: Redefining \microtypecontext on input line 68.
+Package microtype Info: Applying patch `item' on input line 68.
+Package microtype Info: Applying patch `toc' on input line 68.
+Package microtype Info: Applying patch `eqnum' on input line 68.
+Package microtype Info: Applying patch `footnote' on input line 68.
+Package microtype Info: Applying patch `verbatim' on input line 68.
+LaTeX Info: Redefining \microtypesetup on input line 68.
 Package microtype Info: Generating PDF output.
 Package microtype Info: Character protrusion enabled (level 2).
 Package microtype Info: Using default protrusion set `alltext'.
 Package microtype Info: Automatic font expansion enabled (level 2),
 (microtype)             stretch: 20, shrink: 20, step: 1, non-selected.
 Package microtype Info: Using default expansion set `alltext-nott'.
-LaTeX Info: Redefining \showhyphens on input line 42.
+LaTeX Info: Redefining \showhyphens on input line 68.
 Package microtype Info: No adjustment of tracking.
 Package microtype Info: No adjustment of interword spacing.
 Package microtype Info: No adjustment of character kerning.
@@ -815,7 +815,7 @@ Package caption Info: subfig package v1.3 is loaded.
 Package caption Info: hyperref package is loaded.
 Package caption Info: listings package is loaded.
 Package caption Info: End \AtBeginDocument code.
-Package hyperref Info: Link coloring OFF on input line 42.
+Package hyperref Info: Link coloring OFF on input line 68.
 (Project_description.out) (Project_description.out)
 \@outlinefile=\write4
 \openout4 = `Project_description.out'.
@@ -824,18 +824,18 @@ Package hyperref Info: Link coloring OFF on input line 42.
 <figures/logo.pdf, id=150, 595.40694pt x 595.40694pt>
 File: figures/logo.pdf Graphic file (type pdf)
 <use figures/logo.pdf>
-Package pdftex.def Info: figures/logo.pdf  used on input line 59.
+Package pdftex.def Info: figures/logo.pdf  used on input line 85.
 (pdftex.def)             Requested size: 193.47578pt x 193.4777pt.
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-cmr.cfg
 File: mt-cmr.cfg 2013/05/19 v2.2 microtype config. file: Computer Modern Roman (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msa on input line 65.
+LaTeX Font Info:    Trying to load font information for U+msa on input line 91.
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsa.fd
 File: umsa.fd 2013/01/14 v3.01 AMS symbols A
 ) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msa.cfg
 File: mt-msa.cfg 2006/02/04 v1.1 microtype config. file: AMS symbols (a) (RS)
 )
-LaTeX Font Info:    Trying to load font information for U+msb on input line 65.
+LaTeX Font Info:    Trying to load font information for U+msb on input line 91.
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/amsfonts\umsb.fd
 File: umsb.fd 2013/01/14 v3.01 AMS symbols B
 ) (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/microtype\mt-msb.cfg
@@ -850,38 +850,38 @@ File: mt-msb.cfg 2005/06/01 v1.0 microtype config. file: AMS symbols (b) (RS)
 pdfTeX warning (ext4): destination with the same identifier (name{page.1}) has been already used, duplicate ignored
 <to be read again> 
                    \relax 
-l.81     \newpage
-                  [1]
-LaTeX Font Info:    Trying to load font information for TS1+bch on input line 89.
+l.107     \newpage
+                   [1]
+LaTeX Font Info:    Trying to load font information for TS1+bch on input line 115.
  (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1bch.fd
 File: ts1bch.fd 2004/10/18 font definitions for TS1/bch.
 ) [2]
-Underfull \hbox (badness 10000) in paragraph at lines 148--148
+Underfull \hbox (badness 10000) in paragraph at lines 174--174
 []|\T1/bch/m/n/12 (+20) Contiene le carat-ter-is-tiche
  []
 
 
-Underfull \hbox (badness 2626) in paragraph at lines 154--154
+Underfull \hbox (badness 2626) in paragraph at lines 180--180
 \T1/bch/m/n/12 (+20) ef-fet-tuare richi-este di ri-forn-i-
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 156--156
+Underfull \hbox (badness 10000) in paragraph at lines 182--182
 []|\T1/bch/m/n/12 (+20) Incarico, Area
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 160--160
+Underfull \hbox (badness 10000) in paragraph at lines 186--186
 []|\T1/bch/m/n/12 (+20) Azienda,
  []
 
 
-Underfull \hbox (badness 10000) in paragraph at lines 160--161
+Underfull \hbox (badness 10000) in paragraph at lines 186--187
 []|\T1/bch/m/n/12 (+20) Rifornimento,
  []
 
 [3]
-Overfull \hbox (24.53648pt too wide) in paragraph at lines 200--201
+Overfull \hbox (24.53648pt too wide) in paragraph at lines 226--227
 []\T1/bch/m/n/12 (-20) Conferma della con-segna di un ri-forn-i-mento da parte di un for-n-i-tore (im-plica l'aggiornamento
  []
 
@@ -889,57 +889,57 @@ Overfull \hbox (24.53648pt too wide) in paragraph at lines 200--201
 <figures/Conceptual_model.pdf, id=240, 957.5775pt x 413.29407pt>
 File: figures/Conceptual_model.pdf Graphic file (type pdf)
 <use figures/Conceptual_model.pdf>
-Package pdftex.def Info: figures/Conceptual_model.pdf  used on input line 227.
+Package pdftex.def Info: figures/Conceptual_model.pdf  used on input line 253.
 (pdftex.def)             Requested size: 483.69687pt x 208.76544pt.
  [6 <./figures/Conceptual_model.pdf>] [7]
 <figures/Conceptual_model2.pdf, id=276, 934.24031pt x 353.82187pt>
 File: figures/Conceptual_model2.pdf Graphic file (type pdf)
 <use figures/Conceptual_model2.pdf>
-Package pdftex.def Info: figures/Conceptual_model2.pdf  used on input line 290.
+Package pdftex.def Info: figures/Conceptual_model2.pdf  used on input line 316.
 (pdftex.def)             Requested size: 483.69687pt x 183.18939pt.
 
-Underfull \hbox (badness 10000) in paragraph at lines 283--294
+Underfull \hbox (badness 10000) in paragraph at lines 309--320
 
  []
 
 [8 <./figures/Conceptual_model2.pdf>] [9]
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 397--416
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 423--442
  [][] 
  []
 
 
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 421--436
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 447--462
  [][] 
  []
 
 
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 447--458
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 473--484
  [][] 
  []
 
 
-Overfull \hbox (4.88075pt too wide) in paragraph at lines 463--478
+Overfull \hbox (4.88075pt too wide) in paragraph at lines 489--504
  [][] 
  []
 
-LaTeX Font Info:    Trying to load font information for U+fontawesomethree on input line 491.
+LaTeX Font Info:    Trying to load font information for U+fontawesomethree on input line 517.
 (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/fontawesome\ufontawesomethree.fd
 File: ufontawesomethree.fd 2016/05/22 Font definitions for U/fontawesomethree.
 ) [10] [11{C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/enc/dvips/fontawesome/fontawesomethree.enc}]
 <figures/g132.pdf, id=308, 13.04875pt x 13.04875pt>
 File: figures/g132.pdf Graphic file (type pdf)
 <use figures/g132.pdf>
-Package pdftex.def Info: figures/g132.pdf  used on input line 603.
+Package pdftex.def Info: figures/g132.pdf  used on input line 629.
 (pdftex.def)             Requested size: 11.3072pt x 11.3079pt.
 <figures/path621.pdf, id=309, 12.045pt x 13.04875pt>
 File: figures/path621.pdf Graphic file (type pdf)
 <use figures/path621.pdf>
-Package pdftex.def Info: figures/path621.pdf  used on input line 605.
+Package pdftex.def Info: figures/path621.pdf  used on input line 631.
 (pdftex.def)             Requested size: 11.3072pt x 12.24948pt.
 <figures/Relational_model.pdf, id=310, 1831.84375pt x 782.925pt>
 File: figures/Relational_model.pdf Graphic file (type pdf)
 <use figures/Relational_model.pdf>
-Package pdftex.def Info: figures/Relational_model.pdf  used on input line 612.
+Package pdftex.def Info: figures/Relational_model.pdf  used on input line 638.
 (pdftex.def)             Requested size: 483.69687pt x 206.73346pt.
  [12 <./figures/g132.pdf> <./figures/path621.pdf
 
@@ -947,7 +947,32 @@ pdfTeX warning: pdflatex (file ./figures/path621.pdf): PDF inclusion: multiple p
 > <./figures/Relational_model.pdf
 
 pdfTeX warning: pdflatex (file ./figures/Relational_model.pdf): PDF inclusion: multiple pdfs with page group included in a single page
->] [13] [14] [15] [16] [17] (Project_description.aux)
+>] [13] [14] [15] [16] (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/listings\lstlang1.sty
+File: lstlang1.sty 2023/02/27 1.9 listings language file
+)
+Underfull \hbox (badness 10000) in paragraph at lines 850--853
+
+ []
+
+LaTeX Font Info:    Trying to load font information for T1+pcr on input line 853.
+(C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\t1pcr.fd
+File: t1pcr.fd 2001/06/04 font definitions for T1/pcr.
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `pcr' (encoding: T1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Trying to load font information for TS1+pcr on input line 855.
+ (C:\Users\dany2\AppData\Local\Programs\MiKTeX\tex/latex/psnfss\ts1pcr.fd
+File: ts1pcr.fd 2001/06/04 font definitions for TS1/pcr.
+)
+Package microtype Info: Loading generic protrusion settings for font family
+(microtype)             `pcr' (encoding: TS1).
+(microtype)             For optimal results, create family-specific settings.
+(microtype)             See the microtype manual for details.
+LaTeX Font Info:    Font shape `T1/pcr/m/it' in size <10.95> not available
+(Font)              Font shape `T1/pcr/m/sl' tried instead on input line 859.
+ [17] [18] (Project_description.aux)
  ***********
 LaTeX2e <2023-11-01> patch level 1
 L3 programming layer <2024-01-04>
@@ -956,17 +981,17 @@ Package rerunfilecheck Info: File `Project_description.out' has not changed.
 (rerunfilecheck)             Checksum: 6FE02CF0E57A82B67923EBF22B44A808;5138.
  ) 
 Here is how much of TeX's memory you used:
- 33795 strings out of 474486
- 663923 string characters out of 5743756
- 1955542 words of memory out of 5000000
- 55174 multiletter control sequences out of 15000+600000
- 606055 words of font info for 226 fonts, out of 8000000 for 9000
+ 34323 strings out of 474486
+ 669790 string characters out of 5743756
+ 2161542 words of memory out of 5000000
+ 55625 multiletter control sequences out of 15000+600000
+ 610600 words of font info for 237 fonts, out of 8000000 for 9000
  1141 hyphenation exceptions out of 8191
- 93i,14n,99p,1061b,621s stack positions out of 10000i,1000n,20000p,200000b,200000s
-<C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/fontawesome/FontAwesome.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchb8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
-Output written on Project_description.pdf (18 pages, 738684 bytes).
+ 93i,14n,99p,1061b,2117s stack positions out of 10000i,1000n,20000p,200000b,200000s
+<C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/fontawesome/FontAwesome.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchb8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchr8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/bitstrea/charter/bchri8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmmi12.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/public/amsfonts/cm/cmsy10.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrb8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrr8a.pfb><C:/Users/dany2/AppData/Local/Programs/MiKTeX/fonts/type1/urw/courier/ucrro8a.pfb>
+Output written on Project_description.pdf (19 pages, 791512 bytes).
 PDF statistics:
- 1924 PDF objects out of 2073 (max. 8388607)
- 114 named destinations out of 1000 (max. 500000)
- 32659 words of extra memory for PDF output out of 35830 (max. 10000000)
+ 2011 PDF objects out of 2073 (max. 8388607)
+ 171 named destinations out of 1000 (max. 500000)
+ 37267 words of extra memory for PDF output out of 42996 (max. 10000000)
 

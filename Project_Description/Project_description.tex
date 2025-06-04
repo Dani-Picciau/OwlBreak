@@ -31,6 +31,32 @@
 \usepackage[utf8]{inputenc}
 
 
+% Definizione colori personalizzati
+\definecolor{codebg}{RGB}{245, 245, 245} % Sfondo grigio chiaro
+\definecolor{codeborder}{RGB}{200, 200, 200} % Bordo grigio più scuro
+\definecolor{keywordcolor}{RGB}{0, 102, 204} % Blu per le parole chiave
+\definecolor{commentcolor}{RGB}{0, 153, 0} % Verde per i commenti
+\definecolor{stringcolor}{RGB}{204, 51, 0} % Rosso per le stringhe
+\definecolor{typenames}{RGB}{128, 0, 128} % Viola per i tipi di dato
+
+\lstdefinestyle{mystyle}{
+    backgroundcolor=\color{codebg}, % Sfondo grigio chiaro
+    frame=single, % Bordo attorno al codice
+    rulecolor=\color{codeborder}, % Colore del bordo
+    basicstyle=\fontfamily{pcr}\selectfont\small, % Usa il font Courier che supporta il grassetto
+    keywordstyle=\color{keywordcolor}\bfseries, % Parole chiave in blu e grassetto
+    commentstyle=\color{commentcolor}\itshape, % Commenti in verde e italico
+    stringstyle=\color{stringcolor}, % Stringhe in rosso
+    identifierstyle=\color{black}, % Identificatori normali in nero
+    numberstyle=\tiny\color{gray}, % Numeri di riga in grigio
+    tabsize=4, % Grandezza del tab
+    showstringspaces=false, % Nasconde gli spazi nelle stringhe
+    breaklines=true, % Permette di andare a capo automaticamente
+    morekeywords={uint8_t, uint16_t, uint32_t, size_t}, % Aggiunta di tipi standard del C
+    escapeinside={(*@}{@*)}, % Definisce i caratteri di escape per inserire comandi LaTeX
+}
+
+
 % Rimuovi numeri di pagina sulla prima pagina
 \thispagestyle{empty}
 
@@ -824,10 +850,65 @@
     Al fine di testare alcune delle funzionalità di questo database, è stata realizzata un'applicazione Java che effettua operazioni differenti da quelle sviluppate nel sito web.\\
     Questa applicazione effettua la connessione al database come utente mySQL \textit{admin} che ha permessi di inserimento, modifica, eliminazione, selezione ed esecuzione su tutto il database.\\
     Una volta eseguita la connessione come admin, si cercano nelle tabelle le credenziali del singolo utente dell'applicazione, per poter memorizzare il tipo di utente. A questo punto le credenziali vengono passate come parametri all'interno di una funzione che controlla se l'utente web è valido. Per confrontare le due password viene utilizzata una funzione specifica che controlli i due hash delle password.\\
-    Si Vuole inoltre mostrare il funzionamento di tot procedurae  tot operazioni sul DB:
-    - op 1
-    - op 2 
-    ecc...
+    \begin{lstlisting}[style=mystyle, language=Java]
+    import org.bouncycastle.crypto.generators.OpenBSDBCrypt;
+    import java.sql.*;
+    import java.util.Scanner;
+
+    public class Main {
+        // Definisco le credenziali per la connessione al database fissata come admin.
+        // Dunque si avranno tutti i privilegi possibili
+        private static final String DB_URL = "jdbc:mysql://localhost:3306/Owlbreak";
+        private static final String DB_USER = "admin";
+        private static final String DB_PASSWORD = "admin_password";
+
+        public static void main(String[] args) {
+            Scanner scanner = new Scanner(System.in);
+            Connection conn = null;
+
+            try {
+                // Connessione al DB con credenziali fisse
+                conn = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+                System.out.println("Connessione al database stabilita!");
+                System.out.println("----------------------------------");
+
+                //Preparo le variabili per le query che andro' ad eseguire dopo
+                String query;
+                PreparedStatement preparedStatement;
+                ResultSet resultSet;
+
+                while(true){
+                    // Richiedo le credenziali dell'utente dell'applicazione
+                    System.out.print("Inserisci la tua email (\"exit\" per uscire): ");
+                    String email_log = scanner.nextLine();
+                    if(email_log.equalsIgnoreCase("exit")){
+                        System.out.print("Chiusura del programma in corso\n");
+                        break;
+                    }
+
+                    System.out.print("Inserisci la tua password: ");
+                    String password = scanner.nextLine();
+
+                    // Verifico il login e determino il tipo di utente
+                    String userType = authenticateUser(conn, email_log, password);
+
+                    if (userType != null) {
+                        System.out.print("Login effettuato con successo!\n");
+                        System.out.print(" Tipo utente: " + userType +"\n");
+                        System.out.print(" Email: " + email_log + "\n");
+                        System.out.print("\n");
+
+                        .....
+                    }
+                }
+                .....
+            }
+            .....
+        }
+    }
+    \end{lstlisting}
+    Nonostante non venga mostrato nell'estratto di cui sopra, una volta che il login è stato effettuato, tramite una semplice switch-case condition, si viene reinderizzati al menù corrispondente al tipo di utente loggato. Tramite i relativi menù è possibile scegliere quale operazione di visualizzazione eseguire e visualizzare di conseguenza le relative tuple di risultato.
+
     
 
 \end{document}
