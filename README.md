@@ -17,7 +17,7 @@ Tutti i file riguardanti la parte web si troveranno dentro owlbreak/website/….
   Il trigger sul controllo dell'orario è invece stato modificato per permettere ordini dalle 8:00 alle 22:00, stessa cosa per il controllo equivalente che è stato implementato nella procedura effettua_ordine. 
   Qualora si vogliano testare queste funzionalità per determinati giorni e orari è possibile decommentare i pezzi di codice indicati sopra o modificare gli orari a prorpio piacimento. 
   
-# Profili utente per applicazione web e password:
+# Profili utente per applicazione web:
 **Clienti con ordini effettuati**:  
 Studente: d.picciau@studenti.boscogrigio.it e m.manai@studenti.boscogrigio.it
 Personale-Segreteria: l.ghiani@boscogrigio.it e l.brodo@boscogrigio.it  
@@ -28,6 +28,15 @@ m.rossi@studenti.boscogrigio.it per gli studenti e l.riva@boscogrigio.it per il 
 
 **Operatore:**   
 Addetto-consegne: m.cau@owlbreak.it e e.serra@owlbreak.it
+
+# Prolfili per app java:
+**Operatore:**   
+Titolare: c.ricci@owlbreak.it
+Oppure qualsiasi altri addetto alle vendite
+
+**Fornitore**
+info.consegne@fornosanmarco.it
+O qualsiasi altro fornitore
   
 # Ogni account presente nel database ha password: Pluto_paperino12
 
