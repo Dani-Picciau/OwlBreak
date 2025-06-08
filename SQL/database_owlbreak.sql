@@ -994,6 +994,16 @@ BEGIN
         JOIN composizione c ON i.nome = c.nomeIngrediente
         WHERE c.nomeProdotto = p_nome_prodotto AND i.quantità < p_quantita;
 
+        /* SENZA JOIN:
+        SELECT MIN(i.nome) INTO v_ingrediente_non_disponibile
+        FROM ingrediente i
+        WHERE i.quantità < p_quantita
+        AND i.nome IN (
+            SELECT c.nomeIngrediente 
+            FROM composizione c 
+            WHERE c.nomeProdotto = p_nome_prodotto
+    ); */
+
 
         IF v_ingrediente_non_disponibile IS NOT NULL THEN
             SET v_ingredienti_disponibili = FALSE;
@@ -1033,14 +1043,26 @@ BEGIN
                 GROUP BY o.CodiceID
             ) AS conteggi;
 
+            
+            /*  SENZA LEFT JOIN:
+            SELECT MIN(assegnamenti) INTO v_min_assegnamenti
+            FROM (
+                SELECT o.CodiceID, 
+                    (SELECT COUNT(a.luogoConsegna) 
+                    FROM assegnazione a 
+                    WHERE a.OperatoreID = o.CodiceID) AS assegnamenti
+                FROM operatore o
+                WHERE o.ruolo = 'Addetto-Consegne'
+            ) AS conteggi; */
+
             -- Prendi il CodiceID più piccolo tra quelli che hanno conteggio = v_min_assegnamenti
             SELECT MIN(o.CodiceID) INTO v_operatore_id
             FROM operatore o
             WHERE o.ruolo = 'Addetto-Consegne'
               AND (
                 SELECT COUNT(*) 
-                  FROM assegnazione a 
-                  WHERE a.OperatoreID = o.CodiceID
+                FROM assegnazione a 
+                WHERE a.OperatoreID = o.CodiceID
               ) = v_min_assegnamenti;
 
 
