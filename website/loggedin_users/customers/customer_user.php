@@ -95,6 +95,7 @@
                             <input type="search" class="search-input" placeholder="search">
                         </form>
                     </div>
+                    
                     <div class="product-box">
                         <?php require('customer_user_includes/product_availability.php'); ?>
                     </div>

@@ -126,8 +126,7 @@ function attachToggleListeners() {
       const email       = orderEl.dataset.email;
       const date        = orderEl.dataset.date;
       const time        = orderEl.dataset.time;
-      const products    = Array.from(orderEl.querySelectorAll('.product-item'))
-                               .map(span => span.dataset.product);
+      const products    = Array.from(orderEl.querySelectorAll('.product-item')).map(span => span.dataset.product);
 
       const updateRequests = products.map(product => {
         const body = new URLSearchParams({
