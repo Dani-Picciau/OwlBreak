@@ -86,7 +86,7 @@ CREATE TABLE fornitore (
     CodiceID INT PRIMARY KEY AUTO_INCREMENT,
     nomeTitolare VARCHAR(50),
     nomeAzienda VARCHAR(50),
-    email VARCHAR(100),
+    email VARCHAR(100) NOT NULL UNIQUE,
     passw VARCHAR(255)
 );
 
