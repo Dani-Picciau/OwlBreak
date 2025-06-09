@@ -119,7 +119,7 @@
             </div>
         </div>
 
-        <script src="customer_user.js"></script>
+        <script src="customer_user.js?v=1.02"></script>
 
         <!-- Solo quando faccio il submit del bottone in "customer_place_delivery.php" imposto anche una variabile di sessione che al refresh della pagina mi permette  di mantenere selezionata la categoria "sicurezza". Al prossimo refresh la categoria selezionata torna ad essere la prima. 
         Lo script in questo punto, invece che nel file js dedicato, è necessario per riuscire a gestire php e javascript assieme -->

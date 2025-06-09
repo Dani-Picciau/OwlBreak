@@ -104,8 +104,6 @@ document.addEventListener('DOMContentLoaded', () => {
   // Funzione generica per tutte le azioni: add, increase, decrease, remove
   async function updateCart(action, productName) {
     try {
-      cartContainer.classList.add('loading');
-      
       const formData = new FormData();
       formData.append(action, productName);
       
@@ -119,7 +117,7 @@ document.addEventListener('DOMContentLoaded', () => {
       cartCountElem.textContent = json.cartCount;
       
       // 2) Chiedo il frammento aggiornato del carrello
-      res = await fetch(window.location.href + '?ajax=cart', {
+      res = await fetch(window.location.href, {
         headers: { 'X-Requested-With': 'XMLHttpRequest' }
       });
       const html = await res.text();
@@ -128,9 +126,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     } catch (err) {
       console.error('Cart AJAX error', err);
-    } finally {
-      cartContainer.classList.remove('loading');
-    }
+    } 
   }
 
   // Event delegation sul container principale
